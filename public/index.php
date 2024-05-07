@@ -1,6 +1,5 @@
 <?php
-phpinfo();
-die();
+
 
 use Illuminate\Http\Request;
 
