@@ -1,3 +1,7 @@
+<script setup>
+"hi".log
+</script>
+
 <template>
     <div class="md:col-span-1 flex justify-between">
         <div class="px-4 sm:px-0">

@@ -10,6 +10,7 @@ $(document).ready(function() {
             emit('menu-open')
     });
 });
+
 </script>
 
 <template>

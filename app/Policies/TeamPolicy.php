@@ -4,6 +4,7 @@ namespace App\Policies;
 
 use App\Models\Team;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class TeamPolicy
@@ -15,7 +16,13 @@ class TeamPolicy
      */
     public function viewAny(User $user): bool
     {
-        return true;
+        if (Auth::user() == $user){
+            return true;
+        }else if (Auth::user()->current_team_id === 1 ){
+            return true;
+        }else{
+            return false;
+        }
     }
 
     /**
@@ -23,7 +30,10 @@ class TeamPolicy
      */
     public function view(User $user, Team $team): bool
     {
-        return $user->belongsToTeam($team);
+        if (Auth::user()->current_team_id === 1 )
+            return true;
+
+        return false;
     }
 
     /**
@@ -31,7 +41,10 @@ class TeamPolicy
      */
     public function create(User $user): bool
     {
-        return true;
+        if (Auth::user()->current_team_id === 1 )
+            return true;
+
+        return false;
     }
 
     /**
@@ -39,7 +52,10 @@ class TeamPolicy
      */
     public function update(User $user, Team $team): bool
     {
-        return $user->ownsTeam($team);
+        if (Auth::user()->current_team_id === 1 )
+            return true;
+
+        return false;
     }
 
     /**
@@ -47,7 +63,10 @@ class TeamPolicy
      */
     public function addTeamMember(User $user, Team $team): bool
     {
-        return $user->ownsTeam($team);
+        if (Auth::user()->current_team_id === 1 )
+            return true;
+
+        return false;
     }
 
     /**
@@ -55,7 +74,10 @@ class TeamPolicy
      */
     public function updateTeamMember(User $user, Team $team): bool
     {
-        return $user->ownsTeam($team);
+        if (Auth::user()->current_team_id === 1 )
+            return true;
+
+        return false;
     }
 
     /**
@@ -63,7 +85,10 @@ class TeamPolicy
      */
     public function removeTeamMember(User $user, Team $team): bool
     {
-        return $user->ownsTeam($team);
+        if (Auth::user()->current_team_id === 1 )
+            return true;
+
+        return false;
     }
 
     /**
@@ -71,6 +96,9 @@ class TeamPolicy
      */
     public function delete(User $user, Team $team): bool
     {
-        return $user->ownsTeam($team);
+        if (Auth::user()->current_team_id === 1 )
+            return true;
+
+        return false;
     }
 }

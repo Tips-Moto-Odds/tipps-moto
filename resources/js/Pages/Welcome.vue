@@ -1,6 +1,7 @@
 <script setup>
 import MobilMenu from "@/AppComponents/Mobil-Menu.vue";
 import MenuPanel from "@/AppComponents/Menu-panel.vue";
+import AppFooter from "@/Pages/Home/components/AppFooter.vue";
 
 const handleOpening = () => $("#main-site-menu").css('right','100%')
 const handelClosing = () => $('#main-site-menu').css('right','0%')
@@ -87,39 +88,7 @@ const handelClosing = () => $('#main-site-menu').css('right','0%')
             </li>
         </ul>
     </div>
-    <div class="container bg-gray-900 ">
-        <div class="p-[20px] text-center text-white">
-            <div class="font-light mb-[40px]">
-                <h1 class="text-orange-400 font-bold">Tips</h1>
-                <ul>
-                    <li>EPL</li>
-                    <li>Bundesliga</li>
-                    <li>LaLiga</li>
-                    <li>Series A</li>
-                </ul>
-            </div>
-            <div class="mb-[40px]">
-                <h1 class="text-orange-400 font-bold">Company</h1>
-                <ul>
-                    <li>EPL</li>
-                    <li>Bundesliga</li>
-                    <li>LaLiga</li>
-                    <li>Series A</li>
-                </ul>
-            </div>
-            <div class="mb-[40px]">
-                <h1 class="text-orange-400 font-bold">We are Social</h1>
-                <ul class="flex justify-center gap-2.5">
-                    <li>Twi</li>
-                    <li>Inst</li>
-                    <li>Fb</li>
-                </ul>
-            </div>
-        </div>
-        <div class="border-t border-gray-500  pt-[5px]">
-            <p class="text-center text-white text-sm ">Copyright 2024</p>
-        </div>
-    </div>
+    <app-footer/>
 </template>
 
 <style scoped lang="scss">

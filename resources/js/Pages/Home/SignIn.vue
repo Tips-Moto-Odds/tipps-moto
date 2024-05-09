@@ -3,11 +3,28 @@ import MobilMenu from "@/AppComponents/Mobil-Menu.vue";
 import MenuPanel from "@/AppComponents/Menu-panel.vue";
 import PageHeading from "@/Pages/Home/PageHeading.vue";
 import AppFooter from "@/Pages/Home/components/AppFooter.vue";
+import {useForm} from "@inertiajs/vue3";
+import TextInput from "@/Components/TextInput.vue";
+import InputLabel from "@/Components/InputLabel.vue";
+import InputError from "@/Components/InputError.vue";
+import Checkbox from "@/Components/Checkbox.vue";
+import {Link} from "@inertiajs/vue3";
+
+const form = useForm({
+    phone: '0719445697',
+    password: 'password',
+});
 
 const handleOpening = () => $("#main-site-menu").css('right', '100%')
 const handelClosing = () => $('#main-site-menu').css('right', '0%')
 
-function sendMessage() {console.log("sending message")}
+function signIn() {
+    form.transform(data => ({
+        ...data,
+    })).post(route('login'), {
+        onFinish: () => form.reset('password'),
+    });
+}
 
 </script>
 
@@ -15,79 +32,52 @@ function sendMessage() {console.log("sending message")}
     <MobilMenu @menu-open="handleOpening" @menu-close="handelClosing"></MobilMenu>
     <menu-panel></menu-panel>
     <div class="h-[140px] mb-[40px] banner">
-        <page-heading title="Contact Us"/>
+        <page-heading title="Register"/>
     </div>
     <div class="container px-[20px]">
-        <h1 class="mb-[20px] font-bold text-[22px] text-white">Reach Out</h1>
         <div class="content">
             <div class="app-card">
-                <section class="mb-[40px]">
-                    <h1>Contact Information</h1>
-                    <ul>
-                        <li>
-                            <div></div>
-                            <p>company@email.com</p>
-                        </li>
-                        <li>
-                            <div class="self-start"></div>
-                            <section>
-                                <ul>
-                                    <li>+254 700 000 000</li>
-                                    <li>+254 700 000 000</li>
-                                    <li>+254 700 000 000</li>
-                                </ul>
-                            </section>
-                        </li>
-                    </ul>
-                    <h1>We are Social</h1>
-                    <ul>
-                        <li>
-                            <div></div>
-                            <p>tips_moto</p>
-                        </li>
-                        <li>
-                            <div></div>
-                            <p>@tipsmoto_ke</p>
-                        </li>
-                        <li>
-                            <div></div>
-                            <p>Tipsmoto_ke</p>
-                        </li>
-                    </ul>
-                </section>
-                <section>
-                    <div class="map w-[100%] h-[300px] bg-white rounded-sm mb-[10px]">
+                <form @submit.prevent.stop="signIn">
+                    <div>
+                        <label>Phone</label>
+                        <TextInput
+                            id="phone"
+                            v-model="form.phone"
+                            type="tel"
+                            class="mt-1 block w-full"
+                            required
+                            autofocus
+                            autocompletes
+                        />
+                        <InputError class="mt-2" :message="form.errors.phone"/>
 
                     </div>
-                    <h2>Nairobi CBD</h2>
-                    <p>Address info</p>
-                </section>
-            </div>
-            <div class="app-card">
-                <p class="mb-6">Send us a message. Our team will get back to you</p>
-                <form @submit.prevent.stop="sendMessage">
                     <div>
-                        <label>Email/Phone</label>
-                        <input>
+                        <label>Password</label>
+                        <TextInput
+                            id="password"
+                            v-model="form.password"
+                            type="password"
+                            class="mt-1 block w-full"
+                            required
+                            autocomplete="new-password"
+                        />
+                        <InputError class="mt-2" :message="form.errors.password"/>
+
                     </div>
-                    <div>
-                        <label>Email/Phone</label>
-                        <input>
-                    </div>
-                    <div>
-                        <label>Email/Phone</label>
-                        <textarea></textarea>
-                    </div>
-                    <button>Send</button>
+                    <button class="mb-[20px]">Sign In</button>
+                    <p>Don't have an account?
+                        <Link :href="route('sign-up')" class="text-orange-400 underline">Sign Up</Link>
+                    </p>
                 </form>
             </div>
         </div>
     </div>
+
     <app-footer/>
 </template>
 
 <style scoped lang="scss">
-
 .content {
     @apply mb-[40px] ;
 
@@ -123,7 +113,7 @@ function sendMessage() {console.log("sending message")}
                 label {@apply block mb-[5px] }
 
                 input, textarea {
-                    color: #2d3748 !important;
+                    color: #2D3748 !important;
                     @apply block w-full rounded;
                 }
 
@@ -139,6 +129,7 @@ function sendMessage() {console.log("sending message")}
         }
     }
 }
+
 
 .banner {
     background-image:    url("/storage/app/public/System/banner.png");
@@ -164,3 +155,11 @@ function sendMessage() {console.log("sending message")}
     }
 }
 </style>
+
+<!--                    <div class="flex">-->
+<!--                        <div>-->
+<!--                            <input class="!w-[20px] !h-[20px] mr-[20px] " type="checkbox" required>-->
+<!--                        </div>-->
+<!--                        <p class="text-sm !font-extralight">By creating an account you agree to our Terms and-->
+<!--                            Condition</p>-->
+<!--                    </div>-->

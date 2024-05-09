@@ -8,7 +8,10 @@ import {Link} from "@inertiajs/vue3";
             <Link href="/"  :class="{'active': $page.url === '/'}" >Home</Link>
             <Link href="/about"  :class="{'active': $page.url === '/about'}" >About</Link>
             <Link href="/contact"  :class="{'active': $page.url === '/contact'}" >Contact</Link>
-            <Link href="/profile"  :class="{'active': $page.url === '/profile'}" >Profile</Link>
+
+            <Link v-if="!$page?.props?.auth?.user" href="/sign-up"  :class="{'active': $page.url === '/sign-up'}" >Sign Up</Link>
+            <Link v-if="!$page?.props?.auth?.user" href="/sign-in"  :class="{'active': $page.url === '/sign-in'}" >Sign In</Link>
+            <Link v-else href="/dashboard">Profile</Link>
         </ul>
     </div>
 </template>

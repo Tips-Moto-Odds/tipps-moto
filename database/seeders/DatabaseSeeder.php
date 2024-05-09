@@ -15,9 +15,16 @@ class DatabaseSeeder extends Seeder
     {
         // User::factory(10)->withPersonalTeam()->create();
 
-        User::factory()->withPersonalTeam()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
+        $Admin = User::factory()->withPersonalTeam()->create([
+            'name' => 'Administrator',
+            'email' => 'admin@email.com',
+            'email_verified_at' => now(),
+            'password' => bcrypt('password'),
+        ]);
+
+        $Admin->ownedTeams()->create([
+            'name' => 'user',
+            'personal_team' => false,
         ]);
     }
 }
