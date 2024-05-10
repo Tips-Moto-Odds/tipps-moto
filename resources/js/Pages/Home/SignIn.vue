@@ -35,7 +35,7 @@ function signIn() {
         <page-heading title="Register"/>
     </div>
     <div class="container px-[20px]">
-        <div class="content">
+        <div class="content max-w-[500px] mx-auto rounded overflow-hidden shadow">
             <div class="app-card">
                 <form @submit.prevent.stop="signIn">
                     <div>

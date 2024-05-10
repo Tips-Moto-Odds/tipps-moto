@@ -19,9 +19,9 @@ function sendMessage() {console.log("sending message")}
     </div>
     <div class="container px-[20px]">
         <h1 class="mb-[20px] font-bold text-[22px] text-white">Reach Out</h1>
-        <div class="content">
-            <div class="app-card">
-                <section class="mb-[40px]">
+        <div class="content text-sm lg:flex lg:gap-2.5">
+            <div class="app-card lg:flex lg:w-8/12">
+                <section class="mb-[40px] lg:w-1/2">
                     <h1>Contact Information</h1>
                     <ul>
                         <li>
@@ -55,7 +55,7 @@ function sendMessage() {console.log("sending message")}
                         </li>
                     </ul>
                 </section>
-                <section>
+                <section class="lg:w-1/2">
                     <div class="map w-[100%] h-[300px] bg-white rounded-sm mb-[10px]">
 
                     </div>
@@ -63,7 +63,7 @@ function sendMessage() {console.log("sending message")}
                     <p>Address info</p>
                 </section>
             </div>
-            <div class="app-card">
+            <div class="app-card ">
                 <p class="mb-6">Send us a message. Our team will get back to you</p>
                 <form @submit.prevent.stop="sendMessage">
                     <div>
@@ -71,12 +71,12 @@ function sendMessage() {console.log("sending message")}
                         <input>
                     </div>
                     <div>
-                        <label>Email/Phone</label>
+                        <label>Subject</label>
                         <input>
                     </div>
                     <div>
-                        <label>Email/Phone</label>
-                        <textarea></textarea>
+                        <label>message</label>
+                        <textarea class="lg:h-[100px]"></textarea>
                     </div>
                     <button>Send</button>
                 </form>
@@ -93,7 +93,7 @@ function sendMessage() {console.log("sending message")}
 
     .app-card {
         @apply
-        bg-gray-600  w-full text-white rounded-sm shadow
+        bg-gray-700 text-white rounded-sm shadow
         p-[20px] mb-[20px];
 
         h1 {@apply text-[20px] mb-[10px] }
@@ -107,8 +107,8 @@ function sendMessage() {console.log("sending message")}
                     @apply flex items-center mb-[10px];
 
                     div {
-                        width:  50px;
-                        height: 50px;
+                        width:  30px;
+                        height: 30px;
                         @apply rounded-sm bg-white mr-[10px];
                     }
                 }

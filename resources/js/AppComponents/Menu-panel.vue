@@ -1,13 +1,13 @@
 <script setup>
 import {Link} from "@inertiajs/vue3";
+import links from "@/AppData/link.js";
+
 </script>
 
 <template>
-    <div id="main-site-menu" class="menu-item  w-full h-[calc(100vh_-_80px)] bg-gray-900">
+    <div id="main-site-menu" class="menu-item  w-full h-[calc(100vh_-_80px)] bg-gray-900 md:hidden">
         <ul class="flex flex-col">
-            <Link href="/"  :class="{'active': $page.url === '/'}" >Home</Link>
-            <Link href="/about"  :class="{'active': $page.url === '/about'}" >About</Link>
-            <Link href="/contact"  :class="{'active': $page.url === '/contact'}" >Contact</Link>
+            <Link v-for="link in links" :href="link.link"  :class="{'active': $page.url === link.link}" >{{link.title}}</Link>
 
             <Link v-if="!$page?.props?.auth?.user" href="/sign-up"  :class="{'active': $page.url === '/sign-up'}" >Sign Up</Link>
             <Link v-if="!$page?.props?.auth?.user" href="/sign-in"  :class="{'active': $page.url === '/sign-in'}" >Sign In</Link>

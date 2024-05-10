@@ -11,11 +11,11 @@ import Checkbox from "@/Components/Checkbox.vue";
 import {Link} from "@inertiajs/vue3";
 
 const form = useForm({
-    name: 'mwaura',
-    phone: '0719445697',
-    password: 'password',
-    password_confirmation: 'password',
-    terms: true,
+    name: '',
+    phone: '',
+    password: '',
+    password_confirmation: '',
+    terms: false,
 });
 
 const handleOpening = () => $("#main-site-menu").css('right', '100%')
@@ -36,8 +36,8 @@ function register() {
         <page-heading title="Register"/>
     </div>
     <div class="container px-[20px]">
-        <div class="content">
-            <div class="app-card">
+        <div class="content ">
+            <div class="app-card  max-w-[500px] mx-auto rounded overflow-hidden shadow">
                 <form @submit.prevent.stop="register">
                     <div>
                         <label>Username</label>

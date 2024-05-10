@@ -4,7 +4,7 @@ import {Link} from "@inertiajs/vue3";
 
 <template>
     <div class="container bg-gray-900 ">
-        <div class="p-[20px] text-center text-white">
+        <div class="p-[20px] text-center text-white md:flex md:justify-around md:py-[80px]">
             <div class="font-light mb-[40px]">
                 <h1 class="text-orange-400 font-bold">Tips</h1>
                 <ul>

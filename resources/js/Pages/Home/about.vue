@@ -15,53 +15,70 @@ const handelClosing = () => $('#main-site-menu').css('right', '0%')
     <div class="h-[140px] mb-[40px] banner">
         <page-heading title="About Us"/>
     </div>
-    <div class="container text-white bg-gray-500] px-[20px]">
-        <div class="content">
-            <h1 class="mb-[20px] font-bold text-[22px]">High Lights</h1>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla convallis scelerisque condimentum. Sed eu
-                sapien eget diam accumsan varius. Nunc tempor turpis vel purus commodo lobortis. Proin tempus cursus urna,
-                non consectetur velit porttitor vitae. Praesent congue euismod quam, in blandit tortor tincidunt non.
-                Quisque eu vestibulum eros. Nulla luctus, diam vel maximus aliquet, eros odio blandit felis, in vestibulum
-                nisl enim eu justo. Nam odio lorem, malesuada quis nisi quis, lacinia pulvinar lectus. Vestibulum commodo
-                lobortis fermentum.</p>
+    <div class="container md:flex md:gap-2.5">
+        <div class="container text-white text-sm bg-gray-500] px-[20px]">
+            <div class="content">
+                <h1 class="mb-[20px] font-bold text-[22px]">Who We Are</h1>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla convallis scelerisque condimentum. Sed
+                    eu
+                    sapien eget diam accumsan varius. Nunc tempor turpis vel purus commodo lobortis. Proin tempus cursus
+                    urna,
+                    non consectetur velit porttitor vitae. Praesent congue euismod quam, in blandit tortor tincidunt
+                    non.
+                    Quisque eu vestibulum eros. Nulla luctus, diam vel maximus aliquet, eros odio blandit felis, in
+                    vestibulum
+                    nisl enim eu justo. Nam odio lorem, malesuada quis nisi quis, lacinia pulvinar lectus. Vestibulum
+                    commodo
+                    lobortis fermentum.</p>
+            </div>
+            <div class="content">
+                <h1 class="mb-[20px] font-bold text-[22px]">What We Do</h1>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla convallis scelerisque condimentum. Sed
+                    eu
+                    sapien eget diam accumsan varius. Nunc tempor turpis vel purus commodo lobortis. Proin tempus cursus
+                    urna,
+                    non consectetur velit porttitor vitae. Praesent congue euismod quam, in blandit tortor tincidunt
+                    non.
+                    Quisque eu vestibulum eros. Nulla luctus, diam vel maximus aliquet, eros odio blandit felis, in
+                    vestibulum
+                    nisl enim eu justo. Nam odio lorem, malesuada quis nisi quis, lacinia pulvinar lectus. Vestibulum
+                    commodo
+                    lobortis fermentum.</p>
+            </div>
+            <div class="content">
+                <h1 class="mb-[20px] font-bold text-[22px]">Why Us</h1>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla convallis scelerisque condimentum. Sed
+                    eu
+                    sapien eget diam accumsan varius. Nunc tempor turpis vel purus commodo lobortis. Proin tempus cursus
+                    urna,
+                    non consectetur velit porttitor vitae. Praesent congue euismod quam, in blandit tortor tincidunt
+                    non.
+                    Quisque eu vestibulum eros. Nulla luctus, diam vel maximus aliquet, eros odio blandit felis, in
+                    vestibulum
+                    nisl enim eu justo. Nam odio lorem, malesuada quis nisi quis, lacinia pulvinar lectus. Vestibulum
+                    commodo
+                    lobortis fermentum.</p>
+            </div>
         </div>
-        <div class="content">
-            <h1 class="mb-[20px] font-bold text-[22px]">High Lights</h1>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla convallis scelerisque condimentum. Sed eu
-                sapien eget diam accumsan varius. Nunc tempor turpis vel purus commodo lobortis. Proin tempus cursus urna,
-                non consectetur velit porttitor vitae. Praesent congue euismod quam, in blandit tortor tincidunt non.
-                Quisque eu vestibulum eros. Nulla luctus, diam vel maximus aliquet, eros odio blandit felis, in vestibulum
-                nisl enim eu justo. Nam odio lorem, malesuada quis nisi quis, lacinia pulvinar lectus. Vestibulum commodo
-                lobortis fermentum.</p>
-        </div>
-        <div class="content">
-            <h1 class="mb-[20px] font-bold text-[22px]">Why Us</h1>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla convallis scelerisque condimentum. Sed eu
-                sapien eget diam accumsan varius. Nunc tempor turpis vel purus commodo lobortis. Proin tempus cursus urna,
-                non consectetur velit porttitor vitae. Praesent congue euismod quam, in blandit tortor tincidunt non.
-                Quisque eu vestibulum eros. Nulla luctus, diam vel maximus aliquet, eros odio blandit felis, in vestibulum
-                nisl enim eu justo. Nam odio lorem, malesuada quis nisi quis, lacinia pulvinar lectus. Vestibulum commodo
-                lobortis fermentum.</p>
-        </div>
-    </div>
-    <div class="container text-white bg-gray-500] px-[20px] mb-[40px]">
-        <h1 class="mb-[20px] font-bold">High Lights</h1>
-        <ul>
-            <li v-for="item in 3" class="mb-[20px]">
-                <div class="bg-gray-600  p-[10px] rounded">
-                    <div class="w-full bg-orange-500 h-[200px] rounded">
+        <div class="container text-white bg-gray-500] px-[20px] md:w-[500px] mb-[40px]">
+            <h1 class="mb-[20px] font-bold text-[22px]">Highlights</h1>
+            <ul>
+                <li v-for="item in 3" class="mb-[20px]">
+                    <div class="bg-gray-600  p-[10px] rounded">
+                        <div class="w-full bg-orange-500 h-[200px] rounded">
 
+                        </div>
+                        <h2>Fantacy Show: Experts Double Gameweek 35 teams</h2>
                     </div>
-                    <h2>Fantacy Show: Experts Double Gameweek 35 teams</h2>
-                </div>
-            </li>
-        </ul>
+                </li>
+            </ul>
+        </div>
     </div>
     <app-footer/>
 </template>
 
 <style scoped lang="scss">
-.content{
+.content {
     @apply mb-[40px];
 }
 
