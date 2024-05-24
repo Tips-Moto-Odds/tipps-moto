@@ -11,7 +11,7 @@ import Checkbox from "@/Components/Checkbox.vue";
 import {Link} from "@inertiajs/vue3";
 
 const form = useForm({
-    phone: '0719445697',
+    email: 'admin@email.com',
     password: 'password',
 });
 
@@ -39,17 +39,17 @@ function signIn() {
             <div class="app-card">
                 <form @submit.prevent.stop="signIn">
                     <div>
-                        <label>Phone</label>
+                        <label>Email</label>
                         <TextInput
-                            id="phone"
-                            v-model="form.phone"
-                            type="tel"
+                            id="Email"
+                            v-model="form.email"
+                            type="email"
                             class="mt-1 block w-full"
                             required
                             autofocus
                             autocompletes
                         />
-                        <InputError class="mt-2" :message="form.errors.phone"/>
+                        <InputError class="mt-2" :message="form.errors.email"/>
 
                     </div>
                     <div>

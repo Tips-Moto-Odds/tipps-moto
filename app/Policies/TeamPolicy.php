@@ -96,7 +96,7 @@ class TeamPolicy
      */
     public function delete(User $user, Team $team): bool
     {
-        if (Auth::user()->current_team_id === 1 )
+        if (Auth::user()->current_team_id === 1 && $team->id != 1)
             return true;
 
         return false;

@@ -13,6 +13,7 @@ import {Link} from "@inertiajs/vue3";
 const form = useForm({
     name: '',
     phone: '',
+    email: '',
     password: '',
     password_confirmation: '',
     terms: false,
@@ -56,6 +57,18 @@ function register() {
                         <TextInput
                             id="phone"
                             v-model="form.phone"
+                            type="tel"
+                            class="mt-1 block w-full"
+                            required
+                            autofocus
+                            autocompletes
+                        />
+                    </div>
+                    <div>
+                        <label>Email</label>
+                        <TextInput
+                            id="email"
+                            v-model="form.email"
                             type="tel"
                             class="mt-1 block w-full"
                             required

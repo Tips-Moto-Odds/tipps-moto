@@ -2,6 +2,7 @@
 import MobilMenu from "@/AppComponents/Mobil-Menu.vue";
 import MenuPanel from "@/AppComponents/Menu-panel.vue";
 import AppFooter from "@/Pages/Home/components/AppFooter.vue";
+import { Head } from '@inertiajs/vue3'
 
 const handleOpening = () => $("#main-site-menu").css('right', '100%')
 const handelClosing = () => $('#main-site-menu').css('right', '0%')
@@ -9,6 +10,7 @@ const handelClosing = () => $('#main-site-menu').css('right', '0%')
 </script>
 
 <template>
+    <Head title="Home" />
     <MobilMenu @menu-open="handleOpening" @menu-close="handelClosing"></MobilMenu>
     <menu-panel></menu-panel>
     <div
@@ -125,10 +127,9 @@ const handelClosing = () => $('#main-site-menu').css('right', '0%')
                     </div>
                 </li>
             </ul>
+            <app-footer/>
         </div>
     </div>
-
-    <app-footer/>
 </template>
 
 <style scoped lang="scss">

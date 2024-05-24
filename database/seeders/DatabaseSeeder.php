@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\User;
+
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -15,16 +16,21 @@ class DatabaseSeeder extends Seeder
     {
         // User::factory(10)->withPersonalTeam()->create();
 
-        $Admin = User::factory()->withPersonalTeam()->create([
-            'name' => 'Administrator',
-            'email' => 'admin@email.com',
-            'email_verified_at' => now(),
-            'password' => bcrypt('password'),
-        ]);
+        $user = User::where('name', 'Administrator')->first();
 
-        $Admin->ownedTeams()->create([
-            'name' => 'user',
-            'personal_team' => false,
-        ]);
+
+        if ($user == null) {
+            $Admin = User::factory()->withPersonalTeam()->create([
+                'name' => 'Administrator',
+                'email' => 'admin@email.com',
+                'email_verified_at' => now(),
+                'password' => bcrypt('password'),
+            ]);
+
+            $Admin->ownedTeams()->create([
+                'name' => 'user',
+                'personal_team' => false,
+            ]);
+        }
     }
 }
