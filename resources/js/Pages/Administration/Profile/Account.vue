@@ -1,135 +1,106 @@
 <script setup>
+import DashboardLayout from "@/Layouts/AdministrationLayout/DashboardLayout.vue";
+import {updateInfo, updatePassword} from "@/Pages/Administration/Profile/Actions.js";
+import {initializeForms} from "@/Pages/Administration/Profile/forms.js";
 
-import AdminDashboardMenu from "@/AppComponents/AdminDashboardMenu.vue";
-import {Head, useForm} from "@inertiajs/vue3";
-import AppPageHeading from "@/AppComponents/AppPageHeading.vue";
-import {ref, useAttrs} from "vue";
+const {userForm, securityForm} = initializeForms();
 
-const attrs = useAttrs()
+const handleUpdateInfo = () => {
+    updateInfo(userForm);
+};
 
-let userFrom = useForm({
-    id: attrs.auth.user.id,
-    status: attrs.auth.user.status,
-    name: attrs.auth.user.name,
-    phone: attrs.auth.user.phone,
-    email: attrs.auth.user.email,
-})
-
-let securityForm = useForm({
-    current_password: "",
-    password: "",
-    password_confirmation: "",
-})
-
-async function updateInfo() {
-    try {
-        const results = await userFrom.patch(route('patchUser', userFrom.id))
-    } catch (e){
-        console.log(e)
-    }
-}
-
-async function updatePassword(){
-    try{
-        const results = await securityForm.patch(route('patchPassword', userFrom.id))
-    }catch (e){
-        console.log(e)
-    }
-}
-
+const handleUpdatePassword = () => {
+    updatePassword(securityForm, userForm.id);
+};
 </script>
 
 <template>
-    <Head title="Dashboard"/>
-    <div class="holder w-full h-[100vh] flex">
-        <admin-dashboard-menu/>
-        <section class="content-area w-full h-full overflow-auto">
-            <app-page-heading :pageHeading="'Account'"/>
-            <div class="flex w-full px-[20px] gap-2.5">
-                <div class="container w-[65%]">
-                    <div class="mb-[30px] rounded-sm  bg-[#565656] p-[10px] text-white">
-                        <div class="flex items-center justify-between">
-                            <h1 class="text-[25px] mb-[10px]">Profile</h1>
-                            <p class="border px-[10px] py-[5px] rounded-2xl text-sm">{{userFrom.status}}</p>
+    <DashboardLayout :title="'Profile'" :page-heading="'Profile'">
+        <div class="flex w-full px-[20px] gap-2.5">
+            <div class="w-8/12">
+                <div class="form-container">
+                    <div class="form-header">
+                        <h1>Profile</h1>
+                        <p class="badge">{{ userForm.status }}</p>
+                    </div>
+                    <form>
+
+                        <div class="app-form-group">
+                            <label>Username</label>
+                            <input v-model="userForm.name">
+                            <p class="error">{{ userForm.errors.name }}</p>
                         </div>
-                        <form class="w-[90%] mx-auto font-extralight">
-                            <div class="flex flex-col mb-[20px]">
-                                <label>Username</label>
-                                <input class="rounded h-[35px]" v-model="userFrom.name">
-                                <p class="text-red-500">{{ userFrom.errors.name }}</p>
-                            </div>
-                            <div class="flex gap-2.5  w-full mb-[30px]">
-                                <div class="flex flex-col w-full">
-                                    <label>Phone</label>
-                                    <input class="rounded h-[35px] w-full" v-model="userFrom.phone">
-                                    <p class="text-red-500">{{ userFrom.errors.phone }}</p>
-                                </div>
-                                <div class="flex flex-col w-full">
-                                    <label>Email</label>
-                                    <input class="rounded h-[35px] w-full" v-model="userFrom.email">
-                                    <p class="text-red-500">{{ userFrom.errors.email }}</p>
-                                </div>
-                            </div>
-                            <div class=" mx-auto flex] mb-[30px]">
-                                <button class="bg-amber-500 text-white rounded-sm px-[20px] py-[5px]"
-                                        @click.prevent.stop="updateInfo">Update
-                                </button>
+
+                        <div class="app-form-group flex gap-2.5">
+
+                            <div class="w-full">
+                                <label>Phone</label>
+                                <input class="" v-model="userForm.phone">
+                                <p class="error">{{ userForm.errors.phone }}</p>
                             </div>
 
-                        </form>
-                    </div>
-                    <div class="rounded-sm  bg-[#565656] p-[10px] text-white">
-                        <h1 class="text-[25px] mb-[10px]">Security</h1>
-                        <form class="w-[90%] mx-auto font-extralight">
-                            <div class="flex flex-col mb-[20px]">
-                                <label>Current Password</label>
-                                <input type="password" class="rounded h-[35px]" v-model="securityForm.current_password">
-                                <p class="text-red-500">{{ securityForm.errors.current_password }}</p>
+                            <div class="w-full">
+                                <label>Email</label>
+                                <input class="" v-model="userForm.email">
+                                <p class="error">{{ userForm.errors.email }}</p>
                             </div>
-                            <div class="flex flex-col mb-[20px]">
-                                <label>New Password</label>
-                                <input type="password" class="rounded h-[35px]" v-model="securityForm.password">
-                                <p class="text-red-500">{{ securityForm.errors.password }}</p>
-                            </div>
-                            <div class="flex flex-col mb-[20px]">
-                                <label>Confirm New Password</label>
-                                <input type="password" class="rounded h-[35px]" v-model="securityForm.password_confirmation">
-                                <p class="text-red-500">{{ securityForm.errors.password_confirmation }}</p>
-                            </div>
-                            <div class=" mx-auto flex] mb-[30px]">
-                                <button class="bg-amber-500 text-white rounded-sm px-[20px] py-[5px]"
-                                        @click.stop.prevent="updatePassword">Update
-                                </button>
-                            </div>
-                        </form>
-                    </div>
+
+                        </div>
+
+                        <button class="form-action-button" @click.prevent.stop="handleUpdateInfo">Update</button>
+
+                    </form>
                 </div>
-                <div class="container w-[35%] h-[200px] rounded-sm  bg-red-500">
-                    <div class="rounded-sm  bg-[#565656] p-[10px] text-white">
-                        <h1 class="text-[25px] mb-[10px]">Danger Zone</h1>
-                        <form class="w-[90%] mx-auto font-extralight">
-                            <div class="flex flex-col mb-[30px]">
-                                <label class="text-sm mb-3">Enter your username to confirm Action</label>
-                                <input class="rounded h-[35px]">
-                            </div>
-                            <div class=" mx-auto flex] mb-[30px] flex flex-col gap-2.5">
-                                <button class="bg-amber-500 text-white rounded-sm px-[20px]  py-[5px]">Disable Account
-                                </button>
-                                <button class="bg-red-500 text-white rounded-sm px-[20px] py-[5px]">Delete Acoount
-                                </button>
-                            </div>
-                        </form>
+                <div class="form-container">
+                    <div class="form-header">
+                        <h1>Security</h1>
                     </div>
+                    <form>
+
+                        <div class="app-form-group">
+                            <label>Current Password</label>
+                            <input type="password" v-model="securityForm.current_password">
+                            <p class="error">{{ securityForm.errors.current_password }}</p>
+                        </div>
+
+                        <div class="app-form-group">
+                            <label>New Password</label>
+                            <input type="password" v-model="securityForm.password">
+                            <p class="error">{{ securityForm.errors.password }}</p>
+                        </div>
+
+                        <div class="app-form-group">
+                            <label>Confirm New Password</label>
+                            <input type="password" v-model="securityForm.password_confirmation">
+                            <p class="error">{{ securityForm.errors.password_confirmation }}</p>
+                        </div>
+
+                        <button class="form-action-button" @click.stop.prevent="handleUpdatePassword">Update</button>
+
+                    </form>
                 </div>
             </div>
-        </section>
-    </div>
+            <div class="w-4/12">
+                <div class="form-container">
+                    <div class="form-header">
+                        <h1>Danger Zone</h1>
+                    </div>
+                    <form>
+                        <div class="app-form-group">
+                            <label >Enter your username to confirm Action</label>
+                            <input >
+                        </div>
+                        <div class="mx-auto flex] mb-[30px] flex flex-col gap-2.5">
+                            <button class="form-action-button">Disable Account</button>
+                            <button class="form-action-button !bg-red-600">Delete Account</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </DashboardLayout>
 </template>
 
 <style scoped lang="scss">
-
-input {
-    color: grey;
-}
-
+@import "./Accounts";
 </style>

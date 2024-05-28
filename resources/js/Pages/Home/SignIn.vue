@@ -1,7 +1,7 @@
 <script setup>
-import MobilMenu from "@/AppComponents/Mobil-Menu.vue";
-import MenuPanel from "@/AppComponents/Menu-panel.vue";
-import PageHeading from "@/Pages/Home/PageHeading.vue";
+import MobilMenu from "@/Layouts/HomeLayout/Mobil-Menu.vue";
+import MenuPanel from "@/Layouts/HomeLayout/Menu-panel.vue";
+import PageHeading from "@/Pages/Home/components/PageHeading.vue";
 import AppFooter from "@/Pages/Home/components/AppFooter.vue";
 import {useForm} from "@inertiajs/vue3";
 import TextInput from "@/Components/TextInput.vue";
@@ -9,6 +9,7 @@ import InputLabel from "@/Components/InputLabel.vue";
 import InputError from "@/Components/InputError.vue";
 import Checkbox from "@/Components/Checkbox.vue";
 import {Link} from "@inertiajs/vue3";
+import HomeLayout from "@/Layouts/HomeLayout/HomeLayout.vue";
 
 const form = useForm({
     email: 'admin@email.com',
@@ -29,52 +30,50 @@ function signIn() {
 </script>
 
 <template>
-    <MobilMenu @menu-open="handleOpening" @menu-close="handelClosing"></MobilMenu>
-    <menu-panel></menu-panel>
-    <div class="h-[140px] mb-[40px] banner">
-        <page-heading title="Register"/>
-    </div>
-    <div class="container px-[20px]">
-        <div class="content max-w-[500px] mx-auto rounded overflow-hidden shadow">
-            <div class="app-card">
-                <form @submit.prevent.stop="signIn">
-                    <div>
-                        <label>Email</label>
-                        <TextInput
-                            id="Email"
-                            v-model="form.email"
-                            type="email"
-                            class="mt-1 block w-full"
-                            required
-                            autofocus
-                            autocompletes
-                        />
-                        <InputError class="mt-2" :message="form.errors.email"/>
+    <HomeLayout>
+        <div class="h-[140px] mb-[40px] banner">
+            <page-heading title="Register"/>
+        </div>
+        <div class="container px-[20px]">
+            <div class="content max-w-[500px] mx-auto rounded overflow-hidden shadow">
+                <div class="app-card">
+                    <form @submit.prevent.stop="signIn">
+                        <div>
+                            <label>Email</label>
+                            <TextInput
+                                id="Email"
+                                v-model="form.email"
+                                type="email"
+                                class="mt-1 block w-full"
+                                required
+                                autofocus
+                                autocompletes
+                            />
+                            <InputError class="mt-2" :message="form.errors.email"/>
 
-                    </div>
-                    <div>
-                        <label>Password</label>
-                        <TextInput
-                            id="password"
-                            v-model="form.password"
-                            type="password"
-                            class="mt-1 block w-full"
-                            required
-                            autocomplete="new-password"
-                        />
-                        <InputError class="mt-2" :message="form.errors.password"/>
+                        </div>
+                        <div>
+                            <label>Password</label>
+                            <TextInput
+                                id="password"
+                                v-model="form.password"
+                                type="password"
+                                class="mt-1 block w-full"
+                                required
+                                autocomplete="new-password"
+                            />
+                            <InputError class="mt-2" :message="form.errors.password"/>
 
-                    </div>
-                    <button class="mb-[20px]">Sign In</button>
-                    <p>Don't have an account?
-                        <Link :href="route('sign-up')" class="text-orange-400 underline">Sign Up</Link>
-                    </p>
-                </form>
+                        </div>
+                        <button class="mb-[20px]">Sign In</button>
+                        <p>Don't have an account?
+                            <Link :href="route('sign-up')" class="text-orange-400 underline">Sign Up</Link>
+                        </p>
+                    </form>
+                </div>
             </div>
         </div>
-    </div>
-
-    <app-footer/>
+    </HomeLayout>
 </template>
 
 <style scoped lang="scss">
@@ -86,7 +85,9 @@ function signIn() {
         bg-gray-600  w-full text-white rounded-sm shadow
         p-[20px] mb-[20px];
 
-        h1 {@apply text-[20px] mb-[10px] }
+        h1 {
+            @apply text-[20px] mb-[10px]
+        }
 
         & > section {
 
@@ -97,7 +98,7 @@ function signIn() {
                     @apply flex items-center mb-[10px];
 
                     div {
-                        width:  50px;
+                        width: 50px;
                         height: 50px;
                         @apply rounded-sm bg-white mr-[10px];
                     }
@@ -110,7 +111,9 @@ function signIn() {
             div {
                 @apply mb-[20px];
 
-                label {@apply block mb-[5px] }
+                label {
+                    @apply block mb-[5px]
+                }
 
                 input, textarea {
                     color: #2D3748 !important;
@@ -132,8 +135,8 @@ function signIn() {
 
 
 .banner {
-    background-image:    url("/storage/app/public/System/banner.png");
-    background-size:     cover;
+    background-image: url("/storage/app/public/System/banner.png");
+    background-size: cover;
     background-position: center;
 
     & > div {
@@ -142,8 +145,8 @@ function signIn() {
 }
 
 #main-site-menu {
-    position:   fixed;
-    right:      100%;
+    position: fixed;
+    right: 100%;
     transition: all ease 250ms;
 
     a {

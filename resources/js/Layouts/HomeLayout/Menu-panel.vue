@@ -8,7 +8,6 @@ import links from "@/AppData/link.js";
     <div id="main-site-menu" class="menu-item  w-full h-[calc(100vh_-_80px)] bg-gray-900 md:hidden">
         <ul class="flex flex-col">
             <Link v-for="link in links" :href="link.link"  :class="{'active': $page.url === link.link}" >{{link.title}}</Link>
-
             <Link v-if="!$page?.props?.auth?.user" href="/sign-up"  :class="{'active': $page.url === '/sign-up'}" >Sign Up</Link>
             <Link v-if="!$page?.props?.auth?.user" href="/sign-in"  :class="{'active': $page.url === '/sign-in'}" >Sign In</Link>
             <Link v-else href="/dashboard">Profile</Link>

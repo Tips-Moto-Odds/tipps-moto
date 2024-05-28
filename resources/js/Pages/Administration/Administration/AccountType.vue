@@ -1,18 +1,14 @@
 <script setup>
-import AdminDashboardMenu from "@/AppComponents/AdminDashboardMenu.vue";
-import AppPageHeading from "@/AppComponents/AppPageHeading.vue";
-import {Head, router, useForm, usePage} from "@inertiajs/vue3";
-import {reactive, ref, useAttrs} from "vue";
-import ListUsers from "@/Pages/Administration/Administration/ListUsers.vue";
+import {router, useForm, usePage} from "@inertiajs/vue3";
+import {ref} from "vue";
+import ListUsers from "@/Pages/Administration/Administration/Components/ListUsers.vue";
+import DashboardLayout from "@/Layouts/AdministrationLayout/DashboardLayout.vue";
+import {openSideBar, closeSideBar} from "@/HelperFunctions/modalControl.js";
 
 const page = usePage()
 const props = defineProps({
-    accountType: {
-        type: Object,
-    },
-    users: {
-        type: Array,
-    }
+    accountType: Object,
+    users: Array
 })
 
 const accountTypesForm = useForm({
@@ -21,7 +17,6 @@ const accountTypesForm = useForm({
 })
 
 let searchedUsers = ref([])
-
 const userAccounts = ref([])
 const searchForm = useForm({
     searchUserText: ''
@@ -46,7 +41,6 @@ async function saveAccountType() {
             await accountTypesForm.patch(route('patchAccount', [accountTypesForm.id]))
             alert("Updated Successfully");
         }
-
     } catch (err) {
         console.log(err)
     }
@@ -54,27 +48,13 @@ async function saveAccountType() {
 
 async function disableAccountType() {
     if (confirm('Are you sure you want to delete this account type?')) {
-
         try {
-            let response = await router.delete(route('deleteAccountType', accountTypesForm.id))
+            await router.delete(route('deleteAccountType', accountTypesForm.id))
             router.visit(route('ListAccountTypes'))
         } catch (err) {
             console.log(err)
         }
-
     }
-}
-
-function openSideBar() {
-    $('.right-panel')
-        .removeClass('closed')
-        .addClass('open')
-}
-
-function closeSideBar() {
-    $('.right-panel')
-        .removeClass('open')
-        .addClass('closed')
 }
 
 async function searchUser() {
@@ -110,11 +90,8 @@ async function addUser(user) {
 
 
 <template>
-    <Head title="Dashboard"/>
-    <div class="holder w-full h-[100vh] flex">
-        <admin-dashboard-menu/>
-        <section class="content-area w-full h-full overflow-auto">
-
+    <DashboardLayout>
+        <template v-slot:side>
             <div class="right-panel fixed closed">
                 <div class="w-full h-full p-[10px] bg-gray-500 shadow-xl">
                     <div class="flex justify-between mb-[20px]">
@@ -128,61 +105,58 @@ async function addUser(user) {
                     <ListUsers :searchForm v-on:searchUser="searchUser" :searchedUsers v-on:addUser="addUser"/>
                 </div>
             </div>
-
-
-            <app-page-heading :pageHeading="'Account Types'"/>
-
+        </template>
+        <section class="content-area w-full h-full overflow-auto">
             <div class="p-[10px] w-[99%] mx-auto rounded flex">
-                <ul class="flex gap-2.5">
+                <div class="flex gap-2.5">
                     <button @click.prevent.stop="openSideBar"
                             class="bg-gray-500 text-white text-sm px-[10px] py-[5px] rounded-sm">Add Account
                     </button>
-                </ul>
+                </div>
                 <div>
                 </div>
             </div>
-
-
             <div class="flex p-[20px] gap-2.5">
-                <div class="w-[300px] bg-gray-500 h-[400px] rounded">
-                    <h1 class="text-white p-[20px]">Info</h1>
-                    <form class="px-[30px] text-white text-sm" @submit.prevent.stop="saveAccountType">
-                        <div class="mb-[10px]">
-                            <label class="block mb-[5px]">Name</label>
-                            <input class="rounded w-full mb-[10px] h-[35px] text-gray-500"
-                                   v-model="accountTypesForm.name"
-                                   required>
-                            <p class="text-red-300 text-sm">{{ accountTypesForm.errors.name }}</p>
+                <div class="form-container w-[300px]">
+                    <div class="form-header">
+                        <h1>Info</h1>
+                    </div>
+                    <form @submit.prevent.stop="saveAccountType">
+                        <div class="app-form-group">
+                            <label>Name</label>
+                            <input v-model="accountTypesForm.name" required>
+                            <p class="error">{{ accountTypesForm.errors.name }}</p>
                         </div>
-                        <div>
-                            <label class="block mb-[5px]">Status</label>
-                            <select class="w-full rounded p-1.5 h-[35px] text-gray-500"
-                                    v-model="accountTypesForm.status">
+                        <div class="app-form-group">
+                            <label>Status</label>
+                            <select v-model="accountTypesForm.status">
                                 <option selected value="Active">Active</option>
                                 <option value="Inactive">Inactive</option>
                             </select>
                         </div>
-                        <div class="flex justify-between py-[20px]">
-                            <button v-if="route('CreateAccountType').includes(page.url)" class="bg-amber-500"
+                        <div class="flex gap-2.5 justify-between mt-[30px]">
+                            <button v-if="route('CreateAccountType').includes(page.url)" class="form-action-button"
                                     type="submit">Add
                             </button>
-                            <button v-else class="bg-amber-500" type="submit">Update</button>
-                            <button class="bg-red-400" @click.stop.prevent="disableAccountType">Delete</button>
+                            <button v-else class="form-action-button" type="submit">Update</button>
+                            <button class="form-action-button !bg-red-500" @click.stop.prevent="disableAccountType">Delete</button>
                         </div>
                     </form>
                 </div>
-                <div v-if="userAccounts" class=" w-[calc(100%-300px)] bg-gray-500 h-[400px] rounded px-[10px]">
-                    <h1 class="p-[20px] text-white px-[10px]">Accounts</h1>
+                <div v-if="userAccounts" class="app-panel w-[calc(100%-300px)]">
+                    <div class="app-panel-heading">
+                        <h1>Accounts</h1>
+                    </div>
                     <table v-if="users.length > 0" class="w-full">
-                        <thead class="text-white border-b-gray-400 border-b">
-                        <tr class="text-sm">
+                        <thead>
+                        <tr>
                             <th class="w-[50px] text-left">ID</th>
                             <th class="w-[150px] text-left">Username</th>
-                            <th class="w-[150px] ">Date Created</th>
-                            <th class="w-[150px] ">Last Login</th>
+                            <th class="w-[150px] text-center">Date Created</th>
+                            <th class="w-[150px] text-center">Last Login</th>
                         </tr>
                         </thead>
-                        <tbody class="text-white">
+                        <tbody>
                         <tr v-for="user in users">
                             <td>{{ user.id }}</td>
                             <td>
@@ -210,34 +184,9 @@ async function addUser(user) {
                 </div>
             </div>
         </section>
-    </div>
+    </DashboardLayout>
 </template>
 
 
 <style scoped lang="scss">
-table {
-    tbody {
-        tr {
-            border-bottom: 2px solid gray;
-            @apply rounded-sm overflow-hidden text-xs;
-
-            td {
-                vertical-align: top;
-                @apply pt-[10px];
-            }
-
-            &:hover {
-                cursor: pointer;
-                background-color: #575454;
-            }
-        }
-    }
-}
-
-form {
-    button {
-        @apply px-[15px] rounded-sm py-[5px];
-    }
-}
-
 </style>

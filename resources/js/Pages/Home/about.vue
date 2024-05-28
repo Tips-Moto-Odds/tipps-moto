@@ -1,8 +1,9 @@
 <script setup>
-import MobilMenu from "@/AppComponents/Mobil-Menu.vue";
-import MenuPanel from "@/AppComponents/Menu-panel.vue";
-import PageHeading from "@/Pages/Home/PageHeading.vue";
+import MobilMenu from "@/Layouts/HomeLayout/Mobil-Menu.vue";
+import MenuPanel from "@/Layouts/HomeLayout/Menu-panel.vue";
+import PageHeading from "@/Pages/Home/components/PageHeading.vue";
 import AppFooter from "@/Pages/Home/components/AppFooter.vue";
+import HomeLayout from "@/Layouts/HomeLayout/HomeLayout.vue";
 
 const handleOpening = () => $("#main-site-menu").css('right', '100%')
 const handelClosing = () => $('#main-site-menu').css('right', '0%')
@@ -10,8 +11,7 @@ const handelClosing = () => $('#main-site-menu').css('right', '0%')
 </script>
 
 <template>
-    <MobilMenu @menu-open="handleOpening" @menu-close="handelClosing"></MobilMenu>
-    <menu-panel></menu-panel>
+    <HomeLayout>
     <div class="h-[140px] mb-[40px] banner">
         <page-heading title="About Us"/>
     </div>
@@ -74,7 +74,7 @@ const handelClosing = () => $('#main-site-menu').css('right', '0%')
             </ul>
         </div>
     </div>
-    <app-footer/>
+    </HomeLayout>
 </template>
 
 <style scoped lang="scss">

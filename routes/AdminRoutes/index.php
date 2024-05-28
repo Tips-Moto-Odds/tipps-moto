@@ -76,6 +76,8 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified',
 
     include_once "AccountTypes.php";
     include_once "Profile_Account.php";
+    include_once "Tips.php";
+    include_once "Football/index.php";
 
 });
 
