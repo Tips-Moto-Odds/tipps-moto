@@ -45,5 +45,54 @@ END;
 17,2023-10-10 18:30:00,Barcelona,Atletico Madrid,1.85,2.00,3.25,2,78.00,pending,,2023-10-10 12:00:00,2023-10-10 18:30:00,
 18,2023-10-20 20:15:00,Manchester City,Tottenham Hotspur,1.80,2.30,3.70,0,77.00,completed,1,2023-10-20 15:00:00,2023-10-20 20:15:00,
 
+Real Madrid
+Liverpool
+Bayern Munich
+Juventus
+Chelsea
+Borussia Dortmund
+Atletico Madrid
+Arsenal
+Manchester City
+Ajax
+Roma
+Borussia Monchengladbach
+Paris Saint-Germain
+Barcelona
+Inter Milan
+Manchester United
+AC Milan
+Sevilla
+Tottenham Hotspur
+PSV Eindhoven
+Napoli
+RB Leipzig
+
+
+05/28/2024  07:51 PM           127,843 ac-milan.png
+05/28/2024  07:45 PM            14,980 ac-roma.png
+05/28/2024  07:43 PM            16,642 ajax.png
+05/28/2024  07:42 PM            17,663 arsenal.png
+05/28/2024  07:41 PM             3,883 atletico-madrid.png
+05/28/2024  07:48 PM            12,925 barcelona.png
+05/28/2024  07:35 PM            21,784 bayern-munich.png
+05/28/2024  07:40 PM            14,112 borussia-dortmund.png
+05/28/2024  07:47 PM             8,297 borussia-monchengladbach.png
+05/28/2024  07:39 PM            25,557 chelsea.png
+05/28/2024  07:49 PM            11,705 inter-milan.png
+05/28/2024  07:38 PM             3,680 juventus.png
+05/28/2024  07:34 PM            24,724 liverpool.png
+05/28/2024  07:42 PM            25,122 manchester-city.png
+05/28/2024  07:50 PM            27,703 manchester-united.png
+05/28/2024  07:54 PM            31,451 napoli.png
+05/28/2024  07:47 PM            24,488 paris-saint-germain.png
+05/28/2024  07:53 PM             8,907 psv-eindhoven.png
+05/28/2024  07:54 PM            61,560 rb-leipzig.png
+05/28/2024  07:36 PM            20,802 real-madrid.png
+05/28/2024  07:27 PM            82,629 real-madrid.svg
+05/28/2024  07:51 PM            11,358 sevilla.png
+05/28/2024  07:52 PM             8,776 tottenham-hotspur.webp
+
+
 
 

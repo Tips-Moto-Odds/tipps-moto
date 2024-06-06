@@ -6,6 +6,21 @@ import DashboardLayout from "@/Layouts/AdministrationLayout/DashboardLayout.vue"
 
 const props = defineProps(['tip'])
 
+function formatDate(dateTimeString) {
+    const date = new Date(dateTimeString);
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    return `${month}-${day}-${year}`;
+}
+
+function formatTime(dateTimeString) {
+    const date = new Date(dateTimeString);
+    const hours = String(date.getHours()).padStart(2, '0');
+    const minutes = String(date.getMinutes()).padStart(2, '0');
+    return `${hours}:${minutes}`;
+}
+
 </script>
 
 
@@ -28,16 +43,22 @@ const props = defineProps(['tip'])
                     <div class="w-[60%] pb-[20px] mx-auto pt-[20px] text-center text-[20px] items-center rounded mb-[40px]">
                         <h2 class="mb-[20px]">Match ID: </h2>
                         <div class="flex justify-between items-center gap-5 mb-[10px]">
-                            <div class="w-[150px] h-[150px] bg-white"></div>
+                            <div class="w-[150px] h-[150px] bg-white flex items-center justify-center rounded p-2">
+                                <img class="max-w-full max-h-full object-contain object-center" :src="'/storage/System/TeamLogos/'+tip.home_team_image">
+                            </div>
                             <div><p>VS</p></div>
-                            <div class="w-[150px] h-[150px] bg-white"></div>
+                            <div class="w-[150px] h-[150px] bg-white flex items-center justify-center rounded p-2">
+                                <img class="max-w-full max-h-full object-contain object-center" :src="'/storage/System/TeamLogos/'+tip.away_team_image">
+                            </div>
                         </div>
                         <div class="text-sm mb-[10px]">
-                            <p>May 1st 2024</p>
-                            <p>12:00</p>
+                            <p>{{formatDate(tip.match_start_time)}}</p>
+                            <p>{{ formatTime(tip.match_start_time) }}</p>
                         </div>
                         <div>
-                            <p class="px-[10px] py-[5px] bg-green-500 rounded-sm">Home Win</p>
+                            <p v-if="tip.predictions === 0" class="px-[10px] py-[5px] bg-green-500 rounded-sm">{{tip.predictions === 0 ? 'Draw' : '' }}</p>
+                            <p v-if="tip.predictions === 1" class="px-[10px] py-[5px] bg-green-500 rounded-sm">{{tip.predictions === 1 ? 'Home Win' : ''}}</p>
+                            <p v-if="tip.predictions === 2" class="px-[10px] py-[5px] bg-green-500 rounded-sm">{{tip.predictions === 2 ? 'Away Win' : ''}}</p>
                         </div>
                     </div>
                 </div>
@@ -46,19 +67,19 @@ const props = defineProps(['tip'])
                     <div class="app-panel-heading">
                         <h1 class="text-[25px] text-white mb-[20px]">Upcoming Matches</h1>
                     </div>
-                    <div class="flex flex-wrap justify-around">
-                        <div v-for="item in 10" class="w-[250px] h-[150px] shadow mb-[10px] pt-[10px] bg-gray-500 rounded">
-                            <div class="w-full h-[80px] flex justify-center gap-2.5 items-center mb-[5px]">
-                                <div class="h-[80px] w-[80px] bg-white rounded"></div>
-                                <div>
-                                    <p class="text-sm">vs</p>
-                                </div>
-                                <div class="h-[80px] w-[80px] bg-white rounded"></div>
-                            </div>
-                            <p class="text-sm text-center">Sat, May</p>
-                            <p class="text-sm text-center">14:00</p>
-                        </div>
-                    </div>
+<!--                    <div class="flex flex-wrap justify-around">-->
+<!--                        <div v-for="item in 10" class="w-[250px] h-[150px] shadow mb-[10px] pt-[10px] bg-gray-500 rounded">-->
+<!--                            <div class="w-full h-[80px] flex justify-center gap-2.5 items-center mb-[5px]">-->
+<!--                                <div class="h-[80px] w-[80px] bg-white rounded"></div>-->
+<!--                                <div>-->
+<!--                                    <p class="text-sm">vs</p>-->
+<!--                                </div>-->
+<!--                                <div class="h-[80px] w-[80px] bg-white rounded"></div>-->
+<!--                            </div>-->
+<!--                            <p class="text-sm text-center">Sat, May</p>-->
+<!--                            <p class="text-sm text-center">14:00</p>-->
+<!--                        </div>-->
+<!--                    </div>-->
                 </div>
 
             </div>
@@ -69,11 +90,11 @@ const props = defineProps(['tip'])
                     <ul>
                         <li>
                             <p>Home</p>
-                            <p>Chelsea</p>
+                            <p>{{tip.home_teams}}</p>
                         </li>
                         <li class="!mb-[20px]">
                             <p>Away</p>
-                            <p>Man City</p>
+                            <p>{{tip.away_teams}}</p>
                         </li>
                         <li>
                             <p>Home :</p>
@@ -104,15 +125,16 @@ const props = defineProps(['tip'])
                     <ul>
                         <li>
                             <p>Status</p>
-                            <p>Pending</p>
-                        </li>
-                        <li>
-                            <p>Results</p>
-                            <p>Pending</p>
+                            <p>{{tip.status}}</p>
                         </li>
                         <li>
                             <p>Accuracy</p>
-                            <p>pending</p>
+                            <p>{{parseInt(tip.predictions_accuracy)}}%</p>
+                        </li>
+                        <li v-if="parseInt(tip.winning_status) === 0 || parseInt(tip.winning_status) === 1">
+                            <p>Wining status</p>
+                            <p v-if="tip.winning_status === 0" class="bg-red-600 px-[5px] rounded">Lost</p>
+                            <p v-else class="bg-green-500 px-[5px] rounded">Won</p>
                         </li>
                     </ul>
 
