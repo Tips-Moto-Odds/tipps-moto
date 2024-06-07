@@ -1,11 +1,9 @@
 <script setup>
-import MobilMenu from "@/Layouts/HomeLayout/Mobil-Menu.vue";
-import MenuPanel from "@/Layouts/HomeLayout/Menu-panel.vue";
-import AppFooter from "@/Pages/Home/components/AppFooter.vue";
-import { Head } from '@inertiajs/vue3'
 import HomeLayout from "@/Layouts/HomeLayout/HomeLayout.vue";
+import Pagination from "@/AppComponents/Pagination.vue";
+import TipDisplay from "@/Pages/TipDisplay.vue";
 
-
+const props = defineProps(['tips', 'upcoming'])
 
 </script>
 
@@ -28,7 +26,7 @@ import HomeLayout from "@/Layouts/HomeLayout/HomeLayout.vue";
                         class="flex justify-around items-center mb-[20px] md:mb-[10px] md:h-[200px] md:max-w-[450px] mx-auto">
                         <div>
                             <div class="w-[80px] h-[80px] rounded bg-white">
-
+                                <img :src="'/storage/System/TeamLogos/' + upcoming.home_logo" alt="image">
                             </div>
                         </div>
                         <div>
@@ -36,7 +34,7 @@ import HomeLayout from "@/Layouts/HomeLayout/HomeLayout.vue";
                         </div>
                         <div>
                             <div class="w-[80px] h-[80px] bg-white rounded">
-
+                                <img :src="'/storage/System/TeamLogos/' + upcoming.away_logo" alt="image">
                             </div>
                         </div>
                     </div>
@@ -54,71 +52,16 @@ import HomeLayout from "@/Layouts/HomeLayout/HomeLayout.vue";
             <div class="container text-white bg-gray-500] px-[20px]">
                 <h1 class="mb-[20px] font-bold">Top Matches</h1>
                 <ul>
-                    <li v-for="item in 5" class="container bg-gray-600 rounded list-none shadow-sm pt-[20px] px-[20px] mb-[20px] pb-[20px]
-                                lg:flex lg:px-0 lg:py-1
-                            ">
-                        <div
-                            class="mb-[20px] lg:gap-2.5 lg:w-5/12 h-[100%] lg:mb-0 lg:p-[10px] lg:border-r lg:border-r-gray-500">
-                            <div class="flex justify-around items-center md:mb-[10px]">
-                                <div class="bg-white rounded w-[60px] h-[60px]"></div>
-                                <div>VS</div>
-                                <div class="bg-white rounded w-[60px] h-[60px]"></div>
-                            </div>
-                            <div class="min-w-240px chart-display hidden md:flex">
-                                <section>
-                                    <p>Home</p>
-                                    <ul>
-                                        <li>W</li>
-                                        <li>L</li>
-                                        <li>D</li>
-                                        <li>D</li>
-                                        <li>D</li>
-                                    </ul>
-                                </section>
-                                <section>
-                                    <p>Away</p>
-                                    <ul>
-                                        <li>L</li>
-                                        <li>D</li>
-                                        <li>D</li>
-                                        <li>W</li>
-                                        <li>D</li>
-                                    </ul>
-                                </section>
-                            </div>
-                        </div>
-                        <div class="mb-[20px] lg:hidden">
-                            <hr class="border-[1px] border-gray-500">
-                        </div>
-                        <div class="mb-[20px] lg:border-r lg:border-r-gray-500 lg:w-2/12 lg:flex lg:items-center lg:justify-center lg:flex-col lg:mb-0">
-                            <p class="text-center">Sat, May 1<span class="text-sup">st</span></p>
-                            <p class="text-center">12:00Pm</p>
-                        </div>
-                        <div class="mb-[20px] lg:hidden">
-                            <hr class="border-[1px] border-gray-500">
-                        </div>
-                        <div  class="lg:w-5/12 h-full self-center px-[20px]">
-                            <div class="relative z-[100]">
-                                <div class="bg-green-500 rounded py-[10px] text-white text-center h-full">HOME</div>
-                                <div class="glass absolute top-0 w-[100%] rounded py-[10px] text-white text-center h-full">
-                                    <div>
-                                    </div>
-                                </div>
-                                <div class="z-[200] absolute top-0 w-[100%] rounded py-[10px] text-white text-center h-full">
-                                    <div class="bg-orange-400 mx-[20px] rounded px-[15px] h-full flex items-center justify-center">Get Tip</div>
-                                </div>
-                            </div>
-                        </div>
-
-                    </li>
+                    <tip-display v-for="item in tips.data" :item="item"/>
                 </ul>
+                <Pagination :pagination="tips.links"/>
             </div>
             <div class="container text-white bg-gray-500] px-[20px] md:w-[500px]">
                 <h1 class="mb-[20px] font-bold">High Lights</h1>
                 <ul>
                     <li v-for="item in 3" class="mb-[20px]">
                         <div class="bg-gray-600  p-[10px] rounded">
-                            <div class="w-full bg-orange-500 h-[200px] rounded">
+                            <div class="w-full h-[200px] rounded  ">
 
                             </div>
                             <h2>Fantacy Show: Experts Double Gameweek 35 teams</h2>
@@ -131,29 +74,9 @@ import HomeLayout from "@/Layouts/HomeLayout/HomeLayout.vue";
 </template>
 
 <style scoped lang="scss">
-.chart-display {
-    @apply flex-col text-sm;
-
-    section {
-        @apply flex;
-        & > p {
-            @apply w-[100px]
-        }
-
-        ul {
-            @apply flex justify-around w-full mb-[10px];
-
-            li {
-                @apply text-center bg-red-400 h-[25px] w-[25px] rounded-[50%] flex items-center justify-center text-sm;
-            }
-        }
-    }
-}
-
-
 .banner {
-    background-image:    url("/storage/app/public/System/banner.png");
-    background-size:     cover;
+    background-image: url("/storage/app/public/System/banner.png");
+    background-size: cover;
     background-position: center;
 
     & > div {
@@ -161,12 +84,4 @@ import HomeLayout from "@/Layouts/HomeLayout/HomeLayout.vue";
     }
 }
 
-.glass {
-    background:              linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0));
-    backdrop-filter:         blur(20px);
-    -webkit-backdrop-filter: blur(10px);
-    border:                  1px solid rgba(255, 255, 255, 0.18);
-    box-shadow:              0 8px 32px 0 rgba(0, 0, 0, 0.37);
-    opacity:                 0.6;
-}
 </style>
