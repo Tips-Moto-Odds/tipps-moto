@@ -15,7 +15,8 @@ class MpesaController extends Controller
         $initiator = $request->input('user_number');
 
         $this->set_access_token();
-        dd($this->make_payment_request());
+
+        return $this->make_payment_request();
     }
 
     public function set_access_token(): void
@@ -68,7 +69,7 @@ class MpesaController extends Controller
                                         "PartyA": "254708374149",
                                         "PartyB": "174379",
                                         "PhoneNumber": "254708374149",
-                                        "CallBackURL": "https://tipsmoto.co.ke/mpesaCallback",
+                                        "CallBackURL": "https://tipsmoto.co.ke/api/mpesaCallback",
                                         "AccountReference": "Test",
                                         "TransactionDesc": "Test"
                                     }',
@@ -85,6 +86,6 @@ class MpesaController extends Controller
     }
 
     public function mpesaCallback(Request $request){
-        Log::info($request);
+        Log::info("received call back");
     }
 }
