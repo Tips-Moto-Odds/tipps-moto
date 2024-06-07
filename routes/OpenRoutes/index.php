@@ -14,7 +14,7 @@ Route::get('/PrivacyPolicy', function () { return Inertia::render('Home/PrivacyP
 
 Route::post('initiateTransaction',[MpesaController::class,'initiateTransaction'])->name('initiateTransaction');
 
-Route::get('mpesaCallback',[MpesaController::class,'mpesaCallback'])->name('mpesaCallback');
+Route::post('mpesaCallback',[MpesaController::class,'mpesaCallback'])->name('mpesaCallback');
 
 
 
