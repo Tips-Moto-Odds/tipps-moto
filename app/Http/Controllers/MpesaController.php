@@ -66,7 +66,7 @@ class MpesaController extends Controller
                                         "Password": "MTc0Mzc5YmZiMjc5ZjlhYTliZGJjZjE1OGU5N2RkNzFhNDY3Y2QyZTBjODkzMDU5YjEwZjc4ZTZiNzJhZGExZWQyYzkxOTIwMTYwMjE2MTY1NjI3",
                                         "Timestamp": "20160216165627",
                                         "TransactionType": "CustomerPayBillOnline",
-                                        "Amount": "10",
+                                        "Amount": "1",
                                         "PartyA": "'.$this->initiator.'",
                                         "PartyB": "174379",
                                         "PhoneNumber": "'.$this->initiator.'",
