@@ -9,10 +9,11 @@ use PHPUnit\Event\Telemetry\Info;
 class MpesaController extends Controller
 {
     private $access_token = null;
+    private $initiator = null;
 
     public function initiateTransaction(Request $request)
     {
-        $initiator = $request->input('user_number');
+        $this->initiator = $request->input('user_number');
 
         $this->set_access_token();
 
@@ -66,9 +67,9 @@ class MpesaController extends Controller
                                         "Timestamp": "20160216165627",
                                         "TransactionType": "CustomerPayBillOnline",
                                         "Amount": "10",
-                                        "PartyA": "254708374149",
+                                        "PartyA": "'.$this->initiator.'",
                                         "PartyB": "174379",
-                                        "PhoneNumber": "254708374149",
+                                        "PhoneNumber": "'.$this->initiator.'",
                                         "CallBackURL": "https://tipsmoto.co.ke/api/mpesaCallback",
                                         "AccountReference": "Test",
                                         "TransactionDesc": "Test"
