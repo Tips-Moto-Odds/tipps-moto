@@ -12,7 +12,8 @@
         "laravel/sanctum": "^4.0",
         "laravel/tinker": "^2.9",
         "tightenco/ziggy": "^2.0",
-        "wildbit/postmark-php": "^6.0"
+        "wildbit/postmark-php": "^6.0",
+        "ext-curl": "*"
     },
     "require-dev": {
         "fakerphp/faker": "^1.23",

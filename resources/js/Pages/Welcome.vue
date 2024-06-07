@@ -2,15 +2,43 @@
 import HomeLayout from "@/Layouts/HomeLayout/HomeLayout.vue";
 import Pagination from "@/AppComponents/Pagination.vue";
 import TipDisplay from "@/Pages/TipDisplay.vue";
+import {openSideBar} from "@/HelperFunctions/modalControl.js";
+import {ref} from "vue";
+import MpesaNumberConfirmation from "@/Pages/MpesaNumberConfirmation.vue";
+import {closeSideBar} from "@/HelperFunctions/modalControl.js";
+import {useForm} from "@inertiajs/vue3";
+
 
 const props = defineProps(['tips', 'upcoming'])
+const active_tip = ref(null)
+const mode = ref(null)
+const userForm = useForm({
+    user_number:"0719445697"
+})
 
+function purchaseTip(item){
+    active_tip.value = item
+    openSideBar()
+}
+
+
+function closeSideBarAction(){
+    closeSideBar()
+}
+
+async function initiateTransaction(){
+    const response = await axios.post(route('initiateTransaction'),userForm)
+
+    console.log(response)
+}
 </script>
 
 <template>
     <HomeLayout>
-        <div
-            class="h-[calc(100vh_-_80px)] mb-[40px] banner xl:max-w-[1200px] xl:mx-auto xl:mt-[10px] xl:rounded xl:overflow-hidden md:max-h-[400px]">
+        <div class="right-panel fixed closed">
+            <mpesa-number-confirmation :active_tip :userForm @close-side-bar="closeSideBarAction" @initiate-transaction="initiateTransaction"/>
+        </div>
+        <div class="h-[calc(100vh_-_80px)] mb-[40px] banner xl:max-w-[1200px] xl:mx-auto xl:mt-[10px] xl:rounded xl:overflow-hidden md:max-h-[400px]">
             <div class="w-full h-full flex flex-col items-center justify-center  px-[20px] md:flex-row ">
                 <div class="md:w-1/2">
                     <img src="/storage/System/Icons/logo-dark.png" class="w-[100px] mb-[20px] md:hidden" alt="logo">
@@ -52,7 +80,7 @@ const props = defineProps(['tips', 'upcoming'])
             <div class="container text-white bg-gray-500] px-[20px]">
                 <h1 class="mb-[20px] font-bold">Top Matches</h1>
                 <ul>
-                    <tip-display v-for="item in tips.data" :item="item"/>
+                    <tip-display v-for="item in tips.data" :item="item" @purchase-tip="purchaseTip"/>
                 </ul>
                 <Pagination :pagination="tips.links"/>
             </div>
