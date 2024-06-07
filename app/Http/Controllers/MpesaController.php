@@ -86,6 +86,6 @@ class MpesaController extends Controller
     }
 
     public function mpesaCallback(Request $request){
-        Log::info("received call back");
+        Log::info($request);
     }
 }
