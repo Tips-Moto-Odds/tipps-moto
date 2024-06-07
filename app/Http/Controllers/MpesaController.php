@@ -68,7 +68,7 @@ class MpesaController extends Controller
                                         "PartyA": "254708374149",
                                         "PartyB": "174379",
                                         "PhoneNumber": "254708374149",
-                                        "CallBackURL": "https://tipsmoto/mpesaCallback",
+                                        "CallBackURL": "https://tipsmoto.co.ke/mpesaCallback",
                                         "AccountReference": "Test",
                                         "TransactionDesc": "Test"
                                     }',
