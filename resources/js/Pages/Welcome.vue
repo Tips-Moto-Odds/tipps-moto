@@ -4,39 +4,117 @@ import Pagination from "@/AppComponents/Pagination.vue";
 import TipDisplay from "@/Pages/TipDisplay.vue";
 import {openSideBar} from "@/HelperFunctions/modalControl.js";
 import {ref} from "vue";
-import MpesaNumberConfirmation from "@/Pages/MpesaNumberConfirmation.vue";
 import {closeSideBar} from "@/HelperFunctions/modalControl.js";
 import {useForm} from "@inertiajs/vue3";
-
+import MpesaNumberInitiation from "@/Pages/MpesaNumberInitiation.vue";
+import MpesaNumberProcessing from "@/Pages/MpesaNumberProcessing.vue";
+import MpesaNumberSuccess from "@/Pages/MpesaNumberSuccess.vue";
+import MpesaNumberError from "@/Pages/MpesaNumberError.vue";
 
 const props = defineProps(['tips', 'upcoming'])
 const active_tip = ref(null)
-const mode = ref(null)
+const mode = ref("initiating")
 const userForm = useForm({
-    user_number:"0719445697"
+    user_number: "254719445697"
 })
 
-function purchaseTip(item){
+const CheckoutRequestID_ref = ref('')
+const MerchantRequestID_ref = ref('')
+let intervalId = null
+let counter = 0
+
+function purchaseTip(item) {
     active_tip.value = item
     openSideBar()
 }
 
 
-function closeSideBarAction(){
+function closeSideBarAction() {
+    console.log("closing")
+    mode.value = 'initiating'
     closeSideBar()
+    resetKeys()
 }
 
-async function initiateTransaction(){
-    const response = await axios.post(route('initiateTransaction'),userForm)
+async function initiateTransaction() {
+    const {
+        data: {
+            ResponseCode,
+            CheckoutRequestID,
+            MerchantRequestID
+        }
+    } = await axios.post(route('initiateTransaction'), userForm);
 
-    console.log(response)
+    try {
+        if (parseInt(ResponseCode) === 0) {
+            mode.value = "processing";
+            CheckoutRequestID_ref.value = CheckoutRequestID;
+            MerchantRequestID_ref.value = MerchantRequestID;
+
+            // Start the recursive checking process
+            await checkPaymentStatus();
+        } else {
+            throw new Error('There was a problem while sending the Request. Please try again later');
+        }
+    } catch (error) {
+        mode.value = "Error";
+        console.log(error);
+        stopInterval();
+    }
 }
+
+function resetKeys(){
+    active_tip.value = null
+    CheckoutRequestID_ref.value = ''
+    MerchantRequestID_ref.value = ''
+    intervalId = null
+    counter = 0
+}
+
+function stopInterval() {
+    clearTimeout(intervalId);
+    resetKeys()
+}
+
+async function checkPaymentStatus() {
+    counter = counter + 1
+    try {
+        const {data: {request_status, order_status}} = await axios.post(route('checkTransactionStatus'), {
+            CheckoutRequestID: CheckoutRequestID_ref.value,
+            MerchantRequestID: MerchantRequestID_ref.value
+        });
+
+        if (request_status === 'completed') {
+            if (order_status === 'successful') {
+                console.log("Payment was successful");
+                mode.value = 'confirm_payment';
+                // stopInterval();
+                return true;
+            } else {
+                throw new Error('Payment Not received. Canceling order!');
+            }
+        } else {
+            if (counter > 5) {
+                throw new Error('Payment Not received. Canceling order!');
+            }else {
+                intervalId = setTimeout(checkPaymentStatus, 3000);
+            }
+        }
+    } catch (error) {
+        mode.value = "Error";
+    }
+}
+
+
 </script>
 
 <template>
     <HomeLayout>
-        <div class="right-panel fixed closed">
-            <mpesa-number-confirmation :active_tip :userForm @close-side-bar="closeSideBarAction" @initiate-transaction="initiateTransaction"/>
+        <div class="right-panel fixed">
+            <mpesa-number-initiation v-if="mode === 'initiating'" :active_tip :userForm @close-side-bar="closeSideBarAction" @initiate-transaction="initiateTransaction"/>
+            <mpesa-number-processing v-else-if="mode === 'processing'" :active_tip :userForm @close-side-bar="closeSideBarAction" @initiate-transaction="initiateTransaction"/>
+            <mpesa-number-success v-else-if="mode === 'confirm_payment'" :active_tip :userForm @close-side-bar="closeSideBarAction" @initiate-transaction="initiateTransaction"/>
+            <mpesa-number-error v-else :active_tip :userForm @close-side-bar="closeSideBarAction" @initiate-transaction="initiateTransaction"/>
         </div>
         <div class="h-[calc(100vh_-_80px)] mb-[40px] banner xl:max-w-[1200px] xl:mx-auto xl:mt-[10px] xl:rounded xl:overflow-hidden md:max-h-[400px]">
             <div class="w-full h-full flex flex-col items-center justify-center  px-[20px] md:flex-row ">

@@ -4,18 +4,17 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
-use PHPUnit\Event\Telemetry\Info;
 
 class MpesaController extends Controller
 {
-    private $access_token = null;
-    private $initiator = null;
+    protected $access_token = null;
+    protected $initiator = null;
 
     public function initiateTransaction(Request $request)
     {
         $this->initiator = $request->input('user_number');
 
-        $this->set_access_token();
+//        $this->set_access_token();
 
         return $this->make_payment_request();
     }
@@ -47,8 +46,15 @@ class MpesaController extends Controller
         $this->access_token = $data->access_token;
     }
 
-    public function make_payment_request(): bool|string
+    public function make_payment_request()
     {
+        return response()->json([
+            'CheckoutRequestID' => 'ws_CO_08062024084019918719445697',
+            'CustomerMessage' => 'Success. Request accepted for processing',
+            'MerchantRequestID' => '6e86-45dd-91ac-fd5d4178ab522933197',
+            'ResponseCode' => '0',
+            'ResponseDescription' => 'Success. Request accepted for processing'
+        ]);
 
         $curl = curl_init();
 
@@ -67,15 +73,15 @@ class MpesaController extends Controller
                                         "Timestamp": "20160216165627",
                                         "TransactionType": "CustomerPayBillOnline",
                                         "Amount": "1",
-                                        "PartyA": "'.$this->initiator.'",
+                                        "PartyA": "' . $this->initiator . '",
                                         "PartyB": "174379",
-                                        "PhoneNumber": "'.$this->initiator.'",
+                                        "PhoneNumber": "' . $this->initiator . '",
                                         "CallBackURL": "https://tipsmoto.co.ke/api/mpesaCallback",
                                         "AccountReference": "Test",
                                         "TransactionDesc": "Test"
                                     }',
             CURLOPT_HTTPHEADER => array(
-                'Authorization: Bearer '.$this->access_token,
+                'Authorization: Bearer ' . $this->access_token,
                 'Content-Type: application/json',
             ),
         ));
@@ -86,7 +92,16 @@ class MpesaController extends Controller
         return $response;
     }
 
-    public function mpesaCallback(Request $request){
+    public function mpesaCallback(Request $request)
+    {
         Log::info($request);
+    }
+
+    public function checkTransactionStatus()
+    {
+        return response()->json([
+            'request_status' => 'completed',
+            'order_status' => 'fail'
+        ]);
     }
 }

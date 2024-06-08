@@ -13,6 +13,7 @@ Route::get('/TermsOfService', function () { return Inertia::render('Home/TermsOf
 Route::get('/PrivacyPolicy', function () { return Inertia::render('Home/PrivacyPolicy'); })->name('PrivacyPolicy');
 
 Route::post('initiateTransaction',[MpesaController::class,'initiateTransaction'])->name('initiateTransaction');
+Route::post('checkTransactionStatus',[MpesaController::class,'checkTransactionStatus'])->name('checkTransactionStatus');
 
 
 

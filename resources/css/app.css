@@ -21,7 +21,6 @@ body{
 .right-panel{
     width: 400px;
     height: 100vh;
-    background-color: red;
     transition: all ease-in 250ms;
     z-index: 10000;
 }
