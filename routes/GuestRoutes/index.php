@@ -15,4 +15,9 @@ Route::middleware('guest')->group(function () {
     })
          ->name('sign-in');
 
+    Route::get('/reset-password', function () {
+        return Inertia::render('Home/ResetPassword');
+    })
+         ->name('reset-password');
+
 });

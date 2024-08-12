@@ -25,9 +25,10 @@ let counter = 0
 
 function purchaseTip(item) {
     active_tip.value = item
+    let element = $('.right-panel').remove('hidden')
+    element.css('z-index','10000')
     openSideBar()
 }
-
 
 function closeSideBarAction() {
     console.log("closing")
@@ -126,13 +127,13 @@ async function checkPaymentStatus() {
                         Get the latest winning tips from Tips moto and become an expert <br class="hidden md:block"> in
                         sports betting</p>
                 </div>
-                <div class="container  bg-gray-900 bg-red rounded text-white md:w-1/2">
+                <div v-if="upcoming" class="container bg-gray-900 bg-red rounded text-white md:w-1/2">
                     <h3 class="text-center pt-[10px] mb-[20px] md:text-2xl md:mb-[0px]">Up Coming</h3>
                     <div
                         class="flex justify-around items-center mb-[20px] md:mb-[10px] md:h-[200px] md:max-w-[450px] mx-auto">
                         <div>
-                            <div class="w-[80px] h-[80px] rounded bg-white">
-                                <img :src="'/storage/System/TeamLogos/' + upcoming.home_logo" alt="image">
+                            <div class="w-[80px] h-[80px] p-[10px] rounded bg-white">
+                                <img class="h-full w-full object-contain" v-if="upcoming" :src="'/storage/System/TeamLogos/' + upcoming.home_logo" alt="image">
                             </div>
                         </div>
                         <div>
@@ -140,7 +141,7 @@ async function checkPaymentStatus() {
                         </div>
                         <div>
                             <div class="w-[80px] h-[80px] bg-white rounded">
-                                <img :src="'/storage/System/TeamLogos/' + upcoming.away_logo" alt="image">
+                                <img class="h-full w-full object-contain" v-if="upcoming" :src="'/storage/System/TeamLogos/' + upcoming.away_logo" alt="image">
                             </div>
                         </div>
                     </div>
@@ -157,12 +158,15 @@ async function checkPaymentStatus() {
         <div class="container md:flex">
             <div class="container text-white bg-gray-500] px-[20px]">
                 <h1 class="mb-[20px] font-bold">Top Matches</h1>
-                <ul>
+                <ul v-if="tips.data.length > 0">
                     <tip-display v-for="item in tips.data" :item="item" @purchase-tip="purchaseTip"/>
                 </ul>
-                <Pagination :pagination="tips.links"/>
+                <div v-else class="w-full h-[200px] flex bg-gray-800 rounded mb-[50px] items-center justify-center ">
+                    <p class="font-bold text-[30px]">No matches to display</p>
+                </div>
+                <Pagination v-if="tips.data.length > 0" :pagination="tips.links"/>
             </div>
-            <div class="container text-white bg-gray-500] px-[20px] md:w-[500px]">
+            <div class="container hidden text-white bg-gray-500] px-[20px] md:w-[500px]">
                 <h1 class="mb-[20px] font-bold">High Lights</h1>
                 <ul>
                     <li v-for="item in 3" class="mb-[20px]">

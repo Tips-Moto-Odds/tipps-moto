@@ -12,8 +12,7 @@ import {Link} from "@inertiajs/vue3";
 import HomeLayout from "@/Layouts/HomeLayout/HomeLayout.vue";
 
 const form = useForm({
-    email: 'admin@email.com',
-    password: 'password',
+    code: '',
 });
 
 const handleOpening = () => $("#main-site-menu").css('right', '100%')
@@ -39,37 +38,20 @@ function signIn() {
                 <div class="app-card">
                     <form @submit.prevent.stop="signIn">
                         <div>
-                            <label>Email</label>
+                            <label>Code</label>
                             <TextInput
-                                id="Email"
-                                v-model="form.email"
-                                type="email"
+                                id="Code"
+                                v-model="form.code"
+                                type="text"
                                 class="mt-1 block w-full"
                                 required
                                 autofocus
                                 autocompletes
                             />
-                            <InputError class="mt-2" :message="form.errors.email"/>
+                            <InputError class="mt-2" :message="form.errors.code"/>
 
                         </div>
-                        <div>
-                            <label>Password</label>
-                            <TextInput
-                                id="password"
-                                v-model="form.password"
-                                type="password"
-                                class="mt-1 block w-full"
-                                required
-                                autocomplete="new-password"
-                            />
-                            <InputError class="mt-2" :message="form.errors.password"/>
-
-                        </div>
-                        <button class="mb-[20px]">Sign In</button>
-                        <Link :href="route('reset-password')" class="text-orange-400 underline mb-[10px] block">Forgot Password</Link>
-                        <p>Don't have an account?
-                            <Link :href="route('sign-up')" class="text-orange-400 underline">Sign Up</Link>
-                        </p>
+                        <button class="mb-[20px]">Confirm</button>
                     </form>
                 </div>
             </div>
