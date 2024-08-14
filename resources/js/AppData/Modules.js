@@ -48,13 +48,6 @@ const admin_routes = [
                 active: 'transactions',
                 icon: 'https://img.icons8.com/windows/32/ffffff/paper-money-1.png'
             },
-            {
-                name: "Notifications",
-                link: route('dashboard'),
-                active: 'notifications',
-                icon: 'https://img.icons8.com/material-outlined/24/ffffff/push-notifications.png'
-            },
-
         ]
     },
     {
@@ -125,12 +118,6 @@ const management_routes = [
                 active: 'transactions',
                 icon: 'https://img.icons8.com/windows/32/ffffff/paper-money-1.png'
             },
-            {
-                name: "Notifications",
-                link: route('dashboard'),
-                active: 'notifications',
-                icon: 'https://img.icons8.com/material-outlined/24/ffffff/push-notifications.png'
-            },
 
         ]
     },
@@ -173,13 +160,6 @@ const user_routes = [
                 active: 'transactions',
                 icon: 'https://img.icons8.com/windows/32/ffffff/paper-money-1.png'
             },
-            {
-                name: "Notifications",
-                link: route('dashboard'),
-                active: 'notifications',
-                icon: 'https://img.icons8.com/material-outlined/24/ffffff/push-notifications.png'
-            },
-
         ]
     },
 ]

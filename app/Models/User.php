@@ -73,4 +73,11 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Team::class, 'current_team_id');
     }
+
+    public function active_subscription(): \Illuminate\Database\Eloquent\Relations\HasOne
+    {
+        return $this->hasOne(Subscription::class)
+            ->where('status', 'active')
+            ->whereDate('end_date', '!=', today());
+    }
 }

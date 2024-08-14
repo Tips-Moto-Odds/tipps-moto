@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AccountsTypeController;
+use App\Http\Controllers\SubscriptionController;
 use App\Http\Controllers\TipsController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -16,6 +17,11 @@ Route::middleware([
     Route::get('/tips', [TipsController::class,'index'])->name('listTips');
 
     Route::get('/tips/{tip}', [TipsController::class,'view'])->name('viewTip');
+
+    Route::post('/app/subscribe', [SubscriptionController::class,'subscribe'])->name('subscribe');
+
+    Route::post('/app/unsubscribe', [SubscriptionController::class,'unsubscribe'])->name('unsubscribe');
+
 
 });
 

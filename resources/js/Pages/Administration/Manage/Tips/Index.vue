@@ -1,13 +1,15 @@
 <script setup>
 import DangerButton from "@/Components/DangerButton.vue";
 import Pagination from "@/AppComponents/Pagination.vue";
-import {Link} from "@inertiajs/vue3"
+import {Link, usePage} from "@inertiajs/vue3"
 import {closeSideBar} from "@/HelperFunctions/modalControl.js";
 import DashboardLayout from "@/Layouts/AdministrationLayout/DashboardLayout.vue";
 import FilterSection from "@/AppComponents/FilterSection.vue";
 import SubscriptionDetails from "@/Pages/Administration/Manage/Tips/SubscriptionDetails.vue";
 
-const props = defineProps(['tips'])
+const props = defineProps(['tips','user_data'])
+const page = usePage()
+const accountType = page.props.account_type
 
 </script>
 
@@ -27,36 +29,36 @@ const props = defineProps(['tips'])
                 </div>
             </div>
         </template>
-        <SubscriptionDetails/>
+        <SubscriptionDetails :user_data/>
         <div  class="flex gap-3 px-[10px]">
-            <div v-if="tips" class="app-panel w-8/12">
+            <div v-if="tips" class="app-panel w-full">
                 <div class="app-panel-heading flex justify-between items-center">
                     <h1>All Tips</h1>
-                    <FilterSection/>
+                    <FilterSection v-if="accountType === 'Administrator' || accountType === 'Manager'"/>
                 </div>
                 <table class="text-white w-full mb-[20px]">
                     <thead class="h-[50px]">
                     <tr class="text-left border-b-[2px] text-xs">
-                        <th class="text-center">ID</th>
+                        <th v-if="accountType === 'Administrator'" class="text-center">ID</th>
                         <th>Teams</th>
-                        <th>Odds</th>
+                        <th class="hidden md:table-cell" >Odds</th>
                         <th class="text-center">Prediction</th>
-                        <th>Status</th>
-                        <th>Wining Status</th>
-                        <th class="text-center">Action</th>
+                        <th class="hidden md:table-cell" >Status</th>
+                        <th class="hidden md:table-cell" >Wining Status</th>
+                        <th v-if="accountType === 'Administrator' || accountType === 'Manager'" class="text-center">Action</th>
                     </tr>
                     </thead>
                     <tbody>
                     <Link as="tr" :href="route('viewTip',[tip.id])" v-for="tip in tips.data"
                           class="border-b h-[70px] text-xs">
-                        <td class="w-[50px] text-center">{{ tip.id }}</td>
+                        <td v-if="accountType === 'Administrator' || accountType === 'Manager'" class="w-[50px] text-center">{{ tip.id }}</td>
                         <td>
                             <div class="h-full w-full">
                                 <p class="">Home : {{ tip.home_teams }}</p>
                                 <p class="">Away : {{ tip.away_teams }}</p>
                             </div>
                         </td>
-                        <td>
+                        <td class="hidden md:table-cell">
                             <div class="h-full w-full">
                                 <p><span class="w-[80px] mr-[10px]">Home Odd:</span> {{ tip.home_odds }}</p>
                                 <p><span class="w-[80px] mr-[10px]">Draw Odd:</span> {{ tip.draw_odds }}</p>
@@ -65,19 +67,19 @@ const props = defineProps(['tips'])
                         </td>
                         <td>
                             <div class="w-80px">
-                                <p class="w-[80px] text-center">{{ tip.predictions }}</p>
+                                <p class="w-[80px] text-center">{{ tip.predictions == 0 ?'Draw': tip.predictions == 1 ? 'Home' : 'Away' }}</p>
                                 <p class="w-[80px] text-center">{{ Math.round(tip.predictions_accuracy) }} %</p>
                             </div>
                         </td>
-                        <td>
+                        <td class="hidden md:table-cell">
                             <p>{{ tip.status }}</p>
                         </td>
-                        <td class="text-center">
+                        <td  class="text-center hidden md:table-cell">
                             <p class="text-green-500" v-if="tip.winning_status == 1">Won</p>
                             <p class="text-red-500" v-else-if="tip.winning_status == 0">Lost</p>
                             <p class="text-orange-400" v-else>N/A</p>
                         </td>
-                        <td>
+                        <td v-if="accountType === 'Administrator' || accountType === 'Manager'">
                             <danger-button>Delete</danger-button>
                         </td>
                     </Link>
@@ -87,7 +89,7 @@ const props = defineProps(['tips'])
                     <Pagination :pagination="tips.links"/>
                 </div>
             </div>
-            <div v-if="tips" class="w-4/12">
+            <div v-if="tips && (accountType === 'Administrator' || accountType === 'Manager')" class="w-4/12">
                 <div class="app-panel">
                     <div class="app-panel-heading">
                         <h1>All Time Summary</h1>

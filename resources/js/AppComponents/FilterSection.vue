@@ -1,6 +1,7 @@
 <script setup>
 import {openSideBar} from "@/HelperFunctions/modalControl.js";
 
+
 const icons = [
     {
         link:"https://img.icons8.com/ios/100/ffffff/filter--v1.png"
