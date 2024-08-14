@@ -12,11 +12,11 @@ import {Link} from "@inertiajs/vue3";
 import HomeLayout from "@/Layouts/HomeLayout/HomeLayout.vue";
 
 const form = useForm({
-    name: '',
-    phone: '',
-    email: '',
-    password: '',
-    password_confirmation: '',
+    name: 'mwaura_kimani',
+    phone: '0719445697',
+    email: 'kimmwaus@gmail.com',
+    password: 'password',
+    password_confirmation: 'password',
     terms: false,
 });
 
@@ -24,9 +24,7 @@ const handleOpening = () => $("#main-site-menu").css('right', '100%')
 const handelClosing = () => $('#main-site-menu').css('right', '0%')
 
 function register() {
-    form.post(route('register'), {
-        onFinish: () => form.reset('password', 'password_confirmation'),
-    });
+    form.post(route('register'));
 }
 
 </script>

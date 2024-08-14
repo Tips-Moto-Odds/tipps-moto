@@ -19,4 +19,8 @@ include_once "OpenRoutes/index.php";
 include_once "GuestRoutes/index.php";
 include_once "AdminRoutes/index.php";
 
+//Route::get('/login', function () {
+//    return Inertia::render('Home/SignUp');
+//});
+
 Route::get('/mail',[MailController::class,'mail']);

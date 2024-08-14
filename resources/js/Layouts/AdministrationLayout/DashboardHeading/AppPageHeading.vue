@@ -2,13 +2,28 @@
 import {Link} from "@inertiajs/vue3";
 
 const props = defineProps(['pageHeading']);
+
+
+function openMenu(){
+    let elem = $("#dashboard-menu")
+
+    elem.css({
+        left:"0",
+        width:"100%"
+    })
+}
 </script>
 
 <template>
     <div>
-        <div class="h-[50px] flex justify-between px-[20px] items-center page-header">
+        <div class="h-[50px] flex justify-between md:px-[20px] items-center page-header px-[5px]">
+            <button @click="openMenu" type="button" class=" md:hidden flex items-center justify-center h-full w-[50px] mr-[3px]">
+                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="white" class="bi bi-list" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5"/>
+                </svg>
+            </button>
             <p class="text-sm text-white">Hello, {{ $page.props.auth.user.name }}</p>
-            <div class="flex justify-end gap-2 w-[60%] items-center">
+            <div class=" hidden md:flex justify-end gap-2 w-[60%] items-center">
                 <input title="Search" type="search" class="h-[30px] rounded bg-gray-500 p-[5px] text-white">
                 <div class="">
                     <img class="search right-1 shadow-2xl w-[24px] h-[24px]"

@@ -2,22 +2,31 @@
 import DashboardLayout from "@/Layouts/AdministrationLayout/DashboardLayout.vue";
 import {updateInfo, updatePassword} from "@/Pages/Administration/Profile/Actions.js";
 import {initializeForms} from "@/Pages/Administration/Profile/forms.js";
+import {usePage} from "@inertiajs/vue3";
+import {onMounted, onUpdated} from "vue";
 
 const {userForm, securityForm} = initializeForms();
 
+const page = usePage()
 const handleUpdateInfo = () => {
     updateInfo(userForm);
 };
 
 const handleUpdatePassword = () => {
-    updatePassword(securityForm, userForm.id);
+    updatePassword(securityForm, userForm);
 };
+
+onUpdated(() => {
+    if(page.props.flash?.success){
+        alert(page.props.flash?.success)
+    }
+})
 </script>
 
 <template>
     <DashboardLayout :title="'Profile'" :page-heading="'Profile'">
-        <div class="flex w-full px-[20px] gap-2.5">
-            <div class="w-8/12">
+        <div class="flex w-full flex-col md:flex-row px-[20px] gap-2.5">
+            <div class="md:w-8/12">
                 <div class="form-container">
                     <div class="form-header">
                         <h1>Profile</h1>
@@ -31,9 +40,9 @@ const handleUpdatePassword = () => {
                             <p class="error">{{ userForm.errors.name }}</p>
                         </div>
 
-                        <div class="app-form-group flex gap-2.5">
+                        <div class="app-form-group md:flex gap-2.5">
 
-                            <div class="w-full">
+                            <div class="w-full mb-[10px]">
                                 <label>Phone</label>
                                 <input class="" v-model="userForm.phone">
                                 <p class="error">{{ userForm.errors.phone }}</p>
@@ -80,23 +89,23 @@ const handleUpdatePassword = () => {
                     </form>
                 </div>
             </div>
-            <div class="w-4/12">
-                <div class="form-container">
-                    <div class="form-header">
-                        <h1>Danger Zone</h1>
-                    </div>
-                    <form>
-                        <div class="app-form-group">
-                            <label >Enter your username to confirm Action</label>
-                            <input >
-                        </div>
-                        <div class="mx-auto flex] mb-[30px] flex flex-col gap-2.5">
-                            <button class="form-action-button">Disable Account</button>
-                            <button class="form-action-button !bg-red-600">Delete Account</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
+<!--            <div class="md:w-4/12">-->
+<!--                <div class="form-container">-->
+<!--                    <div class="form-header">-->
+<!--                        <h1>Danger Zone</h1>-->
+<!--                    </div>-->
+<!--                    <form>-->
+<!--                        <div class="app-form-group">-->
+<!--                            <label >Enter your username to confirm Action</label>-->
+<!--                            <input >-->
+<!--                        </div>-->
+<!--                        <div class="mx-auto flex] mb-[30px] flex flex-col gap-2.5">-->
+<!--                            <button class="form-action-button">Disable Account</button>-->
+<!--                            <button class="form-action-button !bg-red-600">Delete Account</button>-->
+<!--                        </div>-->
+<!--                    </form>-->
+<!--                </div>-->
+<!--            </div>-->
         </div>
     </DashboardLayout>
 </template>

@@ -8,6 +8,7 @@ async function updateInfo(userForm) {
 }
 
 async function updatePassword(securityForm,userForm) {
+
     try {
         await securityForm.patch(route('patchPassword', userForm.id))
     } catch (e) {

@@ -2,9 +2,10 @@
 import DangerButton from "@/Components/DangerButton.vue";
 import Pagination from "@/AppComponents/Pagination.vue";
 import {Link} from "@inertiajs/vue3"
-import {openSideBar, closeSideBar} from "@/HelperFunctions/modalControl.js";
+import {closeSideBar} from "@/HelperFunctions/modalControl.js";
 import DashboardLayout from "@/Layouts/AdministrationLayout/DashboardLayout.vue";
 import FilterSection from "@/AppComponents/FilterSection.vue";
+import SubscriptionDetails from "@/Pages/Administration/Manage/Tips/SubscriptionDetails.vue";
 
 const props = defineProps(['tips'])
 
@@ -26,8 +27,9 @@ const props = defineProps(['tips'])
                 </div>
             </div>
         </template>
-        <div class="flex gap-3 px-[15px]">
-            <div class="app-panel w-8/12">
+        <SubscriptionDetails/>
+        <div  class="flex gap-3 px-[10px]">
+            <div v-if="tips" class="app-panel w-8/12">
                 <div class="app-panel-heading flex justify-between items-center">
                     <h1>All Tips</h1>
                     <FilterSection/>
@@ -85,7 +87,7 @@ const props = defineProps(['tips'])
                     <Pagination :pagination="tips.links"/>
                 </div>
             </div>
-            <div class="w-4/12">
+            <div v-if="tips" class="w-4/12">
                 <div class="app-panel">
                     <div class="app-panel-heading">
                         <h1>All Time Summary</h1>

@@ -1,19 +1,14 @@
 <script setup>
-import MobilMenu from "@/Layouts/HomeLayout/Mobil-Menu.vue";
-import MenuPanel from "@/Layouts/HomeLayout/Menu-panel.vue";
 import PageHeading from "@/Pages/Home/components/PageHeading.vue";
-import AppFooter from "@/Pages/Home/components/AppFooter.vue";
 import {useForm} from "@inertiajs/vue3";
 import TextInput from "@/Components/TextInput.vue";
-import InputLabel from "@/Components/InputLabel.vue";
 import InputError from "@/Components/InputError.vue";
-import Checkbox from "@/Components/Checkbox.vue";
 import {Link} from "@inertiajs/vue3";
 import HomeLayout from "@/Layouts/HomeLayout/HomeLayout.vue";
 
 const form = useForm({
-    email: 'admin@email.com',
-    password: 'password',
+    email: '',
+    password: '',
 });
 
 const handleOpening = () => $("#main-site-menu").css('right', '100%')
@@ -159,11 +154,3 @@ function signIn() {
     }
 }
 </style>
-
-<!--                    <div class="flex">-->
-<!--                        <div>-->
-<!--                            <input class="!w-[20px] !h-[20px] mr-[20px] " type="checkbox" required>-->
-<!--                        </div>-->
-<!--                        <p class="text-sm !font-extralight">By creating an account you agree to our Terms and-->
-<!--                            Condition</p>-->
-<!--                    </div>-->

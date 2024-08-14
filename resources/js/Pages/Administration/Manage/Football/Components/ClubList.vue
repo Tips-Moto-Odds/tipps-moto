@@ -21,7 +21,7 @@ const debouncedSubmit = debounce(() => {
 
 </script>
 <template>
-  <div class="app-panel w-[300px] h-[80vh] overflow-auto">
+  <div class="app-panel w-[400px] h-[80vh] overflow-auto">
     <div class="app-panel-heading">
       <h1>List</h1>
     </div>

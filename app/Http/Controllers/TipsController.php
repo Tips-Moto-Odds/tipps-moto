@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Tips;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
 use function Laravel\Prompts\select;
@@ -14,7 +15,16 @@ class TipsController extends Controller
 
     public function index(Request $request)
     {
-        $tips = Tips::orderBy('match_start_time', 'desc')->paginate(10);
+        $tips = null;
+
+        switch (Auth::user()->current_role->name){
+            case 'Administrator':
+            case 'Manager':
+                $tips = Tips::orderBy('match_start_time', 'desc')->paginate(10);
+                break;
+            default:
+
+        }
 
         return Inertia::render($this->folder.'Tips/Index',[
             'tips' => $tips

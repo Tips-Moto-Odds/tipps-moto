@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Inertia\Middleware;
 
 class HandleInertiaRequests extends Middleware
@@ -35,12 +36,24 @@ class HandleInertiaRequests extends Middleware
      */
     public function share(Request $request): array
     {
+        //self invoking function to get the account type
+        $account_type = function () use ($request) {
+            if(Auth::check()){
+                $user = Auth::user();
+                return $user->current_role->name;
+            }else{
+                return "guest";
+            }
+        };
+
         return array_merge(parent::share($request), [
             'csrf_token' => csrf_token(),
+            'account_type' => $account_type,
             'flash' => [
                 'success' => $request->session()->get('success'),
                 'error' => $request->session()->get('error'),
             ],
         ]);
     }
+
 }
