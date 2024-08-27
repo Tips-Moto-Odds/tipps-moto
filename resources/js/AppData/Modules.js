@@ -44,7 +44,7 @@ const admin_routes = [
             },
             {
                 name: "Transactions",
-                link: route('dashboard'),
+                link: route('transactions'),
                 active: 'transactions',
                 icon: 'https://img.icons8.com/windows/32/ffffff/paper-money-1.png'
             },
@@ -114,7 +114,7 @@ const management_routes = [
             },
             {
                 name: "Transactions",
-                link: route('dashboard'),
+                link: route('transactions'),
                 active: 'transactions',
                 icon: 'https://img.icons8.com/windows/32/ffffff/paper-money-1.png'
             },
@@ -156,7 +156,7 @@ const user_routes = [
             },
             {
                 name: "Transactions",
-                link: route('dashboard'),
+                link: route('transactions'),
                 active: 'transactions',
                 icon: 'https://img.icons8.com/windows/32/ffffff/paper-money-1.png'
             },

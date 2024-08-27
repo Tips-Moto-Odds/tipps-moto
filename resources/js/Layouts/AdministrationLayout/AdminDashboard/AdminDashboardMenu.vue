@@ -1,6 +1,6 @@
 <script setup>
-import {Link, usePage} from "@inertiajs/vue3";
 import {get_routes} from "@/AppData/Modules.js";
+import {usePage} from "@inertiajs/vue3";
 
 const page = usePage();
 
@@ -20,10 +20,10 @@ function closeMenu(){
 <template>
     <section class="menu-section w-[300px] text-white h-full overflow-auto text-sm border-r border-r-gray-500">
         <div class="flex justify-between">
-            <div class="logo w-[90%] md:w-full flex p-[10px] items-center justify-center">
+            <div class="logo w-[90%] lg:w-full flex p-[10px] items-center justify-center">
                 <img class=" h-[80px]" src="/storage/System/Icons/logo-dark.png" alt="image">
             </div>
-            <button @click="closeMenu" type="button" class=" md:hidden flex p-[10px] items-center justify-center h-full w-[50px] mr-[3px]">
+            <button @click="closeMenu" type="button" class=" lg:hidden flex p-[10px] items-center justify-center h-full w-[50px] mr-[3px]">
                 <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
                     <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z"/>
                 </svg>

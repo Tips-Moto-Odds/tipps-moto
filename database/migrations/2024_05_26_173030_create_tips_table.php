@@ -19,7 +19,7 @@ return new class extends Migration
             $table->decimal('home_odds', 5, 2);
             $table->decimal('away_odds', 5, 2);
             $table->decimal('draw_odds', 5, 2);
-            $table->integer('predictions');
+            $table->string('predictions');
             $table->decimal('predictions_accuracy', 4, 2)->nullable();
             $table->string('status')->default('pending');
             $table->string('winning_status')->nullable();

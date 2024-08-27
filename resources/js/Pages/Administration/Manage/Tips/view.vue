@@ -1,10 +1,12 @@
 <script setup>
 import AdminDashboardMenu from "@/Layouts/AdministrationLayout/AdminDashboard/AdminDashboardMenu.vue";
 import AppPageHeading from "@/Layouts/AdministrationLayout/DashboardHeading/AppPageHeading.vue";
-import {Link} from "@inertiajs/vue3";
+import {Link, usePage} from "@inertiajs/vue3";
 import DashboardLayout from "@/Layouts/AdministrationLayout/DashboardLayout.vue";
 
 const props = defineProps(['tip'])
+const page = usePage()
+
 
 function formatDate(dateTimeString) {
     const date = new Date(dateTimeString);
@@ -20,6 +22,8 @@ function formatTime(dateTimeString) {
     const minutes = String(date.getMinutes()).padStart(2, '0');
     return `${hours}:${minutes}`;
 }
+const accountType = page.props.account_type
+
 
 </script>
 
@@ -30,17 +34,17 @@ function formatTime(dateTimeString) {
             <div>
                 <Link :href="route('listTips')" class="action-button bg-gray-500">View All tips</Link>
             </div>
-            <div>
+            <div v-if="accountType === 'Administrator' || accountType === 'Manager'" >
                 <button class="action-button bg-red-600">Delete Tip</button>
             </div>
         </div>
-        <div class="flex w-[98%] mx-auto gap-3 text-white">
-            <div class="w-8/12">
+        <div class="md:flex w-[98%] mx-auto gap-3 text-white px-[5px]">
+            <div class="md:w-8/12">
                 <div class="app-panel">
                     <div class="app-panel-heading">
                         <h1>Current Match</h1>
                     </div>
-                    <div class="w-[60%] pb-[20px] mx-auto pt-[20px] text-center text-[20px] items-center rounded mb-[40px]">
+                    <div class="md:w-[60%] pb-[20px] mx-auto pt-[20px] text-center text-[20px] items-center rounded mb-[40px]">
                         <h2 class="mb-[20px]">Match ID: </h2>
                         <div class="flex justify-between items-center gap-5 mb-[10px]">
                             <div class="w-[150px] h-[150px] bg-white flex items-center justify-center rounded p-2">
@@ -63,7 +67,7 @@ function formatTime(dateTimeString) {
                     </div>
                 </div>
 
-                <div class="app-panel">
+                <div class="hidden app-panel lg:block">
                     <div class="app-panel-heading">
                         <h1 class="text-[25px] text-white mb-[20px]">Upcoming Matches</h1>
                     </div>
@@ -83,7 +87,7 @@ function formatTime(dateTimeString) {
                 </div>
 
             </div>
-            <div class=" w-4/12">
+            <div class="md:w-4/12">
 
                 <div class="app-panel side-section">
                     <h1>Info</h1>

@@ -10,7 +10,7 @@ class HomeController extends Controller
 {
     public function index()
     {
-        $tips = Tips::orderBy('match_start_time', 'desc')->paginate(5);
+        $tips = Tips::orderBy('match_start_time', 'desc')->limit(3)->get();
 
         if (count($tips) <= 0) {
             $latest_tip = null;
@@ -33,9 +33,16 @@ class HomeController extends Controller
 
     private function mapImage(mixed $latest_tip)
     {
-        $hometeam_logo = DB::select('select * from clubs where name = ?', [$latest_tip->home_teams])[0]->logo;
-        $awayTeam_logo = DB::select('select * from clubs where name = ?', [$latest_tip->away_teams])[0]->logo;
 
+        $hometeam_logo = DB::select('select * from clubs where name = ?', [$latest_tip->home_teams]) ??
+            DB::select('select * from clubs where name = ?', [$latest_tip->home_teams])[0]->logo;
+        $awayTeam_logo = DB::select('select * from clubs where name = ?', [$latest_tip->away_teams]) ??
+            DB::select('select * from clubs where name = ?', [$latest_tip->away_teams])[0]->logo;
+
+        if (!$hometeam_logo ||!$awayTeam_logo) {
+            $hometeam_logo = 'icons8-ball-100.png';
+            $awayTeam_logo = 'icons8-ball-100.png';
+        }
 
         $latest_tip->home_logo = $hometeam_logo;
         $latest_tip->away_logo = $awayTeam_logo;

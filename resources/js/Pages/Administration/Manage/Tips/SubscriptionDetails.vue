@@ -55,11 +55,12 @@ const unSubscribe = () => $("#un_subscription_panel").fadeIn()
                 </li>
             </ul>
             <div class="md:w-[300px] md:float-end">
-                <button class="bg-green-500" @click="subscribeToTips">Subscribe</button>
+                <button v-if="user_data.subscriptions_details" class="bg-red-400" @click.prevent.stop="unSubscribe">Unsubscribe</button>
+                <button v-else class="bg-green-500" @click="subscribeToTips">Subscribe</button>
+
                 <teleport to="body">
                     <SubscribeForm class="hidden"/>
                 </teleport>
-                <button class="bg-red-400" @click.prevent.stop="unSubscribe">Unsubscribe</button>
                 <teleport to="body">
                     <UnSubscribeForm class="hidden"/>
                 </teleport>

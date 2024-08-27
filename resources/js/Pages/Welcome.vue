@@ -1,15 +1,14 @@
 <script setup>
 import HomeLayout from "@/Layouts/HomeLayout/HomeLayout.vue";
-import Pagination from "@/AppComponents/Pagination.vue";
 import TipDisplay from "@/Pages/TipDisplay.vue";
-import {openSideBar} from "@/HelperFunctions/modalControl.js";
+import {closeSideBar, openSideBar} from "@/HelperFunctions/modalControl.js";
 import {ref} from "vue";
-import {closeSideBar} from "@/HelperFunctions/modalControl.js";
 import {useForm} from "@inertiajs/vue3";
 import MpesaNumberInitiation from "@/Pages/MpesaNumberInitiation.vue";
 import MpesaNumberProcessing from "@/Pages/MpesaNumberProcessing.vue";
 import MpesaNumberSuccess from "@/Pages/MpesaNumberSuccess.vue";
 import MpesaNumberError from "@/Pages/MpesaNumberError.vue";
+import MatchHistory from "@/AppComponents/MatchHistory.vue";
 
 const props = defineProps(['tips', 'upcoming'])
 const active_tip = ref(null)
@@ -26,7 +25,7 @@ let counter = 0
 function purchaseTip(item) {
     active_tip.value = item
     let element = $('.right-panel').remove('hidden')
-    element.css('z-index','10000')
+    element.css('z-index', '10000')
     openSideBar()
 }
 
@@ -64,7 +63,7 @@ async function initiateTransaction() {
     }
 }
 
-function resetKeys(){
+function resetKeys() {
     active_tip.value = null
     CheckoutRequestID_ref.value = ''
     MerchantRequestID_ref.value = ''
@@ -97,7 +96,7 @@ async function checkPaymentStatus() {
         } else {
             if (counter > 5) {
                 throw new Error('Payment Not received. Canceling order!');
-            }else {
+            } else {
                 intervalId = setTimeout(checkPaymentStatus, 3000);
             }
         }
@@ -112,12 +111,18 @@ async function checkPaymentStatus() {
 <template>
     <HomeLayout>
         <div class="right-panel fixed">
-            <mpesa-number-initiation v-if="mode === 'initiating'" :active_tip :userForm @close-side-bar="closeSideBarAction" @initiate-transaction="initiateTransaction"/>
-            <mpesa-number-processing v-else-if="mode === 'processing'" :active_tip :userForm @close-side-bar="closeSideBarAction" @initiate-transaction="initiateTransaction"/>
-            <mpesa-number-success v-else-if="mode === 'confirm_payment'" :active_tip :userForm @close-side-bar="closeSideBarAction" @initiate-transaction="initiateTransaction"/>
-            <mpesa-number-error v-else :active_tip :userForm @close-side-bar="closeSideBarAction" @initiate-transaction="initiateTransaction"/>
+            <mpesa-number-initiation v-if="mode === 'initiating'" :active_tip :userForm
+                                     @close-side-bar="closeSideBarAction" @initiate-transaction="initiateTransaction"/>
+            <mpesa-number-processing v-else-if="mode === 'processing'" :active_tip :userForm
+                                     @close-side-bar="closeSideBarAction" @initiate-transaction="initiateTransaction"/>
+            <mpesa-number-success v-else-if="mode === 'confirm_payment'" :active_tip :userForm
+                                  @close-side-bar="closeSideBarAction" @initiate-transaction="initiateTransaction"/>
+            <mpesa-number-error v-else :active_tip :userForm @close-side-bar="closeSideBarAction"
+                                @initiate-transaction="initiateTransaction"/>
         </div>
-        <div class="h-[calc(100vh_-_80px)] mb-[40px] banner xl:max-w-[1200px] xl:mx-auto xl:mt-[10px] xl:rounded xl:overflow-hidden md:max-h-[400px]">
+
+        <div
+            class="h-[calc(100vh_-_80px)] mb-[40px] banner xl:max-w-[1200px] xl:mx-auto xl:mt-[10px] xl:rounded xl:overflow-hidden md:max-h-[400px]">
             <div class="w-full h-full flex flex-col items-center justify-center  px-[20px] md:flex-row ">
                 <div class="md:w-1/2">
                     <img src="/storage/System/Icons/logo-dark.png" class="w-[100px] mb-[20px] md:hidden" alt="logo">
@@ -133,7 +138,8 @@ async function checkPaymentStatus() {
                         class="flex justify-around items-center mb-[20px] md:mb-[10px] md:h-[200px] md:max-w-[450px] mx-auto">
                         <div>
                             <div class="w-[80px] h-[80px] p-[10px] rounded bg-white">
-                                <img class="h-full w-full object-contain" v-if="upcoming" :src="'/storage/System/TeamLogos/' + upcoming.home_logo" alt="image">
+                                <img class="h-full w-full object-contain" v-if="upcoming"
+                                     :src="'/storage/System/TeamLogos/' + upcoming.home_logo" alt="image">
                             </div>
                         </div>
                         <div>
@@ -141,7 +147,8 @@ async function checkPaymentStatus() {
                         </div>
                         <div>
                             <div class="w-[80px] h-[80px] bg-white rounded">
-                                <img class="h-full w-full object-contain" v-if="upcoming" :src="'/storage/System/TeamLogos/' + upcoming.away_logo" alt="image">
+                                <img class="h-full w-full object-contain" v-if="upcoming"
+                                     :src="'/storage/System/TeamLogos/' + upcoming.away_logo" alt="image">
                             </div>
                         </div>
                     </div>
@@ -155,30 +162,47 @@ async function checkPaymentStatus() {
                 </div>
             </div>
         </div>
-        <div class="container md:flex">
-            <div class="container text-white bg-gray-500] px-[20px]">
-                <h1 class="mb-[20px] font-bold">Top Matches</h1>
-                <ul v-if="tips.data.length > 0">
-                    <tip-display v-for="item in tips.data" :item="item" @purchase-tip="purchaseTip"/>
-                </ul>
-                <div v-else class="w-full h-[200px] flex bg-gray-800 rounded mb-[50px] items-center justify-center ">
-                    <p class="font-bold text-[30px]">No matches to display</p>
-                </div>
-                <Pagination v-if="tips.data.length > 0" :pagination="tips.links"/>
-            </div>
-            <div class="container hidden text-white bg-gray-500] px-[20px] md:w-[500px]">
-                <h1 class="mb-[20px] font-bold">High Lights</h1>
-                <ul>
-                    <li v-for="item in 3" class="mb-[20px]">
-                        <div class="bg-gray-600  p-[10px] rounded">
-                            <div class="w-full h-[200px] rounded  ">
 
-                            </div>
-                            <h2>Fantacy Show: Experts Double Gameweek 35 teams</h2>
-                        </div>
+        <div class="container">
+
+            <div class="container app-panel p-[10px] rounded">
+                <div class="app-panel-heading flex justify-center"><h1>TIPS MOTO BETTING TIPS</h1></div>
+                <div class="content-area p-[10px] text-white text-sm">
+                    <p class="mb-[30px] text-center">
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                        Architecto assumenda autem beatae blanditiis dolor earum eligendi facere iste maiores
+                        necessitatibus nesciunt nulla, omnis provident quos recusandae repudiandae ullam unde vel.
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Architecto assumenda autem beatae
+                        blanditiis dolor earum eligendi facere iste maiores necessitatibus nesciunt nulla, omnis
+                        provident quos recusandae repudiandae ullam unde vel.Lorem ipsum dolor sit amet, consectetur
+                        adipisicing elit. Architecto assumenda autem beatae blanditiis dolor earum eligendi facere iste
+                        maiores necessitatibus nesciunt nulla, omnis provident quos recusandae repudiandae ullam unde
+                        vel.
+                    </p>
+                </div>
+            </div>
+
+            <div class="container app-panel p-[10px] rounded mb-[20px] text-white">
+                <div class="app-panel-heading flex justify-center mb-[20px]"><h1>TODAY'S FREE TIPS</h1></div>
+                <ul class="mx-auto max-w-[800px] mb-[30px]">
+                    <li v-for="tip in tips">
+                        <tip-display :item="tip"></tip-display>
                     </li>
                 </ul>
+                <div class="flex">
+                    <Link
+                        :href="route('packages')"
+                        class="inline-block mx-auto bg-orange-400 px-[30px] py-[4px] rounded-sm mb-[50px]">
+                        GET MORE
+                    </Link>
+                </div>
             </div>
+
+            <div class="container app-panel p-[10px] rounded mb-[20px]">
+                <div class="app-panel-heading flex justify-center"><h1>PREVIOUS MATCHES</h1></div>
+                <MatchHistory :tips/>
+            </div>
+
         </div>
     </HomeLayout>
 </template>

@@ -40,6 +40,7 @@ const accountType = page.props.account_type
                     <thead class="h-[50px]">
                     <tr class="text-left border-b-[2px] text-xs">
                         <th v-if="accountType === 'Administrator'" class="text-center">ID</th>
+                        <th class="hidden md:table-cell" >date</th>
                         <th>Teams</th>
                         <th class="hidden md:table-cell" >Odds</th>
                         <th class="text-center">Prediction</th>
@@ -52,6 +53,7 @@ const accountType = page.props.account_type
                     <Link as="tr" :href="route('viewTip',[tip.id])" v-for="tip in tips.data"
                           class="border-b h-[70px] text-xs">
                         <td v-if="accountType === 'Administrator' || accountType === 'Manager'" class="w-[50px] text-center">{{ tip.id }}</td>
+                        <td class="w-[200px] text-center w-[200px]">{{tip.match_start_time}}</td>
                         <td>
                             <div class="h-full w-full">
                                 <p class="">Home : {{ tip.home_teams }}</p>

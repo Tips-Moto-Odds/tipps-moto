@@ -26,7 +26,7 @@ onUpdated(() => {
 <template>
     <DashboardLayout :title="'Profile'" :page-heading="'Profile'">
         <div class="flex w-full flex-col md:flex-row px-[20px] gap-2.5">
-            <div class="md:w-8/12">
+            <div class="w-full">
                 <div class="form-container">
                     <div class="form-header">
                         <h1>Profile</h1>
