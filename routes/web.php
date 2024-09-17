@@ -13,6 +13,7 @@ use Inertia\Inertia;
 //        'phpVersion' => PHP_VERSION,
 //    ]);
 //});
+Route::get('/marketing/{page?}',[MarketingController::class,'index']);
 
 include_once "OpenRoutes/index.php";
 include_once "GuestRoutes/index.php";
@@ -23,4 +24,3 @@ include_once "AdminRoutes/index.php";
 //});
 
 Route::get('/mail',[MailController::class,'mail']);
-Route::get('/marketing/{page?}',[MarketingController::class,'index']);

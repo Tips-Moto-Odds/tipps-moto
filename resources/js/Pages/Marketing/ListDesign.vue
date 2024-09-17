@@ -12,14 +12,14 @@
                 </div>
                 <p>@tipsmoto_</p>
             </li>
-            <li class="h-[100%] w-[30%] bg-green-300 flex items-center justify-between">
+            <li class="h-[100%] w-[30%]  flex items-center justify-between">
                 <div class="w-[30px] h-[30px] mr-[20px] ">
                     <img width="48" height="48" src="https://img.icons8.com/color/48/facebook-new.png"
                          alt="facebook-new"/>
                 </div>
                 <p>@tipsmoto_</p>
             </li>
-            <li class="h-[100%] w-[30%] bg-green-300 flex items-center justify-between">
+            <li class="h-[100%] w-[30%]  flex items-center justify-between">
                 <div class="w-[30px] h-[30px] mr-[20px] ">
                     <img width="48" height="48" src="https://img.icons8.com/color/48/twitterx--v1.png"
                          alt="twitterx--v1"/>
