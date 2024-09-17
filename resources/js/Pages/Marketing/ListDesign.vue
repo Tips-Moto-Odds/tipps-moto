@@ -3,28 +3,28 @@
 </script>
 
 <template>
-    <div class="w-[100vw] h-[100vh] banner_background">
-        <ul class="w-[400px] h-[40px]  mx-auto flex justify-between text-white mb-[20px]">
+    <div class="pt-[20px] h-[100vh] banner_background">
+        <ul class="mx-auto w-fit flex justify-between text-white mb-[20px]">
             <li class="h-[100%] w-[30%]  flex items-center justify-between">
-                <div class="w-[30px] h-[30px] mr-[20px] ">
-                    <img width="48" height="48" src="https://img.icons8.com/color/48/instagram-new--v1.png"
+                <div class="w-[60px] h-[60px] mr-[20px] ">
+                    <img width="60" height="48" src="https://img.icons8.com/color/48/instagram-new--v1.png"
                          alt="instagram-new--v1"/>
                 </div>
-                <p>@tipsmoto_</p>
+                <p class="text-[20px]">@tipsmoto_</p>
             </li>
             <li class="h-[100%] w-[30%]  flex items-center justify-between">
-                <div class="w-[30px] h-[30px] mr-[20px] ">
-                    <img width="48" height="48" src="https://img.icons8.com/color/48/facebook-new.png"
+                <div class="w-[60px] h-[60px] mr-[20px] ">
+                    <img width="60" height="60" src="https://img.icons8.com/color/48/facebook-new.png"
                          alt="facebook-new"/>
                 </div>
-                <p>@tipsmoto_</p>
+                <p class="text-[20px]">@tipsmoto_</p>
             </li>
             <li class="h-[100%] w-[30%]  flex items-center justify-between">
-                <div class="w-[30px] h-[30px] mr-[20px] ">
-                    <img width="48" height="48" src="https://img.icons8.com/color/48/twitterx--v1.png"
+                <div class="w-[60px] h-[60px] mr-[20px] ">
+                    <img width="60" height="60" src="https://img.icons8.com/color/48/twitterx--v1.png"
                          alt="twitterx--v1"/>
                 </div>
-                <p>@tipsmoto_</p>
+                <p class="text-[20px]">@tipsmoto_</p>
             </li>
         </ul>
         <div class="mx-auto w-[100px]">
