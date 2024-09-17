@@ -132,7 +132,7 @@ async function checkPaymentStatus() {
                         Get the latest winning tips from Tips moto and become an expert <br class="hidden md:block"> in
                         sports betting</p>
                 </div>
-                <div v-if="upcoming" class="container bg-gray-900 bg-red rounded text-white md:w-1/2">
+                <div v-if="upcoming != null" class="container bg-gray-900 bg-red rounded text-white md:w-1/2">
                     <h3 class="text-center pt-[10px] mb-[20px] md:text-2xl md:mb-[0px]">Up Coming</h3>
                     <div
                         class="flex justify-around items-center mb-[20px] md:mb-[10px] md:h-[200px] md:max-w-[450px] mx-auto">
@@ -159,7 +159,7 @@ async function checkPaymentStatus() {
                     <div class="flex justify-center mb-[10px]">
                         <a class="bg-orange-500 px-[30px] py-[10px] rounded" href="/">GET TIP</a>
                     </div>
-                </div>
+                </div>s
             </div>
         </div>
 

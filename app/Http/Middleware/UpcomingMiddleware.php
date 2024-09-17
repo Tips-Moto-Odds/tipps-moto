@@ -14,16 +14,14 @@ class UpcomingMiddleware
      *
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
-    public function handle(Request $request, Closure $next): \Inertia\Response
+    public function handle(Request $request, Closure $next)
     {
-        //get environmentvariable
         $upcoming = env('APP_MODE', false);
 
         if ($upcoming == 'upcoming') {
-            return Inertia::render('upcoming',[
-            ]);
+            return Inertia::render('upcoming');
+        }else{
+            return $next($request);
         }
-
-        return $next($request);
     }
 }

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\MailController;
+use App\Http\Controllers\MarketingController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -13,7 +14,6 @@ use Inertia\Inertia;
 //    ]);
 //});
 
-
 include_once "OpenRoutes/index.php";
 include_once "GuestRoutes/index.php";
 include_once "AdminRoutes/index.php";
@@ -23,3 +23,4 @@ include_once "AdminRoutes/index.php";
 //});
 
 Route::get('/mail',[MailController::class,'mail']);
+Route::get('/marketing/{page?}',[MarketingController::class,'index']);

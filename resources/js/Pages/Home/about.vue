@@ -60,19 +60,6 @@ const handelClosing = () => $('#main-site-menu').css('right', '0%')
                     lobortis fermentum.</p>
             </div>
         </div>
-        <div class="container text-white bg-gray-500] px-[20px] md:w-[500px] mb-[40px]">
-            <h1 class="mb-[20px] font-bold text-[22px]">Highlights</h1>
-            <ul>
-                <li v-for="item in 3" class="mb-[20px]">
-                    <div class="bg-gray-600  p-[10px] rounded">
-                        <div class="w-full bg-orange-500 h-[200px] rounded">
-
-                        </div>
-                        <h2>Fantacy Show: Experts Double Gameweek 35 teams</h2>
-                    </div>
-                </li>
-            </ul>
-        </div>
     </div>
     </HomeLayout>
 </template>

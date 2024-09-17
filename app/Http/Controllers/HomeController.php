@@ -11,10 +11,9 @@ class HomeController extends Controller
     public function index()
     {
         $tips = Tips::orderBy('match_start_time', 'desc')->limit(3)->get();
+        $latest_tip = null;
 
-        if (count($tips) <= 0) {
-            $latest_tip = null;
-        } else {
+        if (count($tips) > 0) {
             $tips->map(function ($tip) {
                 $tip = $this->mapImage($tip);
                 return $tip;
