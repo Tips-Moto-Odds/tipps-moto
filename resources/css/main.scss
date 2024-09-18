@@ -1,0 +1,121 @@
+:root{
+    --app-panel-color:#565656
+}
+
+
+.badge {
+    @apply border px-[10px] py-[5px] rounded-2xl text-sm
+}
+
+.app-panel{
+    background-color: var(--app-panel-color);
+    @apply rounded p-[10px] mb-[10px];
+
+    .app-panel-heading{
+        h1{
+            @apply text-[25px] mb-[10px] text-white;
+        }
+    }
+
+    table{
+        @apply text-white w-full;
+
+        thead{
+            @apply h-[50px];
+
+            tr{
+                @apply text-left border-b-[2px] text-xs
+            }
+        }
+
+        tbody{
+            tr{
+                border-bottom: 2px solid gray;
+                @apply border-b rounded-sm overflow-hidden text-xs;
+
+                td:first-of-type,td:last-of-type{
+                    @apply px-[10px]
+                }
+
+                td{
+                    vertical-align: top;
+                    @apply pt-[10px];
+                }
+
+                .mild{
+                    @apply text-gray-300;
+                }
+
+                .app-delete{
+                    @apply text-sm py-[3px] px-[10px] bg-red-400 rounded hover:bg-red-500;
+                }
+
+                &:hover {
+                    cursor: pointer;
+                    background-color: #707070;
+                }
+            }
+        }
+    }
+
+    .list-display{
+        @apply p-[10px] text-white text-sm;
+
+        ul{
+            li{
+                @apply flex justify-between py-[8px];
+            }
+        }
+
+        hr{
+            border: 1px solid grey;
+            @apply  my-[5px]
+        }
+    }
+}
+
+.form-container {
+    background-color: var(--app-panel-color);
+    @apply mb-[30px] rounded p-[10px] text-white;
+
+    .form-header {
+        @apply flex items-center justify-between;
+
+        h1 {
+            @apply text-[25px] mb-[10px];
+        }
+    }
+
+    form {
+        @apply p-[15px] font-extralight;
+
+        .app-form-group{
+
+            @apply mb-[15px];
+
+            input, select, textarea {
+                @apply block w-full p-[10px] text-gray-800 rounded;
+            }
+
+            select{
+                @apply p-0 px-[10px] h-[38px];
+            }
+
+            label {
+                @apply block mb-[10px];
+            }
+
+            input {
+                @apply h-[35px];
+            }
+
+            .error {
+                @apply text-red-500;
+            }
+        }
+
+        .form-action-button{
+            @apply bg-amber-500 rounded-sm px-[20px] py-[5px];
+        }
+    }
+}

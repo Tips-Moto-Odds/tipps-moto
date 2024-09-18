@@ -1,0 +1,3 @@
+*.sqlite*
+Datagrip/Local
+Datagrip/.idea
