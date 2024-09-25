@@ -1,6 +1,6 @@
 <script setup>
 import HomeLayout from "@/Layouts/HomeLayout/HomeLayout.vue";
-import PriceCard from "@/AppComponents/PriceCard.vue";
+import PriceCard from "@/AppComponents/Home/Packages/PriceCard.vue";
 import {reactive} from "vue";
 
 const props = defineProps(['package', 'is_authenticated'])

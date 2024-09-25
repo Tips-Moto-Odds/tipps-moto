@@ -13,6 +13,7 @@ import {Link} from "@inertiajs/vue3";
 import './bootstrap';
 
 import jQuery from 'jquery';
+import '../scss/_index.scss'
 
 window.$ = jQuery;
 

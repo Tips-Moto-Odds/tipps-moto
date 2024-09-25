@@ -1,7 +1,7 @@
-<script setup>
+s<script setup>
 import {Head} from "@inertiajs/vue3";
-import MobilMenu from "@/Layouts/HomeLayout/Mobil-Menu.vue";
-import MenuPanel from "@/Layouts/HomeLayout/Menu-panel.vue";
+import MobilMenu from "@/Layouts/HomeLayout/Components/Mobil-Menu.vue";
+import MenuPanel from "@/Layouts/HomeLayout/Components/Menu-panel.vue";
 import AppFooter from "@/Pages/Home/components/AppFooter.vue";
 
 const handleOpening = () => $("#main-site-menu").css('right', '100%')

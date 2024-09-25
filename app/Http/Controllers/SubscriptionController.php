@@ -18,7 +18,7 @@ class SubscriptionController extends Controller
     /**
      * @throws \Exception
      */
-    public function subscribe(Request $request)
+    public function subscribe(Request $request): \Illuminate\Http\RedirectResponse
     {
         //TODO:validate
         $package = $request->input('package');
@@ -84,7 +84,7 @@ class SubscriptionController extends Controller
     }
 
 
-    public function unsubscribe(Request $request)
+    public function unsubscribe(Request $request): \Illuminate\Http\RedirectResponse
     {
         //get password from request
         $request->validate([

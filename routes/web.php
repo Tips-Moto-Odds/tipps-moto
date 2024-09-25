@@ -1,26 +1,15 @@
 <?php
 
-use App\Http\Controllers\MailController;
-use App\Http\Controllers\MarketingController;
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
-use Inertia\Inertia;
-
-//Route::get('/', function () {
-//    return Inertia::render('Welcome', [
-//        'canLogin' => Route::has('login'),
-//        'canRegister' => Route::has('register'),
-//        'laravelVersion' => Application::VERSION,
-//        'phpVersion' => PHP_VERSION,
-//    ]);
-//});
-Route::get('/marketing/{page?}',[MarketingController::class,'index']);
 
 include_once "OpenRoutes/index.php";
 include_once "GuestRoutes/index.php";
-include_once "AdminRoutes/index.php";
+include_once "DashboardLinks/index.php";
 
-//Route::get('/login', function () {
-//    return Inertia::render('Home/SignUp');
-//});
 
-Route::get('/mail',[MailController::class,'mail']);
+Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified'])->group(function () {
+    //list account types view
+    Route::get('/Profile', [ProfileController::class, 'index'])->name('ViewProfile');
+
+});

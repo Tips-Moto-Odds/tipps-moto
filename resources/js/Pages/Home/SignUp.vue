@@ -1,6 +1,6 @@
 <script setup>
-import MobilMenu from "@/Layouts/HomeLayout/Mobil-Menu.vue";
-import MenuPanel from "@/Layouts/HomeLayout/Menu-panel.vue";
+import MobilMenu from "@/Layouts/HomeLayout/Components/Mobil-Menu.vue";
+import MenuPanel from "@/Layouts/HomeLayout/Components/Menu-panel.vue";
 import PageHeading from "@/Pages/Home/components/PageHeading.vue";
 import AppFooter from "@/Pages/Home/components/AppFooter.vue";
 import {useForm} from "@inertiajs/vue3";
@@ -12,16 +12,13 @@ import {Link} from "@inertiajs/vue3";
 import HomeLayout from "@/Layouts/HomeLayout/HomeLayout.vue";
 
 const form = useForm({
-    name: 'mwaura_kimani',
-    phone: '0719445697',
-    email: 'kimmwaus@gmail.com',
-    password: 'password',
-    password_confirmation: 'password',
+    name: '',
+    phone: '',
+    email: '',
+    password: '',
+    password_confirmation: '',
     terms: false,
 });
-
-const handleOpening = () => $("#main-site-menu").css('right', '100%')
-const handelClosing = () => $('#main-site-menu').css('right', '0%')
 
 function register() {
     form.post(route('register'));
@@ -49,6 +46,7 @@ function register() {
                                 autofocus
                                 autocomplete="name"
                             />
+                            <InputError class="mt-2" :message="form.errors.name"/>
                         </div>
                         <div>
                             <label>Phone</label>
@@ -61,6 +59,7 @@ function register() {
                                 autofocus
                                 autocompletes
                             />
+                            <InputError class="mt-2" :message="form.errors.phone"/>
                         </div>
                         <div>
                             <label>Email</label>
@@ -73,6 +72,7 @@ function register() {
                                 autofocus
                                 autocompletes
                             />
+                            <InputError class="mt-2" :message="form.errors.email"/>
                         </div>
                         <div>
                             <label>Password</label>
@@ -84,6 +84,7 @@ function register() {
                                 required
                                 autocomplete="new-password"
                             />
+                            <InputError class="mt-2" :message="form.errors.password"/>
                         </div>
                         <div>
                             <label>Confirm Password</label>
@@ -95,6 +96,7 @@ function register() {
                                 required
                                 autocomplete="new-password"
                             />
+                            <InputError class="mt-2" :message="form.errors.password_confirmation"/>
                         </div>
                         <div class="mt-4">
                             <InputLabel for="terms">

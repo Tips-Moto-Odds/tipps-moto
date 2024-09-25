@@ -23,14 +23,22 @@ class TipsController extends Controller
             case 'Administrator':
             case 'Manager':
                 $tips = Tips::orderBy('match_start_time', 'desc')->paginate(10);
-                break;
+                return Inertia::render($this->folder . 'Tips/Index', [
+                    'tips' => $tips,
+                    'user_data' => $user_data
+                ]);
             case 'user':
                 //find the users subscriptions
                 $user_data['subscriptions_details'] = Auth::user()->active_subscription;
 
-                if (Auth::user()->active_subscription){
+                if (Auth::user()->active_subscription) {
                     $tips = Tips::orderBy('match_start_time', 'desc')->paginate(10);
                 }
+
+                return Inertia::render("Dashboards/User/Tips/Index", [
+                    'tips' => $tips,
+                    'user_data' => $user_data
+                ]);
 
             default:
 
@@ -51,7 +59,7 @@ class TipsController extends Controller
         $tip->home_team_image = $home_team_image;
         $tip->away_team_image = $away_team_image;
 
-        return Inertia::render($this->folder . 'Tips/view', [
+        return Inertia::render("Dashboards/User/Tips/view", [
             'tip' => $tip
         ]);
     }

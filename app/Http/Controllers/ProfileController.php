@@ -16,7 +16,7 @@ class ProfileController extends Controller
 
     public function index()
     {
-        return Inertia::render($this->folder . '/Account');
+        return Inertia::render( "Dashboards/Global/Profile/Account");
     }
 
     public function patch(Request $request, User $user)

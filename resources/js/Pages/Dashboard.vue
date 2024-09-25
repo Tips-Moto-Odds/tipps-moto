@@ -1,8 +1,9 @@
 <script setup>
 
 import DashboardLayout from "@/Layouts/AdministrationLayout/DashboardLayout.vue";
-import AdminDashboard from "@/Pages/Dashboards/Admin/AdminDashboard.vue";
+import AdminDashboard from "@/Pages/Dashboards/Administrator/Dashboard/AdminDashboard.vue";
 import {usePage} from "@inertiajs/vue3";
+import UserDashboard from "@/Pages/Dashboards/User/Dashboard/UserDashboard.vue";
 
 const props = defineProps([
     'users',
@@ -17,7 +18,8 @@ const page = usePage()
 
 <template>
     <DashboardLayout :title="'Dashboard'" :page-heading="'Welcome Back'">
-        <AdminDashboard v-if="page.props.account_type === 'Administrator' "  :model="model" :users="users" :payments="payments"/>
+        <AdminDashboard v-if="page.props.account_type === 'Administrator'"  :model="model" :users="users" :payments="payments"/>
+        <UserDashboard  v-else-if="page.props.account_type === 'user'"/>
     </DashboardLayout>
 </template>
 

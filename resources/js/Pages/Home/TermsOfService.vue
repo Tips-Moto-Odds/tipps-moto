@@ -1,12 +1,52 @@
 <script setup>
-import MobilMenu from "@/Layouts/HomeLayout/Mobil-Menu.vue";
-import MenuPanel from "@/Layouts/HomeLayout/Menu-panel.vue";
 import PageHeading from "@/Pages/Home/components/PageHeading.vue";
-import AppFooter from "@/Pages/Home/components/AppFooter.vue";
 import HomeLayout from "@/Layouts/HomeLayout/HomeLayout.vue";
 
-const handleOpening = () => $("#main-site-menu").css('right', '100%')
-const handelClosing = () => $('#main-site-menu').css('right', '0%')
+
+const list_items = [
+    {
+        heading:"Acceptance of Terms",
+        content:"By accessing and using the Trendy Tips website, you acknowledge that you have read, understood, and agree to be bound by these Terms and Conditions."
+    },
+    {
+        heading:"User Data Collection",
+        content:"To improve user experience and enhance our services, Trendy Tips collects certain user data. By using our website, you consent to the collection, use, and storage of your personal information as outlined in our Privacy Policy. The data we collect may include, but is not limited to, your name, email address, browsing habits, and preferences.\n"
+    },
+    {
+        heading:"Use of Information",
+        content:"The information we collect may be used for the following purposes:",
+        list_item:[
+            "To provide personalized content and recommendations",
+            "To improve our website and user experience",
+            "To communicate with you regarding updates, promotions, or other information related to our services"
+        ]
+    },
+    {
+        heading:"User Responsibilities",
+        content:"Users are responsible for providing accurate, current, and complete information during registration or any interactions on our website. You are also responsible for maintaining the confidentiality of your account information and for restricting access to your account."
+    },
+    {
+        heading:"Content Ownership and Usage",
+        content:"All content on the Trendy Tips website, including text, graphics, logos, and software, is the property of Trendy Tips or our content suppliers and is protected by applicable intellectual property laws. You may not reproduce, distribute, or create derivative works from any content on our site without our express written permission."
+    },
+    {
+        heading:"Limitation of Liability",
+        content:"Trendy Tips provides tips and information for entertainment purposes only. We do not guarantee the accuracy, completeness, or usefulness of any information provided. You acknowledge that any reliance on such information is at your own risk. Trendy Tips shall not be liable for any indirect, incidental, or consequential damages arising from your use of the website."
+    },
+    {
+        heading:"Changes to Terms",
+        content:"Trendy Tips reserves the right to modify these Terms and Conditions at any time. Any changes will be effective immediately upon posting on the website. Your continued use of the website following any changes signifies your acceptance of the new terms."
+    },
+    {
+        heading:"Governing Law",
+        content:"These terms shall be governed by and construed in accordance with the laws of Kenya, without regard to its conflict of law principles."
+    },
+    {
+        heading:"Contact Information",
+        content:"If you have any questions or concerns regarding these Terms and Conditions or our data collection practices, please contact us at:"
+    },
+]
+
 
 </script>
 
@@ -17,87 +57,17 @@ const handelClosing = () => $('#main-site-menu').css('right', '0%')
         </div>
         <div class="container text-white bg-gray-500] px-[20px]">
             <div class="content">
-                <h1 class="mb-[20px] font-bold text-[22px]">Terms</h1>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla convallis scelerisque condimentum. Sed
-                    eu
-                    sapien eget diam accumsan varius. Nunc tempor turpis vel purus commodo lobortis. Proin tempus cursus
-                    urna,
-                    non consectetur velit porttitor vitae. Praesent congue euismod quam, in blandit tortor tincidunt
-                    non.
-                    Quisque eu vestibulum eros. Nulla luctus, diam vel maximus aliquet, eros odio blandit felis, in
-                    vestibulum
-                    nisl enim eu justo. Nam odio lorem, malesuada quis nisi quis, lacinia pulvinar lectus. Vestibulum
-                    commodo
-                    lobortis fermentum.</p>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla convallis scelerisque condimentum. Sed
-                    eu
-                    sapien eget diam accumsan varius. Nunc tempor turpis vel purus commodo lobortis. Proin tempus cursus
-                    urna,
-                    non consectetur velit porttitor vitae. Praesent congue euismod quam, in blandit tortor tincidunt
-                    non.
-                    Quisque eu vestibulum eros. Nulla luctus, diam vel maximus aliquet, eros odio blandit felis, in
-                    vestibulum
-                    nisl enim eu justo. Nam odio lorem, malesuada quis nisi quis, lacinia pulvinar lectus. Vestibulum
-                    commodo
-                    lobortis fermentum.</p>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla convallis scelerisque condimentum. Sed
-                    eu
-                    sapien eget diam accumsan varius. Nunc tempor turpis vel purus commodo lobortis. Proin tempus cursus
-                    urna,
-                    non consectetur velit porttitor vitae. Praesent congue euismod quam, in blandit tortor tincidunt
-                    non.
-                    Quisque eu vestibulum eros. Nulla luctus, diam vel maximus aliquet, eros odio blandit felis, in
-                    vestibulum
-                    nisl enim eu justo. Nam odio lorem, malesuada quis nisi quis, lacinia pulvinar lectus. Vestibulum
-                    commodo
-                    lobortis fermentum.</p>
-            </div>
-            <div class="content">
-                <h1 class="mb-[20px] font-bold text-[22px]">Conditions</h1>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla convallis scelerisque condimentum. Sed
-                    eu
-                    sapien eget diam accumsan varius. Nunc tempor turpis vel purus commodo lobortis. Proin tempus cursus
-                    urna,
-                    non consectetur velit porttitor vitae. Praesent congue euismod quam, in blandit tortor tincidunt
-                    non.
-                    Quisque eu vestibulum eros. Nulla luctus, diam vel maximus aliquet, eros odio blandit felis, in
-                    vestibulum
-                    nisl enim eu justo. Nam odio lorem, malesuada quis nisi quis, lacinia pulvinar lectus. Vestibulum
-                    commodo
-                    lobortis fermentum.</p>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla convallis scelerisque condimentum. Sed
-                    eu
-                    sapien eget diam accumsan varius. Nunc tempor turpis vel purus commodo lobortis. Proin tempus cursus
-                    urna,
-                    non consectetur velit porttitor vitae. Praesent congue euismod quam, in blandit tortor tincidunt
-                    non.
-                    Quisque eu vestibulum eros. Nulla luctus, diam vel maximus aliquet, eros odio blandit felis, in
-                    vestibulum
-                    nisl enim eu justo. Nam odio lorem, malesuada quis nisi quis, lacinia pulvinar lectus. Vestibulum
-                    commodo
-                    lobortis fermentum.</p>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla convallis scelerisque condimentum. Sed
-                    eu
-                    sapien eget diam accumsan varius. Nunc tempor turpis vel purus commodo lobortis. Proin tempus cursus
-                    urna,
-                    non consectetur velit porttitor vitae. Praesent congue euismod quam, in blandit tortor tincidunt
-                    non.
-                    Quisque eu vestibulum eros. Nulla luctus, diam vel maximus aliquet, eros odio blandit felis, in
-                    vestibulum
-                    nisl enim eu justo. Nam odio lorem, malesuada quis nisi quis, lacinia pulvinar lectus. Vestibulum
-                    commodo
-                    lobortis fermentum.</p>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla convallis scelerisque condimentum. Sed
-                    eu
-                    sapien eget diam accumsan varius. Nunc tempor turpis vel purus commodo lobortis. Proin tempus cursus
-                    urna,
-                    non consectetur velit porttitor vitae. Praesent congue euismod quam, in blandit tortor tincidunt
-                    non.
-                    Quisque eu vestibulum eros. Nulla luctus, diam vel maximus aliquet, eros odio blandit felis, in
-                    vestibulum
-                    nisl enim eu justo. Nam odio lorem, malesuada quis nisi quis, lacinia pulvinar lectus. Vestibulum
-                    commodo
-                    lobortis fermentum.</p>
+                <h2 class="mb-[20px]"> By using our website, you acknowledge that you have read, understood, and agreed to these Terms and
+                    Conditions. Thank you for choosing Trendy Tips!</h2>
+                <ol class="list-decimal px-[25px]">
+                    <li v-for="item in list_items" class="mb-[20px]">
+                        <h2>{{item.heading}}</h2>
+                        <p>{{item.content}}</p>
+                        <ul class="px-[30px] list-disc" v-for="item_x in item.list_item">
+                            <li>{{item_x}}</li>
+                        </ul>
+                    </li>
+                </ol>
             </div>
 
         </div>

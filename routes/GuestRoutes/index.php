@@ -11,18 +11,15 @@ Route::middleware('guest')->group(function () {
 
     Route::get('/sign-up', function () {
         return Inertia::render('Home/SignUp');
-    })
-        ->name('sign-up');
+    })->name('sign-up');
 
     Route::get('/sign-in', function () {
         return Inertia::render('Home/SignIn');
-    })
-        ->name('sign-in');
+    })->name('sign-in');
 
     Route::get('/reset-password', function () {
         return Inertia::render('Home/ResetPassword');
-    })
-        ->name('reset-password');
+    })->name('reset-password');
 
     Route::post('/validatePhoneNumber', function (Request $request) {
 
@@ -59,8 +56,7 @@ Route::middleware('guest')->group(function () {
             'status' => true,
             'code' => $code
         ];
-    })
-        ->name('validatePhoneNumber');
+    })->name('validatePhoneNumber');
 
     Route::post("/changePassword",function (Request $request){
         //Remember to validate
