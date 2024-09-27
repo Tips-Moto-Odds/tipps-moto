@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Tips;
+use Exception;
 use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
+use PHPMailer\PHPMailer\PHPMailer;
 
 class HomeController extends Controller
 {
@@ -38,7 +40,7 @@ class HomeController extends Controller
         $awayTeam_logo = DB::select('select * from clubs where name = ?', [$latest_tip->away_teams]) ??
             DB::select('select * from clubs where name = ?', [$latest_tip->away_teams])[0]->logo;
 
-        if (!$hometeam_logo ||!$awayTeam_logo) {
+        if (!$hometeam_logo || !$awayTeam_logo) {
             $hometeam_logo = 'icons8-ball-100.png';
             $awayTeam_logo = 'icons8-ball-100.png';
         }
