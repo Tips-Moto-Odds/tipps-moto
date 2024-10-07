@@ -3,10 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Tips;
-use Exception;
 use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
-use PHPMailer\PHPMailer\PHPMailer;
 
 class HomeController extends Controller
 {

@@ -123,24 +123,6 @@ const props = defineProps([
 </template>
 
 <style scoped lang="scss">
-table {
-    tbody {
-        tr {
-            border-bottom: 2px solid gray;
-            @apply rounded-sm overflow-hidden text-xs;
-
-            td {
-                vertical-align: top;
-                @apply pt-[10px];
-            }
-
-            &:hover {
-                cursor: pointer;
-                background-color: #575454;
-            }
-        }
-    }
-}
 
 .app-card {
     background-image: linear-gradient(20deg, rgb(65 65 65), rgb(73 73 73));

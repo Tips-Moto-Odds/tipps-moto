@@ -9,7 +9,6 @@ const handelClosing = () => $('#main-site-menu').css('right', '0%')
 </script>
 
 <template>
-    <Head title="Home" />
     <MobilMenu @menu-open="handleOpening" @menu-close="handelClosing"></MobilMenu>
     <menu-panel></menu-panel>
     <slot></slot>

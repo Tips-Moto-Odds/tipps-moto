@@ -17,12 +17,20 @@ return new class extends Migration
             $table->string('home_teams');
             $table->string('away_teams');
             $table->decimal('home_odds', 5, 2);
-            $table->decimal('away_odds', 5, 2);
             $table->decimal('draw_odds', 5, 2);
+            $table->decimal('away_odds', 5, 2);
             $table->string('predictions');
-            $table->decimal('predictions_accuracy', 4, 2)->nullable();
             $table->string('status')->default('pending');
+
+            // Define enum options for match confidence and league
+            $table->enum('match_confidence', ['min', 'avg', 'max']);
+            $table->string('league');
+            $table->json('extra_odds')->nullable();
+
+            // Updated fields
+            $table->decimal('predictions_accuracy', 4, 2)->nullable();
             $table->string('winning_status')->nullable();
+
             $table->timestamps();
             $table->softDeletes();
         });

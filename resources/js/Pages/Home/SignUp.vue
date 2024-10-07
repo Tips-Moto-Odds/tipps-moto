@@ -3,7 +3,7 @@ import MobilMenu from "@/Layouts/HomeLayout/Components/Mobil-Menu.vue";
 import MenuPanel from "@/Layouts/HomeLayout/Components/Menu-panel.vue";
 import PageHeading from "@/Pages/Home/components/PageHeading.vue";
 import AppFooter from "@/Pages/Home/components/AppFooter.vue";
-import {useForm} from "@inertiajs/vue3";
+import {Head, useForm} from "@inertiajs/vue3";
 import TextInput from "@/Components/TextInput.vue";
 import InputLabel from "@/Components/InputLabel.vue";
 import InputError from "@/Components/InputError.vue";
@@ -28,6 +28,7 @@ function register() {
 
 <template>
     <HomeLayout>
+      <Head title="Sign Up" />
         <div class="h-[140px] mb-[40px] banner">
             <page-heading title="Register"/>
         </div>

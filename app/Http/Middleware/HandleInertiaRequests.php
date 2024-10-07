@@ -40,9 +40,9 @@ class HandleInertiaRequests extends Middleware
         $account_type = function () use ($request) {
             if(Auth::check()){
                 $user = Auth::user();
-                return $user->current_role->name;
+                return $user->role->name;
             }else{
-                return "guest";
+                return "Guest";
             }
         };
 

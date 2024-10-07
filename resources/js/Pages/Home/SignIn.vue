@@ -1,6 +1,6 @@
 <script setup>
 import PageHeading from "@/Pages/Home/components/PageHeading.vue";
-import {useForm} from "@inertiajs/vue3";
+import {Head, useForm} from "@inertiajs/vue3";
 import TextInput from "@/Components/TextInput.vue";
 import InputError from "@/Components/InputError.vue";
 import {Link} from "@inertiajs/vue3";
@@ -26,6 +26,7 @@ function signIn() {
 
 <template>
     <HomeLayout>
+      <Head title="Sign In" />
         <div class="h-[140px] mb-[40px] banner">
             <page-heading title="Register"/>
         </div>

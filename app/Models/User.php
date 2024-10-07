@@ -32,7 +32,8 @@ class User extends Authenticatable
         'phone',
         'email',
         'password',
-        'current_team_id'
+        'current_team_id',
+        'role_id'
     ];
 
     /**
@@ -54,7 +55,10 @@ class User extends Authenticatable
      */
     protected $appends = [
         'profile_photo_url',
+        'role_name'
     ];
+
+
 
     /**
      * Get the attributes that should be cast.
@@ -69,9 +73,11 @@ class User extends Authenticatable
         ];
     }
 
-    public function current_role(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+
+
+    public function role(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
-        return $this->belongsTo(Team::class, 'current_team_id');
+        return $this->belongsTo(Role::class, 'role_id');
     }
 
     public function active_subscription(): \Illuminate\Database\Eloquent\Relations\HasOne
@@ -79,5 +85,11 @@ class User extends Authenticatable
         return $this->hasOne(Subscription::class)
             ->where('status', 'active')
             ->whereDate('end_date', '!=', today());
+    }
+
+    // Accessor to get the role name
+    public function getRoleNameAttribute()
+    {
+        return $this->role ? $this->role->name : 'Guest';
     }
 }

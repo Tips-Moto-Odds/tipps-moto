@@ -19,7 +19,7 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
     //Manage Profile
-    Route::get('/ManageProfile', [ProfileController::class, 'index'])->name('ManageProfile');
+    Route::get('/MyProfile', [ProfileController::class, 'index'])->name('ManageProfile');
     //Profile Actions
     include_once "UserRoutes/index.php";
 
@@ -36,7 +36,10 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
      *******************************
      */
     //Manage users
-    Route::get('/ManageAccounts', [UserAccountsController::class, "index"])->name('ManageAccounts');
+    Route::get('/ListAccounts', [UserAccountsController::class, "index"])->name('ManageAccounts');
+    Route::get('/ViewAccount/{id}', [UserAccountsController::class, 'view'])->name('ViewAccounts');
+    Route::get('/log-in-as/{user}', [UserAccountsController::class, 'logInAs'])->name('logInAs');
+    Route::post('/admin/return', [UserAccountsController::class, 'returnToAdmin'])->name('admin.return');
 
     //Manage Football Teams
     Route::get('/ManageFootballTeams', [FootballController::class, 'index'])->name('ManageFootballTeams');

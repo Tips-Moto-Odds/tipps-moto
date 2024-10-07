@@ -19,8 +19,9 @@ Route::group(['prefix' => 'profile'], function () {
     Route::patch('/update-password/{user}', [ProfileController::class, 'patchPassword'])->name('UpdatePassword');
 });
 
+
 /**
- * Tips Controller
+ * TipsController
  * --------------------------------
  * */
 Route::group(['prefix' => 'tips'], function () {

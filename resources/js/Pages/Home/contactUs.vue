@@ -4,6 +4,7 @@ import MenuPanel from "@/Layouts/HomeLayout/Components/Menu-panel.vue";
 import PageHeading from "@/Pages/Home/components/PageHeading.vue";
 import AppFooter from "@/Pages/Home/components/AppFooter.vue";
 import HomeLayout from "@/Layouts/HomeLayout/HomeLayout.vue";
+import {Head} from "@inertiajs/vue3";
 
 const handleOpening = () => $("#main-site-menu").css('right', '100%')
 const handelClosing = () => $('#main-site-menu').css('right', '0%')
@@ -16,6 +17,7 @@ function sendMessage() {
 
 <template>
     <HomeLayout>
+      <Head title="Contact Us" />
         <div class="h-[140px] mb-[40px] banner">
             <page-heading title="Contact Us"/>
         </div>

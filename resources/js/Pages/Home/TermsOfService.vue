@@ -57,12 +57,13 @@ const list_items = [
         </div>
         <div class="container text-white bg-gray-500] px-[20px]">
             <div class="content">
-                <h2 class="mb-[20px]"> By using our website, you acknowledge that you have read, understood, and agreed to these Terms and
+              <h1 class="font-bold mb-[20px]">TERMS OF SERVICE</h1>
+                <h2 class="mb-[20px] text-sm font-[200]"> By using our website, you acknowledge that you have read, understood, and agreed to these Terms and
                     Conditions. Thank you for choosing Trendy Tips!</h2>
                 <ol class="list-decimal px-[25px]">
                     <li v-for="item in list_items" class="mb-[20px]">
                         <h2>{{item.heading}}</h2>
-                        <p>{{item.content}}</p>
+                        <p class="font-[200] text-sm">{{item.content}}</p>
                         <ul class="px-[30px] list-disc" v-for="item_x in item.list_item">
                             <li>{{item_x}}</li>
                         </ul>

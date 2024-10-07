@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('password');
             $table->string('status')->default('active');
             $table->rememberToken();
+            $table->foreignId('role_id');
             $table->foreignId('current_team_id')->nullable();
             $table->timestamps();
             $table->softDeletes();

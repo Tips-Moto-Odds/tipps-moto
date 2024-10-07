@@ -2,13 +2,12 @@
 
 namespace App\Actions\Fortify;
 
-use App\Models\Team;
 use App\Models\User;
+use App\Models\Role;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Laravel\Fortify\Contracts\CreatesNewUsers;
-use Laravel\Jetstream\Jetstream;
 
 class CreateNewUser implements CreatesNewUsers
 {
@@ -29,13 +28,14 @@ class CreateNewUser implements CreatesNewUsers
             'terms' => ['accepted', 'required'],
         ])->validate();
 
+
         return DB::transaction(function () use ($input) {
             return User::create([
                 'name' => $input['name'],
                 'phone' => $input['phone'],
                 'email' => $input['email'],
                 'password' => Hash::make($input['password']),
-                'current_team_id' => 2,
+                'role_id' => Role::where('name','Guest')->first()->id
             ]);
         });
     }

@@ -4,12 +4,14 @@ import TipDisplay from "@/AppComponents/Global/TipDisplay.vue";
 import MatchHistory from "@/AppComponents/Home/Welcome/MatchHistory.vue";
 import UpcomingMatch from "@/AppComponents/Home/Welcome/UpcomingMatch.vue";
 import {site_summary} from "@/AppComponents/Home/Welcome/DataFile.js";
+import {Head} from "@inertiajs/vue3";
 
 const props = defineProps(['tips', 'upcoming'])
 </script>
 
 <template>
     <HomeLayout>
+      <Head title="Home" />
         <div class="banner">
             <div >
                 <div>
@@ -23,7 +25,7 @@ const props = defineProps(['tips', 'upcoming'])
                 <UpcomingMatch :upcoming></UpcomingMatch>
             </div>
         </div>
-        <div class="container px-[20px]">
+        <div class="container px-[20px] md:h-[100vh]">
             <div class="container app-panel p-[10px] rounded">
                 <div class="app-panel-heading flex justify-center"><h1>TIPS MOTO BETTING TIPS</h1></div>
                 <div class="content-area p-[10px] text-white text-sm">

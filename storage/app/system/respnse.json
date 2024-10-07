@@ -1,0 +1,158 @@
+{
+  "max": [
+    {
+      "teams": ["Sporting Clube de Portugal", "Draw", "Casa Pia Atletico"],
+      "odds": [1.13, 8.6, 19.05],
+      "selected": 1,
+      "match_info": ["05/10/24", "22:30"],
+      "extra_odds": {
+        "1X": 1.03,
+        "X2": 5.2,
+        "12": 1.07,
+        "Over": 1.37,
+        "Under": 2.9
+      },
+      "league": "Portugal Primeira Liga"
+    },
+    {
+      "teams": ["Nacional Madeira", "Draw", "S.L. Benfica"],
+      "odds": [9.75, 6.24, 1.22],
+      "selected": -1,
+      "match_info": ["06/10/24", "20:00"],
+      "extra_odds": {
+        "1X": 3.6,
+        "X2": 1.07,
+        "12": 1.12,
+        "Over": 1.4,
+        "Under": 2.75
+      },
+      "league": "Portugal Primeira Liga"
+    },
+    {
+      "teams": ["Malmö FF", "Draw", "IFK Varnamo"],
+      "odds": [1.28, 4.85, 7.54],
+      "selected": 1,
+      "match_info": ["06/10/24", "17:30"],
+      "extra_odds": {
+        "1X": 1.08,
+        "X2": 2.55,
+        "12": 1.13,
+        "Over": 1.56,
+        "Under": 2.29
+      },
+      "league": "Sweden Allsvenskan"
+    },
+    {
+      "teams": ["Real Madrid CF", "Draw", "Villarreal CF"],
+      "odds": [1.29, 6.5, 9.32],
+      "selected": 1,
+      "match_info": ["05/10/24", "22:00"],
+      "extra_odds": {
+        "1X": 1.08,
+        "X2": 3.6,
+        "12": 1.12,
+        "Over": 1.31,
+        "Under": 3.3
+      },
+      "league": "Spain La Liga"
+    },
+    {
+      "teams": ["Inter Milan", "Draw", "Torino F.C."],
+      "odds": [1.31, 5.23, 8.63],
+      "selected": 1,
+      "match_info": ["05/10/24", "21:45"],
+      "extra_odds": {
+        "1X": 1.09,
+        "X2": 3.05,
+        "12": 1.16,
+        "Over": 1.66,
+        "Under": 2.14
+      },
+      "league": "Italy Serie A"
+    },
+    {
+      "teams": ["Akron Tolyatti", "Draw", "FC Zenit Saint Petersburg"],
+      "odds": [6.41, 4.27, 1.32],
+      "selected": -1,
+      "match_info": ["06/10/24", "19:00"],
+      "extra_odds": {
+        "1X": 1.07,
+        "X2": 2.39,
+        "12": 1.12,
+        "Over": 1.64,
+        "Under": 2.13
+      },
+      "league": "Russia Premier League"
+    },
+    {
+      "teams": ["Galatasaray S.K.", "Draw", "Alanyaspor"],
+      "odds": [1.33, 5.58, 7.97],
+      "selected": 1,
+      "match_info": ["06/10/24", "16:00"],
+      "extra_odds": {
+        "1X": 1.97,
+        "X2": 1.23,
+        "12": 1.27,
+        "Over": 1.66,
+        "Under": 2.09
+      },
+      "league": "Turkey Süper Lig"
+    },
+    {
+      "teams": ["FC Krasnodar", "Draw", "FK Khimki"],
+      "odds": [1.35, 4.62, 7.41],
+      "selected": 1,
+      "match_info": ["06/10/24", "19:00"],
+      "extra_odds": {
+        "1X": 1.35,
+        "X2": 1.43,
+        "12": 1.23,
+        "Over": 1.62,
+        "Under": 2.16
+      },
+      "league": "Russia Premier League"
+    },
+    {
+      "teams": ["Juventus F.C.", "Draw", "Cagliari Calcio"],
+      "odds": [1.37, 4.8, 8.61],
+      "selected": 1,
+      "match_info": ["06/10/24", "13:30"],
+      "extra_odds": {
+        "1X": 1.1,
+        "X2": 2.8,
+        "12": 1.19,
+        "Over": 1.89,
+        "Under": 1.85
+      },
+      "league": "Italy Serie A"
+    },
+    {
+      "teams": ["VfB Stuttgart", "Draw", "TSG 1899 Hoffenheim"],
+      "odds": [1.38, 6.65, 8.07],
+      "selected": 1,
+      "match_info": ["06/10/24", "20:30"],
+      "extra_odds": {
+        "1X": 1.1,
+        "X2": 3.25,
+        "12": 1.13,
+        "Over": 1.24,
+        "Under": 3.95
+      },
+      "league": "Germany Bundesliga"
+    },
+    {
+      "teams": ["Lokomotiv Moscow", "Draw", "Krylia Sovetov"],
+      "odds": [1.48, 4.13, 5.16],
+      "selected": 1,
+      "match_info": ["06/10/24", "14:00"],
+      "extra_odds": {
+        "1X": 1.29,
+        "X2": 1.39,
+        "12": 1.32,
+        "Over": 2.75,
+        "Under": 1.39
+      },
+      "league": "Russia Premier League"
+    }
+  ]
+}

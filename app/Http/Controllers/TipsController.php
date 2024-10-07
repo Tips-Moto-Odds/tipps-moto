@@ -12,22 +12,23 @@ use function Laravel\Prompts\select;
 class TipsController extends Controller
 {
 
-    private string $folder = 'Administration/Manage/';
+    private string $folder = 'Administration/';
 
     public function index(Request $request)
     {
         $tips = null;
         $user_data = [];
 
-        switch (Auth::user()->current_role->name) {
+        switch (Auth::user()->role->name) {
             case 'Administrator':
-            case 'Manager':
+            case 'Moderator':
                 $tips = Tips::orderBy('match_start_time', 'desc')->paginate(10);
-                return Inertia::render($this->folder . 'Tips/Index', [
+                return Inertia::render('Dashboards/Administrator/Tips/Index', [
                     'tips' => $tips,
                     'user_data' => $user_data
                 ]);
-            case 'user':
+            case 'Customer':
+            case 'Guest':
                 //find the users subscriptions
                 $user_data['subscriptions_details'] = Auth::user()->active_subscription;
 
@@ -39,8 +40,8 @@ class TipsController extends Controller
                     'tips' => $tips,
                     'user_data' => $user_data
                 ]);
-
             default:
+                return redirect()->back();
 
         }
 
