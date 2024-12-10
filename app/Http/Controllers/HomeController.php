@@ -18,6 +18,11 @@ class HomeController extends Controller
         ]);
     }
 
+    public function tips(): \Inertia\Response
+    {
+        return Inertia::render('tips');
+    }
+
     public function about(): \Inertia\Response
     {
         return Inertia::render('Home/About');

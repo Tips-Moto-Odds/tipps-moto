@@ -1,37 +1,3 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-[x-cloak] {
-    display: none;
-}
-
-body{
-    background-color: #383838;
-}
-
-
-.container{
-    max-width: 1200px !important;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-
-.right-panel{
-    width: 400px;
-    height: 100vh;
-    transition: all ease-in 250ms;
-    z-index: 0;
-    overflow: auto;
-    top: 0px;
-}
-
-
-.right-panel.closed{
-    right: -400px;
-}
-
-.right-panel.open{
-    right: 0px;
-}
