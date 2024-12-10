@@ -6,7 +6,7 @@ import Navigation from "@/AppComponents/Navigation.vue";
     <Navigation/>
     <div class="container flex justify-content-between mb-[20px] mx-auto rounded">
         <div class="bg-gray-400 h-[410px] w-[500px] rounded">
-
+<!--test-->
         </div>
         <div class="w-[calc(100%-510px)] h-[400px] ">
             <div class="h-[50%]  mb-[10px] flex gap-x-[10px]">
