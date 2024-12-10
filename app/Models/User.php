@@ -73,6 +73,11 @@ class User extends Authenticatable
         ];
     }
 
+    public function is_admin()
+    {
+        return $this->role_name == 'Administrator' || $this->role_name == 'Moderator';
+    }
+
 
 
     public function role(): \Illuminate\Database\Eloquent\Relations\BelongsTo

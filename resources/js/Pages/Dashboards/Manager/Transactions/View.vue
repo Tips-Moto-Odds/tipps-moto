@@ -1,11 +1,9 @@
 <script setup>
 import DashboardLayout from "@/Layouts/AdministrationLayout/DashboardLayout.vue";
 import {useAccountStore} from "@/Stores/AccountControl.js";
-import {useForm} from "@inertiajs/vue3";
 
 const props = defineProps(['user','can_log_in_as_user'])
 const AdminStore = useAccountStore()
-const userForm = useForm(props.user)
 
 
 function formatDate(dateTimeString) {
@@ -27,20 +25,9 @@ function formatTime(dateTimeString) {
 const updateUser = () => {
   console.log(props.user.id)
 }
-const deleteUser = () => {
-  // Prompt the user for confirmation
-  if (window.confirm("Are you sure you want to delete this user?")) {
-    userForm.delete(route('DeleteUsers',[userForm.id]), {
-      onSuccess: () => {
-        alert("User deleted successfully!");
-      },
-      onError: () => {
-        alert("There was an error deleting the user.");
-      }
-    });
-  }
-};
-
+const DeleteUsers = () => {
+  console.log(props.user.id)
+}
 
 const updateAdminMode = () => {
   AdminStore.enableAdminMode()
@@ -52,8 +39,8 @@ const updateAdminMode = () => {
 <template>
   <DashboardLayout page-heading="View User" title="View User">
     <div class="app-panel flex justify-between mx-[20px] !py-[20px]">
-      <div class="w-[150px] h-[150px] bg-gray-500 rounded flex items-center justify-center">
-        <i class="bi bi-person-fill text-white text-[100px]"></i>
+      <div class="w-[150px] h-[150px] bg-gray-500 rounded">
+
       </div>
       <div class="h-[150px] flex-grow-[1] px-[30px] flex flex-col justify-center">
         <h2 class="font-bold text-white text-[22px]">{{ user.name }}</h2>
@@ -74,6 +61,7 @@ const updateAdminMode = () => {
       </div>
       <div class="w-[200px]">
         <div class="flex flex-col gap-[10px]">
+          <Link as="button" :href="route('logInAs',[user.id])"  v-if="can_log_in_as_user" @click="updateAdminMode" class="action-button bg-black text-white text-sm">Log In as User</Link>
           <button class="action-button bg-blue-500 text-white text-sm" @click="updateUser">Update</button>
           <button class="action-button bg-red-500 text-white text-sm" @click="deleteUser">Delete</button>
         </div>

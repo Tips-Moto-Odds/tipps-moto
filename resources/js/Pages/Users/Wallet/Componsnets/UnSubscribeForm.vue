@@ -2,7 +2,7 @@
 import TextInput from "@/Components/TextInput.vue";
 import {onUpdated, ref} from "vue";
 import {useForm, usePage} from "@inertiajs/vue3";
-import {unsubscribe} from "@/Pages/Dashboards/User/Tips/Actions.js";
+import {unsubscribe} from "@/Pages/Users/Tips/Actions.js";
 
 const page = usePage()
 const form =  useForm({

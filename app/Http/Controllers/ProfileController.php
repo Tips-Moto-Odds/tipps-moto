@@ -2,27 +2,26 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Team;
 use App\Models\User;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Hash;
 use Inertia\Inertia;
-
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
 
 class ProfileController extends Controller
 {
-    private string $folder = 'Administration/Profile';
-
     public function index()
     {
-        return Inertia::render( "Dashboards/Global/Profile/Account");
+        if (Auth::user()->is_admin())
+            return Inertia::render("Dashboards/Administrator/Profile/Account");
+        else
+            return Inertia::render("Users/Profile/Account");
     }
 
     public function patch(Request $request, User $user)
     {
         $request->validate([
-            'name' => 'sometimes|string|unique:users,name,'.$user->id,
+            'name'  => 'sometimes|string|unique:users,name,' . $user->id,
             'email' => 'required|email|unique:users,email,' . $user->id,
             'phone' => 'required|unique:users,phone,' . $user->id,
         ]);
@@ -40,7 +39,7 @@ class ProfileController extends Controller
     {
         // Validate the request data
         $request->validate([
-            'password' => 'required|string|min:8|confirmed',
+            'password'         => 'required|string|min:8|confirmed',
             'current_password' => 'required|string',
         ]);
 

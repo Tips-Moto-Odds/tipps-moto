@@ -8,14 +8,14 @@ use Inertia\Inertia;
 class TransactionController extends Controller
 {
     protected bool $default_status = true;
-    private string $folder = 'Administration/Manage/';
+    private string $folder = 'Manger/Manage/';
 
 
     public function index()
     {
         $transactions = Transaction::paginate(10);
 
-        return Inertia::render($this->folder . 'Transaction/index', [
+        return Inertia::render($this->folder . 'Transactions/index', [
             'transactions' => $transactions
         ]);
     }

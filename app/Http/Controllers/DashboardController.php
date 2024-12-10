@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
+use App\Http\Middleware\UserMiddleware;
+use Illuminate\Routing\Controllers\HasMiddleware;
 
-class DashboardController extends Controller
+class DashboardController extends Controller implements HasMiddleware
 {
     public function index(Request $request)
     {
@@ -25,5 +27,12 @@ class DashboardController extends Controller
                 'increase_percentage'
             ]
         ]);
+    }
+
+    public static function middleware()
+    {
+        return [
+            UserMiddleware::class
+        ];
     }
 }

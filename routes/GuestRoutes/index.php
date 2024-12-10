@@ -9,16 +9,16 @@ use Inertia\Inertia;
 
 Route::middleware('guest')->group(function () {
 
-    Route::get('/sign-up', function () {
-        return Inertia::render('Home/SignUp');
+    Route::get('/signUp', function () {
+        return Inertia::render('Auth/SignUp');
     })->name('sign-up');
 
     Route::get('/sign-in', function () {
-        return Inertia::render('Home/SignIn');
+        return Inertia::render('Auth/SignIn');
     })->name('sign-in');
 
     Route::get('/reset-password', function () {
-        return Inertia::render('Home/ResetPassword');
+        return Inertia::render('Auth/ResetPassword');
     })->name('reset-password');
 
     Route::post('/validatePhoneNumber', function (Request $request) {

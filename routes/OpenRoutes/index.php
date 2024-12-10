@@ -1,35 +1,23 @@
 <?php
 
-use App\Http\Controllers\HomeController;
-use App\Http\Controllers\MarketingController;
-use App\Http\Controllers\PackagesController;
 use Illuminate\Support\Facades\Route;
-use Inertia\Inertia;
+use App\Http\Controllers\HomeController;
 
-Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/', [HomeController::class, 'home'])->name('home');
 
-Route::get('/about', function () {
-    return Inertia::render('Home/about');
-})->name('about');
+Route::get('/about', [HomeController::class, 'about'])->name('about');
 
-Route::get('/contact', function () {
-    return Inertia::render('Home/contactUs');
-})->name('contactUs');
+Route::get('/contact', [HomeController::class, 'contactUs'])->name('contact');
 
-Route::get('/packages', [PackagesController::class, 'index'])->name('packages');
+Route::get('/packages', [HomeController::class, 'packages'])->name('packages');
 
-Route::get('/packages/user_subscribe/{sub}', [PackagesController::class, 'subscribe_view'])->name('userSubscribe')
-    ->middleware(['auth:sanctum'])
-;
+Route::get('/packages/subscribe/{sub}', [HomeController::class, 'subscribeView'])->name('userSubscribe')->middleware(['auth:sanctum']);
 
-Route::get('/TermsOfService', function () {
-    return Inertia::render('Home/TermsOfService');
-})->name('TermsAndConditions');
-Route::get('/PrivacyPolicy', function () {
-    return Inertia::render('Home/PrivacyPolicy');
-})->name('PrivacyPolicy');
+Route::get('/termsOfService', [HomeController::class, 'termsOfService'])->name('termsAndConditions');
 
-Route::get('/marketing/{page?}', [MarketingController::class, 'index']);
+Route::get('/privacyPolicy', [HomeController::class, 'privacyPolicy'])->name('privacyPolicy');
+
+//Route::get('/marketing/{page?}', [MarketingController::class, 'index']);
 
 
 

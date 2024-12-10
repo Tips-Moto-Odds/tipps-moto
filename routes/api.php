@@ -5,7 +5,6 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\FootballApiLocal;
 
-include_once 'USSD/index.php';
 
 Route::get('/test', [FootballApiLocal::class, 'postAPI']);
 
@@ -49,7 +48,20 @@ Route::post('/postTips', function (Request $request) {
     return response()->json(['message' => 'Tips added successfully']);
 });
 
-Route::get('/user', function (Request $request) {
-    return $request->user();
+Route::get('/users', function (Request $request) {
+
 })->middleware('auth:sanctum');
+
+
+//$searchTerm = $request->input('search_term');
+//
+//$users = DB::table('users');
+//
+//if ($searchTerm) {
+//    $users->where('name', 'LIKE', '%' . $searchTerm . '%');
+//}
+//
+//$result = $users->paginate(); // Fetch the results
+//
+//return response()->json($result); // Return the results as a JSON response
 

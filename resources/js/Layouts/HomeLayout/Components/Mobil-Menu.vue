@@ -26,13 +26,10 @@ $(document).ready(function () {
         </div>
         <div class="p-[20px] hidden items-center md:flex">
             <ul class="flex gap-x-[20px] text-white mx-[30px]">
-                <Link v-for="link in links" :href="link.link" class="px-[10px] py-[3px] rounded-sm"
-                      :class="{'active': $page.url === link.link}">{{ link.title }}
-                </Link>
+                <Link v-for="link in links" :href="link.link" class="px-[10px] py-[3px] rounded-sm" :class="{'active': $page.url === link.link}">{{ link.title }}</Link>
             </ul>
             <div class="w-[80px]">
-                <Link :as="'img'" href="/sign-in" class="h-[32px] cursor-pointer"
-                      src="/storage/System/Icons/user-icon.png" alt="logo"></Link>
+                <Link :as="'img'" href="/sign-in" class="h-[32px] cursor-pointer" src="/storage/System/Icons/user-icon.png" alt="logo"></Link>
             </div>
         </div>
     </nav>

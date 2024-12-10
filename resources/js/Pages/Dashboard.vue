@@ -15,11 +15,9 @@ const page = usePage()
 
 </script>
 
-
 <template>
     <DashboardLayout :title="'Dashboard'" :page-heading="'Welcome Back'">
-        <AdminDashboard v-if="page.props.account_type === 'Administrator'"  :model="model" :users="users" :payments="payments"/>
-        <UserDashboard  v-else-if="page.props.account_type === 'user'"/>
+        <AdminDashboard :model="model" :users="users" :payments="payments"/>
     </DashboardLayout>
 </template>
 

@@ -4,7 +4,6 @@ namespace Database\Seeders\UserSeeders;
 
 use App\Models\User;
 use App\Models\Role;
-use App\Models\Roles;
 use Illuminate\Database\Seeder;
 
 class AdminUserSeeder extends Seeder

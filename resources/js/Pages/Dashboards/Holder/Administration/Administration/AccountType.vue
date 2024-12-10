@@ -1,9 +1,9 @@
 <script setup>
 import {router, useForm, usePage} from "@inertiajs/vue3";
 import {ref} from "vue";
-import ListUsers from "@/Pages/Administration/Administration/Components/ListUsers.vue";
 import DashboardLayout from "@/Layouts/AdministrationLayout/DashboardLayout.vue";
 import {openSideBar, closeSideBar} from "@/HelperFunctions/modalControl.js";
+import ListUsers from "@/Pages/Dashboards/Holder/Administration/Administration/Components/ListUsers.vue";
 
 const page = usePage()
 const props = defineProps({

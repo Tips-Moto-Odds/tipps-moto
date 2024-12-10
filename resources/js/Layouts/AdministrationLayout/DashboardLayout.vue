@@ -1,5 +1,5 @@
 <script setup>
-import {Head, router, usePage} from "@inertiajs/vue3";
+import {Head, usePage} from "@inertiajs/vue3";
 import AdminDashboardMenu from "@/Layouts/AdministrationLayout/AdminDashboard/AdminDashboardMenu.vue";
 import AppPageHeading from "@/Layouts/AdministrationLayout/DashboardHeading/AppPageHeading.vue";
 import {useAccountStore} from "@/Stores/AccountControl.js";

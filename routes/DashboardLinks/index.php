@@ -1,53 +1,54 @@
 <?php /** @noinspection PhpMultipleClassDeclarationsInspection */
 
-use App\Http\Controllers\AccountsTypeController;
-use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\FootballController;
-use App\Http\Controllers\ProfileController;
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TipsController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\FootballController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\UserAccountsController;
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AccountsTypeController;
 
 
 Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified'])->group(function () {
 
-    /**Guest Routes
-     ********************************
-     */
-    //get to dashboard
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
-    //Manage Profile
-    Route::get('/MyProfile', [ProfileController::class, 'index'])->name('ManageProfile');
-    //Profile Actions
-    include_once "UserRoutes/index.php";
+    //Manage users
+    Route::prefix('dashboard')->as('dashboard.')->group(function () {
 
+        Route::prefix('user')->as('user.')->group(function () {
+
+            Route::get('/', [UserAccountsController::class, 'index'])->name('listUsers');
+            Route::get('/{id}', [UserAccountsController::class, 'view'])->name('viewUsers');
+            Route::delete('/{user}', [UserAccountsController::class, 'delete_user'])->name('deleteUsers');
+
+        });
+
+        Route::prefix('tips')->as('tips.')->group(function () {
+
+            Route::get('/', [TipsController::class, 'index'])->name('listTips');
+            Route::put('/{tip}', [TipsController::class, 'update'])->name('update');
+            Route::delete('/{tip}', [TipsController::class, 'delete'])->name('delete');
+
+        });
+
+    });
+
+    //Manage Admin Profile
+    Route::get('/Manage/MyProfile', [ProfileController::class, 'index'])->name('ManagersProfile');
 
     //Manage Tips
-    Route::get('/ManageTips', [TipsController::class, 'index'])->name('ManageTips');
-    include_once "UserRoutes/index.php";
 
     //Manage Transactions
     Route::get('/ManageTransactions', [TransactionController::class, 'index'])->name('ManageTransactions');
 
 
-    /**Manager Routes
-     *******************************
-     */
-    //Manage users
-    Route::get('/ListAccounts', [UserAccountsController::class, "index"])->name('ManageAccounts');
-    Route::get('/ViewAccount/{id}', [UserAccountsController::class, 'view'])->name('ViewAccounts');
-    Route::get('/log-in-as/{user}', [UserAccountsController::class, 'logInAs'])->name('logInAs');
-    Route::post('/admin/return', [UserAccountsController::class, 'returnToAdmin'])->name('admin.return');
-
     //Manage Football Teams
     Route::get('/ManageFootballTeams', [FootballController::class, 'index'])->name('ManageFootballTeams');
 
-
-    /**Manager Routes
-     *******************************
-     */
-    //Manage Account Types
     Route::get('/ManageAccountTypes', [AccountsTypeController::class, 'index'])->name('ManageAccountTypes');
 });
+
+
+//dashboard.tips.

@@ -3,49 +3,55 @@
 namespace App\Http\Controllers;
 
 use App\Models\Tips;
-use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
+use App\Models\Packages;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
-    public function index()
+    public function home(): \Inertia\Response
     {
-        $tips = Tips::orderBy('match_start_time', 'desc')->limit(3)->get();
-        $latest_tip = null;
-
-        if (count($tips) > 0) {
-            $tips->map(function ($tip) {
-                $tip = $this->mapImage($tip);
-                return $tip;
-            });
-
-            $latest_tip = $tips[0];
-
-            $latest_tip = $this->mapImage($latest_tip);
-        }
-
         return Inertia::render('Welcome', [
-            'tips' => $tips,
-            'upcoming' => $latest_tip
+            'tips' => Tips::orderBy('match_start_time', 'desc')->limit(3)->get(),
+            'upcoming' => Tips::orderBy('match_start_time', 'desc')->first(),
         ]);
     }
 
-    private function mapImage(mixed $latest_tip)
+    public function about(): \Inertia\Response
     {
-
-        $hometeam_logo = DB::select('select * from clubs where name = ?', [$latest_tip->home_teams]) ??
-            DB::select('select * from clubs where name = ?', [$latest_tip->home_teams])[0]->logo;
-        $awayTeam_logo = DB::select('select * from clubs where name = ?', [$latest_tip->away_teams]) ??
-            DB::select('select * from clubs where name = ?', [$latest_tip->away_teams])[0]->logo;
-
-        if (!$hometeam_logo || !$awayTeam_logo) {
-            $hometeam_logo = 'icons8-ball-100.png';
-            $awayTeam_logo = 'icons8-ball-100.png';
-        }
-
-        $latest_tip->home_logo = $hometeam_logo;
-        $latest_tip->away_logo = $awayTeam_logo;
-
-        return $latest_tip;
+        return Inertia::render('Home/About');
     }
+
+    public function contactUs(): \Inertia\Response
+    {
+        return Inertia::render('Home/ContactUs');
+    }
+
+    public function packages(): \Inertia\Response
+    {
+        return Inertia::render('Home/Packages', [
+            'packages' => Packages::all()
+        ]);
+    }
+
+    public function subscribeView(Request $request, $sub): \Inertia\Response
+    {
+        $package = Packages::find($sub);
+
+        return Inertia::render('Home/Subscribe', [
+            'package'          => $package,
+            'is_authenticated' => Auth::check()
+        ]);
+    }
+
+    public function termsOfService(): \Inertia\Response{
+        return Inertia::render('Home/TermsOfService');
+    }
+
+    public function privacyPolicy(): \Inertia\Response
+    {
+        return Inertia::render('Home/PrivacyPolicy');
+    }
+
 }

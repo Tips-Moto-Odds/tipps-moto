@@ -5,67 +5,60 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Inertia\Inertia;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Session;
 
 
 class UserAccountsController extends Controller
 {
-    public function index(): \Inertia\Response
+    public function index(Request $request): \Inertia\Response
     {
+        $search = $request->query('search'); // Correct way to get query parameter
+        $users = DB::table('users')->whereNull('deleted_at');
+        $stats = [
+            'TotalUsers' => User::all()->count(),
+        ];
+
+        if ($search)
+            $users = $users->where('name', 'like', '%' . $search . '%');
+
+
+        // Apply pagination and append the query parameter 'search'
+        $users = $users->paginate(15)->appends(['search' => $search]);
+
+
         return Inertia::render('Dashboards/Administrator/Accounts/Index', [
-            'users' =>  User::paginate(15),
+            'users'  => $users,
+            'stats'  => $stats,
+            'search' => $search,
         ]);
     }
 
+
     public function view(Request $request, $id)
     {
-        $user =  User::find($id);
-        $can_login_as_user = $user->role_name == 'Administrator';
+        $user = User::find($id);
+        $can_login_as_user = Auth::user()->role_name == 'Administrator';
 
         return Inertia::render('Dashboards/Administrator/Accounts/View', [
-            'user' => $user,
+            'user'               => $user,
             'can_log_in_as_user' => $can_login_as_user
         ]);
     }
 
-    public function logInAs(Request $request, User $user)
-    {
-        // Ensure the current user is an admin
-        if (Auth::user()->role != 'admin') {
-            abort(403, 'Unauthorized action.');
-        }
-
-        // Store the current admin's user ID in the session
-        Session::put('admin_id', Auth::id());
-
-        // Log in as the specified user
-        Auth::login($user);
-
-        return redirect('/dashboard');
-    }
-
-    public function returnToAdmin(Request $request, User $user): \Illuminate\Foundation\Application|\Illuminate\Routing\Redirector|\Illuminate\Http\RedirectResponse
-    {
-        // Retrieve the original admin ID from the session
-        $adminId = Session::get('admin_id');
-
-        if ($adminId) {
-            // Log back in as the admin
-            $admin = User::find($adminId);
-            Auth::login($admin);
-
-            // Remove the admin_id from the session
-            Session::forget('admin_id');
-
-            return redirect('/dashboard');
-        }
-
-        return redirect('/login')->with('error', 'Unable to return to admin account.');
-    }
-
     public function delete_user(Request $request, User $user)
     {
-        dd($user);
+        // Ensure the user is an admin
+        if ($request->user()->role_name !== 'Administrator')
+            abort(403, 'Unauthorized action.');
+
+        // Prevent deletion of admin accounts
+        if ($user->role_name === 'Administrator')
+            abort(403, 'Cannot delete an admin account.');
+
+        // Proceed with deletion
+        $user->delete();
+
+        return redirect()->route('dashboard.user.listUsers');
     }
 }
