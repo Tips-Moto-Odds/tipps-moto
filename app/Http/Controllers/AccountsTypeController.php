@@ -4,20 +4,17 @@ namespace App\Http\Controllers;
 
 use App\Models\Team;
 use App\Models\User;
-use Illuminate\Http\JsonResponse;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\DB;
-use Inertia\Response;
 
 class AccountsTypeController extends Controller
 {
     private string $folder = 'Administration/Administration';
 
-    public function index(Request $request): Response
+    public function index(Request $request): \Inertia\Response
     {
         $accountTypes = Team::all();
 
@@ -31,7 +28,7 @@ class AccountsTypeController extends Controller
         ]);
     }
 
-    public function view(Request $request, $accountTypeId): Response
+    public function view(Request $request, $accountTypeId): \Inertia\Response
     {
         $accountType = Team::find($accountTypeId);
         $users = User::where('current_team_id', $accountTypeId)->get();
@@ -42,7 +39,7 @@ class AccountsTypeController extends Controller
         ]);
     }
 
-    public function patch(Request $request, $accountTypeId): JsonResponse|RedirectResponse
+    public function patch(Request $request, $accountTypeId): \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
     {
         // Find the account type by ID
         $accountType = Team::findOrFail($accountTypeId);
@@ -59,7 +56,7 @@ class AccountsTypeController extends Controller
         return redirect()->back()->with('success', 'Account Type Updated');
     }
 
-    public function post(Request $request): JsonResponse|RedirectResponse
+    public function post(Request $request): \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
     {
         // Validate the request data
         $request->validate([
@@ -82,7 +79,7 @@ class AccountsTypeController extends Controller
         return redirect()->back()->with('success', 'Account Type Updated');
     }
 
-    public function delete(Request $request,Team $team): RedirectResponse
+    public function delete(Request $request,Team $team): \Illuminate\Http\RedirectResponse
     {
         if (!Gate::allows('delete',$team)) {
             abort(403, 'Unauthorized action.');
