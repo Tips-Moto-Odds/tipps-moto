@@ -1,8 +1,6 @@
 <!--suppress JSVoidFunctionReturnValueUsed -->
 <script setup>
 import DashboardLayout from "@/Layouts/AdministrationLayout/DashboardLayout.vue";
-import ClubList from "@/Pages/Administration/Manage/Football/Components/ClubList.vue";
-import CreateClub from "@/Pages/Administration/Manage/Football/CreateClub.vue";
 import {useForm} from "@inertiajs/vue3";
 
 const props = defineProps({
@@ -37,15 +35,15 @@ async function handleSearch(value){
     }
 }
 
-async function handleSubmit(){
-    try{
-        await clubForm.post(route('upsertClub'));
-        clubForm.reset()
-        alert("Club added Successfully...")
-    }catch (error){
-        console.log(error)
-    }
-}
+// async function handleSubmit(){
+//     try{
+//         await clubForm.post(route('upsertClub'));
+//         clubForm.reset()
+//         alert("Club added Successfully...")
+//     }catch (error){
+//         console.log(error)
+//     }
+// }
 
 function selectTeam(team){
     //get the team that has the same id as team
@@ -91,7 +89,7 @@ async function deleteRecord(id){
             <div class="app-panel w-full">
                 <div class="app-panel-heading">
                     <h1>Add Team</h1>
-                    <CreateClub :clubForm="clubForm" @submitForm="handleSubmit" @deleteRecord="deleteRecord"/>
+<!--                    <CreateClub :clubForm="clubForm" @submitForm="handleSubmit" @deleteRecord="deleteRecord"/>-->
                 </div>
             </div>
         </div>

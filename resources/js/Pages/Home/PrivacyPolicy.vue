@@ -34,7 +34,7 @@ const handelClosing = () => $('#main-site-menu').css('right', '0%')
 
 
 .banner {
-  background-image: url("/System/banner.png");
+  background-image: url("/storage/System/banner.png");
   background-size: cover;
   background-position: center;
 

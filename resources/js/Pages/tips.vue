@@ -28,6 +28,3 @@ import Navigation from "@/AppComponents/Navigation.vue";
     </div>
 </template>
 
-<style lang="scss" scoped>
-
-</style>

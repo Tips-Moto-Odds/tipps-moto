@@ -7,11 +7,12 @@ use Inertia\Inertia;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Inertia\Response;
 
 
 class UserAccountsController extends Controller
 {
-    public function index(Request $request): \Inertia\Response
+    public function index(Request $request): Response
     {
         $search = $request->query('search'); // Correct way to get query parameter
         $users = DB::table('users')->whereNull('deleted_at');

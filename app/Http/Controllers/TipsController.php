@@ -3,14 +3,16 @@
 namespace App\Http\Controllers;
 
 use App\Models\Tips;
+use Illuminate\Http\RedirectResponse;
 use Inertia\Inertia;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Inertia\Response;
 
 class TipsController extends Controller
 {
-    public function index(Request $request): \Inertia\Response|\Illuminate\Http\RedirectResponse
+    public function index(Request $request): Response|RedirectResponse
     {
         $user_data = [];
         $search = $request->query('search'); // Correct way to get query parameter
@@ -59,7 +61,7 @@ class TipsController extends Controller
         }
     }
 
-    public function update(Request $request, Tips $tip): \Illuminate\Http\RedirectResponse
+    public function update(Request $request, Tips $tip): RedirectResponse
     {
         // Validate the request
         $request->validate([
@@ -87,7 +89,7 @@ class TipsController extends Controller
         return redirect()->back()->with('success', 'Tip updated successfully!');
     }
 
-    public function delete(Request $request, Tips $tip): \Illuminate\Http\RedirectResponse
+    public function delete(Request $request, Tips $tip): RedirectResponse
     {
         // Delete the tip
         $tip->delete();

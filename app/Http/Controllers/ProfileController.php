@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use Illuminate\Http\RedirectResponse;
 use Inertia\Inertia;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -35,7 +36,7 @@ class ProfileController extends Controller
         return redirect()->back()->with('success', 'User updated successfully.');
     }
 
-    public function patchPassword(Request $request, User $user): \Illuminate\Http\RedirectResponse
+    public function patchPassword(Request $request, User $user): RedirectResponse
     {
         // Validate the request data
         $request->validate([

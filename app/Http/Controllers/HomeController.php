@@ -7,10 +7,11 @@ use Inertia\Inertia;
 use App\Models\Packages;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Inertia\Response;
 
 class HomeController extends Controller
 {
-    public function home(): \Inertia\Response
+    public function home(): Response
     {
         return Inertia::render('Welcome', [
             'tips' => Tips::orderBy('match_start_time', 'desc')->limit(3)->get(),
@@ -18,24 +19,29 @@ class HomeController extends Controller
         ]);
     }
 
-    public function about(): \Inertia\Response
+    public function tips(): Response
+    {
+        return Inertia::render('tips');
+    }
+
+    public function about(): Response
     {
         return Inertia::render('Home/About');
     }
 
-    public function contactUs(): \Inertia\Response
+    public function contactUs(): Response
     {
         return Inertia::render('Home/ContactUs');
     }
 
-    public function packages(): \Inertia\Response
+    public function packages(): Response
     {
         return Inertia::render('Home/Packages', [
             'packages' => Packages::all()
         ]);
     }
 
-    public function subscribeView(Request $request, $sub): \Inertia\Response
+    public function subscribeView(Request $request, $sub): Response
     {
         $package = Packages::find($sub);
 
@@ -45,11 +51,11 @@ class HomeController extends Controller
         ]);
     }
 
-    public function termsOfService(): \Inertia\Response{
+    public function termsOfService(): Response{
         return Inertia::render('Home/TermsOfService');
     }
 
-    public function privacyPolicy(): \Inertia\Response
+    public function privacyPolicy(): Response
     {
         return Inertia::render('Home/PrivacyPolicy');
     }

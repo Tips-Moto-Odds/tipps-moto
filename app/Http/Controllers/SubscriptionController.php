@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Subscription;
 use App\Models\Transaction;
+use Exception;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
@@ -16,9 +18,9 @@ class SubscriptionController extends Controller
     ];
 
     /**
-     * @throws \Exception
+     * @throws Exception
      */
-    public function subscribe(Request $request): \Illuminate\Http\RedirectResponse
+    public function subscribe(Request $request): RedirectResponse
     {
         //TODO:validate
         $package = $request->input('package');
@@ -84,7 +86,7 @@ class SubscriptionController extends Controller
     }
 
 
-    public function unsubscribe(Request $request): \Illuminate\Http\RedirectResponse
+    public function unsubscribe(Request $request): RedirectResponse
     {
         //get password from request
         $request->validate([
@@ -115,7 +117,7 @@ class SubscriptionController extends Controller
     }
 
     /**
-     * @throws \Exception
+     * @throws Exception
      */
     private function getPackagePrice(mixed $package)
     {
@@ -125,7 +127,7 @@ class SubscriptionController extends Controller
             }
         }
 
-        throw new \Exception('Invalid package selected');
+        throw new Exception('Invalid package selected');
     }
 
     private function validateRequest($transaction): bool

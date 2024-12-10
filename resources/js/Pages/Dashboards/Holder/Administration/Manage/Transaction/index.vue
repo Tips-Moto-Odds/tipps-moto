@@ -1,11 +1,11 @@
 <script setup>
-import DangerButton from "@/Components/DangerButton.vue";
+// import DangerButton from "@/Components/DangerButton.vue";
 import Pagination from "@/AppComponents/Global/Pagination.vue";
 import {Link, usePage} from "@inertiajs/vue3"
 import {closeSideBar} from "@/HelperFunctions/modalControl.js";
 import DashboardLayout from "@/Layouts/AdministrationLayout/DashboardLayout.vue";
 import FilterSection from "@/AppComponents/Dashbboard/FilterSection.vue";
-import SubscriptionDetails from "@/Pages/Administration/Manage/Tips/SubscriptionDetails.vue";
+// import SubscriptionDetails from "@/Pages/Administration/Manage/Tips/SubscriptionDetails.vue";
 
 const props = defineProps(['transactions', 'user_data'])
 const page = usePage()

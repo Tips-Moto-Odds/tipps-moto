@@ -1,8 +1,5 @@
 <script setup>
-import MobilMenu from "@/Layouts/HomeLayout/Components/Mobil-Menu.vue";
-import MenuPanel from "@/Layouts/HomeLayout/Components/Menu-panel.vue";
 import PageHeading from "@/Pages/Home/components/PageHeading.vue";
-import AppFooter from "@/Pages/Home/components/AppFooter.vue";
 import HomeLayout from "@/Layouts/HomeLayout/HomeLayout.vue";
 import {Head} from "@inertiajs/vue3";
 
