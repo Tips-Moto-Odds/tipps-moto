@@ -16,7 +16,7 @@ Route::post('/onit/deposit/response',function () {
     \Illuminate\Support\Facades\Log::info(request()->all());
 })->name('');
 
-Route::post('/onit/deposit/withdraw',function () {
+Route::post('/onit/withdraw/response',function () {
     \Illuminate\Support\Facades\Log::info(request()->all());
 })->name('');
 
