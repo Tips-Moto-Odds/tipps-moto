@@ -12,6 +12,14 @@ Route::post('/onit/response',function () {
     \Illuminate\Support\Facades\Log::info(request()->all());
 })->name('');
 
+Route::post('/onit/deposit/response',function () {
+    \Illuminate\Support\Facades\Log::info(request()->all());
+})->name('');
+
+Route::post('/onit/deposit/withdraw',function () {
+    \Illuminate\Support\Facades\Log::info(request()->all());
+})->name('');
+
 Route::post('/postTips', function (Request $request) {
     // Get the uploaded file
     $file = $request->file('tips');
