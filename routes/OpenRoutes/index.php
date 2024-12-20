@@ -2,10 +2,15 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
+use Inertia\Inertia;
 
 Route::get('/', [HomeController::class, 'home'])->name('home');
 
 Route::get('/tips', [HomeController::class, 'tips'])->name('tips');
+
+Route::get('/free-week-tips',function(){
+    return Inertia::render('LandingPages/landing-1');
+})->name('free-week-tips');
 
 //Route::get('/about', [HomeController::class, 'about'])->name('about');
 //

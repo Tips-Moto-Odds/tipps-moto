@@ -1,10 +1,15 @@
 <script setup>
 import Navigation from "@/AppComponents/Navigation.vue";
+import AppFooterMain from "@/AppComponents/AppFooterMain.vue";
+import {applyBackGroundOrange} from "@/HelperFunctions/appFunctions.js";
+
+applyBackGroundOrange()
+
 </script>
 
 <template>
     <Navigation/>
-    <div class="container mb-[20px] mx-auto bg-gray-200 rounded">
+    <div class="container main-card-container mb-[20px] mx-auto p-[10px] bg-black rounded">
         <h1 class="text-center py-[20px]">Full-Time Scores</h1>
         <p class="px-[30px] mb-[30px] text-center">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum ut imperdiet tortor. Sed fermentum
             posuere luctus. In aliquam, purus non sollicitudin laoreet, sem nisi sagittis nisi, eu accumsan mauris eros at dui. Cras
@@ -21,7 +26,7 @@ import Navigation from "@/AppComponents/Navigation.vue";
             </div>
         </div>
     </div>
-    <div class="container mb-[20px] mx-auto bg-gray-200 rounded">
+    <div class="container main-card-container mb-[20px] mx-auto p-[10px] bg-black rounded">
         <h1 class="text-center py-[20px]">Over & Under Markets</h1>
         <p class="px-[30px] mb-[30px] text-center">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum ut imperdiet tortor. Sed fermentum
             posuere luctus. In aliquam, purus non sollicitudin laoreet, sem nisi sagittis nisi, eu accumsan mauris eros at dui. Cras
@@ -38,7 +43,7 @@ import Navigation from "@/AppComponents/Navigation.vue";
             </div>
         </div>
     </div>
-    <div class="container mb-[20px] mx-auto bg-gray-200 rounded">
+    <div class="container main-card-container mb-[20px] mx-auto p-[10px] bg-black rounded">
         <h1 class="text-center py-[20px]">Jackpot Tips</h1>
         <p class="px-[30px] mb-[30px] text-center">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum ut imperdiet tortor. Sed fermentum
             posuere luctus. In aliquam, purus non sollicitudin laoreet, sem nisi sagittis nisi, eu accumsan mauris eros at dui. Cras
@@ -76,8 +81,29 @@ import Navigation from "@/AppComponents/Navigation.vue";
             </div>
         </div>
     </div>
-    <div class="flex justify-center items-center bg-gray-300 h-[300px]">
-        <h1>Footer</h1>
-    </div>
+    <app-footer-main/>
 </template>
+
+<style scoped lang="scss">
+.main-card-container{
+    h1{
+        @apply text-orange-400;
+    }
+    p{
+        @apply text-white
+    }
+}
+
+.footer {
+    section:first-of-type {
+        div {
+            @apply p-[10px] w-[200px];
+
+            li {
+                @apply text-black;
+            }
+        }
+    }
+}
+</style>
 
