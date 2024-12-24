@@ -27,6 +27,7 @@ class CreateNewUser implements CreatesNewUsers
             'password' => $this->passwordRules(),
             'terms' => ['accepted', 'required'],
         ])->validate();
+        dd(Role::where('name','Guest')->first());
         dd(value(value(fn() => Role::where('name','SuperAdministration')->first()->id)));
 
 
