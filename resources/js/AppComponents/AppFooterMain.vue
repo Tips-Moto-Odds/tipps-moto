@@ -2,10 +2,10 @@
 import {ref} from 'vue';
 
 const icons = ref([
-    {name: 'Instagram', icon: 'bi-meta', link: 'https://www.instagram.com'},
-    {name: 'Facebook', icon: 'bi-instagram', link: 'https://www.facebook.com'},
-    {name: 'Twitter', icon: ' bi-twitter-x', link: 'https://www.twitter.com'},
-    {name: 'WhatsApp', icon: 'bi-whatsapp', link: 'https://www.whatsapp.com'}
+    {name: 'Instagram', icon: 'bi-instagram', link: 'https://www.instagram.com/tipsmoto_/#'},
+    {name: 'Facebook', icon: 'bi-meta', link: 'https://www.facebook.com/profile.php?id=61562999466337&rdid=WRmEVMgsV42bJNVk&share_url=https%3A%2F%2Fwww.facebook.com%2Fshare%2FQfMjoSwFR8CxewGT%2F#'},
+    {name: 'Twitter', icon: ' bi-twitter-x', link: 'https://x.com/TipsMoto_'},
+    {name: 'WhatsApp', icon: 'bi-whatsapp', link: 'https://www.whatsapp.com/channel/0029VagdQJFBfxo8DiYaBI06'}
 ]);
 
 function navigateTo(link) {
@@ -13,7 +13,7 @@ function navigateTo(link) {
 }
 </script>
 <template>
-    <div class="container !bg-[#D88731] text-white rounded">
+    <div class="container bg-gray-800 text-white rounded">
         <div class="flex justify-between rounded mb-[20px]  p-[20px]">
             <section class="flex gap-[20px]">
                 <div>
@@ -42,8 +42,8 @@ function navigateTo(link) {
                     <img class="w-[100px]" src="storage/System/Icons/logo-dark.png">
                 </div>
                 <ul class="flex gap-[20px]">
-                    <a as="li" :href="item.link" v-for="item in icons">
-                        <i class="bi text-[20px]" :class="[item.icon]"></i>
+                    <a target="blank" :href="item.link" v-for="item in icons">
+                        <i class="bi text-[20px] text-white" :class="[item.icon]"></i>
                     </a>
                 </ul>
             </section>

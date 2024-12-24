@@ -16,6 +16,7 @@ const props = defineProps(['tips'])
         <div class="w-[calc(100%-510px)] h-[400px] ">
             <div class="h-[50%]  mb-[10px] flex gap-x-[10px]">
                 <div class="w-[50%] h-[100%] rounded bg-gray-400">
+                    <img src="storage">
                 </div>
                 <div class="w-[50%] flex flex-column relative justify-center items-center gap-0 h-[100%] rounded ">
                     <img class="w-100 h-100 object-cover" src="/storage/System/content/banners/tips-banner.png">
