@@ -31,12 +31,12 @@ const defaultRoutes = [
                 supported: ['dashboard.tips.listTips'],
                 icon: 'https://img.icons8.com/ios/100/ffffff/tip.png'
             },
-            {
-                name: "Transactions",
-                link: route('dashboard.transactions.listTransactions'),
-                supported: ['dashboard.transactions.listTransactions'],
-                icon: 'https://img.icons8.com/windows/32/ffffff/paper-money-1.png'
-            },
+            // {
+            //     name: "Transactions",
+            //     link: route('dashboard.transactions.listTransactions'),
+            //     supported: ['dashboard.transactions.listTransactions'],
+            //     icon: 'https://img.icons8.com/windows/32/ffffff/paper-money-1.png'
+            // },
         ]
     },
     {
