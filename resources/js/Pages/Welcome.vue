@@ -2,9 +2,9 @@
 import Navigation from "@/AppComponents/Navigation.vue";
 import AppFooterMain from "@/AppComponents/AppFooterMain.vue";
 import JackpotCarousel from "@/AppComponents/JackpotCarousel.vue";
+import HomeTipsDisplay from "@/Pages/HomeTipsDisplay.vue";
 
-
-
+const props = defineProps(['tips'])
 </script>
 
 <template>
@@ -30,49 +30,13 @@ import JackpotCarousel from "@/AppComponents/JackpotCarousel.vue";
         </div>
     </div>
 
-    <div class="free-tips-section container flex flex-column items-center justify-center mb-[20px] mx-auto bg-gray-800 rounded p-[30px]">
+    <div class="content-holder container">
         <h1 class="mb-[40px] text-white">Today's Free tips</h1>
-        <ul class="mb-[20px] w-[800px]">
-            <li v-for="item in 3" class=" text-white  p-[10px] bg-gray-500  rounded mb-[10px]">
-                <section>
-                    <div>
-                        <p class="h5">League:</p>
-                    </div>
-                    <div class="flex justify-between items-center">
-                        <div class="flex-column flex justify-center items-center">
-                            <p>Team A</p>
-                            <p>Team B</p>
-                        </div>
-                        <div class=" flex-column flex items-center">
-                            <p>Mon 9 Dec</p>
-                            <p>20:30</p>
-                        </div>
-                        <div class=" flex-column flex ">
-                            <p class="px-[10px] !py-[6px]  rounded bg-black text-center text-white">Home Win</p>
-                        </div>
-                    </div>
-                </section>
-            </li>
-        </ul>
-        <button class="px-[13px] py-[4px] rounded-md bg-[#201B1B] text-orange-400">More Tips</button>
-    </div>
-    <div class="previous-tips container flex flex-column items-center justify-center mb-[20px] mx-auto bg-gray-300 rounded p-[30px]">
-        <h1 class="mb-[20px]">Previous Tips</h1>
         <ul class="mb-[20px]">
-            <li v-for="item in 6" class="min-w-[600px] mb-[15px] justify-between items-center lg:max-w-[400px] py-[10px] bg-orange-400 flex  rounded  px-[10px]">
-                <div class="w-[100px] flex-column flex justify-center items-center">
-                    <p>Team A</p>
-                    <p>Team B</p>
-                </div>
-                <div class="w-[100px] flex-column flex items-center">
-                    <p>Mon 9 Dec</p>
-                    <p>20:30</p>
-                </div>
-                <div class="w-[100px] flex-column flex ">
-                    <p class="px-[10px] !py-[6px]  rounded bg-black text-center text-white">Home Win</p>
-                </div>
-            </li>
+            <HomeTipsDisplay v-if="tips && tips.length > 0" v-for="item in tips" :tip="item" :key="item.id"/>
+            <p v-else class="text-white h2 text-center bg-gray-600 rounded py-[100px]">No Free Tips Available</p>
         </ul>
+        <button class="action-button text-white bg-gray-600 hover:bg-orange-500 rounded">More Tips</button>
     </div>
     <app-footer-main/>
 </template>
@@ -81,6 +45,17 @@ import JackpotCarousel from "@/AppComponents/JackpotCarousel.vue";
 .banner {
     h1 {
         @apply text-white
+    }
+}
+.content-holder{
+    @apply flex flex-col items-center justify-center mb-[20px] mx-auto bg-gray-800 rounded p-[30px];
+
+    h1{
+        @apply mb-[40px] text-white;
+    }
+
+    ul{
+        @apply mb-[20px] w-full
     }
 }
 </style>
