@@ -27,42 +27,31 @@ const activeLink = (link) => {
 </script>
 
 <template>
-  <section class="menu-section w-[300px] text-white h-full flex flex-col overflow-auto text-sm border-r border-r-gray-500">
+  <section class="menu-section w-[300px] text-white h-full flex flex-col overflow-auto text-sm  border-r-gray-500">
     <div class="flex justify-between h-[100px]">
       <div class="logo w-[90%] lg:w-full flex p-[10px] items-center justify-center">
         <img alt="image" class=" h-[80px]" src="/storage/System/Icons/logo-dark.png">
       </div>
-      <button class=" lg:hidden flex p-[10px] items-center justify-center h-full w-[50px] mr-[3px]" type="button"
-              @click="closeMenu">
-        <svg class="bi bi-x-lg" fill="currentColor" height="35" viewBox="0 0 16 16" width="35"
-             xmlns="http://www.w3.org/2000/svg">
-          <path
-              d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z"/>
-        </svg>
-      </button>
     </div>
 
-    <section class="h-[calc(100%_-_200px)]">
+    <section class="h-[calc(100%_-_170px)]">
       <div v-for="nav in routes" class="px-[15px] mb-[5px]">
-        <h2>{{ nav.name }}</h2>
-        <ul>
+        <p class="mb-[10px]">{{ nav.name }}</p>
+        <ul class="m-0 px-3">
           <template v-for="link in nav.links" :key="link.name">
-            <Link :class="{'active': activeLink(link)}" :href="link.link" class="menu-button">
-              <img :src="link.icon" alt="menu-icon" class="inline w-[24px] h-[24px]"/>
-              <p class="inline">{{ link.name }}</p>
+            <Link :class="{'active': activeLink(link)}" as="li" :href="link.link" class="menu-button">
+              <img :src="link.icon" alt="menu-icon" class="inline w-[18px] h-[18px] mr-[10px]"/>
+              <p class="inline p-0">{{ link.name }}</p>
             </Link>
           </template>
         </ul>
-        <hr style="border-color: #505050">
+        <hr>
       </div>
     </section>
-    <div class="px-[20px]">
-      <hr>
-      <Link :href="route('ManagersProfile')" class="flex gap-3 hover:bg-orange-400 p-[10px] cursor-pointer rounded-sm">
-        <div>
-          <i class="bi bi-person-circle text-[40px]"></i>
-        </div>
-        <div class="overflow-hidden">
+    <div class="px-[10px]">
+      <Link :href="route('dashboard.profile.ManagerProfile')" class="flex gap-3 hover:bg-gray-600 text-decoration-none bg-gray-700 p-[10px] cursor-pointer rounded-sm">
+        <div><i class="bi bi-person-circle text-white text-[40px]"></i></div>
+        <div class="overflow-hidden text-white">
           <p>{{$page.props.auth.user.name}}</p>
           <p class="text-sm text-xs">{{$page.props.auth.user.email}}</p>
         </div>
@@ -79,10 +68,10 @@ const activeLink = (link) => {
 
   .menu-button {
     transition: all ease 150ms;
-    @apply rounded py-[6px] px-[8px] text-white  flex gap-2 items-center  mb-[5px];
+    @apply p-[5px] rounded text-white flex items-center  mb-[5px] cursor-pointer;
 
     &:hover {
-      @apply bg-orange-500;
+      @apply bg-gray-700;
     }
 
   }
@@ -92,7 +81,7 @@ const activeLink = (link) => {
   }
 
   hr {
-    @apply my-[10px];
+    @apply my-[5px] border-gray-300;
   }
 }
 </style>

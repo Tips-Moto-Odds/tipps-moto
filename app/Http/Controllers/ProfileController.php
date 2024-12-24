@@ -12,10 +12,11 @@ class ProfileController extends Controller
 {
     public function index()
     {
-        if (Auth::user()->is_admin())
-            return Inertia::render("Dashboards/Administrator/Profile/Account");
-        else
-            return Inertia::render("Users/Profile/Account");
+//        if (Auth::user()->is_admin())
+//            return Inertia::render("Dashboards/Administrator/Profile/Account");
+//        else
+//            return Inertia::render("Users/Profile/Account");
+        return Inertia::render("Dashboards/Administrator/Profile/Account");
     }
 
     public function patch(Request $request, User $user)

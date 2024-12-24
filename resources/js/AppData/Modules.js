@@ -20,14 +20,21 @@ const defaultRoutes = [
                 icon: 'https://img.icons8.com/ios/50/ffffff/share_2.png'
             },
             {
-                name: "Tips",
-                link: route('dashboard.tips.listTips'),
-                supported: ['dashboard.tips.listTips','viewTip'],
+                name: "Matches",
+                link: route('dashboard.matches.listMatches'),
+                supported: ['dashboard.matches.listMatches','dashboard.matches.viewMatch','dashboard.matches.createMatch','dashboard.matches.updateMatch'],
                 icon: 'https://img.icons8.com/ios-glyphs/30/ffffff/football2--v1.png'
             },
             {
+                name: "Tips",
+                link: route('dashboard.tips.listTips'),
+                supported: ['dashboard.tips.listTips'],
+                icon: 'https://img.icons8.com/ios/100/ffffff/tip.png'
+            },
+            {
                 name: "Transactions",
-                link: route('ManageTransactions'),
+                link: route('dashboard.transactions.listTransactions'),
+                supported: ['dashboard.transactions.listTransactions'],
                 icon: 'https://img.icons8.com/windows/32/ffffff/paper-money-1.png'
             },
         ]
@@ -43,7 +50,7 @@ const defaultRoutes = [
             },
             {
                 name: "Account Types",
-                link: route('ManageAccountTypes'),
+                link: route('dashboard.AccountTypes.ListAccountTypes'),
                 icon: 'https://img.icons8.com/ios/50/ffffff/microsoft-teams-2019.png'
             }
         ]

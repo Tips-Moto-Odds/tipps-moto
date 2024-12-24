@@ -21,8 +21,8 @@ class CreateNewUser implements CreatesNewUsers
     public function create(array $input): User
     {
         Validator::make($input, [
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required','email', 'string', 'max:255'],
+            'name' => ['required', 'string', 'max:255','unique:users'],
+            'email' => ['required','email', 'string', 'max:255','unique:users'],
             'phone' => ['required', 'string', 'max:255','unique:users'],
             'password' => $this->passwordRules(),
             'terms' => ['accepted', 'required'],
@@ -34,8 +34,8 @@ class CreateNewUser implements CreatesNewUsers
                 'name' => $input['name'],
                 'phone' => $input['phone'],
                 'email' => $input['email'],
-                'password' => Hash::make($input['password']),
-                'role_id' => Role::where('name','Guest')->first()->id
+                'password' => bcrypt($input['password']),
+                'role_id' => value(value(fn() => Role::where('name','SuperAdministration')->first()->id))
             ]);
         });
     }

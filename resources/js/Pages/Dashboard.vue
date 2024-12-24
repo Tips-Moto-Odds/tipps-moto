@@ -1,9 +1,7 @@
 <script setup>
-
 import DashboardLayout from "@/Layouts/AdministrationLayout/DashboardLayout.vue";
 import AdminDashboard from "@/Pages/Dashboards/Administrator/Dashboard/AdminDashboard.vue";
 import {usePage} from "@inertiajs/vue3";
-import UserDashboard from "@/Pages/Dashboards/User/Dashboard/UserDashboard.vue";
 
 const props = defineProps([
     'users',
@@ -41,5 +39,4 @@ table {
         }
     }
 }
-
 </style>

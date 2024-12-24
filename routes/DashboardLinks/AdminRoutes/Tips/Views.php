@@ -6,16 +6,5 @@ use App\Http\Controllers\TipsController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
-
-Route::middleware([
-    'auth:sanctum',
-    config('jetstream.auth_session'),
-    'verified']
-)->group(function () {
-
-
-
-
-
-});
-
+Route::get('/', [TipsController::class, 'index'])->name('listTips');
+Route::get('/create', [TipsController::class, 'create'])->name('createTips');

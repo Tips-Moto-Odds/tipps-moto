@@ -6,12 +6,9 @@ import FilterSection from "@/AppComponents/Dashbboard/FilterSection.vue";
 import TableActionButtons from "@/AppComponents/Dashbboard/TableActionButtons.vue";
 import {onMounted, ref, watch} from "vue";
 import {debounce} from "lodash";
+import {useDateFormat} from "@vueuse/shared";
 
-const props = defineProps([
-  'users',
-  'stats',
-  'search'
-]);
+const props = defineProps(['users', 'stats', 'search']);
 const page = usePage();
 const pageController = useForm({
   search: props.search
@@ -68,50 +65,37 @@ onMounted(() => {
     <div class="flex gap-3 px-[10px]">
       <div class="app-panel w-full">
         <div class="app-panel-heading flex justify-between items-center">
-          <h1>All Accounts</h1>
-          <FilterSection v-if="accountType === 'Administrator' || accountType === 'Moderator'"/>
+          <h4>All Accounts</h4>
+          <FilterSection/>
         </div>
         <div>
           <table class="text-white w-full mb-[20px]">
             <thead class="h-[50px]">
               <tr class="text-left border-b-[2px] text-xs">
-                <th></th>
-                <th class="text-center w-[50px]">ID</th>
-                <th class="md:table-cell px-[10px]">User</th>
-                <th class="md:table-cell">Phone Number</th>
-                <th class="md:table-cell text-center">Role</th>
-                <th class="md:table-cell text-right px-3">Date Joined</th>
-                <th class="md:table-cell text-center w-[120px]">Action</th>
+                <th v-if="false"></th>
+                <th class="text-center w-[80px]">ID</th>
+                <th class="">User</th>
+                <th class="">Phone Number</th>
+                <th class="w-[100px]">Role</th>
+                <th class="">Date Joined</th>
+                <th class="w-[150px] text-center">Action</th>
               </tr>
             </thead>
             <tbody>
               <template v-for="(user, index) in usersData.data" :key="user.id">
-                <Link :href="route('dashboard.user.viewUsers', [user.id])" as="tr" class="border-b text-xs">
-                  <td class="w-[8px]" @click.stop>
-                    <input class="text-blue-600" type="checkbox"/>
+                <Link :href="route('dashboard.user.viewUsers', [user.id])" as="tr">
+                  <td v-if="false" class="w-[100px]" @click.stop>
+                    <input  class="text-blue-600" type="checkbox"/>
                   </td>
                   <td class="text-center">{{ user.id }}</td>
                   <td>
-                    <p class="mb-[5px]">{{ user.name }}</p>
-                    <p>{{ user.email }}</p>
+                    <p class="mb-[10px]">{{ user.name }}</p>
+                    <p class="mb-[10px]">{{ user.email }}</p>
                   </td>
                   <td>{{ user.phone }}</td>
-                  <td class="text-center">{{ user.role_name }}</td>
-                  <td class="text-right">
-                    {{
-                      new Date(user.created_at).toLocaleString('en-GB', {
-                        year: 'numeric',
-                        month: '2-digit',
-                        day: '2-digit',
-                        hour: '2-digit',
-                        minute: '2-digit',
-                        second: '2-digit',
-                      }).replace(',', '')
-                    }}
-                  </td>
-                  <td>
-                    <TableActionButtons :id="user.id" @deleteModel="openDeleteConfirmation"/>
-                  </td>
+                  <td>{{ user.role_name }}</td>
+                  <td>{{useDateFormat(user.created_at,'MM/DD/YYYY').value}}</td>
+                  <td><TableActionButtons :id="user.id" @deleteModel="openDeleteConfirmation"/></td>
                 </Link>
               </template>
             </tbody>
@@ -124,11 +108,11 @@ onMounted(() => {
       <div class="w-4/12">
         <div class="app-panel">
           <div class="app-panel-heading">
-            <h1>Summary</h1>
+            <h4>Summary</h4>
           </div>
-          <div class="list-display">
+          <div class="list-display text-white">
             <ul>
-              <li>
+              <li class="flex justify-between items-center">
                 <p>Total users</p>
                 <p>{{ stats.TotalUsers }}</p>
               </li>

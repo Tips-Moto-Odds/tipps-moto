@@ -9,8 +9,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap';
 import './bootstrap';
 import jQuery from 'jquery';
-import '../scss/_index.scss'
 import {createPinia} from "pinia";
+import '../scss/_index.scss'
 
 window.$ = jQuery;
 

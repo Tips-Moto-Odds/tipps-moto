@@ -1,10 +1,13 @@
 <?php
 
+use App\Http\Controllers\TestController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use Inertia\Inertia;
 
 Route::get('/', [HomeController::class, 'home'])->name('home');
+
+Route::get('/test', [TestController::class, 'index'])->name('home');
 
 Route::get('/tips', [HomeController::class, 'tips'])->name('tips');
 

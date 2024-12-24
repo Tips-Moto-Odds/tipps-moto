@@ -18,5 +18,7 @@ defineProps({
 </template>
 
 <style scoped lang="scss">
-
+a{
+    text-decoration: none;
+}
 </style>

@@ -15,14 +15,14 @@ class AdminUserSeeder extends Seeder
     {
         $user = User::where('name', 'Administrator')->first();
 
-        if ($user == null) {
+        if ($user === null) {
             User::factory()->create([
-                'name'              => 'Administrator',
-                'phone'             => '0719445697',
-                'email'             => 'administrator@tipsmoto.co.ke',
+                'name'              => 'SuperAdministration',
+                'phone'             => '0700000000',
+                'email'             => 'superadminisrtator@email.com',
                 'email_verified_at' => now(),
                 'password'          => bcrypt('password'),
-                'role_id'          => value(fn() => Role::where('name', 'Administrator')->first('id'))
+                'role_id'          => value(value(fn() => Role::where('name','Guest')->first()->id))
             ]);
         }
     }

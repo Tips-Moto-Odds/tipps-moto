@@ -57,93 +57,36 @@ function reset_password() {
 </script>
 
 <template>
-    <HomeLayout>
-        <div class="h-[140px] mb-[40px] banner">
-            <page-heading title="Confirm Code"/>
-        </div>
-        <div class="container px-[20px]">
-            <div class="content max-w-[500px] mx-auto rounded overflow-hidden shadow">
-                <div class="app-card">
-                    <form @submit.prevent.stop="verifyPhoneNumber">
-                        <p>Please enter your registered phone number and email</p>
-                        <div>
-                            <label>Email</label>
-                            <TextInput
-                                type="email"
-                                class="mt-1 block w-full"
-                                required
-                                autofocus
-                                autocompletes
-                                v-model="credentials.email"
-                            />
-                            <InputError class="mt-2" :message="form.errors.code"/>
-                        </div>
-                        <div>
-                            <label>Phone Number</label>
-                            <TextInput
-                                type="text"
-                                class="mt-1 block w-full"
-                                required
-                                autocompletes
-                                placeholder="+2547*********"
-                                v-model="credentials.phone"
-                            />
-                            <InputError class="mt-2" :message="form.errors.code"/>
-                        </div>
-                        <button class="mb-[20px]">Confirm Account Details</button>
-                    </form>
-                </div>
+    <div class=" entry-form bg-black h-[100vh] flex justify-center items-center">
+        <form @submit.prevent.stop="verifyPhoneNumber">
+            <p>Please enter your registered phone number and email</p>
+            <div>
+                <label>Email</label>
+                <TextInput
+                    type="email"
+                    class="mt-1 block w-full"
+                    required
+                    autofocus
+                    autocompletes
+                    v-model="credentials.email"
+                />
+                <InputError class="mt-2" :message="form.errors.code"/>
             </div>
-        </div>
-        <div v-show="show_code_display" class="container px-[20px]">
-            <div class="content max-w-[500px] mx-auto rounded overflow-hidden shadow">
-                <div class="app-card">
-                    <form @submit.prevent.stop="reset_password">
-                        <p>Please enter the code sent to the phone above</p>
-                        <p class="mb-[20px]">
-                            If you did not receive the code please contact us at
-                            <a class="text-orange-400 underline"
-                               href="mailto:support@example.com">support@example.com</a>.
-                        </p>
-                        <div>
-                            <label>Code</label>
-                            <TextInput
-                                v-model="form.code"
-                                type="text"
-                                class="mt-1 block w-full"
-                                required
-                                autocompletes
-                            />
-                            <InputError class="mt-2" :message="form.errors.code"/>
-                        </div>
-                        <div>
-                            <label>New Password</label>
-                            <TextInput
-                                v-model="form.password"
-                                type="password"
-                                class="mt-1 block w-full"
-                                required
-                                autocompletes
-                            />
-                            <InputError class="mt-2" :message="form.errors.password"/>
-                        </div>
-                        <div>
-                            <label>Confirm Password</label>
-                            <TextInput
-                                v-model="form.password_confirmation"
-                                type="password"
-                                class="mt-1 block w-full"
-                                required
-                                autocompletes
-                            />
-                            <InputError class="mt-2" :message="form.errors.password_confirmation"/>
-                        </div>
-                        <button class="mb-[20px]">Change Password</button>
-                    </form>
-                </div>
+            <div>
+                <label>Phone Number</label>
+                <TextInput
+                    type="text"
+                    class="mt-1 block w-full"
+                    required
+                    autocompletes
+                    placeholder="+2547*********"
+                    v-model="credentials.phone"
+                />
+                <InputError class="mt-2" :message="form.errors.code"/>
             </div>
-        </div>
-    </HomeLayout>
+            <button class="mb-[20px]">Confirm Account Details</button>
+        </form>
+    </div>
 </template>
 
 <style scoped lang="scss">

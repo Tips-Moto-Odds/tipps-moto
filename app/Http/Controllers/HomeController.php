@@ -12,9 +12,10 @@ class HomeController extends Controller
 {
     public function home(): \Inertia\Response
     {
+
+
         return Inertia::render('Welcome', [
-            'tips' => Tips::orderBy('match_start_time', 'desc')->limit(3)->get(),
-            'upcoming' => Tips::orderBy('match_start_time', 'desc')->first(),
+
         ]);
     }
 

@@ -14,16 +14,28 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
-        User::factory()->count(5)->state([
+        User::factory()->count(100)->state([
+            'role_id' => value(fn() => Role::where('name','Guest')->first('id')),
+        ])->create();
+
+        User::factory()->count(200)->state([
+            'role_id' => value(fn() => Role::where('name','User')->first('id')),
+        ])->create();
+
+        User::factory()->count(2)->state([
             'role_id' => value(fn() => Role::where('name','Moderator')->first('id')),
         ])->create();
 
-        User::factory()->count(40)->state([
-            'role_id' => value(fn() => Role::where('name','Customer')->first('id')),
+        User::factory()->count(3)->state([
+            'role_id' => value(fn() => Role::where('name','Manager')->first('id')),
         ])->create();
 
-        User::factory()->count(15)->state([
-            'role_id' => value(fn() => Role::where('name','Guest')->first('id')),
+        User::factory()->count(2)->state([
+            'role_id' => value(fn() => Role::where('name','Administration')->first('id')),
+        ])->create();
+
+        User::factory()->count(2)->state([
+            'role_id' => value(fn() => Role::where('name','SuperAdministration')->first('id')),
         ])->create();
     }
 }

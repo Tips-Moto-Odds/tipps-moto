@@ -9,95 +9,99 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Response;
+use JetBrains\PhpStorm\NoReturn;
 
 class TipsController extends Controller
 {
     public function index(Request $request): Response|RedirectResponse
     {
-        $user_data = [];
-        $search = $request->query('search'); // Correct way to get query parameter
+        $search = $request->query('search');
 
-
-        switch (Auth::user()->role->name) {
-        case 'Administrator':
-        case 'Moderator':
-            // Start building the query
-            $tipsQuery = DB::table('tips')->whereNull('deleted_at');
-
-            // Apply search filter if it exists
+        $tipsQuery = Tips::whereHas('matches', function ($query) use ($search) {
+            $query->whereNotNull('match_id')->whereNull('deleted_at');
             if ($search) {
-                $tipsQuery = $tipsQuery->where(function ($query) use ($search) {
-                    $query->where('home_teams', 'like', '%' . $search . '%')
+                $query->where(function ($query) use ($search) {
+                    $query->where('league', 'like', '%' . $search . '%')
+                        ->orWhere('home_teams', 'like', '%' . $search . '%')
                         ->orWhere('away_teams', 'like', '%' . $search . '%');
                 });
             }
+        })->with('matches')->orderBy('created_at', 'desc')
+            ->paginate(15);
 
-            // Order and paginate results
-            $tips = $tipsQuery->orderBy('match_start_time', 'desc')->paginate(15);
+        return Inertia::render('Dashboards/Administrator/Tips/Index', [
+            'tips' => $tipsQuery,
+            'search' => $search
+        ]);
+    }
 
-            return Inertia::render('Dashboards/Administrator/Tips/Index', [
-                'tips'      => $tips,
-                'user_data' => $user_data,
-                'search'    => $search
-            ]);
+    public function store(Request $request)
+    {
+        // Validate the request data
+        $validated = $request->validate([
+            'tip_type' => 'required|string|max:255',
+            'prediction' => 'required|string|max:255',
+            'risk_level' => 'required|string|max:255',
+            'winning_status' => 'required|string|max:255',
+            'mark_as_free' => 'required|boolean',
 
-        case 'Customer':
-        case 'Guest':
+        ]);
 
-            if (!empty(Auth::user()->active_subscription)) {
-                $user_data['subscriptions_details'] = Auth::user()->active_subscription;
-                $tips = Tips::orderBy('match_start_time', 'desc')->paginate(10);
+        // Save the tip to the database
+        $tip = new Tips();
 
-            }
+        $tip->match_id = $request->input('match_id');
+        $tip->generated_by = auth()->user()->id;
+        $tip->prediction_type = $validated['tip_type'];
+        $tip->predictions = $validated['prediction'];
+        $tip->status = 'pending';
+        $tip->prediction_confidence = $validated['risk_level'];
+        $tip->predictions_accuracy = $request->input('predictions_accuracy', 0);
+        $tip->winning_status = $validated['winning_status'];
+        $tip->mark_as_free = $validated['mark_as_free'];
 
-            return Inertia::render("Dashboards/User/Tips/Index", [
-                'tips'      => $tips,
-                'user_data' => $user_data,
-                'search'    => null
-            ]);
+        $tip->save();
 
-        default:
-            return redirect()->back();
-        }
+        // Return a response to Inertia
+        return redirect()->back()->with('message', 'Tip added successfully!');
     }
 
     public function update(Request $request, Tips $tip): RedirectResponse
     {
-        // Validate the request
-        $request->validate([
-            'home_teams'       => 'required|string|max:255',
-            'away_teams'       => 'required|string|max:255',
-            'home_odds'        => 'required|numeric', // Ensure odds are numeric
-            'draw_odds'        => 'required|numeric',
-            'away_odds'        => 'required|numeric',
-            'predictions'      => 'required|string|max:255', // Assuming predictions is a string
-            'match_start_time' => 'required|date',
-            'status'           => 'required|string|max:255',
-            'extra_odds'       => 'nullable|array', // Make sure to allow extra_odds as nullable
+        // Validate the request data
+        $validated = $request->validate([
+            'tip_type' => 'required|string|max:255',
+            'prediction' => 'required|string|max:255',
+            'risk_level' => 'required|string|max:255',
+            'winning_status' => 'required|string|max:255',
+            'mark_as_free' => 'required|boolean',
         ]);
 
-        // Set extra_odds if present and encode it to JSON
-        $tip->extra_odds = json_encode($request->input('extra_odds'));
-        $tip->winning_status = $request->input('winning_status');
+        // Save the tip to the database
+        $tip->match_id = $request->input('match_id');
+        $tip->prediction_type = $validated['tip_type'];
+        $tip->predictions = $validated['prediction'];
+        $tip->status = 'pending';
+        $tip->prediction_confidence = $validated['risk_level'];
+        $tip->predictions_accuracy = $request->input('predictions_accuracy', 0);
+        $tip->winning_status = $validated['winning_status'];
+        $tip->mark_as_free = $validated['mark_as_free'];
+        $tip->save();
 
-        // Remove extra_odds from the request data before updating
-        $data = $request->except('extra_odds', 'winning_status');
-
-        // Update the tip with the validated data
-        $tip->update($data);
-
-        return redirect()->back()->with('success', 'Tip updated successfully!');
+        // Return a response to Inertia
+        return redirect()->back()->with('message', 'Tip added successfully!');
     }
 
-    public function delete(Request $request, Tips $tip): RedirectResponse
+    public function delete(Request $request, Tips $tip)
     {
         // Delete the tip
-        $tip->delete();
+        $tip->forceDelete();
 
-        // Redirect to the specified route
-        return redirect()->route('dashboard.tips.listTips')->with('success', 'Tip deleted successfully!');
+        return [
+            'message' => "Tip deleted successfully!",
+            'success' => true
+        ];
     }
-
 
     public function view(Request $request, Tips $tip)
     {

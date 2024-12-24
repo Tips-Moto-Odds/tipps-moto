@@ -43,7 +43,7 @@ Route::middleware('guest')->group(function () {
         }
 
         //generate a code for password validation
-        $code = rand(100000, 999999);
+        $code = random_int(100000, 999999);
 
         $password_reset_token = DB::table('password_reset_tokens')->updateOrInsert(
             ['email' => $user->email], // Search criteria

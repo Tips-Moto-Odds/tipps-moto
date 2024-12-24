@@ -50,7 +50,7 @@ async function disableAccountType() {
     if (confirm('Are you sure you want to delete this account type?')) {
         try {
             await router.delete(route('deleteAccountType', accountTypesForm.id))
-            router.visit(route('ManageAccountTypes'))
+            router.visit(route('dashboard.AccountTypes.ListAccountTypes'))
         } catch (err) {
             console.log(err)
         }
@@ -75,7 +75,7 @@ async function addUser(user) {
         const role = props.accountType.id
         const {data} = await axios.post(route('assignRole', [role, user]))
         alert(data.message)
-        window.location.href = window.location.href
+        window.location.reload()
     } catch (e) {
         if (e.response && e.response.status === 403) {
             alert("Unauthorized Action")

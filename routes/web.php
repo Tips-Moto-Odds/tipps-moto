@@ -30,7 +30,6 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
 
     Route::group(['prefix' => 'ManageTips'], function () {
         Route::get('/Tips', function () {
-            dd("here");
         })->name('Tips');
         //view Tip
         Route::get('/tips/{tip}', [TipsController::class, 'view'])->name('viewTip');

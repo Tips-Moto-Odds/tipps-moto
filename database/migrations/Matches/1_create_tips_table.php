@@ -13,26 +13,22 @@ return new class extends Migration
     {
         Schema::create('tips', function (Blueprint $table) {
             $table->id();
-            $table->timestamp('match_start_time')->nullable();
-            $table->string('home_teams');
-            $table->string('away_teams');
-            $table->decimal('home_odds', 5, 2);
-            $table->decimal('draw_odds', 5, 2);
-            $table->decimal('away_odds', 5, 2);
+            $table->unsignedBigInteger('match_id');
+            $table->unsignedBigInteger('generated_by');
+            $table->string('prediction_type');
             $table->string('predictions');
             $table->string('status')->default('pending');
-
-            // Define enum options for match confidence and league
-            $table->enum('match_confidence', ['min', 'avg', 'max']);
-            $table->string('league');
-            $table->json('extra_odds')->nullable();
-
-            // Updated fields
+            $table->enum('prediction_confidence', ['Min', 'Average', 'Max']);
             $table->decimal('predictions_accuracy', 4, 2)->nullable();
             $table->string('winning_status')->nullable();
-
             $table->timestamps();
             $table->softDeletes();
+
+            $table->foreign('match_id')
+                ->references('id')
+                ->on('matches')
+                ->cascadeOnDelete()
+                ->cascadeOnUpdate();
         });
     }
 

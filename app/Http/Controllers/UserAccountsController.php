@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Role;
 use App\Models\User;
 use Inertia\Inertia;
 use Illuminate\Http\Request;
@@ -23,14 +24,17 @@ class UserAccountsController extends Controller
         if ($search)
             $users = $users->where('name', 'like', '%' . $search . '%');
 
-
         // Apply pagination and append the query parameter 'search'
-        $users = $users->paginate(15)->appends(['search' => $search]);
+        $users = $users->paginate(10)->appends(['search' => $search]);
 
+        $users->getCollection()->transform(function ($user) {
+            $user->role_name = Role::find($user->role_id)->name;
+            return $user;
+        });
 
         return Inertia::render('Dashboards/Administrator/Accounts/Index', [
-            'users'  => $users,
-            'stats'  => $stats,
+            'users' => $users,
+            'stats' => $stats,
             'search' => $search,
         ]);
     }
@@ -42,7 +46,7 @@ class UserAccountsController extends Controller
         $can_login_as_user = Auth::user()->role_name == 'Administrator';
 
         return Inertia::render('Dashboards/Administrator/Accounts/View', [
-            'user'               => $user,
+            'user' => $user,
             'can_log_in_as_user' => $can_login_as_user
         ]);
     }

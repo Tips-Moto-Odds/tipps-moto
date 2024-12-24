@@ -21,4 +21,9 @@ class Tips extends Model
         'match_start_time',
         'status',
     ];
+    public function matches()
+    {
+        return $this->belongsTo(Matches::class, 'match_id')->whereNull('deleted_at');
+    }
+
 }
