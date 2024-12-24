@@ -27,9 +27,6 @@ class CreateNewUser implements CreatesNewUsers
             'password' => $this->passwordRules(),
             'terms' => ['accepted', 'required'],
         ])->validate();
-        dd(Role::where('name','Guest')->first());
-        dd(value(value(fn() => Role::where('name','SuperAdministration')->first()->id)));
-
 
         return DB::transaction(function () use ($input) {
             return User::create([
@@ -37,7 +34,7 @@ class CreateNewUser implements CreatesNewUsers
                 'phone' => $input['phone'],
                 'email' => $input['email'],
                 'password' => bcrypt($input['password']),
-                'role_id' => value(value(fn() => Role::where('name','SuperAdministration')->first()->id))
+                'role_id' => value(value(fn() => Role::where('name','Guest')->first()->id))
             ]);
         });
     }
