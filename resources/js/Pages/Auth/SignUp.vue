@@ -5,6 +5,8 @@ import InputLabel from "@/Components/InputLabel.vue";
 import InputError from "@/Components/InputError.vue";
 import Checkbox from "@/Components/Checkbox.vue";
 import {Link} from "@inertiajs/vue3";
+import Navigation from "@/AppComponents/Navigation.vue";
+import AppFooterMain from "@/AppComponents/AppFooterMain.vue";
 
 const form = useForm({
     name: '',
@@ -19,7 +21,7 @@ const form = useForm({
 
 <template>
     <Navigation/>
-    <div class="entry-form container h-[100vh] flex justify-center items-center">
+    <div class="entry-form container mb-[20px] flex justify-center items-center">
         <form @submit.prevent.stop="form.post(route('register'))">
             <h1>Resister</h1>
 
