@@ -18,7 +18,8 @@ const form = useForm({
 </script>
 
 <template>
-    <div class="entry-form bg-black h-[100vh] flex justify-center items-center">
+    <Navigation/>
+    <div class="entry-form container h-[100vh] flex justify-center items-center">
         <form @submit.prevent.stop="form.post(route('register'))">
             <h1>Resister</h1>
 
@@ -100,4 +101,5 @@ const form = useForm({
             </p>
         </form>
     </div>
+    <app-footer-main/>
 </template>

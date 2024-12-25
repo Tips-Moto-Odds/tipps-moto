@@ -21,7 +21,7 @@ function dropDownMenu() {
     if ($('#home-menu').height() > 100) {
         $('#home-menu').css('height', '70px')
     } else {
-        $('#home-menu').css('height', '340px')
+        $('#home-menu').css('height', '300px')
     }
 }
 </script>
@@ -34,7 +34,7 @@ function dropDownMenu() {
             <li class="menu-button md:hidden">{{currentPage()}}</li>
             <Link class="menu-button" :class="{'active':page.url == '/'}" href="/" as="li">Home</Link>
             <Link class="menu-button" :class="{'active':page.url == '/tips'}" href="/tips" as="li">Tips</Link>
-            <Link class="menu-button" :class="{'active':page.url == '/contact'}" href="/contact" as="li">Contact</Link>
+<!--            <Link class="menu-button" :class="{'active':page.url == '/contact'}" href="/contact" as="li">Contact</Link>-->
             <Link class="menu-button" :class="{'active':page.url == '/dashboard'}" href="/dashboard" as="li">Dashboard</Link>
             <Link class=" text-black hidden md:block rounded menu-button" href="/dashboard" as="li">
                 <i class="bi bi-person-circle text-white text-[30px]"></i>
@@ -49,7 +49,8 @@ function dropDownMenu() {
 #home-menu {
     transition: all ease 0.5s;
     position: sticky !important;
-    top: 10px;
+    top: 5px;
+    z-index: 5000;
 }
 
 .menu-button {

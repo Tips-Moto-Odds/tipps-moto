@@ -14,9 +14,9 @@ function navigateTo(link) {
 </script>
 <template>
     <div class="container bg-gray-800 text-white rounded">
-        <div class="flex justify-between rounded mb-[20px]  p-[20px]">
-            <section class="flex gap-[20px]">
-                <div>
+        <div class="flex justify-between md:flex-row flex-col  rounded mb-[30px] p-[20px]">
+            <section class="flex flex-col md:flex-row gap-[20px] mb-[30px]">
+                <div class="">
                     <h5 class="h5 font-bold">Links</h5>
                     <ul>
                         <li>Tips</li>
@@ -38,7 +38,7 @@ function navigateTo(link) {
                 </div>
             </section>
             <section class="h-[100%]">
-                <div class=" flex justify-end mb-[20px] w-full">
+                <div class=" flex md:justify-end px-[30px] mb-[20px] w-full">
                     <img class="w-[100px]" src="storage/System/Icons/logo-dark.png">
                 </div>
                 <ul class="flex gap-[20px]">
@@ -49,7 +49,7 @@ function navigateTo(link) {
             </section>
         </div>
     </div>
-    <div class="container flex justify-center p-[20px]">
+    <div class="container flex text-center justify-center p-[20px]">
         <p class="text-white">Copyright © 2024-2025 Tips Moto. All rights reserved.</p>
     </div>
 </template>

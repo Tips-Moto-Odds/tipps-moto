@@ -3,6 +3,8 @@ import {useForm} from "@inertiajs/vue3";
 import TextInput from "@/Components/TextInput.vue";
 import InputError from "@/Components/InputError.vue";
 import {Link} from "@inertiajs/vue3";
+import Navigation from "@/AppComponents/Navigation.vue";
+import AppFooterMain from "@/AppComponents/AppFooterMain.vue";
 
 const form = useForm({
     email: '',
@@ -20,7 +22,8 @@ function signIn() {
 </script>
 
 <template>
-    <div class=" entry-form bg-black h-[100vh] flex justify-center items-center">
+    <Navigation/>
+    <div class="container mb-[20px] entry-form flex justify-center items-center">
         <form @submit.prevent.stop="signIn">
 
             <h1>Log In</h1>
@@ -45,4 +48,5 @@ function signIn() {
 
         </form>
     </div>
+    <app-footer-main/>
 </template>

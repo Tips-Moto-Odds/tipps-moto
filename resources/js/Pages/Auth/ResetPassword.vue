@@ -1,10 +1,10 @@
 <script setup>
-import PageHeading from "@/Pages/Home/components/PageHeading.vue";
 import {useForm} from "@inertiajs/vue3";
 import TextInput from "@/Components/TextInput.vue";
 import InputError from "@/Components/InputError.vue";
-import HomeLayout from "@/Layouts/HomeLayout/HomeLayout.vue";
 import {ref} from "vue";
+import Navigation from "@/AppComponents/Navigation.vue";
+import AppFooterMain from "@/AppComponents/AppFooterMain.vue";
 
 const form = useForm({
     code: '',
@@ -57,7 +57,8 @@ function reset_password() {
 </script>
 
 <template>
-    <div class=" entry-form bg-black h-[100vh] flex justify-center items-center">
+    <Navigation/>
+    <div class=" entry-form container mb-[20px] flex justify-center items-center">
         <form @submit.prevent.stop="verifyPhoneNumber">
             <p>Please enter your registered phone number and email</p>
             <div>
@@ -87,6 +88,7 @@ function reset_password() {
             <button class="mb-[20px]">Confirm Account Details</button>
         </form>
     </div>
+    <app-footer-main/>
 </template>
 
 <style scoped lang="scss">
