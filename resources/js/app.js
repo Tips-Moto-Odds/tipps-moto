@@ -12,10 +12,12 @@ import jQuery from 'jquery';
 import {createPinia} from "pinia";
 import '../scss/_index.scss'
 
+
 window.$ = jQuery;
 
 const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
 const pinia = createPinia()
+
 
 createInertiaApp({
     title: (title) => `${title} - ${appName}`,

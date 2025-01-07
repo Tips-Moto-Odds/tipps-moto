@@ -28,7 +28,8 @@
     "esbuild": "^0.21.0",
     "jquery": "^3.7.1",
     "lodash": "^4.17.21",
-    "pinia": "^2.2.4"
+    "pinia": "^2.2.4",
+    "vue-cookieconsent": "^0.0.11"
   },
   "name": "tips-moto",
   "description": "<p align=\"center\"><a href=\"https://laravel.com\" target=\"_blank\"><img src=\"https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg\" width=\"400\" alt=\"Laravel Logo\"></a></p>",
