@@ -26,7 +26,6 @@ onUpdated(() => {
 
 <template>
     <DashboardLayout page-heading="Profile" title="Profile">
-
         <section class="container">
             <div class="w-full p-2">
                 <div class="app-panel form-container">
@@ -37,17 +36,17 @@ onUpdated(() => {
                     <form>
                         <div class="app-form-group">
                             <label>Username</label>
-                            <input class="!w-[500px]" v-model="userForm.name">
+                            <input class="md:!w-[500px]" v-model="userForm.name">
                             <p class="error">{{ userForm.errors.name }}</p>
                         </div>
                         <div class="app-form-group">
                             <label>Phone</label>
-                            <input class="!w-[500px]" v-model="userForm.phone" >
+                            <input class="md:!w-[500px]" v-model="userForm.phone" >
                             <p class="error">{{ userForm.errors.phone }}</p>
                         </div>
                         <div class="app-form-group">
                             <label>Email</label>
-                            <input class="!w-[500px]" v-model="userForm.email">
+                            <input class="md:!w-[500px]" v-model="userForm.email">
                             <p class="error">{{ userForm.errors.email }}</p>
                         </div>
                         <button class="form-action-button" @click.prevent.stop="handleUpdateInfo">Update</button>

@@ -19,10 +19,8 @@ applyBackGroundOrange()
             dui.</p>
         <div class="mb-[20px] flex items-center justify-center gap-x-[100px] py-[20px]">
             <div class="flex justify-center items-center h-[300px] bg-gray-400 w-[300px] rounded">
-                <h3 class="text-center px-[20px]">KES 99/- per day for 15 games.</h3>
             </div>
             <div class="flex justify-center items-center h-[300px] bg-gray-400 w-[300px] rounded">
-                <h3 class="text-center px-[20px]">KES 599/- per week for 17 games daily.</h3>
             </div>
         </div>
     </div>
@@ -58,10 +56,10 @@ applyBackGroundOrange()
             <div class="w-[calc(100%-510px)] h-[400px] ">
                 <div class="h-[50%]  mb-[10px] flex gap-x-[10px]">
                     <div class="w-[50%] h-[100%] rounded bg-gray-400 grid place-items-center">
-                        <h6>Midweek: Sportpesa @ KES 49/- per jackpot.</h6>
+                        <img src="storage/System/content/Tips/Banners/mid-week_jackpot.png">
                     </div>
                     <div class="w-[50%] h-[100%] rounded bg-gray-400 grid place-items-center">
-                        <h6>Mega Jackpot: Sportpesa @ KES 49/-</h6>
+                        <img src="storage/System/content/Tips/Banners/mid-week_jackpot.png">
                     </div>
                 </div>
                 <div class="h-[50%]  mb-[10px] flex gap-x-[10px]">

@@ -11,70 +11,56 @@ applyBackGroundOrange()
     <Navigation/>
     <div class="container main-card-container mb-[20px] mx-auto p-[10px] bg-gray-600 rounded">
         <h1 class="text-center py-[20px]">Full-Time Scores</h1>
-        <p class="px-[30px] mb-[30px] text-center">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum ut imperdiet tortor. Sed fermentum
-            posuere luctus. In aliquam, purus non sollicitudin laoreet, sem nisi sagittis nisi, eu accumsan mauris eros at dui. Cras
-            ullamcorper tellus eu cursus tristique. Morbi molestie porttitor orci, sit amet congue leo porta quis. Ut pulvinar commodo
-            justo, sed consectetur risus porta sed. Mauris convallis elementum lacinia. Nam interdum ut nulla sit amet pharetra. Donec ac
-            eleifend augue. Nullam et nisl sed odio facilisis pharetra. Phasellus vitae quam urna. Suspendisse potenti. Vivamus in odio
-            dui.</p>
+        <p class="px-[30px] mb-[30px] text-center">Full-Time Scores tips involve inferring the likely outcome of a match at the end of regular playing time. Whether it's a thrilling 2-1 victory or a
+            close 0-0 draw, Tips Moto delivers meticulously analyzed forecasts . Our team of experts leverages in-depth statistics, team form, and match-day factors to offer you high-probability
+            outcomes, ensuring you bet with confidence.</p>
         <div class="mb-[20px] flex flex-col gap-10 md:flex-row items-center justify-center py-[20px]">
-            <div class="flex justify-center items-center h-[300px] bg-gray-400 w-[300px] rounded">
-                <h3 class="text-center px-[20px]">KES 99/- per day for 15 games.</h3>
+            <div class="flex justify-center items-center h-[300px] bg-gray-400 w-[300px] rounded overflow-hidden">
+                <img src="storage/System/content/Tips/Banners/mid-week_jackpot.png">
             </div>
-            <div class="flex justify-center items-center h-[300px] bg-gray-400 w-[300px] rounded">
-                <h3 class="text-center px-[20px]">KES 599/- per week for 17 games daily.</h3>
+            <div class="flex justify-center items-center h-[300px] bg-gray-400 w-[300px] rounded overflow-hidden">
+                <img src="storage/System/content/Tips/Banners/mid-week_jackpot.png">
             </div>
         </div>
     </div>
     <div class="container main-card-container mb-[20px] mx-auto p-[10px] bg-gray-600 rounded">
         <h1 class="text-center py-[20px]">Over & Under Markets</h1>
-        <p class="px-[30px] mb-[30px] text-center">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum ut imperdiet tortor. Sed fermentum
-            posuere luctus. In aliquam, purus non sollicitudin laoreet, sem nisi sagittis nisi, eu accumsan mauris eros at dui. Cras
-            ullamcorper tellus eu cursus tristique. Morbi molestie porttitor orci, sit amet congue leo porta quis. Ut pulvinar commodo
-            justo, sed consectetur risus porta sed. Mauris convallis elementum lacinia. Nam interdum ut nulla sit amet pharetra. Donec ac
-            eleifend augue. Nullam et nisl sed odio facilisis pharetra. Phasellus vitae quam urna. Suspendisse potenti. Vivamus in odio
-            dui.</p>
-        <div class="mb-[20px] flex flex-col gap-10 md:flex-row  items-center justify-center gap-x-[100px] py-[20px]">
-            <div class="flex justify-center items-center h-[300px] bg-gray-400 w-[300px] rounded">
-                <h3 class="text-center px-[20px]">KES 29/- daily for 5 games</h3>
+        <p class="px-[30px] mb-[30px] text-center">Overs and Unders
+            This parameter focuses on forecasting whether the total goals scored in a match will be above or below a specified number (e.g., Over 2.5 or Under 2.5 goals). At Tips Moto, we provide
+            data-driven insights into team scoring trends, head-to-head records, and defensive strengths, helping you make informed decisions for this highly popular betting market.</p>
+        <div class="mb-[20px] flex flex-col gap-10 md:flex-row  items-center justify-center">
+            <div class="flex justify-center items-center h-[300px] bg-gray-400 w-[300px] rounded overflow-hidden">
+                <img src="storage/System/content/Tips/Banners/mid-week_jackpot.png">
             </div>
-            <div class="flex justify-center items-center h-[300px] bg-gray-400 w-[300px] rounded">
-                <h3 class="text-center px-[20px]">KES 199/- weekly for 7 games daily</h3>
+            <div class="flex justify-center items-center h-[300px] bg-gray-400 w-[300px] rounded overflow-hidden">
+                <img src="storage/System/content/Tips/Banners/mid-week_jackpot.png">
             </div>
         </div>
     </div>
     <div class="container main-card-container mb-[20px] mx-auto p-[10px] bg-gray-600 rounded">
         <h1 class="text-center py-[20px]">Jackpot Tips</h1>
-        <p class="px-[30px] mb-[30px] text-center">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum ut imperdiet tortor. Sed fermentum
-            posuere luctus. In aliquam, purus non sollicitudin laoreet, sem nisi sagittis nisi, eu accumsan mauris eros at dui. Cras
-            ullamcorper tellus eu cursus tristique. Morbi molestie porttitor orci, sit amet congue leo porta quis. Ut pulvinar commodo
-            justo, sed consectetur risus porta sed. Mauris convallis elementum lacinia. Nam interdum ut nulla sit amet pharetra. Donec ac
-            eleifend augue. Nullam et nisl sed odio facilisis pharetra. Phasellus vitae quam urna. Suspendisse potenti. Vivamus in odio
-            dui.</p>
+        <p class="px-[30px] mb-[30px] text-center">Jackpot Tips involve inferring the outcomes of a series of matches, typically 13-20 fixtures. These are high-stakes picks that require precision and
+            comprehensive analysis. Tips Moto combines expert opinions, advanced algorithms, and statistical modeling to maximize your chances of hitting the jackpot, making even the toughest
+            predictions more approachable.</p>
         <div class="container flex flex-col md:flex-row justify-content-between gap-2 mb-[20px] mx-auto rounded">
-            <div class="bg-gray-400 w-full md:w-1/2 h-[200px] md:h-[400px] grid place-items-center rounded">
-                <h6>Daily: Mozzart @ KES 39/- per jackpot</h6>
+            <div class="bg-gray-50 w-full md:w-1/2 rounded overflow-hidden">
+                <img class="w-full h-full object-cover" src="storage/System/content/Tips/Banners/weekly_jackpot.png">
             </div>
             <div class="w-full md:w-1/2  flex flex-col rounded gap-2">
                 <div class="flex flex-col md:flex-row gap-2">
-                    <div class="rounded bg-gray-400 grid place-items-center  w-100 h-[200px] md:h-[100%]">
-                        <h6 class="text-center">Midweek: Sportpesa @ KES 49/- per jackpot.</h6>
+                    <div class="rounded bg-gray-400 w-100 overflow-hidden">
+                        <img class="w-full h-full object-cover" src="storage/System/content/Tips/Banners/mid-week_jackpot.png">
                     </div>
-                    <div class="w-100 rounded bg-gray-400 grid place-items-center w-100 h-[200px]">
-                        <h6>Mega Jackpot: Sportpesa @ KES 49/-</h6>
+                    <div class="rounded bg-gray-400 w-100 overflow-hidden">
+                        <img class="w-full h-full object-cover" src="storage/System/content/Tips/Banners/mid-week_jackpot.png">
                     </div>
                 </div>
                 <div class="flex flex-col md:flex-row h-50 gap-2">
-                    <div class="w-100 h-[200px] md:h-[100%] rounded bg-gray-400 grid place-items-center">
-                        <h6>Weekly:
-                            <ul class="list-disc py-[10px]">
-                                <li>Odibet @ KES 29/-.</li>
-                                <li>Mozzart @ KES 29/-.</li>
-                            </ul>
-                        </h6>
+                    <div class="w-100 overflow-hidden  md:h-[100%] rounded bg-gray-400 grid place-items-center">
+                        <img class="w-full h-full object-cover" src="storage/System/content/Tips/Banners/mid-week_jackpot.png">
                     </div>
-                    <div class="w-100 h-[200px] md:h-[100%] rounded bg-gray-400 grid place-items-center">
-                        <h6>Segmented Jackpots: 3 games @ KES 15/-</h6>
+                    <div class="w-100 overflow-hidden md:h-[100%] rounded bg-gray-400 grid place-items-center">
+                        <img class="w-full h-full object-cover" src="storage/System/content/Tips/Banners/mid-week_jackpot.png">
                     </div>
                 </div>
             </div>
@@ -84,11 +70,12 @@ applyBackGroundOrange()
 </template>
 
 <style scoped lang="scss">
-.main-card-container{
-    h1{
+.main-card-container {
+    h1 {
         @apply text-white;
     }
-    p{
+
+    p {
         @apply text-white
     }
 }

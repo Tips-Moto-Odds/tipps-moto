@@ -31,12 +31,6 @@ const defaultRoutes = [
                 supported: ['dashboard.tips.listTips'],
                 icon: 'https://img.icons8.com/ios/100/ffffff/tip.png'
             },
-            // {
-            //     name: "Transactions",
-            //     link: route('dashboard.transactions.listTransactions'),
-            //     supported: ['dashboard.transactions.listTransactions'],
-            //     icon: 'https://img.icons8.com/windows/32/ffffff/paper-money-1.png'
-            // },
         ]
     },
     {
@@ -58,8 +52,38 @@ const defaultRoutes = [
 ]
 
 const get_routes = (account_type = null) => {
-    return defaultRoutes;
-}
+    let routes = [...defaultRoutes];
+
+    switch (account_type) {
+        case 'Guest':
+            routes = routes.map(route => {
+                if (route.name === "Manage") {
+                    return {
+                        name: "Manage",
+                        links: route.links.filter(link => link.name === "Tips")
+                    };
+                } else if (route.name === "Dashboard" || route.name === "Administration") {
+                    return null;
+                }
+                return route;
+            }).filter(route => route !== null);
+            break;
+        case 'User':
+            break;
+        case 'Moderator':
+            break;
+        case 'Manager':
+            break;
+        case 'Administration':
+            break;
+        case 'SuperAdministration':
+            break;
+        default:
+            break;
+    }
+
+    return routes;
+};
 
 
 export {

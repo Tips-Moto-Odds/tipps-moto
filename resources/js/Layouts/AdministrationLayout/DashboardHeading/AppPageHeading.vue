@@ -24,7 +24,7 @@ function openMenu() {
                 </svg>
             </button>
             <p class="text-sm text-white">Hello, {{ $page.props.auth.user.name }}</p>
-            <ul class="flex gap-2 items-center m-0 ">
+            <ul class="flex gap-2 items-center m-0 px-[10px]">
                 <Link :as="'li'" title="Home" :href="'/'">
                     <img width="24" height="24" src="https://img.icons8.com/fluency-systems-regular/48/949494/home--v1.png" alt="home--v1"/>
                 </Link>
