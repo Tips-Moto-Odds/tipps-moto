@@ -4,24 +4,6 @@ body{
     @apply bg-gray-900
 }
 
-.cookie-consent {
-    @apply bg-gray-500;
-    color: #fff; /* Example: white text */
-    padding: 15px;
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-    z-index: 1000;
-}
-
-.cookie-consent button {
-    background-color: #fff; /* Example: white background */
-    color: #000; /* Example: black text */
-    border: none;
-    padding: 10px 15px;
-    cursor: pointer;
-}
-
 
 table{
     border-collapse: separate;

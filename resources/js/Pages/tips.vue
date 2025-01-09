@@ -1,4 +1,5 @@
 <script setup>
+import { Head } from '@inertiajs/inertia-vue3'
 import Navigation from "@/AppComponents/Navigation.vue";
 import AppFooterMain from "@/AppComponents/AppFooterMain.vue";
 import {applyBackGroundOrange} from "@/HelperFunctions/appFunctions.js";
@@ -8,6 +9,9 @@ applyBackGroundOrange()
 </script>
 
 <template>
+    <Head>
+        <title>Tips</title>
+    </Head>
     <Navigation/>
     <div class="container main-card-container mb-[20px] mx-auto p-[10px] bg-gray-600 rounded">
         <h1 class="text-center py-[20px]">Full-Time Scores</h1>
@@ -16,10 +20,10 @@ applyBackGroundOrange()
             outcomes, ensuring you bet with confidence.</p>
         <div class="mb-[20px] flex flex-col gap-10 md:flex-row items-center justify-center py-[20px]">
             <div class="flex justify-center items-center h-[300px] bg-gray-400 w-[300px] rounded overflow-hidden">
-                <img src="storage/System/content/Tips/Banners/mid-week_jackpot.png">
+                <img src="storage/System/content/Tips/Banners/daily_tips.png">
             </div>
             <div class="flex justify-center items-center h-[300px] bg-gray-400 w-[300px] rounded overflow-hidden">
-                <img src="storage/System/content/Tips/Banners/mid-week_jackpot.png">
+                <img src="storage/System/content/Tips/Banners/weekl_tips.png">
             </div>
         </div>
     </div>
@@ -30,10 +34,10 @@ applyBackGroundOrange()
             data-driven insights into team scoring trends, head-to-head records, and defensive strengths, helping you make informed decisions for this highly popular betting market.</p>
         <div class="mb-[20px] flex flex-col gap-10 md:flex-row  items-center justify-center">
             <div class="flex justify-center items-center h-[300px] bg-gray-400 w-[300px] rounded overflow-hidden">
-                <img src="storage/System/content/Tips/Banners/mid-week_jackpot.png">
+                <img src="storage/System/content/Tips/Banners/daily_over_under.png">
             </div>
             <div class="flex justify-center items-center h-[300px] bg-gray-400 w-[300px] rounded overflow-hidden">
-                <img src="storage/System/content/Tips/Banners/mid-week_jackpot.png">
+                <img src="storage/System/content/Tips/Banners/weekly_over_under.png">
             </div>
         </div>
     </div>
@@ -44,23 +48,23 @@ applyBackGroundOrange()
             predictions more approachable.</p>
         <div class="container flex flex-col md:flex-row justify-content-between gap-2 mb-[20px] mx-auto rounded">
             <div class="bg-gray-50 w-full md:w-1/2 rounded overflow-hidden">
-                <img class="w-full h-full object-cover" src="storage/System/content/Tips/Banners/weekly_jackpot.png">
+                <img class="w-full h-full object-cover" src="storage/System/content/Tips/Banners/sport_pesa_mega_jackpot.png">
             </div>
             <div class="w-full md:w-1/2  flex flex-col rounded gap-2">
                 <div class="flex flex-col md:flex-row gap-2">
                     <div class="rounded bg-gray-400 w-100 overflow-hidden">
-                        <img class="w-full h-full object-cover" src="storage/System/content/Tips/Banners/mid-week_jackpot.png">
+                        <img class="w-full h-full object-cover" src="storage/System/content/Tips/Banners/mozzart_daily_jackpot.png">
                     </div>
                     <div class="rounded bg-gray-400 w-100 overflow-hidden">
-                        <img class="w-full h-full object-cover" src="storage/System/content/Tips/Banners/mid-week_jackpot.png">
+                        <img class="w-full h-full object-cover" src="storage/System/content/Tips/Banners/mozzart_weekly_jackpot.png">
                     </div>
                 </div>
                 <div class="flex flex-col md:flex-row h-50 gap-2">
                     <div class="w-100 overflow-hidden  md:h-[100%] rounded bg-gray-400 grid place-items-center">
-                        <img class="w-full h-full object-cover" src="storage/System/content/Tips/Banners/mid-week_jackpot.png">
+                        <img class="w-full h-full object-cover" src="storage/System/content/Tips/Banners/mid_week_jackpot_prediction.png">
                     </div>
                     <div class="w-100 overflow-hidden md:h-[100%] rounded bg-gray-400 grid place-items-center">
-                        <img class="w-full h-full object-cover" src="storage/System/content/Tips/Banners/mid-week_jackpot.png">
+                        <img class="w-full h-full object-cover" src="storage/System/content/Tips/Banners/odi_weekly_jackpot.png">
                     </div>
                 </div>
             </div>

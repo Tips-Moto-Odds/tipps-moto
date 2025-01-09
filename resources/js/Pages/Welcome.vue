@@ -1,4 +1,5 @@
 <script setup>
+import { Head } from '@inertiajs/inertia-vue3'
 import Navigation from "@/AppComponents/Navigation.vue";
 import AppFooterMain from "@/AppComponents/AppFooterMain.vue";
 import JackpotCarousel from "@/AppComponents/JackpotCarousel.vue";
@@ -8,13 +9,16 @@ const props = defineProps(['tips'])
 </script>
 
 <template>
+    <Head>
+        <title>Welcome</title>
+    </Head>
     <Navigation/>
     <div class="banner container flex justify-between flex-col md:flex-row mb-[20px] gap-2 mx-auto rounded">
         <div class="grid place-items-center rounded overflow-hidden ratio-1x1 md:w-1/2">
             <img src="/storage/System/content/banners/banner1.png">
         </div>
-        <div class="w-[100%] md:w-1/2">
-            <div class="h-[50%] mb-[10px] flex gap-x-[10px]">
+        <div class="w-[100%] md:w-1/2 ">
+            <div class="h-[50%] flex mb-[10px] gap-x-[10px]">
                 <div class="w-[50%] rounded overflow-hidden">
                     <img src="/storage/System/content/banners/tips-banner.png">
                 </div>
@@ -25,7 +29,7 @@ const props = defineProps(['tips'])
                     </div>
                 </div>
             </div>
-            <div class="rounded overflow-hidden">
+            <div class="rounded overflow-hidden h-[calc(50%_-10px)] bg-[#2e3b77] pt-[10px]">
                 <JackpotCarousel/>
             </div>
         </div>
