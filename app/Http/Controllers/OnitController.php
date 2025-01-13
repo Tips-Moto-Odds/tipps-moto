@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Packages;
 use Barryvdh\Debugbar\Facades\Debugbar;
 use GuzzleHttp\Client;
 use GuzzleHttp\Psr7\Request;
@@ -61,11 +62,14 @@ class OnitController extends Controller
             throw new \RuntimeException('Payment Authorization Error');
         }
 
+        $price = Packages::where('name',$req['package'])->first();
+        $price = number_format($price->price * 1.16, 2);
+
         $body = [
             "originatorRequestId" => $req['transaction_code'],
             "destinationAccount" => "0001401000165",
             "sourceAccount" => $req['phone'],
-            "amount" => $req['package_name'],
+            "amount" => $price,
             "channel" => "MPESA",
             "product" => env("ONIT_PRODUCT_NAME"),
             "narration" => "Purchasing " . $req['package_name'] . 'Package',
