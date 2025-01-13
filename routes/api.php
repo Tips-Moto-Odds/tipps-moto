@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Transaction;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Route;
@@ -16,9 +17,19 @@ Route::post('/onit/deposit/response',function (Request $request) {
 
 //    0792420586
     if ($request->has('originatorRequestId')) {
-        Log::info('transaction completed');
+        $transaction_string = $request->input('originatorRequestId');
+        $code = explode('|', $transaction_string);
+        $code = $code[1];
+
+        $transaction = Transaction::where('transaction_reference', $code)->first();
+
+        if ($transaction) {
+            Log::info($transaction);
+        }else{
+            Log::info("Transaction not found");
+        }
     }else{
-        Log::info('transaction failed');
+        dd('Transaction failed');
     }
 
 
