@@ -1,9 +1,11 @@
 <?php
 
+use App\Mail\PasswordResetCode;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -50,15 +52,13 @@ Route::middleware('guest')->group(function () {
             ['token' => $code, 'created_at' => now()] // Data to insert or update
         );
 
-        //TODO:remove this
-        //send the code to the users phone return success
-        return [
-            'status' => true,
-            'code' => $code
-        ];
+        Mail::to($user->email)->send(new PasswordResetCode($code));
+
+        return ['status' => true, 'message' => 'Password reset code sent to your email.'];
+
     })->name('validatePhoneNumber');
 
-    Route::post("/changePassword",function (Request $request){
+    Route::post("/changePassword", function (Request $request) {
         //Remember to validate
         $code = $request->get('code');
         $email = $request->get('email');
@@ -73,7 +73,7 @@ Route::middleware('guest')->group(function () {
             ->first();
 
         //if the token is not found or is expired return error
-        if(!$password_reset_token){
+        if (!$password_reset_token) {
             return response()->json(['error' => 'Invalid code'], 400);
         }
 

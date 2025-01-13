@@ -1,60 +1,60 @@
 @import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css");
 
-body{
+body {
     @apply bg-gray-900
 }
 
-
-table{
+table {
     border-collapse: separate;
     border-spacing: 0 8px;
     @apply text-white text-sm w-full mb-[20px];
-    thead{
+    thead {
         @apply h-[40px];
-        tr{
+        tr {
             @apply bg-gray-900;
         }
     }
-    tbody{
-        tr{
+
+    tbody {
+        tr {
             @apply bg-gray-600 hover:bg-gray-600/40 cursor-pointer;
-            td{
+            td {
                 @apply align-top pt-[10px];
             }
         }
     }
 }
 
-.app-panel{
+.app-panel {
     @apply bg-gray-800 p-[10px] rounded mb-[10px];
-    .app-panel-heading{
-        h1,h2,h3,h4,h5,h6{
+    .app-panel-heading {
+        h1, h2, h3, h4, h5, h6 {
             @apply text-white;
         }
     }
 }
 
-.app-button{
+.app-button {
     @apply bg-orange-500 text-white;
 }
 
-.entry-form{
+.entry-form {
     form {
         @apply text-white p-[20px] w-[500px] bg-gray-700 rounded;
 
-        h1{
+        h1 {
             @apply mb-[20px];
         }
 
-        &>div{
+        & > div {
             @apply mb-[10px];
         }
 
-        button{
+        button {
             @apply px-[20px] mb-[10px] py-[5px] rounded bg-orange-500;
         }
 
-        a{
+        a {
             @apply text-orange-400 underline;
         }
 
@@ -64,15 +64,17 @@ table{
     }
 }
 
-.right-panel{
+.right-panel {
     right: 0;
     transition: all ease-in-out 1000ms;
     @apply w-fit bg-gray-800 rounded;
 }
+
 .action-button {
     @apply px-[10px] h-[30px] m-0 ;
 }
-p{
+
+p {
     @apply p-0 m-0;
 }
 

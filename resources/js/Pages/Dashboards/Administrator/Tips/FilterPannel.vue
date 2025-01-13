@@ -5,7 +5,7 @@ defineProps(['title'])
 
 </script>
 <template>
-    <div class="right-panel fixed closed">
+    <div class="right-panel fixed closed hidden md:block">
         <div class="w-full h-full p-[10px] bg-gray-700 shadow-xl">
             <div class="flex justify-between">
                 <h1 class="text-2xl text-white">{{ title ?? 'Heading' }}</h1>

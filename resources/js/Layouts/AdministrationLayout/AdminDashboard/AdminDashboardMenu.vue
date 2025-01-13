@@ -19,6 +19,7 @@ function closeMenu() {
 // $page.url.includes(link.active)
 
 const activeLink = (link) => {
+    console.log(link);
     if (link.supported?.length > 0) {
         return link.supported.includes(route().current())
     }
@@ -41,10 +42,10 @@ const activeLink = (link) => {
             <div v-for="nav in routes" class="px-[15px] mb-[5px]">
                 <p class="mb-[10px]">{{ nav.name }}</p>
                 <ul class="m-0 px-3">
-                    <template v-for="link in nav.links" :key="link.name">
-                        <Link :class="{'active': activeLink(link)}" as="li" :href="link.link" class="menu-button">
-                            <img :src="link.icon" alt="menu-icon" class="inline w-[18px] h-[18px] mr-[10px]"/>
-                            <p class="inline p-0">{{ link.name }}</p>
+                    <template v-for="module in nav.modules" :key="module.name">
+                        <Link :class="{'active': activeLink(module)}" as="li" :href="module.link" class="menu-button">
+                            <img :src="module.icon" alt="menu-icon" class="inline w-[18px] h-[18px] mr-[10px]"/>
+                            <p class="inline p-0">{{ module.name }}</p>
                         </Link>
                     </template>
                 </ul>

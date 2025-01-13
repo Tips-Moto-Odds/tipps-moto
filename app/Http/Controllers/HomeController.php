@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Tips;
+use Barryvdh\Debugbar\Facades\Debugbar;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
@@ -41,7 +42,10 @@ class HomeController extends Controller
 
     public function tips(): \Inertia\Response
     {
-        return Inertia::render('tips');
+        $packages = Packages::all();
+        return Inertia::render('tips',[
+            'packages' => $packages
+        ]);
     }
 
     public function about(): \Inertia\Response
@@ -49,26 +53,14 @@ class HomeController extends Controller
         return Inertia::render('Home/About');
     }
 
-    public function contactUs(): \Inertia\Response
+    public function faq(): \Inertia\Response
     {
-        return Inertia::render('Home/ContactUs');
+        return Inertia::render('Home/FrequentlyAskedQuestions');
     }
 
-    public function packages(): \Inertia\Response
+    public function privacyPolicy(): \Inertia\Response
     {
-        return Inertia::render('Home/Packages', [
-            'packages' => Packages::all()
-        ]);
-    }
-
-    public function subscribeView(Request $request, $sub): \Inertia\Response
-    {
-        $package = Packages::find($sub);
-
-        return Inertia::render('Home/Subscribe', [
-            'package' => $package,
-            'is_authenticated' => Auth::check()
-        ]);
+        return Inertia::render('Home/PrivacyPolicy');
     }
 
     public function termsOfService(): \Inertia\Response
@@ -76,9 +68,6 @@ class HomeController extends Controller
         return Inertia::render('Home/TermsOfService');
     }
 
-    public function privacyPolicy(): \Inertia\Response
-    {
-        return Inertia::render('Home/PrivacyPolicy');
-    }
+
 
 }

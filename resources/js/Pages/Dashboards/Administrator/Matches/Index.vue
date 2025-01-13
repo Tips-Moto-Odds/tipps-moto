@@ -7,6 +7,7 @@ import {watch} from "vue";
 import {debounce} from "lodash";
 import FilterPannel from "@/Pages/Dashboards/Administrator/Tips/FilterPannel.vue";
 import {useDateFormat} from "@vueuse/shared";
+import hasAccess from "@/HelperFunctions/getAccess.js";
 
 const props = defineProps(['matches', 'search'])
 const page = usePage()
@@ -34,7 +35,7 @@ watch(() => pageController.search, (newValue, oldValue) => {
 
 <template>
     <DashboardLayout page-heading="Matches" title="Matches">
-        <div class="flex gap-3 px-[10px] mb-4">
+        <div v-if="hasAccess(accountType,'Moderator')" class="flex gap-3 px-[10px] mb-4">
             <div class="app-panel flex justify-between w-full">
                 <div class="flex justify-between items-center">
                     <Link :href="route('dashboard.matches.createMatch')" as="button" class="action-button bg-gray-500 text-white">Add Match</Link>

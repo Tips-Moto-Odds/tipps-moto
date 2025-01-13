@@ -14,13 +14,19 @@ return new class extends Migration
         Schema::create('subscriptions', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
-            $table->string('plan');
+            $table->string('package_id');
             $table->date('start_date');
             $table->date('end_date');
             $table->string('status');
             $table->string('transaction_id')->nullable();
             $table->timestamps();
             $table->softDeletes();
+
+            $table->foreign('package_id')
+                ->references('id')
+                ->on('packages')
+                ->onDelete('set null')
+                ->onUpdate('cascade');
 
             $table->foreign('user_id')
                 ->references('id')

@@ -2,73 +2,67 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\SubscribeRequest;
+use App\Jobs\OnitSTKPush;
 use App\Models\Subscription;
 use App\Models\Transaction;
+use Barryvdh\Debugbar\Facades\Debugbar;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
+
 
 class SubscriptionController extends Controller
 {
-    private array $packages = [
-        array('name' => 'Daily', 'price' => 150),
-        array('name' => 'Weekly', 'price' => 700),
-        array('name' => 'Monthly', 'price' => 2500)
-    ];
-
     /**
      * @throws \Exception
      */
-    public function subscribe(Request $request): \Illuminate\Http\RedirectResponse
+    public function subscribe(SubscribeRequest $request): \Illuminate\Http\RedirectResponse
     {
-        //TODO:validate
-        $package = $request->input('package');
+        $package_id = $request->input('id');
 
-        //check if package is in the list
-        if (!in_array($package, array_column($this->packages, 'name'))) {
-            return redirect()->back()->with('error', 'Invalid package selected');
-        }
         //check if user has an active subscription
         $activeSubscription = Subscription::where('user_id', auth()->user()->id)
             ->where('status', 'active')
             ->first();
 
+        //TODO:test active subscription
         //if user has an active subscription, redirect with error
         if ($activeSubscription) {
             return redirect()->back()->with('error', 'You have an active subscription');
         }
 
+        $transaction_code = $this->generateRandomCode();
+        $request['transaction_code'] = $transaction_code;
+
         //create a new transaction
         $transaction = Transaction::create([
             'user_id' => auth()->user()->id,
             'currency' => 'KSH',
-            'amount' => $this->getPackagePrice($package),
+            'amount' => 1,
             'payment_method' => 'M-Pesa',
-            'subscription_package' => $package,
-            'transaction_reference' => "reference",
+            'package_id' => $package_id,
+            'transaction_reference' => $transaction_code,
             'transaction_type' => 'subscription',
-            'transaction_date' => now()->format('Y-m-d'),
-            'transaction_time' => now()->format('H:i:s'),
         ]);
 
+        $onitController = new OnitController();
+        $push_stk_result = $onitController->deposit($request,$transaction);
 
-        if (!$this->validateRequest($transaction)) {
-            //abort
-            session()->flash('error', 'Transaction failed');
-            return redirect()->back()->with('error', 'Transaction failed');
-        }
+        return redirect()->back()->with('success', 'Subscription request sent. Awaiting confirmation.');
+    }
 
-        //self invoking function to find the end date given the plan
-
+    public function activateSubscription(Request $request)
+    {
         $endDate = null;
+
+        $package = null;
 
         if ($package == 'Daily') {
             $endDate = now()->addDays(1);
         } elseif ($package == 'Weekly') {
             $endDate = now()->addWeeks(1);
-        } elseif ($package == 'Monthly') {
-            $endDate = now()->addMonths(1);
         }
-
 
         $subscription = new Subscription();
         $subscription->user_id = auth()->user()->id;
@@ -76,13 +70,10 @@ class SubscriptionController extends Controller
         $subscription->start_date = now()->format('Y-m-d');
         $subscription->end_date = $endDate->format('Y-m-d');
         $subscription->status = 'active';
-        $subscription->transaction_id = $transaction->id;
+//        $subscription->transaction_id = $transaction->id;
 
         $subscription->save();
-
-        return redirect()->back()->with('success', 'Subscription successful');
     }
-
 
     public function unsubscribe(Request $request): \Illuminate\Http\RedirectResponse
     {
@@ -114,24 +105,21 @@ class SubscriptionController extends Controller
         return redirect()->back()->with('success', 'Subscription cancelled successfully');
     }
 
-    /**
-     * @throws \Exception
-     */
-    private function getPackagePrice(mixed $package)
-    {
-        foreach ($this->packages as $p) {
-            if ($p['name'] == $package) {
-                return $p['price'];
-            }
-        }
-
-        throw new \Exception('Invalid package selected');
-    }
-
     private function validateRequest($transaction): bool
     {
-        //call validatePayment in Transaction controller
         $transactionController = new TransactionController();
         return $transactionController->validatePayment($transaction);
+    }
+
+
+    public function generateRandomCode($length = 10): string
+    {
+        $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $charactersLength = strlen($characters);
+        $randomString = '';
+        for ($i = 0; $i < $length; $i++) {
+            $randomString .= $characters[rand(0, $charactersLength - 1)];
+        }
+        return $randomString;
     }
 }

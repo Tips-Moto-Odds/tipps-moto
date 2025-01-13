@@ -7,7 +7,7 @@ const props = defineProps(['tip'])
 
 
 <template>
-  <li class="text-white  p-[10px] bg-gray-600 hover:bg-gray-700 cursor-pointer  rounded mb-[10px]">
+  <li class="text-white  p-[10px] bg-gray-600   rounded mb-[10px]">
     <section>
       <div class="mb-[20px]">
         <p class="h5 p-0 m-0">League: {{ tip.league }}</p>

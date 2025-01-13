@@ -7,10 +7,10 @@ import Navigation from "@/AppComponents/Navigation.vue";
 import AppFooterMain from "@/AppComponents/AppFooterMain.vue";
 
 const form = useForm({
+    email: 'kimmwaus@gmail.com',
     code: '',
-    email: '',
-    password: 'password',
-    password_confirmation: 'password'
+    password: 'password123',
+    password_confirmation: 'password123'
 });
 
 
@@ -25,16 +25,10 @@ function verifyPhoneNumber() {
     axios.post(route('validatePhoneNumber',
         credentials
     )).then((resp) => {
-        //TODO:remove this line
-        console.log(resp.data['code'])
-
         if (resp.data.status) {
-            //TODO:Activate this line
-            // alert("The reset token has been sent to our phone number")
+            alert("The reset token has been sent to our Email")
 
             show_code_display.value = true;
-            form.code = resp.data['code'].toString()
-            form.email = credentials.email
         }
 
     }).catch((error) => {
@@ -47,7 +41,6 @@ function verifyPhoneNumber() {
 function reset_password() {
     form.post(route('changePassword'), {
         onSuccess: () => {
-            //reset form
             form.reset()
             alert('Password changed successfully')
         }
@@ -58,7 +51,7 @@ function reset_password() {
 
 <template>
     <Navigation/>
-    <div class=" entry-form container mb-[20px] flex justify-center items-center">
+    <div class="gap-2 entry-form container mb-[20px] flex flex-col justify-center items-center">
         <form @submit.prevent.stop="verifyPhoneNumber">
             <p>Please enter your registered phone number and email</p>
             <div>
@@ -71,7 +64,6 @@ function reset_password() {
                     autocompletes
                     v-model="credentials.email"
                 />
-                <InputError class="mt-2" :message="form.errors.code"/>
             </div>
             <div>
                 <label>Phone Number</label>
@@ -83,9 +75,58 @@ function reset_password() {
                     placeholder="+2547*********"
                     v-model="credentials.phone"
                 />
-                <InputError class="mt-2" :message="form.errors.code"/>
             </div>
             <button class="mb-[20px]">Confirm Account Details</button>
+        </form>
+        <form v-if="show_code_display" @submit.prevent.stop="reset_password">
+            <h5>Complete Password Reset</h5>
+            <div>
+                <label>Email</label>
+                <TextInput
+                    type="text"
+                    class="mt-1 block w-full"
+                    required
+                    autofocus
+                    autocompletes
+                    v-model="form.email"
+                />
+                <InputError class="mt-2" :message="form.errors.email"/>
+            </div>
+            <div>
+                <label>Reset Token</label>
+                <TextInput
+                    type="text"
+                    class="mt-1 block w-full"
+                    required
+                    autofocus
+                    autocompletes
+                    v-model="form.code"
+                />
+                <InputError class="mt-2" :message="form.errors.code"/>
+            </div>
+            <div>
+                <label>Password</label>
+                <TextInput
+                    type="password"
+                    class="mt-1 block w-full"
+                    required
+                    autocompletes
+                    v-model="form.password"
+                />
+                <InputError class="mt-2" :message="form.errors.password"/>
+            </div>
+            <div>
+                <label>Password Confirmation</label>
+                <TextInput
+                    type="password"
+                    class="mt-1 block w-full"
+                    required
+                    autocompletes
+                    v-model="form.password_confirmation"
+                />
+                <InputError class="mt-2" :message="form.errors.password_confirmation"/>
+            </div>
+            <button class="mb-[20px]">Reset Password</button>
         </form>
     </div>
     <app-footer-main/>

@@ -18,14 +18,16 @@ return new class extends Migration {
             $table->string('currency');
             $table->decimal('amount', 10, 2)->default(0.00);
             $table->string('payment_method');
-            $table->string('subscription_package');
-            $table->string('transaction_reference');
+            $table->string('package_id');
+            $table->string('transaction_reference')->nullable();
             $table->string('transaction_type');
             $table->enum('transaction_status', ['successful', 'failed', 'pending'])->default('pending');
-            $table->date('transaction_date');
-            $table->time('transaction_time');
+            $table->date('transaction_date')->nullable();
+            $table->time('transaction_time')->nullable();
             $table->text('transaction_description')->nullable();
             $table->timestamps();
+
+            $table->foreign('package_id')->references('id')->on('packages')->onDelete('restrict')->onUpdate('cascade');
         });
     }
 

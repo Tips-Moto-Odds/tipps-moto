@@ -14,11 +14,7 @@ class Transaction extends Model
         "currency",
         "amount",
         "payment_method",
-        "subscription_package",
+        "package_id",
         "transaction_type",
-        "transaction_date",
-        "transaction_time",
-        "transaction_reference",
-        "transaction_status"
     ];
 }

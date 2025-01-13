@@ -13,27 +13,23 @@ function navigateTo(link) {
 }
 </script>
 <template>
-    <div class="container bg-gray-800 text-white rounded">
-        <div class="flex justify-between md:flex-row flex-col  rounded mb-[30px] p-[20px]">
+    <div class=" mx-[20px] bg-[#d88731] rounded-[24px]">
+        <div class="flex justify-between md:flex-row flex-col p-[30px]" >
             <section class="flex flex-col md:flex-row gap-[20px] mb-[30px]">
-                <div class="">
+                <div class=" text-black " >
                     <h5 class="h5 font-bold">Links</h5>
                     <ul>
-                        <li>Tips</li>
-                        <li>Jackpots</li>
-                        <li>Dashboard</li>
-                        <li>About Us</li>
-                        <li>Contact</li>
+                        <Link :href="'/tips'" as="li">Tips</Link>
+                        <Link :href="'/dashboard'" as="li">Dashboard</Link>
+                        <Link :href="'/about'" as="li">About Us</Link>
                     </ul>
                 </div>
-                <div>
+                <div class=" text-black ">
                     <h5 class="h5 font-bold">Resources</h5>
                     <ul>
-                        <li>Blog</li>
-                        <li>FAQs</li>
-                        <li>PrivacyPolicy</li>
-                        <li>Help Center</li>
-                        <li>Site Map</li>
+                        <Link :href="'/faq'" as="li" >FAQs</Link>
+                        <Link :href="'/privacyPolicy'" as="li" >PrivacyPolicy</Link>
+                        <Link :href="'/termsOfService'" as="li" >Terms Of Service</Link>
                     </ul>
                 </div>
             </section>
@@ -49,7 +45,7 @@ function navigateTo(link) {
             </section>
         </div>
     </div>
-    <div class="container flex text-center justify-center p-[20px]">
-        <p class="text-white">Copyright © 2024-2025 Tips Moto. All rights reserved.</p>
+    <div class="container flex text-center justify-center p-[10px]">
+        <p class="text-black">Copyright © 2024-2025 Tips Moto. All rights reserved.</p>
     </div>
 </template>

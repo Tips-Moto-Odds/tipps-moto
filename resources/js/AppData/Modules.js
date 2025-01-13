@@ -1,88 +1,84 @@
-const defaultRoutes = [
+import hasAccess from "@/HelperFunctions/getAccess.js";
+
+const defaultGrouping = [
     {
         name: "Dashboard",
-        links: [
+        modules: [
             {
                 name: "Dashboard",
                 link: route('dashboard'),
                 supported: ['dashboard'],
-                icon: "https://img.icons8.com/material-outlined/24/ffffff/dashboard-layout.png"
+                icon: "https://img.icons8.com/material-outlined/24/ffffff/dashboard-layout.png",
+                accessLevel: 'Moderator'
             }
         ]
     },
     {
         name: "Manage",
-        links: [
+        modules: [
             {
                 name: "Accounts",
                 link: route('dashboard.user.listUsers'),
-                supported: ['dashboard.user.listUsers','dashboard.user.viewUsers'],
-                icon: 'https://img.icons8.com/ios/50/ffffff/share_2.png'
+                supported: ['dashboard.user.listUsers', 'dashboard.user.viewUsers'],
+                icon: 'https://img.icons8.com/ios/50/ffffff/share_2.png',
+                accessLevel: 'Moderator'
             },
             {
                 name: "Matches",
                 link: route('dashboard.matches.listMatches'),
-                supported: ['dashboard.matches.listMatches','dashboard.matches.viewMatch','dashboard.matches.createMatch','dashboard.matches.updateMatch'],
-                icon: 'https://img.icons8.com/ios-glyphs/30/ffffff/football2--v1.png'
+                supported: ['dashboard.matches.listMatches', 'dashboard.matches.viewMatch', 'dashboard.matches.createMatch', 'dashboard.matches.updateMatch'],
+                icon: 'https://img.icons8.com/ios-glyphs/30/ffffff/football2--v1.png',
+                accessLevel: 'Guest'
             },
             {
                 name: "Tips",
                 link: route('dashboard.tips.listTips'),
                 supported: ['dashboard.tips.listTips'],
-                icon: 'https://img.icons8.com/ios/100/ffffff/tip.png'
+                icon: 'https://img.icons8.com/ios/100/ffffff/tip.png',
+                accessLevel: 'Guest'
             },
         ]
     },
     {
         name: "Administration",
-        links: [
+        modules: [
             {
                 name: "Model",
                 link: route('dashboard'),
                 active: 'model',
-                icon: 'https://img.icons8.com/ios/50/ffffff/artificial-intelligence.png'
+                icon: 'https://img.icons8.com/ios/50/ffffff/artificial-intelligence.png',
+                accessLevel: 'Administration'
             },
             {
                 name: "Account Types",
                 link: route('dashboard.AccountTypes.ListAccountTypes'),
-                icon: 'https://img.icons8.com/ios/50/ffffff/microsoft-teams-2019.png'
+                icon: 'https://img.icons8.com/ios/50/ffffff/microsoft-teams-2019.png',
+                accessLevel: 'Administration'
             }
         ]
     }
 ]
 
 const get_routes = (account_type = null) => {
-    let routes = [...defaultRoutes];
+    let active_routes = []
 
-    switch (account_type) {
-        case 'Guest':
-            routes = routes.map(route => {
-                if (route.name === "Manage") {
-                    return {
-                        name: "Manage",
-                        links: route.links.filter(link => link.name === "Tips")
-                    };
-                } else if (route.name === "Dashboard" || route.name === "Administration") {
-                    return null;
-                }
-                return route;
-            }).filter(route => route !== null);
-            break;
-        case 'User':
-            break;
-        case 'Moderator':
-            break;
-        case 'Manager':
-            break;
-        case 'Administration':
-            break;
-        case 'SuperAdministration':
-            break;
-        default:
-            break;
-    }
+    defaultGrouping.forEach(group => {
+        let includedGroup = []
 
-    return routes;
+        group.modules.forEach(module => {
+            if (hasAccess(account_type, module.accessLevel)) {
+                includedGroup.push(module)
+            }
+        })
+
+        if (includedGroup.length > 0) {
+            active_routes.push({
+                name: group.name,
+                modules: includedGroup,
+            })
+        }
+    })
+    return active_routes
 };
 
 

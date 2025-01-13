@@ -51,10 +51,6 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
             'user_data' => $user_data
         ]);
     })->name('Tips');
-    //subscribe to Packages
-    Route::post('/app/subscribe', [SubscriptionController::class, 'subscribe'])->name('subscribe');
-    //unsubscribe from Packages  (Auth required)
-    Route::post('/app/unsubscribe', [SubscriptionController::class, 'unsubscribe'])->name('unsubscribe');
 
     //wallet
     Route::get('/Wallet', function () {

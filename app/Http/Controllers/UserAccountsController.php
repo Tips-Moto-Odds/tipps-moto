@@ -15,7 +15,7 @@ class UserAccountsController extends Controller
 {
     public function index(Request $request): Response
     {
-        $search = $request->query('search'); // Correct way to get query parameter
+        $search = $request->query('search');
         $users = DB::table('users')->whereNull('deleted_at');
         $stats = [
             'TotalUsers' => User::all()->count(),

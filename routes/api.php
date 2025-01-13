@@ -1,27 +1,27 @@
 <?php
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\FootballApiLocal;
 
 
-Route::get('/test', [FootballApiLocal::class, 'postAPI']);
 
 Route::post('/onit/response',function () {
-    \Illuminate\Support\Facades\Log::info(request()->all());
+    Log::info(request()->all());
 })->name('');
 
 Route::post('/onit/deposit/response',function () {
-    \Illuminate\Support\Facades\Log::info(request()->all());
+    Log::info(request()->all());
 })->name('');
 
 Route::post('/onit/withdraw/response',function () {
-    \Illuminate\Support\Facades\Log::info(request()->all());
+    Log::info(request()->all());
 })->name('');
 
 Route::post('/postTips', function (Request $request) {
-    \Illuminate\Support\Facades\Log::info(request()->all());
+    Log::info(request()->all());
 //    // Get the uploaded file
 //    $file = $request->file('tips');
 //
@@ -65,6 +65,7 @@ Route::get('/users', function (Request $request) {
 
 })->middleware('auth:sanctum');
 
+//Route::get('/test', [FootballApiLocal::class, 'postAPI']);
 
 //$searchTerm = $request->input('search_term');
 //
