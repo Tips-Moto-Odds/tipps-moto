@@ -12,8 +12,16 @@ Route::post('/onit/response',function () {
     Log::info(request()->all());
 })->name('');
 
-Route::post('/onit/deposit/response',function () {
-    Log::info(request()->all());
+Route::post('/onit/deposit/response',function (Request $request) {
+
+    if ($request->has('param_name')) {
+        Log::info('transaction completed');
+    }else{
+        Log::info('transaction failed');
+    }
+
+
+
 })->name('');
 
 Route::post('/onit/withdraw/response',function () {
