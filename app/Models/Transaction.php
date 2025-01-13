@@ -16,5 +16,6 @@ class Transaction extends Model
         "payment_method",
         "package_id",
         "transaction_type",
+        "transaction_reference"
     ];
 }

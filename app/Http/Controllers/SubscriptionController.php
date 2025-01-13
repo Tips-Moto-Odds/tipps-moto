@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\SubscribeRequest;
 use App\Jobs\OnitSTKPush;
+use App\Models\Packages;
 use App\Models\Subscription;
 use App\Models\Transaction;
 use Barryvdh\Debugbar\Facades\Debugbar;
@@ -34,12 +35,13 @@ class SubscriptionController extends Controller
 
         $transaction_code = $this->generateRandomCode();
         $request['transaction_code'] = $transaction_code;
+        $price = Packages::where('name',$request->input('package'))->first();
 
         //create a new transaction
         $transaction = Transaction::create([
             'user_id' => auth()->user()->id,
             'currency' => 'KSH',
-            'amount' => 1,
+            'amount' => number_format($price->price * 1.16, 2),
             'payment_method' => 'M-Pesa',
             'package_id' => $package_id,
             'transaction_reference' => $transaction_code,
