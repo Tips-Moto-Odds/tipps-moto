@@ -14,7 +14,8 @@ Route::post('/onit/response',function () {
 
 Route::post('/onit/deposit/response',function (Request $request) {
 
-    if ($request->has('param_name')) {
+//    0792420586
+    if ($request->has('originatorRequestId')) {
         Log::info('transaction completed');
     }else{
         Log::info('transaction failed');
