@@ -10,9 +10,14 @@ import {onMounted, reactive, ref, useAttrs} from "vue";
 const props = defineProps(['packages'])
 const attr = useAttrs()
 
-if (attr.flash.success){
-    alert(attr.flash.success)
+if (attr.flash.success || attr.flash.error) {
+    if (attr.flash.success){
+        alert(attr.flash.success)
+    }else {
+        alert(attr.flash.error)
+    }
 }
+
 
 const form = useForm({
     id:null,
@@ -23,11 +28,12 @@ const showPaymentValue = ref(false)
 const flashMessage = ref('')
 
 const showDisplay = reactive({
-    price:0
+    price:0,
+    tax:0
 })
 
 function handleSubscriptionResponse(){
-    console.log("hi")
+
 }
 
 function confirmPayment() {
@@ -35,8 +41,8 @@ function confirmPayment() {
         onSuccess: (data) => {
             if (data?.props?.flash?.success) {
                 alert(data?.props?.flash?.success);
-            }else {
-                alert('Error processing payments. Try again later...');
+            }else if (data?.props?.flash?.error) {
+                alert(data?.props?.flash?.error);
             }
 
             const pollingInterval = 5000; // Adjust as needed (milliseconds)
@@ -93,6 +99,7 @@ function popUpPackageSelection(selection) {
     form.id = selection.id;
     form.package = selection.name
     showDisplay.price = parseFloat(selection.price)
+    showDisplay.tax = parseFloat(selection.tax)
     togglePaymentShow()
 }
 
@@ -120,14 +127,14 @@ function togglePaymentShow() {
                             <p class=" p-0 m-0">Ksh {{showDisplay.price}}</p>
                         </li>
                         <li class="flex items-center justify-between">
-                            <label>V.A.T (16%)</label>
-                            <p class=" p-0 m-0">Ksh {{ (showDisplay.price * 0.16).toFixed(2) }}</p>
+                            <label>D.S.T (TAX)</label>
+                            <p class=" p-0 m-0">Ksh {{ showDisplay.tax }}</p>
                         </li>
                     </ul>
                     <hr class=" p-0 mb-[10px] my-0">
                     <div class="mb-[20px] py-[10px] flex justify-between">
                         <p class="font-bold">Total</p>
-                        <p class="font-bold">Ksh {{ parseFloat((showDisplay.price * 0.16).toFixed(2)) + showDisplay.price }}</p>
+                        <p class="font-bold">Ksh {{ showDisplay.tax + showDisplay.price }}</p>
                     </div>
                 </div>
                 <div class="mb-[20px]">

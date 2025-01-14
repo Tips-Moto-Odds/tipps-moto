@@ -30,7 +30,7 @@ class SubscriptionController extends Controller
         //TODO:test active subscription
         //if user has an active subscription, redirect with error
         if ($activeSubscription) {
-            return redirect()->back()->with('error', 'You have an active subscription');
+            return redirect()->back()->with('error', 'You already have an active subscription');
         }
 
         $transaction_code = $this->generateRandomCode();

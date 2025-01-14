@@ -18,6 +18,7 @@ return new class extends Migration
             $table->integer('tips');
             $table->integer('period');
             $table->decimal('price', 15, 2);
+            $table->decimal('tax', 15, 2);
             $table->text('description');
             $table->timestamps();
         });

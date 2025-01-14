@@ -15,9 +15,9 @@ function navigateTo(link) {
 <template>
     <div class=" mx-[20px] bg-[#d88731] rounded-[24px]">
         <div class="flex justify-between md:flex-row flex-col p-[30px]" >
-            <section class="flex flex-col md:flex-row gap-[20px] mb-[30px]">
-                <div class=" text-black " >
-                    <h5 class="h5 font-bold">Links</h5>
+            <section class="flex gap-[20px] mb-[30px]">
+                <div class=" text-black" >
+<!--                    <h5 class="h5 font-bold">Links</h5>-->
                     <ul>
                         <Link :href="'/tips'" as="li">Tips</Link>
                         <Link :href="'/dashboard'" as="li">Dashboard</Link>
@@ -25,10 +25,10 @@ function navigateTo(link) {
                     </ul>
                 </div>
                 <div class=" text-black ">
-                    <h5 class="h5 font-bold">Resources</h5>
+<!--                    <h5 class="h5 font-bold">Resources</h5>-->
                     <ul>
                         <Link :href="'/faq'" as="li" >FAQs</Link>
-                        <Link :href="'/privacyPolicy'" as="li" >PrivacyPolicy</Link>
+                        <Link :href="'/privacyPolicy'" as="li" >Privacy ssPolicy</Link>
                         <Link :href="'/termsOfService'" as="li" >Terms Of Service</Link>
                     </ul>
                 </div>
@@ -49,3 +49,8 @@ function navigateTo(link) {
         <p class="text-black">Copyright © 2024-2025 Tips Moto. All rights reserved.</p>
     </div>
 </template>
+<style scoped lang="scss">
+ul{
+    @apply m-0 p-0;
+}
+</style>
