@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('prediction_type');
             $table->string('predictions');
             $table->string('status')->default('pending');
-            $table->enum('prediction_confidence', ['Min', 'Average', 'Max']);
+            $table->enum('prediction_confidence', ['min', 'avg', 'max']);
             $table->decimal('predictions_accuracy', 4, 2)->nullable();
             $table->string('winning_status')->nullable();
             $table->timestamps();
