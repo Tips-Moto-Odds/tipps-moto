@@ -14,6 +14,9 @@ const page = usePage()
 </script>
 
 <template>
+    <DashboardLayout :title="'Dashboard'" :page-heading="'Welcome Back'">
+        <AdminDashboard :model="model" :users="users" :payments="payments"/>
+    </DashboardLayout>
 </template>
 
 

@@ -20,8 +20,12 @@ export default {
             colors: {
                 'custom-orange': '#F4660D'
             },
+            borderRadius: {
+                DEFAULT: '8px',
+            },
         },
     },
 
     plugins: [forms, typography],
 };
+

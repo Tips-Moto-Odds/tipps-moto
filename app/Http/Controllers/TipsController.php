@@ -13,6 +13,26 @@ use JetBrains\PhpStorm\NoReturn;
 
 class TipsController extends Controller
 {
+
+    protected $tips = [
+        [
+            'id' => null,
+            'home_team' => 'Chealse',
+            'away_team' => 'Man-u',
+            'date' => '00/00/0000',
+            'time' => '00:00',
+            'prediction' => 'Home Win',
+            'prediction_confidence' => 'Max',
+        ],
+    ];
+
+    public function subscriptions_tip()
+    {
+        $tips = $this->tips;
+
+        return Inertia::render('UserPanel/PackageTips');
+    }
+
     public function index(Request $request): Response|RedirectResponse
     {
         $search = $request->query('search');

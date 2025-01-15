@@ -5,9 +5,11 @@ import 'bootstrap/dist/js/bootstrap.bundle.min';
 
 // Dynamic array of carousel items
 const carouselItems = ref([
-    {title: 'Sport Pesa Mega Jackpot', amount: 'Ksh 100,000,000',img:'/storage/System/content/logos/sportpesa.webp'},
-    {title: 'Mozzat Daily Jackpot', amount: 'Ksh 20,000,000',img:'/storage/System/content/logos/mozzart.jpg'},
-    {title: 'Odi bet Jackpot', amount: 'Ksh 15,000,000',img:'/storage/System/content/logos/odi.avif'},
+    {img:'/storage/System/content/logos/1.png'},
+    {img:'/storage/System/content/logos/2.png'},
+    {img:'/storage/System/content/logos/3.png'},
+    {img:'/storage/System/content/logos/4.png'},
+    {img:'/storage/System/content/logos/5.png'},
 ]);
 
 onMounted(() => {
@@ -26,13 +28,7 @@ onMounted(() => {
         </ol>
         <div class="carousel-inner overflow-hidden h-100 ">
             <div v-for="(item, index) in carouselItems" :key="index" :class="['carousel-item flex flex-column ', { active: index === 0 }]">
-                <div class="w-100 justify-content-center align-items-center flex mb-[10px]">
-                    <div class="h-[70px] bg-white">
-                        <img class="h-[70px]" :src="item.img">
-                    </div>
-                </div>
-                <h3 class="text-center text-white">{{ item.title }}</h3>
-                <h2 class="text-center jackpot-amount">{{ item.amount }}</h2>
+                <img :src="item.img"/>
             </div>
         </div>
         <a class="carousel-control-prev" href="#jackpots" role="button" data-bs-slide="prev">

@@ -23,7 +23,7 @@ const form = useForm({
     <Navigation/>
     <div class="entry-form container mb-[20px] flex justify-center items-center">
         <form @submit.prevent.stop="form.post(route('register'))">
-            <h1>Resister</h1>
+            <h1>Register</h1>
 
             <div>
                 <label>Username</label>
