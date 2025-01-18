@@ -22,11 +22,6 @@ class SubscriptionController extends Controller
     {
         $package_id = $request->input('id');
 
-        //check if user has an active subscription
-        $activeSubscription = Subscription::where('user_id', auth()->user()->id)
-            ->where('status', 'active')
-            ->first();
-
         //TODO:test active subscription
         //if user has an active subscription, redirect with error
         if ($activeSubscription) {
