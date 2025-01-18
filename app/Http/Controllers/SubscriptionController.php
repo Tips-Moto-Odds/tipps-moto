@@ -22,12 +22,6 @@ class SubscriptionController extends Controller
     {
         $package_id = $request->input('id');
 
-        //TODO:test active subscription
-        //if user has an active subscription, redirect with error
-        if ($activeSubscription) {
-            return redirect()->back()->with('error', 'You already have an active subscription');
-        }
-
         $transaction_code = $this->generateRandomCode();
         $request['transaction_code'] = $transaction_code;
         $price = Packages::where('name',$request->input('package'))->first();
