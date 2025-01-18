@@ -22,7 +22,7 @@ if (attr.flash.success || attr.flash.error) {
 const form = useForm({
     id:null,
     package: null,
-    phone: '0719445697'
+    phone: ''
 })
 const showPaymentValue = ref(false)
 const flashMessage = ref('')
