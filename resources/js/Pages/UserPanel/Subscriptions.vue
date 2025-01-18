@@ -25,7 +25,7 @@ const props = defineProps(['subscriptions'])
                     </thead>
                     <tbody>
                     <template v-for="subscription in subscriptions">
-                        <Link v-if="subscription.status == 1" as="tr" :href="route('dashboard.tips.subscriptions-tips',subscription.id)"  class="!text-sm" >
+                        <Link  as="tr" :href="route('dashboard.tips.subscriptions-tips',subscription.id)"  class="!text-sm" >
                             <th class="p-[5px] max-w-[100px]">{{subscription.package_name}}</th>
                             <th class=" w-[60px]">
                                 <div v-if="subscription.status == 1" class="bg-green-500 mx-auto w-[10px] h-[10px] rounded-[50%]"></div>
