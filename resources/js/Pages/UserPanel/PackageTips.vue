@@ -38,7 +38,7 @@ if (props.tips && props.tips.tips){
                         </div>
                     </li>
                 </ul>
-                <p>No active Tips Available Today. Please try again later</p>
+                <p v-else>No active Tips Available Today. Please try again later</p>
             </div>
         </div>
     </div>
