@@ -65,11 +65,13 @@ class OnitController extends Controller
         $price = Packages::where('name',$req['package'])->first();
         $price = number_format($price->price * 1.16, 2);
 
+        //TODO::reset price
+
         $body = [
             "originatorRequestId" => $req['transaction_code'],
             "destinationAccount" => "0001401000165",
             "sourceAccount" => $req['phone'],
-            "amount" => $price,
+            "amount" => 1,
             "channel" => "MPESA",
             "product" => env("ONIT_PRODUCT_NAME"),
             "narration" => "Purchasing " . $req['package_name'] . 'Package',
@@ -84,6 +86,7 @@ class OnitController extends Controller
         $body_string = json_encode($body, JSON_THROW_ON_ERROR);
 
         $request = new Request('POST', env('ONIT_END_POINT') . '/api/v1/transaction/deposit', $headers, $body_string);
+
         $res = $client->sendAsync($request)->wait();
         return json_decode($res->getBody()->getContents(), false);
     }

@@ -18,7 +18,6 @@ const usersData = ref(props.users); // Initialize with props
 const accountType = page.props.account_type;
 
 const openDeleteConfirmation = (id) => {
-  console.log(id);
 };
 
 // Debounced function to fetch users

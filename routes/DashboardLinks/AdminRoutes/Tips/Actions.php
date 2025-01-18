@@ -7,8 +7,7 @@ use Illuminate\Support\Facades\Route;
 //post account action
 Route::post('/', [TipsController::class, 'store'])->name('storeTip');
 
-//patch account action
-
+Route::post('/search', [TipsController::class, 'searchTip'])->name('searchTip');
 
 Route::patch('/{tip}', [TipsController::class, 'update'])->name('patchTip');
 

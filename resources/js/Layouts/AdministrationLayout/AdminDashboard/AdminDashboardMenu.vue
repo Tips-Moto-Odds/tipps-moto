@@ -19,7 +19,6 @@ function closeMenu() {
 // $page.url.includes(link.active)
 
 const activeLink = (link) => {
-    console.log(link);
     if (link.supported?.length > 0) {
         return link.supported.includes(route().current())
     }

@@ -37,6 +37,13 @@ const defaultGrouping = [
                 icon: 'https://img.icons8.com/ios/100/ffffff/tip.png',
                 accessLevel: 'Guest'
             },
+            {
+                name: "Selections",
+                link: route('dashboard.selection.listSelections'),
+                supported: ['dashboard.selection.listSelections'],
+                icon: 'https://img.icons8.com/fluency-systems-regular/50/ffffff/choose.png',
+                accessLevel: 'Guest'
+            },
         ]
     },
     {

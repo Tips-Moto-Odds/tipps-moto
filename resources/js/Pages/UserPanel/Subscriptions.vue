@@ -1,6 +1,8 @@
 <script setup>
 import {Head} from "@inertiajs/inertia-vue3";
 import Navigation from "@/AppComponents/Navigation.vue";
+
+const props = defineProps(['subscriptions'])
 </script>
 
 <template>
@@ -12,7 +14,7 @@ import Navigation from "@/AppComponents/Navigation.vue";
         <div class=" w-full  md:w-[70%] bg-black p-[20px]">
             <h1 class="mb-[10px]">Subscriptions</h1>
             <hr class="border border-white bg-white" />
-            <div class="flex mb-[20px] justify-between items-center">
+            <div v-if="subscriptions.length >  0" class="flex mb-[20px] justify-between items-center">
                 <table>
                     <thead>
                     <tr>
@@ -21,19 +23,24 @@ import Navigation from "@/AppComponents/Navigation.vue";
                         <th>Expiry Date</th>
                     </tr>
                     </thead>
-                    <tbody >
-                    <Link as="tr" :href="route('dashboard.tips.subscriptions-tips',[1])" v-for="user in 10" class="!text-sm" >
-                        <th class="p-[5px] max-w-[100px]">Sport Pesa Mid Week Jackpot</th>
-                        <th class=" w-[60px]">
-                            <div class="bg-green-500 mx-auto w-[10px] h-[10px] rounded-[50%]"></div>
-                        </th>
-                        <th>
-                            <p>00/00/0000</p>
-                            <p>00:00</p>
-                        </th>
-                    </Link>
+                    <tbody>
+                    <template v-for="subscription in subscriptions">
+                        <Link v-if="subscription.status == 1" as="tr" :href="route('dashboard.tips.subscriptions-tips',subscription.id)"  class="!text-sm" >
+                            <th class="p-[5px] max-w-[100px]">{{subscription.package_name}}</th>
+                            <th class=" w-[60px]">
+                                <div v-if="subscription.status == 1" class="bg-green-500 mx-auto w-[10px] h-[10px] rounded-[50%]"></div>
+                                <div v-else class="bg-red-500 mx-auto w-[10px] h-[10px] rounded-[50%]"></div>
+                            </th>
+                            <th>
+                                <p>{{subscription.end_date}}</p>
+                            </th>
+                        </Link>
+                    </template>
                     </tbody>
                 </table>
+            </div>
+            <div v-else>
+                <p class="p-[20px] text-center">No subscription available</p>
             </div>
         </div>
     </div>

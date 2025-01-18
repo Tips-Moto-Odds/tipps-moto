@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Selection;
+use App\Models\Subscription;
 use App\Models\Tips;
 use Illuminate\Http\RedirectResponse;
 use Inertia\Inertia;
@@ -26,11 +28,13 @@ class TipsController extends Controller
         ],
     ];
 
-    public function subscriptions_tip()
+    public function subscriptions_tip(Request $request, Subscription $subscription)
     {
-        $tips = $this->tips;
+        $tips = Selection::where('package_id',$subscription->package->id)->where('status','1')->first();
 
-        return Inertia::render('UserPanel/PackageTips');
+        return Inertia::render('UserPanel/PackageTips',[
+            'tips' => $tips,
+        ]);
     }
 
     public function index(Request $request): Response|RedirectResponse
@@ -129,4 +133,37 @@ class TipsController extends Controller
             'tip' => $tip
         ]);
     }
+
+    public function searchTip(Request $request)
+    {
+        $searchTerm = $request->input('searchTerm');
+        $currentTime = now(); // Get the current time
+
+        // Search query
+        $results = DB::table('tips')
+            ->join('matches', 'tips.match_id', '=', 'matches.id')
+            ->where(function ($query) use ($searchTerm) {
+                $query->where('matches.league', 'LIKE', "%{$searchTerm}%")
+                    ->orWhere('matches.home_teams', 'LIKE', "%{$searchTerm}%")
+                    ->orWhere('matches.away_teams', 'LIKE', "%{$searchTerm}%")
+                    ->orWhere('matches.match_start_time', 'LIKE', "%{$searchTerm}%")
+                    ->orWhere('tips.prediction_type', 'LIKE', "%{$searchTerm}%")
+                    ->orWhere('tips.predictions', 'LIKE', "%{$searchTerm}%");
+            })
+//            ->where('matches.match_start_time', '>', $currentTime) // Ensure the match time has not passed
+            ->select(
+                'tips.id',
+                'matches.league',
+                'matches.home_teams',
+                'matches.away_teams',
+                'matches.match_start_time',
+                'tips.prediction_type',
+                'tips.predictions'
+            )
+            ->get();
+
+        return response()->json($results);
+    }
+
+
 }

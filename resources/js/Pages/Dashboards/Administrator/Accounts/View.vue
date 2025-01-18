@@ -25,7 +25,6 @@ function formatTime(dateTimeString) {
 
 
 const updateUser = () => {
-  console.log(props.user.id)
 }
 const deleteUser = () => {
   // Prompt the user for confirmation

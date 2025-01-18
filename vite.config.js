@@ -5,8 +5,15 @@ import vue from '@vitejs/plugin-vue';
 export default defineConfig({
     plugins: [
         laravel({
-            input: 'resources/js/app.js',
-            refresh: true,
+            input: [
+                'resources/js/app.js',
+                'routes/**/*.php',  // This covers all PHP files in the routes directory
+                'app/Http/Controllers/**/*.php'  // This covers all controllers
+            ],
+            refresh: [
+                'routes/**/*.php',  // Watch for changes in routes files
+                'app/Http/Controllers/**/*.php'  // Watch for changes in controllers files
+            ],
         }),
         vue({
             template: {
@@ -19,7 +26,7 @@ export default defineConfig({
     ],
 
     server: {
-        host: '192.168.100.20',
-        port:3000
+        host: '192.168.88.211',
+        port: 3000
     }
 });

@@ -12,7 +12,6 @@ import hasAccess from "@/HelperFunctions/getAccess.js";
 const props = defineProps(['matches', 'search'])
 const page = usePage()
 const accountType = page.props.account_type
-console.log(accountType)
 const pageController = useForm({
     search: props.search
 });

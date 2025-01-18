@@ -14,6 +14,7 @@ include_once 'Matches/index.php';
 include_once 'Transactions/index.php';
 //    include_once 'Football/index.php';
 include_once 'Tips/index.php';
+include_once 'Selection/index.php';
 
 //Administration
 include_once 'AccountTypes/index.php';
