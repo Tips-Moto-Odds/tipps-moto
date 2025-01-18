@@ -31,7 +31,7 @@ if (props.tips && props.tips.tips){
                         <div class="flex justify-center gap-2">
                             <p>{{item.home_teams}}</p>
                             <p>vs</p>
-                            <p>{{item.home_teams}}</p>
+                            <p>{{item.away_teams}}</p>
                         </div>
                         <div class="flex justify-between px-[10px] py-[8px]">
                             <p class="bg-orange-600 mx-auto px-[20px] py-[8px] rounded-sm inline-block ">{{item.predictions}}</p>
