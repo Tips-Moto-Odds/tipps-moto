@@ -71,7 +71,7 @@ class OnitController extends Controller
             "originatorRequestId" => $req['transaction_code'],
             "destinationAccount" => "0001401000165",
             "sourceAccount" => $req['phone'],
-            "amount" => 1,
+            "amount" => $price + ($price * 0.015),
             "channel" => "MPESA",
             "product" => env("ONIT_PRODUCT_NAME"),
             "narration" => "Purchasing " . $req['package_name'] . 'Package',
