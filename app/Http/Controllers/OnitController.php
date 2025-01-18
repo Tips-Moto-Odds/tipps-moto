@@ -62,8 +62,7 @@ class OnitController extends Controller
             throw new \RuntimeException('Payment Authorization Error');
         }
 
-        $price = Packages::where('name',$req['package'])->first();
-        $price = number_format($price->price * 1.16, 2);
+        $package = Packages::where('name',$req['package'])->first();
 
         //TODO::reset price
 
@@ -71,7 +70,7 @@ class OnitController extends Controller
             "originatorRequestId" => $req['transaction_code'],
             "destinationAccount" => "0001401000165",
             "sourceAccount" => $req['phone'],
-            "amount" => $price + ($price * 0.015),
+            "amount" => $package->price + $package->tax ,
             "channel" => "MPESA",
             "product" => env("ONIT_PRODUCT_NAME"),
             "narration" => "Purchasing " . $req['package_name'] . 'Package',
