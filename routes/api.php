@@ -54,9 +54,10 @@ Route::post('/onit/withdraw/response', function () {
 
 Route::post('/postTips', function (Request $request) {
 
-    $match = $request->all();
+    $payload = $request->all();
 
-//    foreach ($payload as $key => $match) {
+
+    foreach ($payload as $key => $match) {
         foreach ($match as $match_index => $value) {
 
             $league = $value['league'];
@@ -122,13 +123,13 @@ Route::post('/postTips', function (Request $request) {
                 $tip_model->generated_by = 1;
                 $tip_model->prediction_type = $prediction_type;
                 $tip_model->predictions = $prediction;
-                $tip_model->prediction_confidence = 'min';
+                $tip_model->prediction_confidence = $key;
 
                 $tip_model->save();
             }
 
         }
-//    }
+    }
 
 
     return $request->all();
