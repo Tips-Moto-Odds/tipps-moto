@@ -191,15 +191,15 @@ function togglePaymentShow() {
                 <div class="w-full md:w-1/2  flex flex-col rounded gap-2">
                     <div class="flex flex-col md:flex-row gap-2">
                         <div class="rounded bg-gray-400 w-100 overflow-hidden">
-                            <img @click.prevent="popUpPackageSelection(packages[6])" class="w-full h-full object-cover" src="storage/System/content/Tips/Banners/mozzart_weekly_jackpot.png">
+                            <img @click.prevent="popUpPackageSelection(packages[7])" class="w-full h-full object-cover" src="storage/System/content/Tips/Banners/mozzart_weekly_jackpot.png">
                         </div>
                         <div class="rounded bg-gray-400 w-100 overflow-hidden">
-                            <img @click.prevent="popUpPackageSelection(packages[5])" class="w-full h-full object-cover" src="storage/System/content/Tips/Banners/mozzart_daily_jackpot.png">
+                            <img @click.prevent="popUpPackageSelection(packages[6])" class="w-full h-full object-cover" src="storage/System/content/Tips/Banners/mozzart_daily_jackpot.png">
                         </div>
                     </div>
                     <div class="flex flex-col md:flex-row h-50 gap-2">
                         <div class="w-100 overflow-hidden  md:h-[100%] rounded bg-gray-400 grid place-items-center">
-                            <img @click.prevent="popUpPackageSelection(packages[7])" class="w-full h-full object-cover" src="storage/System/content/Tips/Banners/mid_week_jackpot_prediction.png">
+                            <img @click.prevent="popUpPackageSelection(packages[5])" class="w-full h-full object-cover" src="storage/System/content/Tips/Banners/mid_week_jackpot_prediction.png">
                         </div>
                         <div class="w-100 overflow-hidden md:h-[100%] rounded bg-gray-400 grid place-items-center">
                             <img @click.prevent="popUpPackageSelection(packages[8])" class="w-full h-full object-cover" src="storage/System/content/Tips/Banners/odi_weekly_jackpot.png">
