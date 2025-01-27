@@ -45,7 +45,7 @@ Route::post('/fb-give-away', function (Request $request) {
     ]);
 
     // Insert data into the database
-    DB::table('facebookgiveaway')->insert([
+    DB::table('FacebookGiveAway')->insert([
         'facebookName' => $validatedData['facebookName'],
         'whatsAppNumber' => $validatedData['whatsappNumber'],
         'email' => $validatedData['email'],
