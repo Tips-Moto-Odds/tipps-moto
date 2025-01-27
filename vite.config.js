@@ -7,8 +7,8 @@ export default defineConfig({
         laravel({
             input: [
                 'resources/js/app.js',
-                'routes/**/*.php',  // This covers all PHP files in the routes directory
-                'app/Http/Controllers/**/*.php'  // This covers all controllers
+                // 'routes/**/*.php',  // This covers all PHP files in the routes directory
+                // 'app/Http/Controllers/**/*.php'  // This covers all controllers
             ],
             // refresh: [
             //     'routes/**/*.php',  // Watch for changes in routes files
@@ -25,8 +25,8 @@ export default defineConfig({
         }),
     ],
 
-    server: {
-        host: '192.168.100.20',
-        port: 3000
-    }
+    // server: {
+    //     host: '192.168.100.20',
+    //     port: 3000
+    // }
 });
