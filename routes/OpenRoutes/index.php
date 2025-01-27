@@ -23,6 +23,11 @@ Route::get('/privacyPolicy', [HomeController::class, 'privacyPolicy'])->name('pr
 
 Route::get('/termsOfService', [HomeController::class, 'termsOfService'])->name('termsAndConditions');
 
+
+Route::get('/fb-give-away',function(){
+    return Inertia::render('LandingPages/fbPromo1');
+})->name('free-week-tips');
+
 //Route::get('/contact', [HomeController::class, 'contactUs'])->name('contact');
 //Route::get('/packages', [HomeController::class, 'packages'])->name('packages');
 //Route::get('/packages/subscribe/{sub}', [HomeController::class, 'subscribeView'])->name('userSubscribe')->middleware(['auth:sanctum']);

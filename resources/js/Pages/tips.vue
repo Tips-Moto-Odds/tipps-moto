@@ -11,16 +11,16 @@ const props = defineProps(['packages'])
 const attr = useAttrs()
 
 if (attr.flash.success || attr.flash.error) {
-    if (attr.flash.success){
+    if (attr.flash.success) {
         alert(attr.flash.success)
-    }else {
+    } else {
         alert(attr.flash.error)
     }
 }
 
 
 const form = useForm({
-    id:null,
+    id: null,
     package: null,
     phone: ''
 })
@@ -28,11 +28,11 @@ const showPaymentValue = ref(false)
 const flashMessage = ref('')
 
 const showDisplay = reactive({
-    price:0,
-    tax:0
+    price: 0,
+    tax: 0
 })
 
-function handleSubscriptionResponse(){
+function handleSubscriptionResponse() {
 
 }
 
@@ -41,7 +41,7 @@ function confirmPayment() {
         onSuccess: (data) => {
             if (data?.props?.flash?.success) {
                 alert(data?.props?.flash?.success);
-            }else if (data?.props?.flash?.error) {
+            } else if (data?.props?.flash?.error) {
                 alert(data?.props?.flash?.error);
             }
 
@@ -113,47 +113,52 @@ function togglePaymentShow() {
         <title>Tips</title>
     </Head>
     <div v-if="showPaymentValue" class="w-[100vw] h-[100vh] bg-black/50 flex items-center justify-center" style="z-index:30000;position:fixed; top: 0; left: 0; right: 0; bottom: 0;">
-        <div class="w-[320px] rounded-[12px] shadow p-[10px]  bg-white">
-            <div class="flex m-0 p-0 items-center justify-between">
-                <h5 class="p-0 m-0">Purchase Package</h5>
+        <div class="bg-white rounded-lg shadow-md w-96 p-6">
+            <h2 class="text-2xl pb-2 font-bold border-b border-b-[2px] border-black mb-[10px]">Purchase Package</h2>
+            <p class="text-gray-700  mb-4">You are about to Purchase <span class="font-bold">{{ form.package }} </span> package for:</p>
+            <div class="flex justify-between font-bold py-2">
+                <span>{{ form.package }} package</span>
+                <span class="font-bold">Ksh {{ showDisplay.price }}</span>
             </div>
-            <hr class="my-[10px] p-0">
-            <div class="text-sm mb-[5px] rounded-[16px]">
-                <p class="mb-[10px]">You are about to Purchase <strong>{{ form.package }} package</strong> for:</p>
-                <div>
-                    <ul class=" p-0 m-0">
-                        <li class="flex items-center justify-between">
-                            <label>{{form.package}} package</label>
-                            <p class=" p-0 m-0">Ksh {{showDisplay.price}}</p>
-                        </li>
-                        <li class="flex items-center justify-between">
-                            <label>D.S.T (TAX)</label>
-                            <p class=" p-0 m-0">Ksh {{ showDisplay.tax }}</p>
-                        </li>
-                    </ul>
-                    <hr class=" p-0 mb-[10px] my-0">
-                    <div class="mb-[20px] py-[10px] flex justify-between">
-                        <p class="font-bold">Total</p>
-                        <p class="font-bold">Ksh {{ showDisplay.tax + showDisplay.price }}</p>
-                    </div>
-                </div>
-                <div class="mb-[20px]">
-                    <label>Please enter your m-pesa phone number to complete purchase.</label>
-                    <input v-model="form.phone" class="h-[30px] px-[5px] w-full rounded-sm m-0">
-                    <p class="text-red-500">{{form.errors.phone}}</p>
-                </div>
+            <div class="flex justify-between font-bold border-b border-black border-b-[2px] py-2">
+                <span>D.S.T. (TAX)</span>
+                <span class="font-bold">Ksh {{ showDisplay.tax }}</span>
             </div>
-            <ul class="w-full flex items-center justify-between m-0 p-0">
-                <li class="bg-green-600 w-[100px] text-center py-[5px] rounded text-white" @click.prevent="confirmPayment">Confirm</li>
-                <li class="bg-red-600 w-[100px] text-center py-[5px] rounded text-white" @click.prevent="togglePaymentShow">Cancel</li>
-            </ul>
+            <div class="flex justify-between font-bold text-lg py-2">
+                <span>Total</span>
+                <span>Ksh {{ showDisplay.tax + showDisplay.price }}</span>
+            </div>
+            <p class="text-gray-700 text-sm mt-4">Please enter your M-Pesa phone number to complete purchase</p>
+            <input
+                type="text"
+                placeholder="Phone Number"
+                class="w-full border rounded-md p-2 mt-2 focus:ring-2 focus:ring-blue-400 focus:outline-none"
+                v-model="form.phone"
+            />
+            <p class="text-red-500">{{ form.errors.phone }}</p>
+            <div class="flex justify-between mt-6">
+                <button
+                    class="w-1/2 bg-green-500 text-white font-bold py-2 rounded-md mr-2 hover:bg-green-600 active:scale-95 transition-transform"
+                    @click="confirmPayment"
+                >
+                    CONFIRM
+                </button>
+                <button
+                    class="w-1/2 bg-red-500 text-white font-bold py-2 rounded-md ml-2 hover:bg-red-600 active:scale-95 transition-transform"
+                    @click="togglePaymentShow"
+                >
+                    CANCEL
+                </button>
+            </div>
+
         </div>
     </div>
     <Navigation/>
     <section class="px-[20px]">
-        <div class="container mb-[20px] main-card-container p-[10px] bg-black rounded">
+        <div id="ftp" class="container mb-[20px] main-card-container p-[10px] bg-black rounded">
             <h1 class="text-center py-[20px]">Full-Time Scores</h1>
-            <p class="px-[30px] mb-[30px] text-center">Full-Time Scores tips involve inferring the likely outcome of a match at the end of regular playing time. Whether it's a thrilling 2-1 victory or a
+            <p class="px-[30px] mb-[30px] text-center">Full-Time Scores tips involve inferring the likely outcome of a match at the end of regular playing time. Whether it's a thrilling 2-1 victory or
+                a
                 close 0-0 draw, Tips Moto delivers meticulously analyzed forecasts . Our team of experts leverages in-depth statistics, team form, and match-day factors to offer you high-probability
                 outcomes, ensuring you bet with confidence.</p>
             <div class="mb-[20px] flex gap-3 md:flex-row items-center justify-center py-[20px]">
@@ -179,9 +184,10 @@ function togglePaymentShow() {
                 </div>
             </div>
         </div>
-        <div class="container mb-[20px] main-card-container p-[10px] bg-gray-600 rounded">
+        <div id="jp" class="container mb-[20px] main-card-container p-[10px] bg-gray-600 rounded">
             <h1 class="text-center py-[20px]">Jackpot Tips</h1>
-            <p class="px-[30px] mb-[30px] text-center">Jackpot Tips involve inferring the outcomes of a series of matches, typically 13-20 fixtures. These are high-stakes picks that require precision and
+            <p class="px-[30px] mb-[30px] text-center">Jackpot Tips involve inferring the outcomes of a series of matches, typically 13-20 fixtures. These are high-stakes picks that require precision
+                and
                 comprehensive analysis. Tips Moto combines expert opinions, advanced algorithms, and statistical modeling to maximize your chances of hitting the jackpot, making even the toughest
                 predictions more approachable.</p>
             <div class="container flex flex-col md:flex-row justify-content-between gap-2 mb-[20px] mx-auto rounded">

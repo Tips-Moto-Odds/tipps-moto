@@ -11,18 +11,18 @@ const currentPage = () => {
             return "Home"
         case "/tips":
             return "Tips"
-        case "/dashboard":
+        case "/subscriptions":
             return "Dashboard"
-        case "/Subscriptions":
-            return "Subscriptions"
         case "/contact":
             return "Tips"
         case "/sign-in":
             return "Log In"
         case "/signUp":
             return "Sign Up"
+        case '/dashboard':
+            return "Dashboard"
         default:
-            return "Tips Moto"
+            return "TODO"
     }
 }
 
@@ -30,7 +30,7 @@ function dropDownMenu() {
     if ($('#home-menu').height() > 100) {
         $('#home-menu').css('height', '70px')
     } else {
-        $('#home-menu').css('height', '280px')
+        $('#home-menu').css('height', '330px')
     }
 }
 </script>
@@ -45,9 +45,9 @@ function dropDownMenu() {
             <li class="menu-button lg:hidden">{{ currentPage() }}</li>
             <Link class="menu-button" :class="{'active':page.url == '/'}" href="/" as="li">Home</Link>
             <Link class="menu-button" :class="{'active':page.url == '/tips'}" href="/tips" as="li">Tips</Link>
-            <Link class="menu-button" :class="{'active':page.url == '/dashboard'}" href="/dashboard" as="li">Dashboard</Link>
+            <Link class="menu-button" :class="{'active':page.url == '/dashboard'}" href="/subscriptions" as="li">Dashboard</Link>
             <template v-if="page.props.auth.user != null">
-                <Link class="menu-button" :class="{'active':page.url == '/subscriptions'}" href="/subscriptions" as="li">Subscriptions</Link>
+                <Link class="menu-button" :class="{'active':page.url == '/subscriptions'}" href="/dashboard" as="li">Subscriptions</Link>
             </template>
             <Link class=" text-black hidden lg:block rounded" href="/dashboard" as="li"></Link>
         </ul>

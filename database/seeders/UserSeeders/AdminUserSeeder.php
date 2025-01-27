@@ -13,7 +13,7 @@ class AdminUserSeeder extends Seeder
      */
     public function run(): void
     {
-        $user = User::where('name', 'Administrator')->first();
+        $user = User::where('name', 'SuperAdministration')->first();
 
         if ($user === null) {
             User::factory()->create([
