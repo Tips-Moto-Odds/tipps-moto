@@ -4,25 +4,39 @@ import {ref, useAttrs} from "vue";
 
 const page = usePage()
 const attr = useAttrs()
+const appPaths = [
+    {
+        name: "Home",
+        path: route('Home')
+    },
+    // {
+    //     name: "Tips",
+    //     path: route('tips')
+    // },
+    {
+        name: "Dashboard",
+        path: route('subscriptions')
+    },
+    {
+        name: "Account",
+        path: route('dashboard')
+    }
+]
+
+console.log(route().current())
 
 const currentPage = () => {
-    switch (page.url) {
-        case "/":
+    switch (route().current()) {
+        case "Home":
             return "Home"
-        case "/tips":
-            return "Tips"
-        case "/subscriptions":
+        // case "tips":
+        //     return "Tips"
+        case "subscriptions":
             return "Dashboard"
-        case "/contact":
-            return "Tips"
-        case "/sign-in":
-            return "Log In"
-        case "/signUp":
-            return "Sign Up"
-        case '/dashboard':
-            return "Dashboard"
+        case "dashboard":
+            return "Account"
         default:
-            return "TODO"
+            return "Tips Moto"
     }
 }
 
@@ -30,7 +44,7 @@ function dropDownMenu() {
     if ($('#home-menu').height() > 100) {
         $('#home-menu').css('height', '70px')
     } else {
-        $('#home-menu').css('height', '330px')
+        $('#home-menu').css('height', '280px')
     }
 }
 </script>
@@ -41,15 +55,17 @@ function dropDownMenu() {
         <div class="text-white  py-[3px] rounded ">
             <img class="w-[60px] p-1" src="/storage/System/Icons/logo-dark.png">
         </div>
-        <ul class="p-[15px] gap-xl-2 m-0 w-[90%] flex flex-col lg:w-fit lg:flex-row lg:pt-[40px]">
+        <ul class="p-[15px] gap-xl-2 m-0 w-[90%] flex flex-col lg:hidden lg:w-fit lg:flex-row lg:pt-[40px]">
             <li class="menu-button lg:hidden">{{ currentPage() }}</li>
-            <Link class="menu-button" :class="{'active':page.url == '/'}" href="/" as="li">Home</Link>
-            <Link class="menu-button" :class="{'active':page.url == '/tips'}" href="/tips" as="li">Tips</Link>
-            <Link class="menu-button" :class="{'active':page.url == '/dashboard'}" href="/subscriptions" as="li">Dashboard</Link>
-            <template v-if="page.props.auth.user != null">
-                <Link class="menu-button" :class="{'active':page.url == '/subscriptions'}" href="/dashboard" as="li">Subscriptions</Link>
+            <template v-for="linker in appPaths">
+                <Link v-if="linker.name != currentPage()" class="menu-button" as="li" :href="linker.path">{{ linker.name }}</Link>
             </template>
-            <Link class=" text-black hidden lg:block rounded" href="/dashboard" as="li"></Link>
+        </ul>
+        <ul class="hidden p-[15px] gap-xl-2 m-0 w-[90%] lg:flex flex-col lg:w-fit lg:flex-row lg:pt-[40px]">
+            <li class="menu-button lg:hidden">{{ currentPage() }}</li>
+            <template v-for="linker in appPaths">
+                <Link  class="menu-button" as="li" :class="{'active':linker.name == currentPage()}" :href="linker.path">{{ linker.name }}</Link>
+            </template>
         </ul>
         <div class="lg:hidden pt-[5px]">
             <i class="bi text-[40px] text-white bi-list" @click.prevent="dropDownMenu"></i>

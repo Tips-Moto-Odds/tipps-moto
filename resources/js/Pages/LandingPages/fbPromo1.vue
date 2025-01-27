@@ -1,5 +1,6 @@
 <script setup>
-import { useForm } from '@inertiajs/inertia-vue3';
+import {useForm} from '@inertiajs/inertia-vue3';
+import Navigation from "@/AppComponents/Navigation.vue";
 
 // Initialize form
 const form = useForm({
@@ -10,31 +11,27 @@ const form = useForm({
 
 function handleSubmit() {
 
-    console.log('Data submitted successfully:', form);
-
-    window.location.href = "https://whatsapp.com/channel/0029VagdQJFBfxo8DiYaBI06";
-
-    return;
-
-    // Submit form data to the server
-    form.post('/your-server-endpoint', {
-        onSuccess: () => {
-            // Log form data to console after a successful response
-            console.log('Data submitted successfully:', form.data);
-
-            // Redirect user to the WhatsApp channel
+    axios.post('/fb-give-away', {
+        facebookName: form.facebookName,
+        whatsappNumber: form.whatsappNumber,
+        email: form.email,
+    })
+        .then(response => {
             window.location.href = "https://whatsapp.com/channel/0029VagdQJFBfxo8DiYaBI06";
-        },
-        onError: (errors) => {
-            // Handle validation or server errors here
-            console.error('Error submitting form:', errors);
-        },
-    });
+        })
+        .catch(error => {
+            if (error.response && error.response.data.errors) {
+                Alert('Please check your inputs and try again.');
+            } else {
+                Alert('Error submitting form. Please try again.');
+            }
+        });
 }
 </script>
 
 <template>
-    <div class="min-h-screen p-[20px] flex justify-center items-center">
+    <Navigation></Navigation>
+    <div class="min-h-[80vh] p-[20px] flex justify-center items-center">
         <div class="bg-white p-6 rounded shadow-lg border max-w-md w-full">
             <!-- Form Header -->
             <h1 class="text-center text-2xl font-bold mb-4 text-orange-600">Join Our Channel</h1>
@@ -85,7 +82,7 @@ function handleSubmit() {
                 <div>
                     <button
                         type="submit"
-                        class="btn btn-primary block w-full py-2 bg-orange-600 hover:bg-orange-700 text-white font-medium rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-1"
+                        class="btn btn-success block w-full py-2 bg-orange-600 hover:bg-orange-700 text-white font-medium rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-1"
                         :disabled="form.processing">
                         {{ form.processing ? 'Submitting...' : 'Join WhatsApp Channel' }}
                     </button>

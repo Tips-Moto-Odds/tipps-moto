@@ -48,9 +48,7 @@ function closeSubMenu(){
 
             <!-- Content Section -->
             <div class="flex items-center mb-[20px]">
-                <button @click="openSubMenu">
-                    <i class="bi bi-chevron-right text-[25px] mr-[10px]"></i>
-                </button>
+
                 <h1>Subscriptions</h1>
             </div>
             <hr class="border border-white bg-white" />

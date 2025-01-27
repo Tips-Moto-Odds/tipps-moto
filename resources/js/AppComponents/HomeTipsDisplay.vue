@@ -15,7 +15,7 @@ console.log()
     <li class="text-white  p-[10px] bg-gray-600   rounded mb-[10px]">
         <section>
             <div class="mb-[20px]">
-                <p class="h5 p-0 m-0">League: {{ tip.league }}</p>
+                <p class="h6 p-0 m-0">League: {{ tip.league }}</p>
             </div>
             <div class=" flex flex-col md:flex-row justify-between items-center text-sm">
                 <div class="md:hidden flex justify-around gap-2 w-100 md:w-1/3   md:block">
@@ -33,8 +33,7 @@ console.log()
                 <div class="flex justify-center w-100 md:w-1/3">
                     <div v-if="page.props.auth.user == null" class="bg-orange-500 rounded w-50">
                         <p class="px-[10px] !py-[6px]  rounded  text-center mb-[1px] py-1 text-white">
-                            <Link href="/login" as="p" class="cursor-pointer px-[10px] !py-[6px]  rounded  text-center mb-[1px] py-1 text-white">Login to see prediction
-                            </Link>
+                            <Link href="/login" as="p" class="cursor-pointer px-[10px] !py-[6px]  rounded  text-center mb-[1px] py-1 text-white">Log In</Link>
                         </p>
                     </div>
                     <div v-else class="bg-green-500 rounded w-50">

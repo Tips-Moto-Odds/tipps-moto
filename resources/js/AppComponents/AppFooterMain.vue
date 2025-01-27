@@ -29,7 +29,7 @@ function navigateTo(link) {
                         <!--                    <h5 class="h5 font-bold">Resources</h5>-->
                         <ul>
                             <Link :href="'/faq'" as="li" >FAQs</Link>
-                            <Link :href="'/privacyPolicy'" as="li" >Privacy ssPolicy</Link>
+                            <Link :href="'/privacyPolicy'" as="li" >Privacy Policy</Link>
                             <Link :href="'/termsOfService'" as="li" >Terms Of Service</Link>
                         </ul>
                     </div>
