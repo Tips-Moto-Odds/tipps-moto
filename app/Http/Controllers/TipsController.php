@@ -160,6 +160,7 @@ class TipsController extends Controller
                 'tips.prediction_type',
                 'tips.predictions'
             )
+            ->limit(20)
             ->get();
 
         return response()->json($results);

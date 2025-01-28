@@ -1,4 +1,4 @@
-<script setup>
+ <script setup>
 import {closeSideBar} from "@/HelperFunctions/modalControl.js";
 
 defineProps(['title'])
