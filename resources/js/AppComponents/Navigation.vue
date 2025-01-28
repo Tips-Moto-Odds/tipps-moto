@@ -29,8 +29,8 @@ const currentPage = () => {
     switch (route().current()) {
         case "Home":
             return "Home"
-        // case "tips":
-        //     return "Tips"
+        case "tips":
+            return "Tips"
         case "subscriptions":
             return "Dashboard"
         case "dashboard":
