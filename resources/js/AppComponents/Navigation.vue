@@ -9,10 +9,10 @@ const appPaths = [
         name: "Home",
         path: route('Home')
     },
-    // {
-    //     name: "Tips",
-    //     path: route('tips')
-    // },
+    {
+        name: "Tips",
+        path: route('tips')
+    },
     {
         name: "Dashboard",
         path: route('subscriptions')
@@ -35,6 +35,8 @@ const currentPage = () => {
             return "Dashboard"
         case "dashboard":
             return "Account"
+        case "dashboard.tips.subscriptions-tips":
+            return "Subscription"
         default:
             return "Tips Moto"
     }
@@ -44,7 +46,7 @@ function dropDownMenu() {
     if ($('#home-menu').height() > 100) {
         $('#home-menu').css('height', '70px')
     } else {
-        $('#home-menu').css('height', '280px')
+        $('#home-menu').css('height', '320px')
     }
 }
 </script>

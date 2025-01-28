@@ -11,6 +11,8 @@ const form = useForm({
     password: '',
 });
 
+console.log(route('login'))
+
 function signIn() {
     form.transform(data => ({
         ...data,

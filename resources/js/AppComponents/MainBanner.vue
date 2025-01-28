@@ -10,10 +10,10 @@ import JackpotCarousel from "@/AppComponents/JackpotCarousel.vue";
     <div class="w-[100%] md:w-1/2 ">
       <div class="h-[50%] flex mb-[10px] gap-x-[10px]">
         <Link href="/tips#ftp" as="div" class="w-[50%] rounded overflow-hidden">
-          <img class="" src="/storage/System/content/banners/tips-banner.png">
+          <img class="h-100 object-fit-cover" src="/storage/System/content/banners/tips-banner.png">
         </Link>
         <Link href="/tips#jp" class="w-[50%] rounded overflow-hidden">
-          <img class="" src="/storage/System/content/banners/jp.png">
+          <img class="h-100 object-fit-cover" src="/storage/System/content/banners/jp.png">
         </Link>
       </div>
       <Link href="/tips#jp" as="div" class="rounded overflow-hidden h-[calc(50%_-10px)]">
