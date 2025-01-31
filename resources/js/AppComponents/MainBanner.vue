@@ -3,8 +3,8 @@ import JackpotCarousel from "@/AppComponents/JackpotCarousel.vue";
 </script>
 
 <template>
-  <div class="banner container flex justify-between flex-col md:flex-row mb-[20px] gap-2 mx-auto rounded">
-    <div class="grid place-items-center rounded overflow-hidden ratio-1x1 md:w-1/2">
+  <div class="banner container p-0  flex justify-between flex-col md:flex-row mb-[20px] mx-auto rounded">
+    <div class="grid mr-[10px] place-items-center rounded overflow-hidden ratio-1x1 md:w-1/2">
       <img src="/storage/System/content/banners/banner1.png" class="md:h-full object-cover">
     </div>
     <div class="w-[100%] md:w-1/2 ">
