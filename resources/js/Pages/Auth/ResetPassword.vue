@@ -7,16 +7,16 @@ import Navigation from "@/AppComponents/Navigation.vue";
 import AppFooterMain from "@/AppComponents/AppFooterMain.vue";
 
 const form = useForm({
-    email: 'kimmwaus@gmail.com',
+    email: '',
     code: '',
-    password: 'password123',
-    password_confirmation: 'password123'
+    password: '',
+    password_confirmation: ''
 });
 
 
 const credentials = useForm({
-    email: 'kimmwaus@gmail.com',
-    phone: '+245719445697'
+    email: '',
+    phone: ''
 });
 
 const show_code_display = ref(false)
