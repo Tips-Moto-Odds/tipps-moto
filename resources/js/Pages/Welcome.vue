@@ -22,8 +22,11 @@ const props = defineProps(['tips']);
     <!--    banner-->
     <MainBanner/>
 
-    <!-- Popup Modal -->
-    <AppPopUp/>
+    <!--    free tips-->
+    <TodaysFreeTips :tips="tips"/>
+
+<!--    &lt;!&ndash; Popup Modal &ndash;&gt;-->
+<!--    <AppPopUp/>-->
 
     <app-footer-main/>
 </template>
