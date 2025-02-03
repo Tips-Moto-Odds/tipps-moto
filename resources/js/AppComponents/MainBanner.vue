@@ -9,7 +9,7 @@ import JackpotCarousel from "@/AppComponents/JackpotCarousel.vue";
     </div>
     <div class="w-[100%] md:w-1/2 px-[10px]">
       <div class="h-[50%] flex mb-[10px] gap-x-[10px]">
-        <Link href="/tips#ftp" as="div" class="w-[50%] rounded overflow-hidden">
+        <Link href="/tips" as="div" class="w-[50%] rounded overflow-hidden">
           <img class="h-100 object-fit-cover" src="/storage/System/content/banners/tips-banner.png">
         </Link>
         <Link href="/tips#jp" class="w-[50%] rounded overflow-hidden">

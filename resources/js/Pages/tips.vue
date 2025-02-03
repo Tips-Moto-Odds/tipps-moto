@@ -19,6 +19,27 @@ if (attr.flash.success || attr.flash.error) {
     }
 }
 
+const scrollToDiv = () => {
+    // Get the URL
+    const url = window.location.href;
+
+    // Extract the fragment identifier (part after the hash)
+    const hash = url.split('#')[1];
+
+    // Find the element with the corresponding ID
+    const targetElement = document.getElementById(hash);
+
+    if (targetElement) {
+        // Scroll to the element smoothly
+        targetElement.scrollIntoView({ behavior: 'smooth' });
+        // Calculate the scroll position after scrolling to the element
+        const scrollTop = window.scrollY - 100;
+
+        // Scroll to the calculated position
+        window.scrollTo({ top: scrollTop, behavior: 'smooth' });
+    }
+}
+
 
 const form = useForm({
     id: null,
@@ -111,6 +132,10 @@ function togglePaymentShow() {
         showPaymentValue.value = !showPaymentValue.value
     }
 }
+
+onMounted(() => {
+    scrollToDiv()
+})
 </script>
 
 <template>
