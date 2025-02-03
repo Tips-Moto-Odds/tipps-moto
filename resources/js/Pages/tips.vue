@@ -4,8 +4,9 @@ import Navigation from "@/AppComponents/Navigation.vue";
 import AppFooterMain from "@/AppComponents/AppFooterMain.vue";
 import {applyBackGroundOrange} from "@/HelperFunctions/appFunctions.js";
 import Packages from "@/Pages/Home/Packages.vue";
-import {useForm} from "@inertiajs/vue3";
+import {useForm, usePage} from "@inertiajs/vue3";
 import {onMounted, reactive, ref, useAttrs} from "vue";
+import {Inertia} from "@inertiajs/inertia";
 
 const props = defineProps(['packages'])
 const attr = useAttrs()
@@ -104,7 +105,11 @@ function popUpPackageSelection(selection) {
 }
 
 function togglePaymentShow() {
-    showPaymentValue.value = !showPaymentValue.value
+    if (usePage().props.auth.user == null) {
+        window.location.href = '/login';
+    } else {
+        showPaymentValue.value = !showPaymentValue.value
+    }
 }
 </script>
 
