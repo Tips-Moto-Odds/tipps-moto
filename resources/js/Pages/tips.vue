@@ -31,12 +31,12 @@ const scrollToDiv = () => {
 
     if (targetElement) {
         // Scroll to the element smoothly
-        targetElement.scrollIntoView({ behavior: 'smooth' });
+        targetElement.scrollIntoView({behavior: 'smooth'});
         // Calculate the scroll position after scrolling to the element
         const scrollTop = window.scrollY - 100;
 
         // Scroll to the calculated position
-        window.scrollTo({ top: scrollTop, behavior: 'smooth' });
+        window.scrollTo({top: scrollTop, behavior: 'smooth'});
     }
 }
 
@@ -148,11 +148,17 @@ onMounted(() => {
             <p class="text-gray-700  mb-4">You are about to Purchase <span class="font-bold">{{ form.package }} </span> package for:</p>
             <div class="flex justify-between font-bold py-2">
                 <span>{{ form.package }} package</span>
-                <span class="font-bold">Ksh {{ showDisplay.price }}</span>
+                <span class="font-bold inline-flex">
+                    <p>KES</p>
+                    <p class="w-[50px] text-right ">{{ showDisplay.price }}</p>
+                </span>
             </div>
             <div class="flex justify-between font-bold border-b border-black border-b-[2px] py-2">
                 <span>D.S.T. (TAX)</span>
-                <span class="font-bold">Ksh {{ showDisplay.tax }}</span>
+                <span class="font-bold inline-flex">
+                    <p>KES</p>
+                    <p class="w-[50px] text-right ">{{ showDisplay.tax }}</p>
+                </span>
             </div>
             <div class="flex justify-between font-bold text-lg py-2">
                 <span>Total</span>
