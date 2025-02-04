@@ -13,7 +13,7 @@ const page = usePage();
         <section>
             <div class="flex justify-between mb-[10px]">
                 <p>1</p>
-                <p>{{ useDateFormat(tip.match_start_time, 'ddd, DD MMM ') }}</p>
+<!--                <p>{{ useDateFormat(tip.match_start_time, 'ddd, DD MMM ') }}</p>-->
                 <p></p>
             </div>
             <div class="flex justify-between items-center text-sm mb-[10px]">
