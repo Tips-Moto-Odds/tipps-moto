@@ -26,7 +26,7 @@ const props = defineProps(['tips']);
     <!--    free tips-->
     <TodaysFreeTips :tips="tips"/>
 
-    <YesterdayFreeTips :tips="tips"/>
+<!--    <YesterdayFreeTips :tips="tips"/>-->
 
     <!--    &lt;!&ndash; Popup Modal &ndash;&gt;-->
     <!--    <AppPopUp/>-->
