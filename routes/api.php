@@ -5,6 +5,7 @@ use App\Models\Packages;
 use App\Models\Subscription;
 use App\Models\Tips;
 use App\Models\Transaction;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Route;
@@ -60,16 +61,19 @@ Route::post('/postTips', function (Request $request) {
     foreach ($payload as $key => $match) {
         foreach ($match as $match_index => $value) {
 
-            $league = $value['league'];
-            $home_team = $value['Home Team'];
             $away_team = $value['Away Team'];
+            $home_team = $value['Home Team'];
+            $league = $value['league'];
+            $jackpot = $value['jackpot'];
+
             $date = $value['date'][0];
             $time = $value['date'][1];
 
-            $currentYear = date('Y');
-            $dateTimeString = sprintf('%02d/%02d/%04d %s', substr($date, 0, 2), substr($date, 3, 2), $currentYear, $time); $dateTime = DateTime::createFromFormat('d/m/Y H:i', $dateTimeString);
+            $dateTimeString = trim($date . ' ' . str_replace(' EAT', '', $time));
 
-            $timestamp = $dateTime->format('Y-m-d H:i:s');
+            $carbonDate = Carbon::createFromFormat('l, F, jS H:i', $dateTimeString, 'Africa/Nairobi');
+
+            $timestamp = $carbonDate->toDateTimeString();
 
             $match = new Matches();
             $match->league = $league;
@@ -178,17 +182,4 @@ Route::get('/users', function (Request $request) {
 
 })->middleware('auth:sanctum');
 
-//Route::get('/test', [FootballApiLocal::class, 'postAPI']);
-
-//$searchTerm = $request->input('search_term');
-//
-//$users = DB::table('users');
-//
-//if ($searchTerm) {
-//    $users->where('name', 'LIKE', '%' . $searchTerm . '%');
-//}
-//
-//$result = $users->paginate(); // Fetch the results
-//
-//return response()->json($result); // Return the results as a JSON response
 

@@ -18,14 +18,27 @@ export default {
                 sans: ['Figtree', ...defaultTheme.fontFamily.sans],
             },
             colors: {
-                'custom-orange': '#F4660D'
+                primary_orange: "#D88731",
+                secondary_orange: "#F4660D",
+                app_white: "#F5F5F5",
+                app_gray: "#1E1E1E",
+                cookie_popup_grey: "#D9D9D9",
+                app_red: "#E50B0B",
+                app_green: "#4CBC2A",
+                card_grey: "#433F3F",
             },
             borderRadius: {
-                DEFAULT: '8px',
+                '1': '3px',
+                '2': '6px',
+                '3': '9px',
+                '4': '12px',
+                '5': '15px',
+                '6': '18px',
+                '7': '21px',
+                '8': '24px',
             },
         },
     },
 
     plugins: [forms, typography],
 };
-

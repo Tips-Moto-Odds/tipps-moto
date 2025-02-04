@@ -6,6 +6,7 @@ import AppFooterMain from "@/AppComponents/AppFooterMain.vue";
 import MainBanner from "@/AppComponents/MainBanner.vue";
 import TodaysFreeTips from "@/AppComponents/TodaysFreeTips.vue";
 import AppPopUp from "@/AppComponents/AppPopUp.vue";
+import YesterdayFreeTips from "@/AppComponents/YesterdayFreeTips.vue";
 
 const props = defineProps(['tips']);
 
@@ -25,8 +26,10 @@ const props = defineProps(['tips']);
     <!--    free tips-->
     <TodaysFreeTips :tips="tips"/>
 
-<!--    &lt;!&ndash; Popup Modal &ndash;&gt;-->
-<!--    <AppPopUp/>-->
+    <YesterdayFreeTips :tips="tips"/>
+
+    <!--    &lt;!&ndash; Popup Modal &ndash;&gt;-->
+    <!--    <AppPopUp/>-->
 
     <app-footer-main/>
 </template>

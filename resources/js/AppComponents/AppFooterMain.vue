@@ -15,44 +15,35 @@ function navigateTo(link) {
 <template>
     <section class="px-[10px]">
         <div class=" bg-[#d88731] rounded">
-            <div class="flex justify-between md:flex-row flex-col p-[30px]" >
-                <section class="flex gap-[20px] mb-[30px]">
-                    <div class=" text-black" >
-                        <!--                    <h5 class="h5 font-bold">Links</h5>-->
-                        <ul>
-                            <Link :href="'/tips'" as="li">Tips</Link>
-                            <Link :href="'/dashboard'" as="li">Dashboard</Link>
-                            <Link :href="'/about'" as="li">About Us</Link>
-                        </ul>
-                    </div>
-                    <div class=" text-black ">
-                        <!--                    <h5 class="h5 font-bold">Resources</h5>-->
-                        <ul>
-                            <Link :href="'/faq'" as="li" >FAQs</Link>
-                            <Link :href="'/privacyPolicy'" as="li" >Privacy Policy</Link>
-                            <Link :href="'/termsOfService'" as="li" >Terms Of Service</Link>
-                        </ul>
-                    </div>
+            <div class="flex p-4 items-center justify-between">
+                <section class=" gap-[20px]">
+                    <ul class="text-sm">
+                        <Link :href="'/about'" as="li">About Us</Link>
+<!--                        <Link :href="'/contact-us'" as="li">Contact Us</Link>-->
+                        <Link :href="'/faq'" as="li">FAQs</Link>
+                        <Link :href="'/privacyPolicy'" as="li">Privacy Policy</Link>
+                        <Link :href="'/termsOfService'" as="li">Terms Of Service</Link>
+                    </ul>
                 </section>
-                <section class="h-[100%]">
-                    <div class=" flex md:justify-end px-[30px] mb-[20px] w-full">
-                        <img class="w-[100px]" src="storage/System/Icons/logo-dark.png">
-                    </div>
-                    <ul class="flex gap-[20px]">
+                <section class="h-[100%] flex items-center">
+                    <ul class="flex gap-1">
                         <a target="blank" :href="item.link" v-for="item in icons">
-                            <i class="bi text-[20px] text-white" :class="[item.icon]"></i>
+                            <i class="bi text-[18px] text-white" :class="[item.icon]"></i>
                         </a>
                     </ul>
+                    <div class=" flex md:justify-end ml-[10px] w-full">
+                        <img class="w-[80px]" src="storage/System/Icons/logo-dark.png">
+                    </div>
                 </section>
             </div>
         </div>
     </section>
-    <div class="container flex text-center justify-center p-[10px]">
+    <div class="container flex text-center justify-center text-sm p-[10px]">
         <p class="text-black">Copyright © 2024-2025 Tips Moto. All rights reserved.</p>
     </div>
 </template>
 <style scoped lang="scss">
-ul{
+ul {
     @apply m-0 p-0;
 }
 </style>

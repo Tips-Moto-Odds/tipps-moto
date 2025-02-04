@@ -44,7 +44,7 @@ const scrollToDiv = () => {
 const form = useForm({
     id: null,
     package: null,
-    phone: ''
+    phone: usePage().props.auth?.user?.phone,
 })
 const showPaymentValue = ref(false)
 const flashMessage = ref('')
@@ -143,28 +143,31 @@ onMounted(() => {
         <title>Tips</title>
     </Head>
     <div v-if="showPaymentValue" class="w-[100vw] h-[100vh] bg-black/50 flex items-center justify-center" style="z-index:30000;position:fixed; top: 0; left: 0; right: 0; bottom: 0;">
-        <div class="bg-white rounded-lg shadow-md w-96 p-6">
-            <h2 class="text-2xl pb-2 font-bold border-b border-b-[2px] border-black mb-[10px]">Purchase Package</h2>
-            <p class="text-gray-700  mb-4">You are about to Purchase <span class="font-bold">{{ form.package }} </span> package for:</p>
-            <div class="flex justify-between font-bold py-2">
-                <span>{{ form.package }} package</span>
-                <span class="font-bold inline-flex">
+        <div class="bg-white rounded-lg shadow-md w-96 p-3">
+            <h2 class="text-2xl pb-1 font-bold border-b border-b-[2px] border-black mb-[10px]">Purchase Package</h2>
+            <p class="text-gray-700  mb-4">You are about to purchase the <span class="font-bold">{{ form.package }} </span> package for:</p>
+            <div class="flex justify-between  py-2">
+                <span>{{ form.package }}</span>
+                <span class="inline-flex">
                     <p>KES</p>
                     <p class="w-[50px] text-right ">{{ showDisplay.price }}</p>
                 </span>
             </div>
-            <div class="flex justify-between font-bold border-b border-black border-b-[2px] py-2">
+            <div class="flex justify-between  border-b border-black border-b-[2px] py-2">
                 <span>D.S.T. (TAX)</span>
-                <span class="font-bold inline-flex">
+                <span class=" inline-flex">
                     <p>KES</p>
                     <p class="w-[50px] text-right ">{{ showDisplay.tax }}</p>
                 </span>
             </div>
-            <div class="flex justify-between font-bold text-lg py-2">
-                <span>Total</span>
-                <span>Ksh {{ showDisplay.tax + showDisplay.price }}</span>
+            <div class="flex justify-between py-2">
+                <span class="font-bold">TOTAL</span>
+                <span class="font-bold inline-flex">
+                    <p>KES</p>
+                    <p class="w-[50px] text-right ">{{ showDisplay.tax + showDisplay.price }}</p>
+                </span>
             </div>
-            <p class="text-gray-700 text-sm mt-4">Please enter your M-Pesa phone number to complete purchase</p>
+            <p class="text-gray-700 text-sm mt-4">Please enter your <span class="font-bold">M-Pesa</span> phone number to complete the purchase:</p>
             <input
                 type="text"
                 placeholder="Phone Number"
@@ -174,13 +177,15 @@ onMounted(() => {
             <p class="text-red-500">{{ form.errors.phone }}</p>
             <div class="flex justify-between mt-6">
                 <button
-                    class="w-1/2 bg-green-500 text-white font-bold py-2 rounded-md mr-2 hover:bg-green-600 active:scale-95 transition-transform"
+                    class="w-1/2 bg-green-500 text-white active:shadow-none active:scale-95 font-bold py-2 rounded-md mr-2 hover:bg-green-600 active:scale-95 transition-transform"
+                    style="box-shadow: 0 0 6px gray"
                     @click="confirmPayment"
                 >
                     CONFIRM
                 </button>
                 <button
-                    class="w-1/2 bg-red-500 text-white font-bold py-2 rounded-md ml-2 hover:bg-red-600 active:scale-95 transition-transform"
+                    class="w-1/2 bg-red-500 text-white active:shadow-none active:scale-95 font-bold py-2 rounded-md ml-2 hover:bg-red-600 active:scale-95 transition-transform"
+                    style="box-shadow: 0 0 6px gray"
                     @click="togglePaymentShow"
                 >
                     CANCEL
@@ -220,7 +225,7 @@ onMounted(() => {
                 </div>
             </div>
         </div>
-        <div id="jp" class="container mb-[20px] main-card-container p-[10px] bg-gray-600 rounded">
+        <div id="jp" class="container mb-[20px] main-card-container p-[10px] bg-black rounded">
             <h1 class="text-center py-[20px]">Jackpot Tips</h1>
             <p class="px-[30px] mb-[30px] text-center">Jackpot Tips involve inferring the outcomes of a series of matches, typically 13-20 fixtures. These are high-stakes picks that require precision
                 and

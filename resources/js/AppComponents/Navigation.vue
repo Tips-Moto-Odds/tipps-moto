@@ -14,7 +14,7 @@ const appPaths = [
         path: route('tips')
     },
     {
-        name: "Dashboard",
+        name: "Subscriptions",
         path: route('subscriptions')
     },
     {
@@ -22,8 +22,6 @@ const appPaths = [
         path: route('dashboard')
     }
 ]
-
-console.log(route().current())
 
 const currentPage = () => {
     switch (route().current()) {
@@ -54,8 +52,8 @@ function dropDownMenu() {
     <div class="bg-[#f4660d] w-full p-[10px]" style="position: fixed;top: 0px;z-index: 2000"></div>
     <div id="home-menu"
          class="flex justify-between mb-[20px] !mx-[10px] mt-[5px] px-[20px] rounded shadow bg-[#d88731] h-[70px] transition duration-200 ease-in-out overflow-hidden">
-        <Link :href="'/'" as="div" class="text-white  py-[3px] rounded ">
-            <img class="w-[60px] p-1" src="/storage/System/Icons/logo-dark.png">
+        <Link :href="'/'" as="div">
+            <img class="w-[80px] md:w-[70px]" src="/storage/System/Icons/logo-dark.png">
         </Link>
         <ul class="p-[15px] gap-xl-2 m-0 w-[90%] flex flex-col lg:hidden lg:w-fit lg:flex-row lg:pt-[40px]">
             <li class="menu-button lg:hidden">{{ currentPage() }}</li>
