@@ -2,31 +2,31 @@
 import HomeTipsDisplay from "@/AppComponents/HomeTipsDisplay.vue";
 import {useDateFormat} from "@vueuse/shared";
 
-// const props = defineProps(['tips'])
+const props = defineProps(['tips'])
 
-const tips = [
-    {
-        home_teams: 'monchengladbach',
-        away_teams: 'Liverpool',
-        match_start_time:'2025-01-27 22:30:00',
-        prediction_type:'1-X-2',
-        predictions:'Home Win'
-    },
-    {
-        home_teams: 'Chealse',
-        away_teams: 'Liverpool',
-        match_start_time:'2025-01-27 22:30:00',
-        prediction_type:'1-X-2',
-        predictions:'Home Win'
-    },
-    {
-        home_teams: 'Chealse',
-        away_teams: 'Liverpool',
-        match_start_time:'2025-01-27 22:30:00',
-        prediction_type:'1-X-2',
-        predictions:'Home Win'
-    }
-]
+// const tips = [
+//     {
+//         home_teams: 'monchengladbach',
+//         away_teams: 'Liverpool',
+//         match_start_time:'2025-01-27 22:30:00',
+//         prediction_type:'1-X-2',
+//         predictions:'Home Win'
+//     },
+//     {
+//         home_teams: 'Chealse',
+//         away_teams: 'Liverpool',
+//         match_start_time:'2025-01-27 22:30:00',
+//         prediction_type:'1-X-2',
+//         predictions:'Home Win'
+//     },
+//     {
+//         home_teams: 'Chealse',
+//         away_teams: 'Liverpool',
+//         match_start_time:'2025-01-27 22:30:00',
+//         prediction_type:'1-X-2',
+//         predictions:'Home Win'
+//     }
+// ]
 </script>
 
 <template>

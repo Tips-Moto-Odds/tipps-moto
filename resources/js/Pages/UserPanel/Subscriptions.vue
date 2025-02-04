@@ -64,7 +64,7 @@ function closeSubMenu() {
             </table>
         </div>
         <div v-else>
-            <p class="p-[20px] text-center">No subscription available</p>
+            <p class="p-[20px] text-white text-center">No subscription available</p>
         </div>
     </div>
 </template>

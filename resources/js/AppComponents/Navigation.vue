@@ -44,7 +44,7 @@ function dropDownMenu() {
     if ($('#home-menu').height() > 100) {
         $('#home-menu').css('height', '70px')
     } else {
-        $('#home-menu').css('height', '320px')
+        $('#home-menu').css('height', '340px')
     }
 }
 </script>
