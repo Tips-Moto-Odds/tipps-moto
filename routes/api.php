@@ -65,15 +65,7 @@ Route::post('/postTips', function (Request $request) {
             $home_team = $value['Home Team'];
             $league = $value['league'];
             $jackpot = $value['jackpot'];
-
-            $date = $value['date'][0];
-            $time = $value['date'][1];
-
-            $dateTimeString = trim($date . ' ' . str_replace(' EAT', '', $time));
-
-            $carbonDate = Carbon::createFromFormat('l, F, jS H:i', $dateTimeString, 'Africa/Nairobi');
-
-            $timestamp = $carbonDate->toDateTimeString();
+            $timestamp = $value['date'];
 
             $match = new Matches();
             $match->league = $league;
