@@ -15,7 +15,7 @@
     @vite(['resources/js/app.js', "resources/js/Pages/{$page['component']}.vue"])
     @inertiaHead
 </head>
-<body class="font-sans antialiased bg-[#f4660d]">
+<body class="iter antialiased bg-[#f4660d]">
 @inertia
 <!-- Add these to your main HTML file if not already included -->
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>

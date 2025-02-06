@@ -64,8 +64,8 @@ Route::post('/postTips', function (Request $request) {
             $away_team = $value['Away Team'];
             $home_team = $value['Home Team'];
             $league = $value['league'];
-            $jackpot = $value['jackpot'];
             $timestamp = $value['date'];
+            $jackpot = $value['jackpot'];
 
             $match = new Matches();
             $match->league = $league;

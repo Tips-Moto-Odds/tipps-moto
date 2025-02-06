@@ -16,6 +16,7 @@ export default {
         extend: {
             fontFamily: {
                 sans: ['Figtree', ...defaultTheme.fontFamily.sans],
+                inter: 'Inter',
             },
             colors: {
                 primary_orange: "#D88731",
