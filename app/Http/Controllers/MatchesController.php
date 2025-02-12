@@ -14,7 +14,7 @@ class MatchesController extends Controller
     public function index(Request $request)
     {
         $search = $request->query('search');
-        $matches = Matches::with('tips');
+        $matches = Matches::with('tips')->orderBy('match_start_time', 'desc');
 
         if ($search) {
             $matches = $matches
@@ -36,6 +36,7 @@ class MatchesController extends Controller
             'search' => $search,
         ]);
     }
+
 
     public function create(Request $request)
     {
