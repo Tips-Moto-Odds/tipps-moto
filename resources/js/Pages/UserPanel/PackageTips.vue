@@ -4,43 +4,14 @@ import Navigation from "@/AppComponents/Navigation.vue";
 import {useDateFormat} from "@vueuse/shared";
 import HomeTipsDisplay from "@/AppComponents/HomeTipsDisplay.vue";
 
-// const props = defineProps(['tips'])
-// let tips = []
-//
-// if (props.tips && props.tips.tips) {
-//     tips = JSON.parse(props.tips.tips);
-// }
+const props = defineProps(['tips'])
+let tips = []
 
-const tips = [
-    {
-        home_teams: 'monchengladbach',
-        away_teams: 'Liverpool',
-        match_start_time:'2025-01-27 22:30:00',
-        prediction_type:'1-X-2',
-        predictions:'Home Win'
-    },
-    {
-        home_teams: 'Chealse',
-        away_teams: 'Liverpool',
-        match_start_time:'2025-01-27 22:30:00',
-        prediction_type:'1-X-2',
-        predictions:'Home Win'
-    },
-    {
-        home_teams: 'Chealse',
-        away_teams: 'Liverpool',
-        match_start_time:'2025-01-27 22:30:00',
-        prediction_type:'1-X-2',
-        predictions:'Home Win'
-    },
-    {
-        home_teams: 'Chealse',
-        away_teams: 'Liverpool',
-        match_start_time:'2025-01-27 22:30:00',
-        prediction_type:'1-X-2',
-        predictions:'Home Win'
-    }
-]
+if (props.tips && props.tips.tips) {
+    tips = JSON.parse(props.tips.tips);
+}
+
+
 </script>
 
 <template>
