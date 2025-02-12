@@ -60,6 +60,7 @@ Route::post('/postTips', function (Request $request) {
 
     foreach ($payload as $key => $match) {
         foreach ($match as $match_index => $value) {
+            Log::info($value);
 
             $away_team = $value['Away Team'];
             $home_team = $value['Home Team'];
