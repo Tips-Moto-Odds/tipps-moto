@@ -49,8 +49,8 @@ const dropDownMenu = async () => {
          :style="{ height: menuHeight }">
 
         <!-- Logo -->
-        <Link :href="'/'" as="div">
-            <img class="w-[80px] md:w-[70px]" src="/storage/System/Icons/logo-dark.png">
+        <Link :href="'/'" as="div" class="w-[45px] p-[1px] flex items-center justify-center h-[70px]">
+            <img class=" md:w-[70px]" src="/storage/System/Icons/logo-dark.png">
         </Link>
 
         <!-- Navigation List -->
@@ -81,7 +81,7 @@ const dropDownMenu = async () => {
 }
 
 .menu-button {
-    @apply text-white text-center w-[130px] bg-[#353538] self-center mb-[25px] text-[16px] md:w-[120px] px-3 py-2 rounded-[6px] hover:bg-[#555562] cursor-pointer lg:mx-[10px];
+    @apply text-white w-[130px] text-center  bg-[#353538] self-center mb-[25px] text-[16px] md:w-[130px] px-3 py-2 rounded-[6px] hover:bg-[#555562] cursor-pointer lg:mx-[10px];
 }
 
 /* Ensure last menu item has extra bottom padding */

@@ -17,8 +17,7 @@ const props = defineProps({
                     </div>
                     <div class="info">
                         <h3>Users</h3>
-                        <p>{{ users?.users?.length || 0 }}</p>
-                        <p>{{ users?.users?.length || 0 }}</p>
+                        <p>{{ users?.length || 0 }}</p>
                     </div>
                 </li>
 
