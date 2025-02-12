@@ -60,73 +60,93 @@ Route::post('/postTips', function (Request $request) {
 
     foreach ($payload as $key => $match) {
         foreach ($match as $match_index => $value) {
-            Log::info($value['Away Team']);
 
             $away_team = $value['Away Team'];
             $home_team = $value['Home Team'];
             $league = $value['league'];
             $timestamp = $value['date'];
-            $jackpot = $value['jackpot'];
 
-            $match = new Matches();
-            $match->league = $league;
-            $match->home_teams = $home_team;
-            $match->away_teams = $away_team;
-            $match->match_start_time = $timestamp;
+            // 🔹 Check if the match already exists
+            $existing_match = Matches::where('home_teams', $home_team)
+                ->where('away_teams', $away_team)
+                ->where('match_start_time', $timestamp)
+                ->where('league', $league)
+                ->first();
 
-            $match->save();
+            if ($existing_match) {
+                $match = $existing_match; // Use the existing match
+            } else {
+                // 🔹 Create a new match if it doesn't exist
+                $match = new Matches();
+                $match->league = $league;
+                $match->home_teams = $home_team;
+                $match->away_teams = $away_team;
+                $match->match_start_time = $timestamp;
+                $match->save();
+            }
 
+            // 🔹 Process tips
             $tips_list = $value['tips'];
 
             foreach ($tips_list as $type => $tip) {
                 $prediction = null;
                 $prediction_type = null;
 
-                if ($type == '1_X_2'){
+                if ($type == '1_X_2') {
                     $prediction_type = '1-X-2';
-
-                    if ($tip['result'] == 1){
+                    if ($tip['result'] == 1) {
                         $prediction = 'Home Win';
-                    }else if ($tip['result'] == 0){
+                    } elseif ($tip['result'] == 0) {
                         $prediction = 'Draw';
-                    }else if ($tip['result'] == -1){
+                    } elseif ($tip['result'] == -1) {
                         $prediction = 'Away Win';
                     }
-                } else if ($type == '1X_X2_12'){
+                } elseif ($type == '1X_X2_12') {
                     $prediction_type = '1X_X2_12';
-
-                    if ($tip['result'] == 1){
+                    if ($tip['result'] == 1) {
                         $prediction = 'Home Win/Draw';
-                    }else if ($tip['result'] == 0){
+                    } elseif ($tip['result'] == 0) {
                         $prediction = 'Away Win/Draw';
-                    }else if ($tip['result'] == -1){
+                    } elseif ($tip['result'] == -1) {
                         $prediction = 'Home Win/Away Win';
                     }
-                } else if ($type == 'GG_NG'){
+                } elseif ($type == 'GG_NG') {
                     $prediction_type = 'GG-NG';
-
-                    if ($tip['result'] == 1){
+                    if ($tip['result'] == 1) {
                         $prediction = 'GG';
-                    }else if ($tip['result'] == -1){
+                    } elseif ($tip['result'] == -1) {
                         $prediction = 'NG';
                     }
-                } else{
+                } else {
                     continue;
                 }
 
-                $tip_model = new Tips();
+                // 🔹 Check if the tip already exists for this match and prediction type
+                $existing_tip = Tips::where('match_id', $match->id)
+                    ->where('prediction_type', $prediction_type)
+                    ->first();
 
-                $tip_model->match_id = $match->id;
-                $tip_model->generated_by = 1;
-                $tip_model->prediction_type = $prediction_type;
-                $tip_model->predictions = $prediction;
-                $tip_model->prediction_confidence = $key;
-
-                $tip_model->save();
+                if ($existing_tip) {
+                    // 🔹 Update the tip only if the prediction has changed
+                    if ($existing_tip->predictions !== $prediction) {
+                        $existing_tip->predictions = $prediction;
+                        $existing_tip->prediction_confidence = $key; // Update confidence level
+                        $existing_tip->save();
+                    }
+                } else {
+                    // 🔹 Insert a new tip if it doesn't exist
+                    $tip_model = new Tips();
+                    $tip_model->match_id = $match->id;
+                    $tip_model->generated_by = 1;
+                    $tip_model->prediction_type = $prediction_type;
+                    $tip_model->predictions = $prediction;
+                    $tip_model->prediction_confidence = $key;
+                    $tip_model->save();
+                }
             }
-
         }
     }
+
 
 
     return $request->all();
