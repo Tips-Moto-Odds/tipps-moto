@@ -1,124 +1,159 @@
 <script setup>
+import {ref} from "vue";
 import DashboardLayout from "@/Layouts/AdministrationLayout/DashboardLayout.vue";
-import {useAccountStore} from "@/Stores/AccountControl.js";
-import {useForm} from "@inertiajs/vue3";
+import UserCard from "@/Pages/Dashboards/Administrator/Accounts/UserCard.vue";
 
-const props = defineProps(['user','can_log_in_as_user'])
-const AdminStore = useAccountStore()
-const userForm = useForm(props.user)
+const props = defineProps(["user", 'transactions', 'subscriptions', "can_log_in_as_user"]);
 
+const activeTab = ref("subscriptions"); // Default to 'subscriptions'
 
-function formatDate(dateTimeString) {
-  const date = new Date(dateTimeString);
-  const year = date.getFullYear();
-  const month = String(date.getMonth() + 1).padStart(2, '0');
-  const day = String(date.getDate()).padStart(2, '0');
-  return `${month}-${day}-${year}`;
-}
-
-function formatTime(dateTimeString) {
-  const date = new Date(dateTimeString);
-  const hours = String(date.getHours()).padStart(2, '0');
-  const minutes = String(date.getMinutes()).padStart(2, '0');
-  return `${hours}:${minutes}`;
-}
-
-
-const updateUser = () => {
-}
-const deleteUser = () => {
-  // Prompt the user for confirmation
-  if (window.confirm("Are you sure you want to delete this user?")) {
-    userForm.delete(route('DeleteUsers',[userForm.id]), {
-      onSuccess: () => {
-        alert("User deleted successfully!");
-      },
-      onError: () => {
-        alert("There was an error deleting the user.");
-      }
-    });
-  }
+const switchTab = (tab) => {
+    activeTab.value = tab;
 };
-
-
-const updateAdminMode = () => {
-  AdminStore.enableAdminMode()
-}
-
 </script>
 
-
 <template>
-  <DashboardLayout page-heading="View User" title="View User">
-    <div class="app-panel flex justify-between mx-[20px] !py-[20px]">
-      <div class="w-[150px] h-[150px] bg-gray-500 rounded flex items-center justify-center">
-        <i class="bi bi-person-fill text-white text-[100px]"></i>
-      </div>
-      <div class="h-[150px] flex-grow-[1] px-[30px] flex flex-col justify-center">
-        <h2 class="font-bold text-white text-[22px]">{{ user.name }}</h2>
-        <ul class="text-white text-sm">
-          <li class="flex py-[5px]"><p class=" w-[100px] flex justify-between">Role <span class="text-right">:</span>
-          </p>
-            <p class="px-[10px]">{{ user.role_name }}</p></li>
-          <li class="flex py-[5px]"><p class=" w-[100px] flex justify-between">Email <span class="text-right">:</span>
-          </p>
-            <p class="px-[10px]">{{ user.email }}</p></li>
-          <li class="flex py-[5px]"><p class=" w-[100px] flex justify-between">Phone <span class="text-right">:</span>
-          </p>
-            <p class="px-[10px]">{{ user.phone }}</p></li>
-          <li class="flex py-[5px]"><p class=" w-[100px] flex justify-between">Status <span class="text-right">:</span>
-          </p>
-            <p class="px-[10px] mx-[10px] rounded-sm bg-green-500">{{ user.status }}</p></li>
-        </ul>
-      </div>
-      <div class="w-[200px]">
-        <div class="flex flex-col gap-[10px]">
-          <button class="action-button bg-blue-500 text-white text-sm" @click="updateUser">Update</button>
-          <button class="action-button bg-red-500 text-white text-sm" @click="deleteUser">Delete</button>
+    <DashboardLayout page-heading="View User" title="View User">
+        <!-- User Card (Static) -->
+        <UserCard :user="user"/>
+
+        <!-- Tabs for Switching -->
+        <div class="tabs-container mt-6">
+            <div class="tabs">
+                <button
+                    class="tab-button"
+                    :class="{ active: activeTab === 'subscriptions' }"
+                    @click="switchTab('subscriptions')"
+                >
+                    Subscriptions
+                </button>
+                <button
+                    class="tab-button"
+                    :class="{ active: activeTab === 'transactions' }"
+                    @click="switchTab('transactions')"
+                >
+                    Transactions
+                </button>
+            </div>
+
+            <!-- Tab Content -->
+            <div class="tab-content">
+                <!-- Subscriptions Tab -->
+                <div v-if="activeTab === 'subscriptions'">
+                    <h3 class="section-title">User Subscriptions</h3>
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>Package</th>
+                            <th>Start Date</th>
+                            <th>End Date</th>
+                            <th>Status</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr v-for="subscription in subscriptions" :key="subscription.id">
+                            <td>{{ subscription.package_name }}</td>
+                            <td>{{ subscription.start_date }}</td>
+                            <td>{{ subscription.end_date }}</td>
+                            <td>{{ subscription.status }}</td>
+                        </tr>
+                        <tr v-if="subscriptions.length === 0">
+                            <td colspan="4" class="text-center text-gray-400">No Subscriptions Found</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Transactions Tab -->
+                <div v-if="activeTab === 'transactions'">
+                    <h3 class="section-title">User Transactions</h3>
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>Transaction ID</th>
+                            <th>Amount (Ksh)</th>
+                            <th>Payment Method</th>
+                            <th>Package Purchased</th>
+                            <th>Date</th>
+                            <th>Status</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr v-for="transaction in transactions" :key="transaction.id">
+                            <td>{{ transaction.id }}</td>
+                            <td>{{ transaction.amount }}</td>
+                            <td>{{ 'M-Pesa' }}</td>
+                            <td>{{ transaction.package }}</td>
+                            <td>{{ transaction.transaction_date }}</td>
+                            <td>{{ transaction.transaction_status }}</td>
+                        </tr>
+                        <tr v-if="transactions.length === 0">
+                            <td colspan="5" class="text-center text-gray-400">No Transactions Found</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
-  </DashboardLayout>
+    </DashboardLayout>
 </template>
 
-<style lang="scss" scoped>
-.action-button {
-  @apply px-[10px] py-[5px] rounded-sm;
+<style scoped lang="scss">
+/* Tabs */
+.tabs {
+    @apply flex border-b-2 border-gray-700 mx-[20px];
 }
 
-.side-section {
-  @apply p-2 rounded;
+.tab-button {
+    @apply flex-1 py-3 text-center font-bold cursor-pointer transition-all duration-300 border-none text-white;
 
-  & > h1 {
-    @apply text-[25px] font-light mb-[20px]
-  }
-
-  & > ul {
-    @apply px-[10px];
-    & > li {
-      @apply flex justify-between mb-[10px];
-
-      ul {
-        @apply flex items-center gap-5;
-
-        li {
-          @apply text-sm w-[20px] h-[20px] text-center rounded-[50%];
-        }
-
-        li.win {
-          @apply bg-green-500;
-        }
-
-        li.draw {
-          @apply bg-orange-500;
-        }
-
-        li.lost {
-          @apply bg-red-500;
-        }
-      }
+    &:hover {
+        @apply bg-gray-600;
     }
-  }
+
+    &.active {
+        @apply bg-gray-800;
+    }
 }
 
+/* Tab Content */
+.tab-content {
+    @apply p-5  mx-[20px] bg-gray-800;
+}
+
+/* Table */
+.table {
+    @apply w-full border-collapse mt-4;
+}
+
+.table th, .table td {
+    @apply px-4 py-3 text-left border-b border-gray-700;
+}
+
+.table th {
+    @apply bg-gray-800 text-white;
+}
+
+/* Status */
+.active-status {
+    @apply text-green-400 font-bold;
+}
+
+.expired-status {
+    @apply text-red-500 font-bold;
+}
+
+.success-status {
+    @apply text-green-400 font-bold;
+}
+
+.failed-status {
+    @apply text-red-500 font-bold;
+}
+
+/* Section Title */
+.section-title {
+    @apply text-white text-lg font-bold mb-4;
+}
 </style>
+

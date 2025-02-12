@@ -75,9 +75,8 @@ onMounted(() => {
                 <th class="text-center w-[80px]">ID</th>
                 <th class="">User</th>
                 <th class="">Phone Number</th>
-                <th class="w-[100px]">Role</th>
+                <th class="w-[160px]">Role</th>
                 <th class="">Date Joined</th>
-                <th class="w-[150px] text-center">Action</th>
               </tr>
             </thead>
             <tbody>
@@ -94,7 +93,6 @@ onMounted(() => {
                   <td>{{ user.phone }}</td>
                   <td>{{ user.role_name }}</td>
                   <td>{{useDateFormat(user.created_at,'MM/DD/YYYY').value}}</td>
-                  <td><TableActionButtons :id="user.id" @deleteModel="openDeleteConfirmation"/></td>
                 </Link>
               </template>
             </tbody>

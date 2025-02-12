@@ -1,83 +1,74 @@
 <script setup>
-
-const props = defineProps([
-    "model",
-    "users",
-    "payments"
-])
-
+const props = defineProps({
+    model: Object,
+    users: Object,
+    payments: Object,
+});
 </script>
 
-
 <template>
-    <div class="px-[10px]">
-        <div class="app-card w-full rounded p-[20px]">
+    <div class="px-2 md:px-4">
+        <div class="app-card w-full rounded p-4 md:p-6">
+            <!-- Summary Cards -->
+            <ul class="flex flex-col md:flex-row justify-around mb-8">
+                <li class="display-card">
+                    <div class="icon-container">
+                        <img class="h-12" src="/storage/System/Icons/user-icon.png">
+                    </div>
+                    <div class="info">
+                        <h3>Users</h3>
+                        <p>{{ users?.users?.length || 0 }}</p>
+                    </div>
+                </li>
 
-            <ul class="flex justify-between mb-[40px]">
                 <li class="display-card">
-                    <div class="h-[60px] p-[1px]">
-                        <img class="h-[50px]" src="/storage/System/Icons/user-icon.png">
+                    <div class="icon-container">
+                        <img width="60" height="60" src="https://img.icons8.com/ios-glyphs/90/3AD863/money--v1.png" alt="money icon"/>
                     </div>
-                    <div>
-                        <h3 class="text-sm">Users</h3>
-                        <p>{{ users?.users.length }}</p>
+                    <div class="info">
+                        <h3>Payments</h3>
+                        <p>Ksh {{ payments?.payments || 0 }}</p>
                     </div>
-                    <span>up by {{ users?.increase_percentage }}%</span>
                 </li>
+
                 <li class="display-card">
-                    <div class="h-[60px] p-[1px]">
-                        <img width="60" height="90"
-                             src="https://img.icons8.com/ios-glyphs/90/3AD863/money--v1.png"
-                             alt="money--v1"/>
+                    <div class="icon-container">
+                        <img width="50" height="50" src="https://img.icons8.com/ios/50/0ED3E2/artificial-intelligence.png" alt="AI"/>
                     </div>
-                    <div>
-                        <h3 class="text-sm">Payments</h3>
-                        <p>Ksh {{ payments?.payments }}</p>
+                    <div class="info">
+                        <h3>Model Accuracy</h3>
+                        <p>{{ model?.model || 0 }}%</p>
                     </div>
-                    <span>Percentage increase/decrece {{ payments?.increase_percentage }}</span>
-                </li>
-                <li class="display-card">
-                    <div class="h-[60px] p-[1px]">
-                        <img width="50" height="50"
-                             src="https://img.icons8.com/ios/50/0ED3E2/artificial-intelligence.png"
-                             alt="artificial-intelligence"/>
-                    </div>
-                    <div>
-                        <h3 class="text-sm">Model Accuracy</h3>
-                        <p>{{ model?.model }}%</p>
-                    </div>
-                    <span>up by {{ model?.increase_percentage }}%</span>
                 </li>
             </ul>
 
-            <section class="flex gap-2 mb-[100px]">
-                <div class="w-8/12">
+            <!-- Income Summary -->
+            <section class="flex flex-col md:flex-row gap-4 mb-16">
+                <div class="md:w-8/12">
                     <h6 class="text-white">Income Summary</h6>
-                    <h5 class="text-sm text-gray-200 mb-[20px]">Summary</h5>
-                    <div class="bg-gray-500 w-full h-[300px]">
-
-                    </div>
+                    <h5 class="text-sm text-gray-200 mb-4">Summary</h5>
+                    <div class="bg-gray-500 w-full h-[300px] rounded"></div>
                 </div>
-                <div class="w-4/12 h-[300px] bg-gray-500 rounded bg-[#373636] p-[18px]">
-                    <h6 class="text-white mb-[20px]">Recent Purchases</h6>
+                <div class="md:w-4/12 bg-gray-700 rounded p-4">
+                    <h6 class="text-white mb-4">Recent Purchases</h6>
                     <ul class="text-white text-sm">
-                        <li v-for="i in 5" class=" mb-[10px]">
-                            <div class="flex mb-[10px] justify-between">
+                        <li v-for="(_, i) in Array(5).fill(null)" :key="i" class="mb-2">
+                            <div class="flex justify-between">
                                 <p>Username</p>
-                                <p>200</p>
+                                <p>Ksh 200</p>
                             </div>
-                            <hr class="border-[1px] border-[grey]">
+                            <hr class="border-gray-500">
                         </li>
                     </ul>
-
                 </div>
             </section>
 
-            <section class="mb-[20px]">
-                <h6 class="text-white mb-[15px] font-bold">Recent Activity</h6>
+            <!-- Recent Activity -->
+            <section class="mb-6">
+                <h6 class="text-white mb-4 font-bold">Recent Activity</h6>
                 <table class="text-white w-full">
-                    <thead class="h-[50px]">
-                    <tr class="text-left border-b-[2px] text-sm">
+                    <thead class="h-12">
+                    <tr class="border-b-2 text-sm">
                         <th>Type</th>
                         <th>Initiator</th>
                         <th>Date/Time</th>
@@ -87,93 +78,95 @@ const props = defineProps([
                     </tr>
                     </thead>
                     <tbody>
-                    <tr v-for="i in 10" class="border-b h-[70px]">
+                    <tr v-for="(_, i) in Array(10).fill(null)" :key="i" class="border-b h-16">
                         <td>Prediction</td>
                         <td>
-                            <div class="h-full w-full">
-                                <p class="mb-[5px]">Administrator</p>
-                                <p class="text-sm text-gray-300">admin@email.com</p>
-                            </div>
+                            <p class="mb-1">Administrator</p>
+                            <p class="text-sm text-gray-300">admin@email.com</p>
                         </td>
                         <td>
-                            <div class="h-full w-full">
-                                <p class="mb-[5px]">00:00 PM</p>
-                                <p class="text-gray-300">00/00/00</p>
-                            </div>
+                            <p class="mb-1">00:00 PM</p>
+                            <p class="text-gray-300">00/00/00</p>
                         </td>
-                        <td class="w-[40%] pr-[10px] ">
-                            <p class=" line-clamp-2">Lorem ipsum dolor sit amet, consectetur adipisicing
-                                elit. Ab autem cum dolore esse fuga numquam sit voluptatibus. Amet
-                                dignissimos dolorem, et inventore molestiae officia perspiciatis possimus
-                                praesentium, sed tempora, vero!</p>
+                        <td class="w-[40%] pr-4">
+                            <p class="line-clamp-2">
+                                Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                                Ab autem cum dolore esse fuga numquam sit voluptatibus.
+                                Amet dignissimos dolorem, et inventore molestiae officia perspiciatis possimus praesentium.
+                            </p>
                         </td>
                         <td>Active</td>
                         <td>
-                            <button class="text-sm py-[3px] px-[10px] bg-red-400 rounded hover:bg-red-700">
-                                Delete
-                            </button>
+                            <button class="text-sm py-1 px-4 bg-red-400 rounded hover:bg-red-700">Delete</button>
                         </td>
                     </tr>
                     </tbody>
                 </table>
             </section>
-
         </div>
     </div>
 </template>
 
 <style scoped lang="scss">
-
+/* Global Card Theme */
 .app-card {
-    background-image: linear-gradient(20deg, rgb(65 65 65), rgb(73 73 73));
+    background: linear-gradient(20deg, rgb(65, 65, 65), rgb(73, 73, 73));
 }
 
-.app-card {
+/* Display Cards */
+.display-card {
+    @apply w-full flex flex-col items-center text-center mx-2 h-36 rounded-xl p-4 shadow-xl;
+
+    h3, p {
+        @apply text-white font-bold;
+    }
+
+    span {
+        @apply text-gray-300 text-sm mt-2;
+    }
+
+    .info {
+        @apply flex flex-col justify-between;
+    }
+}
+
+/* Gradient Backgrounds */
+.display-card:nth-of-type(1) {
+    background: radial-gradient(circle at top right, rgb(223, 135, 68), rgb(65, 65, 65));
+}
+
+.display-card:nth-of-type(2) {
+    background: radial-gradient(circle at top right, rgb(68, 223, 104), rgb(65, 65, 65));
+}
+
+.display-card:nth-of-type(3) {
+    background: radial-gradient(circle at top right, rgb(68, 158, 223), rgb(65, 65, 65));
+}
+
+/* Table Styling */
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+th, td {
+    padding: 8px;
+    text-align: left;
+}
+
+th {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
     .display-card {
-        @apply w-full mx-[10px] h-[140px] rounded-xl p-[10px] shadow-xl;
-
-        & > div:nth-of-type(2) {
-            @apply flex justify-between px-[10px] text-lg
-        }
-
-        h3, p {
-            @apply text-white font-bold;
-        }
-
-        span {
-            @apply text-gray-300 text-sm p-[20px]
-        }
-
+        @apply w-full;
     }
 
-    .display-card:nth-of-type(1) {
-        background-image: radial-gradient(
-                circle at top right,
-                rgb(223, 135, 68) -400%,
-                rgb(223, 135, 68) -300%,
-                rgb(223, 135, 68) -200%,
-                rgb(65, 65, 65)
-        );
-    }
-
-    .display-card:nth-of-type(2) {
-        background-image: radial-gradient(
-                circle at top right,
-                rgb(68,223,104) -400%,
-                rgb(68,223,140) -300%,
-                rgb(89,223,68) -200%,
-                rgb(65, 65, 65)
-        );
-    }
-
-    .display-card:nth-of-type(3) {
-        background-image: radial-gradient(
-                circle at top right,
-                rgb(68,158,223) -400%,
-                rgb(68,169,223) -300%,
-                rgb(68,200,223) -200%,
-                rgb(65, 65, 65)
-        );
+    .icon-container img {
+        width: 40px;
+        height: 40px;
     }
 }
 </style>

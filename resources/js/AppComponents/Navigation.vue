@@ -1,80 +1,80 @@
 <script setup>
 import {usePage} from "@inertiajs/vue3";
-import {ref, useAttrs} from "vue";
+import {ref, nextTick} from "vue";
 
-const page = usePage()
-const attr = useAttrs()
+const page = usePage();
+const isMenuOpen = ref(false);
+const homeMenu = ref(null); // Reference to the menu container
+const menuHeight = ref("70px"); // Default collapsed height
+
+// Navigation paths
 const appPaths = [
-    {
-        name: "Home",
-        path: route('Home')
-    },
-    {
-        name: "Tips",
-        path: route('tips')
-    },
-    {
-        name: "Subscriptions",
-        path: route('subscriptions')
-    },
-    {
-        name: "Account",
-        path: route('dashboard')
-    }
-]
+    { name: "Home", path: route('Home') },
+    { name: "Tips", path: route('tips') },
+    { name: "Subscriptions", path: route('subscriptions') },
+    { name: "Account", path: route('dashboard') }
+];
 
-const currentPage = () => {
-    switch (route().current()) {
-        case "Home":
-            return "Home"
-        case "tips":
-            return "Tips"
-        case "subscriptions":
-            return "Dashboard"
-        case "dashboard":
-            return "Account"
-        case "dashboard.tips.subscriptions-tips":
-            return "Subscription"
-        default:
-            return "Tips Moto"
-    }
-}
+// Dynamic lookup for current page
+const pageNames = {
+    "Home": "Home",
+    "tips": "Tips",
+    "subscriptions": "Dashboard",
+    "dashboard": "Account",
+    "dashboard.tips.subscriptions-tips": "Subscription"
+};
 
-function dropDownMenu() {
-    if ($('#home-menu').height() > 100) {
-        $('#home-menu').css('height', '70px')
+// Function to determine the current page name
+const currentPage = () => pageNames[route().current()] || "Tips Moto";
+
+// Toggle dropdown menu dynamically
+const dropDownMenu = async () => {
+    isMenuOpen.value = !isMenuOpen.value;
+
+    await nextTick(); // Ensure DOM updates before measuring height
+
+    if (isMenuOpen.value && homeMenu.value) {
+        menuHeight.value = `${homeMenu.value.scrollHeight + 10}px`; // Dynamically fit content with extra padding
     } else {
-        $('#home-menu').css('height', '340px')
+        menuHeight.value = "70px"; // Collapse back to original height
     }
-}
+};
 </script>
+
 <template>
-    <div class="bg-[#f4660d] w-full p-[10px]" style="position: fixed;top: 0px;z-index: 2000"></div>
-    <div id="home-menu"
-         class="flex justify-between mb-[20px] !mx-[10px] mt-[5px] px-[20px] rounded shadow bg-[#d88731] h-[70px] transition duration-200 ease-in-out overflow-hidden">
+    <div class="bg-[#f4660d] w-full p-[10px]" style="position: fixed; top: 0px; z-index: 2000"></div>
+
+    <div id="home-menu" ref="homeMenu"
+         class="flex justify-between mb-[20px] mx-[10px] mt-[5px] px-[20px] rounded shadow bg-[#d88731] overflow-hidden"
+         :style="{ height: menuHeight }">
+
+        <!-- Logo -->
         <Link :href="'/'" as="div">
             <img class="w-[80px] md:w-[70px]" src="/storage/System/Icons/logo-dark.png">
         </Link>
-        <ul class="p-[15px] gap-xl-2 m-0 w-[90%] flex flex-col lg:hidden lg:w-fit lg:flex-row lg:pt-[40px]">
+
+        <!-- Navigation List -->
+        <ul class="p-[15px] gap-xl-2 m-0 flex flex-col lg:flex-row lg:w-fit lg:pt-[40px]">
             <li class="menu-button lg:hidden">{{ currentPage() }}</li>
-            <template v-for="linker in appPaths">
-                <Link v-if="linker.name != currentPage()" class="menu-button" as="li" :href="linker.path">{{ linker.name }}</Link>
+            <template v-for="(linker, index) in appPaths" :key="linker.path">
+                <Link class="menu-button text-decoration-none"
+                      :class="{'active': linker.name === currentPage(), 'last-item': index === appPaths.length - 1}"
+                      :href="linker.path">
+                    {{ linker.name }}
+                </Link>
             </template>
         </ul>
-        <ul class="hidden p-[15px] gap-xl-2 m-0 w-[90%] lg:flex flex-col lg:w-fit lg:flex-row lg:pt-[40px]">
-            <li class="menu-button lg:hidden">{{ currentPage() }}</li>
-            <template v-for="linker in appPaths">
-                <Link  class="menu-button" as="li" :class="{'active':linker.name == currentPage()}" :href="linker.path">{{ linker.name }}</Link>
-            </template>
-        </ul>
+
+        <!-- Mobile Menu Toggle Button -->
         <div class="lg:hidden pt-[5px]">
-            <i class="bi text-[40px] text-white bi-list" @click.prevent="dropDownMenu"></i>
+            <i class="bi text-[40px] text-white bi-list" @click="dropDownMenu"></i>
         </div>
     </div>
 </template>
+
 <style lang="scss" scoped>
 #home-menu {
-    transition: all ease 0.5s;
+    transition: height 0.3s ease-in-out; /* Smooth dropdown animation */
     position: sticky !important;
     top: 10px;
     z-index: 5000;
@@ -82,6 +82,11 @@ function dropDownMenu() {
 
 .menu-button {
     @apply text-white text-center w-[130px] bg-[#353538] self-center mb-[25px] text-[16px] md:w-[120px] px-3 py-2 rounded-[6px] hover:bg-[#555562] cursor-pointer lg:mx-[10px];
+}
+
+/* Ensure last menu item has extra bottom padding */
+.menu-button.last-item {
+    @apply pb-[10px]; /* Adds 10px padding below the last button */
 }
 
 .menu-button.active {

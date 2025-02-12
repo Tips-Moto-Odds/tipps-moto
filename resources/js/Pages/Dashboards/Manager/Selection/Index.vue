@@ -9,7 +9,7 @@ console.log(props.selections)
 </script>
 
 <template>
-  <DashboardLayout page-heading="Accounts" title="Selections">
+  <DashboardLayout page-heading="Selections" title="Selections">
     <div class="flex gap-3 px-[10px] mb-4">
       <div class="app-panel flex justify-between w-full">
         <div>
@@ -17,12 +17,6 @@ console.log(props.selections)
         </div>
         <div>
           <div>
-            <input
-                id="search"
-                class="rounded-lg"
-                placeholder="Search"
-                type="search"
-            />
           </div>
         </div>
       </div>

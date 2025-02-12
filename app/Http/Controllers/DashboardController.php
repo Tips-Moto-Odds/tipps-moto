@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Barryvdh\Debugbar\Facades\Debugbar;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -13,17 +14,42 @@ class DashboardController extends Controller
     {
         $user = Auth::user();
 
-        if ($user->role->name === 'SuperAdministration') {
-            return Inertia::render('AdminDashboard');
+        switch ($user->role->name) {
+            case 'SuperAdministration':
+            case 'Administration':
+            case 'Manager':
+            case 'Moderator':
+                return Inertia::render('AdminDashboard', [
+                    'users' => $this->stats()['users'],
+                    'model' => $this->stats()['model'],
+                    'payments' => $this->stats()['payments']
+                ]);
+            default:
+                return Inertia::render('UserPanel/index', ['user' => $user]);
         }
-
-        return Inertia::render('UserPanel/index', ['user' => $user,]);
     }
 
     public function subscriptions()
     {
         $user = Auth::user();
         return Inertia::render('UserPanel/Subscriptions', ['subscriptions' => $user->subscriptions]);
+    }
+
+
+    public function Stats(): array
+    {
+        $users = User::all();
+
+
+
+
+
+
+        return [
+            'users' => $users,
+            'model' => [],
+            'payments' => []
+        ];
     }
 
 }

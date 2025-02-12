@@ -5,6 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+// Ensure correct model namespace
+
 class Transaction extends Model
 {
     use HasFactory;
@@ -18,4 +20,16 @@ class Transaction extends Model
         "transaction_type",
         "transaction_reference"
     ];
+
+    // Define Accessor for packageBought
+    public function getPackageBoughtAttribute()
+    {
+        return $this->package()->first();
+    }
+
+    // Define Relationship
+    public function package()
+    {
+        return $this->belongsTo(Packages::class, 'package_id');
+    }
 }

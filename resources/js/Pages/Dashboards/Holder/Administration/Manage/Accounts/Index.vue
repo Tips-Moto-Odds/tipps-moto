@@ -39,7 +39,6 @@ const delete_user = (id) =>  {
                         <th>User</th>
                         <th>Last Log in</th>
                         <th>Date Created</th>
-                        <th class="text-right">Action</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -64,9 +63,6 @@ const delete_user = (id) =>  {
                                 <p class="mild">{{ user?.DateJoined?.date }}</p>
                             </div>
                             <p v-else>N/A</p>
-                        </td>
-                        <td class="text-right">
-                            <button class="app-delete" @click.prevent="delete_user(user?.id)">Delete</button>
                         </td>
                     </tr>
                     </tbody>

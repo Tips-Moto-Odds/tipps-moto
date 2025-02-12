@@ -2,11 +2,9 @@
 import {Head} from '@inertiajs/inertia-vue3'
 import Navigation from "@/AppComponents/Navigation.vue";
 import AppFooterMain from "@/AppComponents/AppFooterMain.vue";
-import {applyBackGroundOrange} from "@/HelperFunctions/appFunctions.js";
-import Packages from "@/Pages/Home/Packages.vue";
 import {useForm, usePage} from "@inertiajs/vue3";
 import {onMounted, reactive, ref, useAttrs} from "vue";
-import {Inertia} from "@inertiajs/inertia";
+import PurchasePackageModal from "@/AppComponents/PurchasePackageModal.vue";
 
 const props = defineProps(['packages'])
 const attr = useAttrs()
@@ -143,56 +141,17 @@ onMounted(() => {
         <title>Tips</title>
     </Head>
     <div v-if="showPaymentValue" class="w-[100vw] h-[100vh] bg-black/50 flex items-center justify-center" style="z-index:30000;position:fixed; top: 0; left: 0; right: 0; bottom: 0;">
-        <div class="bg-white rounded-lg shadow-md w-96 p-3">
-            <h2 class="text-2xl pb-1 font-bold border-b border-b-[2px] border-black mb-[10px]">Purchase Package</h2>
-            <p class="text-gray-700  mb-4">You are about to purchase the <span class="font-bold">{{ form.package }} </span> package for:</p>
-            <div class="flex justify-between  py-2">
-                <span>{{ form.package }}</span>
-                <span class="inline-flex">
-                    <p>KES</p>
-                    <p class="w-[50px] text-right ">{{ showDisplay.price }}</p>
-                </span>
-            </div>
-            <div class="flex justify-between  border-b border-black border-b-[2px] py-2">
-                <span>D.S.T. (TAX)</span>
-                <span class=" inline-flex">
-                    <p>KES</p>
-                    <p class="w-[50px] text-right ">{{ showDisplay.tax }}</p>
-                </span>
-            </div>
-            <div class="flex justify-between py-2">
-                <span class="font-bold">TOTAL</span>
-                <span class="font-bold inline-flex">
-                    <p>KES</p>
-                    <p class="w-[50px] text-right ">{{ showDisplay.tax + showDisplay.price }}</p>
-                </span>
-            </div>
-            <p class="text-gray-700 text-sm mt-4">Please enter your <span class="font-bold">M-Pesa</span> phone number to complete the purchase:</p>
-            <input
-                type="text"
-                placeholder="Phone Number"
-                class="w-full border rounded-md p-2 mt-2 focus:ring-2 focus:ring-blue-400 focus:outline-none"
-                v-model="form.phone"
-            />
-            <p class="text-red-500">{{ form.errors.phone }}</p>
-            <div class="flex justify-between mt-6">
-                <button
-                    class="w-1/2 bg-green-500 text-white active:shadow-none active:scale-95 font-bold py-2 rounded-md mr-2 hover:bg-green-600 active:scale-95 transition-transform"
-                    style="box-shadow: 0 0 6px gray"
-                    @click="confirmPayment"
-                >
-                    CONFIRM
-                </button>
-                <button
-                    class="w-1/2 bg-red-500 text-white active:shadow-none active:scale-95 font-bold py-2 rounded-md ml-2 hover:bg-red-600 active:scale-95 transition-transform"
-                    style="box-shadow: 0 0 6px gray"
-                    @click="togglePaymentShow"
-                >
-                    CANCEL
-                </button>
-            </div>
-
-        </div>
+        <PurchasePackageModal
+            :show="showPaymentValue"
+            :packageName="form.package"
+            :price="showDisplay.price"
+            :tax="showDisplay.tax"
+            :phone="form.phone"
+            :errorMessage="form.errors.phone"
+            @update:phone="form.phone = $event"
+            @confirm="confirmPayment"
+            @cancel="showPaymentValue = false"
+        />
     </div>
     <Navigation/>
     <section class="px-[20px]">
