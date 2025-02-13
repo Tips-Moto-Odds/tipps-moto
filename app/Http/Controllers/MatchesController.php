@@ -21,7 +21,8 @@ class MatchesController extends Controller
                 ->where('league', 'like', '%' . $search . '%')
                 ->orWhere('home_teams', 'like', '%' . $search . '%')
                 ->orWhere('away_teams', 'like', '%' . $search . '%')
-                ->orWhere('status', 'like', '%' . $search . '%');
+                ->orWhere('status', 'like', '%' . $search . '%')
+                ->orWhere('match_start_time', 'like', '%' . $search . '%');
         }
 
         $matches = $matches->paginate(10)->appends(['search' => $search]);
