@@ -68,7 +68,6 @@ class MatchesController extends Controller
         ]);
     }
 
-
     public function create(Request $request)
     {
         return Inertia::render('Dashboards/Administrator/Matches/create');

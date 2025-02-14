@@ -40,7 +40,6 @@ class UserAccountsController extends Controller
         ]);
     }
 
-
     public function view(Request $request, $id)
     {
         $user = User::with([
@@ -68,7 +67,6 @@ class UserAccountsController extends Controller
             'can_log_in_as_user' => $can_login_as_user
         ]);
     }
-
 
     public function delete_user(Request $request, User $user)
     {

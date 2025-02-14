@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Auth;
 
 class ProfileController extends Controller
 {
+//    TODO: check for usage
     public function index()
     {
 //        if (Auth::user()->is_admin())

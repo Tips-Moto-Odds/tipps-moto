@@ -40,11 +40,6 @@ class DashboardController extends Controller
     {
         $users = User::all();
 
-
-
-
-
-
         return [
             'users' => $users,
             'model' => [],

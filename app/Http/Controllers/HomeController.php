@@ -15,6 +15,7 @@ class HomeController extends Controller
 {
     public function home(Request $request): \Inertia\Response
     {
+        //TODO: Note check this because it generates new free tips over and over
         $tipsQuery = DB::select('
         SELECT
               t.id AS tip_id,

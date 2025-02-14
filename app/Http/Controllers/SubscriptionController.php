@@ -43,6 +43,7 @@ class SubscriptionController extends Controller
         return redirect()->back()->with('success', 'Subscription request sent. Awaiting confirmation.');
     }
 
+    //TODO:No action
     public function activateSubscription(Request $request)
     {
         $endDate = null;
@@ -66,6 +67,7 @@ class SubscriptionController extends Controller
         $subscription->save();
     }
 
+    //TODO:No action
     public function unsubscribe(Request $request): \Illuminate\Http\RedirectResponse
     {
         //get password from request
@@ -96,6 +98,7 @@ class SubscriptionController extends Controller
         return redirect()->back()->with('success', 'Subscription cancelled successfully');
     }
 
+    //TODO:No action
     private function validateRequest($transaction): bool
     {
         $transactionController = new TransactionController();

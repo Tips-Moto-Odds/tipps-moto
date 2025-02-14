@@ -52,10 +52,9 @@ Route::post('/onit/withdraw/response', function () {
 
 Route::post('/postTips', function (Request $request) {
 
-    return response()->json($request->input());
-
     $payload = $request->all();
 
+    return response()->json($payload);
 
     foreach ($payload as $key => $match) {
         foreach ($match as $match_index => $value) {

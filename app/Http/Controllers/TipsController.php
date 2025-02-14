@@ -16,19 +16,6 @@ use JetBrains\PhpStorm\NoReturn;
 
 class TipsController extends Controller
 {
-
-    protected $tips = [
-        [
-            'id' => null,
-            'home_team' => 'Chealse',
-            'away_team' => 'Man-u',
-            'date' => '00/00/0000',
-            'time' => '00:00',
-            'prediction' => 'Home Win',
-            'prediction_confidence' => 'Max',
-        ],
-    ];
-
     public function subscriptions_tip(Request $request, Subscription $subscription)
     {
         $tips = Selection::where('package_id',$subscription->package->id)->where('status','1')->first();
@@ -134,7 +121,6 @@ class TipsController extends Controller
             'tip' => $tip
         ]);
     }
-//        Debugbar::info('here');
 
     public function searchTip(Request $request)
     {
