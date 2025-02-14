@@ -4,7 +4,7 @@ import DashboardLayout from "@/Layouts/AdministrationLayout/DashboardLayout.vue"
 import MatchCardBody from "@/Pages/Dashboards/Administrator/Matches/Componsnets/MatchCardBody.vue";
 import TipCard from "@/Pages/Dashboards/Administrator/Matches/Componsnets/TipCard.vue";
 import FilterPannel from "@/Pages/Dashboards/Administrator/Tips/FilterPannel.vue";
-import {openSideBar} from "@/HelperFunctions/modalControl.js";
+import {closeSideBar, openSideBar} from "@/HelperFunctions/modalControl.js";
 import AddTipComponent from "@/Pages/Dashboards/Administrator/Matches/Componsnets/AddTipComponent.vue";
 import axios from "axios";
 import {Inertia} from "@inertiajs/inertia";
@@ -48,8 +48,8 @@ function deleteMatch(){
 <template>
     <DashboardLayout page-heading="View Match" title="View Match">
         <template v-slot:side>
-            <FilterPannel  title="Add Tip">
-                <AddTipComponent :matchId="match.id" :tipForm/>
+            <FilterPannel  title="Add Tip" @close="closeSideBar">
+                <AddTipComponent :matchId="match.id" :tipForm />
             </FilterPannel>
         </template>
         <div class="w-[98%] flex mb-[20px] text-white items-center mx-auto gap-2.5 justify-between text-sm">

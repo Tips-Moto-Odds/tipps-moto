@@ -30,8 +30,12 @@ const applyFilters = () => {
                 </div>
             </div>
 
-            <!-- Filters Section -->
-            <div class="mt-4 space-y-4">
+            <!-- Conditional Rendering -->
+            <div v-if="$slots.default">
+                <slot></slot>
+            </div>
+            <div v-else class="mt-4 space-y-4">
+                <!-- Filters Section -->
                 <!-- Matches for Today -->
                 <div>
                     <label class="text-white font-semibold">Matches for Today</label>
@@ -63,6 +67,7 @@ const applyFilters = () => {
         </div>
     </div>
 </template>
+
 
 <style lang="scss" scoped>
 .right-panel {
