@@ -7,8 +7,8 @@ export default defineConfig({
         laravel({
             input: [
                 'resources/js/app.js',
-                'routes/**/*.php',
-                'app/Http/Controllers/**/*.php'
+                // 'routes/**/*.php',
+                // 'app/Http/Controllers/**/*.php'
             ],
         }),
         vue({
@@ -20,9 +20,8 @@ export default defineConfig({
             },
         }),
     ],
-
     // server: {
-    //     host: '192.168.43.165',
+    //     host: '192.168.137.1',
     //     port: 3000
     // }
 });

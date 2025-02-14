@@ -8,6 +8,7 @@ import {debounce} from "lodash";
 import FilterPannel from "@/Pages/Dashboards/Administrator/Tips/FilterPannel.vue";
 import {useDateFormat} from "@vueuse/shared";
 import hasAccess from "@/HelperFunctions/getAccess.js";
+import {closeSideBar} from "@/HelperFunctions/modalControl.js";
 
 const props = defineProps(['matches', 'search'])
 const page = usePage()
@@ -28,6 +29,8 @@ watch(() => pageController.search, (newValue, oldValue) => {
         fetchMatches(newValue);
     }
 });
+
+const sidebarOpen = () => closeSideBar()
 
 
 </script>
@@ -53,7 +56,7 @@ watch(() => pageController.search, (newValue, oldValue) => {
             </div>
         </div>
         <template v-slot:side>
-            <FilterPannel/>
+            <FilterPannel :title="'Match Filters'" @close="sidebarOpen"/>
         </template>
         <div class="flex gap-3 px-[10px]">
             <div v-if="matches && matches.data.length > 0" class="app-panel w-full">
@@ -85,7 +88,7 @@ watch(() => pageController.search, (newValue, oldValue) => {
                             <p class="mb-[10px] text-center">{{ useDateFormat(match.match_start_time,'hh:mm a').value }}</p>
                         </td>
                         <td>
-                            {{match.tips.length}}
+                            {{match.tips_count}}
                         </td >
                         <td>{{ match.status }}</td>
                     </Link>

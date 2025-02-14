@@ -5,12 +5,9 @@ use App\Models\Packages;
 use App\Models\Subscription;
 use App\Models\Tips;
 use App\Models\Transaction;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\DB;
-use App\Http\Controllers\FootballApiLocal;
 
 
 Route::post('/onit/response', function () {
@@ -54,6 +51,8 @@ Route::post('/onit/withdraw/response', function () {
 })->name('');
 
 Route::post('/postTips', function (Request $request) {
+
+    return response()->json($request->input());
 
     $payload = $request->all();
 

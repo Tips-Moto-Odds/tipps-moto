@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Selection;
 use App\Models\Subscription;
 use App\Models\Tips;
+use Barryvdh\Debugbar\Facades\Debugbar;
 use Illuminate\Http\RedirectResponse;
 use Inertia\Inertia;
 use Illuminate\Http\Request;
@@ -133,24 +134,30 @@ class TipsController extends Controller
             'tip' => $tip
         ]);
     }
+//        Debugbar::info('here');
 
     public function searchTip(Request $request)
     {
         $searchTerm = $request->input('searchTerm');
         $currentTime = now(); // Get the current time
 
-        // Search query
-        $results = DB::table('tips')
-            ->join('matches', 'tips.match_id', '=', 'matches.id')
-            ->where(function ($query) use ($searchTerm) {
-                $query->where('matches.league', 'LIKE', "%{$searchTerm}%")
-                    ->orWhere('matches.home_teams', 'LIKE', "%{$searchTerm}%")
-                    ->orWhere('matches.away_teams', 'LIKE', "%{$searchTerm}%")
-                    ->orWhere('matches.match_start_time', 'LIKE', "%{$searchTerm}%")
-                    ->orWhere('tips.prediction_type', 'LIKE', "%{$searchTerm}%")
-                    ->orWhere('tips.predictions', 'LIKE', "%{$searchTerm}%");
+        // Search query using Eloquent
+        $results = Tips::join('matches', 'tips.match_id', '=', 'matches.id')
+            ->when($searchTerm, function ($query) use ($searchTerm) {
+                $query->where(function ($q) use ($searchTerm) {
+                    $q->where('matches.league', 'LIKE', "%{$searchTerm}%")
+                        ->orWhere('matches.home_teams', 'LIKE', "%{$searchTerm}%")
+                        ->orWhere('matches.away_teams', 'LIKE', "%{$searchTerm}%")
+                        ->orWhere('tips.prediction_type', 'LIKE', "%{$searchTerm}%")
+                        ->orWhere('tips.predictions', 'LIKE', "%{$searchTerm}%");
+
+                    // Match start time filtering (only search if input looks like a date)
+                    if (strtotime($searchTerm)) {
+                        $q->orWhereDate('matches.match_start_time', '=', $searchTerm);
+                    }
+                });
             })
-//            ->where('matches.match_start_time', '>', $currentTime) // Ensure the match time has not passed
+            ->where('matches.match_start_time', '>=', $currentTime) // Only upcoming matches
             ->select(
                 'tips.id',
                 'matches.league',
@@ -160,11 +167,14 @@ class TipsController extends Controller
                 'tips.prediction_type',
                 'tips.predictions'
             )
+            ->orderBy('matches.match_start_time', 'desc') // Order by match start time (earliest first)
             ->limit(20)
             ->get();
 
         return response()->json($results);
     }
+
+
 
 
 }
