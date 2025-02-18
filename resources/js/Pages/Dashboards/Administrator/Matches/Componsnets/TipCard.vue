@@ -16,6 +16,14 @@ function deleteTip(id) {
         <h4 v-if="tip.predictions == 1 && tip.prediction_type == '1X_X2_12'" class="text-center mb-[20px]">1/X</h4>
         <h4 v-else-if="tip.predictions == 0 && tip.prediction_type == '1X_X2_12'" class="text-center mb-[20px]">X/2</h4>
         <h4 v-else-if="tip.predictions == -1 && tip.prediction_type == '1X_X2_12'" class="text-center mb-[20px]">1/2</h4>
+
+        <h4 v-else-if="tip.predictions == 1 && tip.prediction_type == '1_X_2'" class="text-center mb-[20px]">1</h4>
+        <h4 v-else-if="tip.predictions == 0 && tip.prediction_type == '1_X_2'" class="text-center mb-[20px]">X</h4>
+        <h4 v-else-if="tip.predictions == -1 && tip.prediction_type == '1_X_2'" class="text-center mb-[20px]">2</h4>
+
+        <h4 v-else-if="tip.predictions == 1 && tip.prediction_type == 'GG-NG'" class="text-center mb-[20px]">GG</h4>
+        <h4 v-else-if="tip.predictions == -1 && tip.prediction_type == 'GG-NG'" class="text-center mb-[20px]">NG</h4>
+
         <h4 v-else class="text-center mb-[20px]">{{tip.predictions}}</h4>
 
         <ul class="flex justify-between px-[10px] m-0">

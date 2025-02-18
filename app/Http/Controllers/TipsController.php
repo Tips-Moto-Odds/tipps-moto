@@ -2,28 +2,55 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Matches;
 use App\Models\Selection;
 use App\Models\Subscription;
 use App\Models\Tips;
-use Barryvdh\Debugbar\Facades\Debugbar;
 use Illuminate\Http\RedirectResponse;
 use Inertia\Inertia;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Auth;
 use Inertia\Response;
-use JetBrains\PhpStorm\NoReturn;
 
 class TipsController extends Controller
 {
     public function subscriptions_tip(Request $request, Subscription $subscription)
     {
-        $tips = Selection::where('package_id',$subscription->package->id)->where('status','1')->first();
+        $selection = Selection::where('package_id', $subscription->package->id)
+            ->where('status', '1')
+            ->first();
 
-        return Inertia::render('UserPanel/PackageTips',[
-            'tips' => $tips,
+        if (!$selection) {
+            return Inertia::render('UserPanel/PackageTips', [
+                'tips' => [],
+            ]);
+        }
+
+        // Decode the tips JSON
+        $tipsData = json_decode($selection->tips, true) ?? [];
+
+        // Fetch match details for each tip and format them properly
+        $formattedTips = collect($tipsData)->map(function ($tip) {
+            $match = Matches::find($tip['match_id']);
+
+            return [
+                'tip_id' => $tip['tip_id'] ?? null,
+                'match_id' => $tip['match_id'],
+                'match_start_time' => $match->match_start_time ?? null,
+                'home_teams' => $match->home_teams ?? null,
+                'away_teams' => $match->away_teams ?? null,
+                'league' => $match->league ?? null,
+                'mark_as_free' => $tip['mark_as_free'] ?? "0",
+                'prediction_type' => $tip['prediction_type'],
+                'predictions' => $tip['prediction'],
+            ];
+        });
+
+        return Inertia::render('UserPanel/PackageTips', [
+            'tips' => $formattedTips,
         ]);
     }
+
+
 
     public function index(Request $request): Response|RedirectResponse
     {

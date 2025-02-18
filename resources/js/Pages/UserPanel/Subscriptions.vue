@@ -43,7 +43,6 @@ function closeSubMenu() {
                 <thead>
                 <tr class="!text-[12px]">
                     <th class="!px-[10px]">Package</th>
-                    <th class="text-center">Status</th>
                     <th>Expiry Date</th>
                 </tr>
                 </thead>
@@ -51,10 +50,6 @@ function closeSubMenu() {
                 <template v-for="subscription in subscriptions">
                     <Link as="tr" :href="route('dashboard.tips.subscriptions-tips',subscription.id)" class="!text-[12px]">
                         <th class="p-[10px] max-w-[100px]">{{ subscription.package_name }}</th>
-                        <th>
-                            <div v-if="subscription.status == 1" class="bg-green-500 mx-auto w-[10px] h-[10px] rounded-[50%]"></div>
-                            <div v-else class="bg-red-500 mx-auto w-[10px] h-[10px] rounded-[50%]"></div>
-                        </th>
                         <th class="w-[75px]">
                             {{ subscription.end_date }}
                         </th>

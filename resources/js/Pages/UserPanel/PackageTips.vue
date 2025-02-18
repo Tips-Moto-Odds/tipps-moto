@@ -1,16 +1,11 @@
 <script setup>
 import {Head} from "@inertiajs/inertia-vue3";
 import Navigation from "@/AppComponents/Navigation.vue";
-import {useDateFormat} from "@vueuse/shared";
 import HomeTipsDisplay from "@/AppComponents/HomeTipsDisplay.vue";
 
 const props = defineProps(['tips'])
-let tips = []
 
-if (props.tips && props.tips.tips) {
-    tips = JSON.parse(props.tips.tips);
-}
-
+console.log(props.tips)
 
 </script>
 
