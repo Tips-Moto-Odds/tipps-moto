@@ -11,10 +11,17 @@ class Selection extends Model
     use HasFactory;
     use SoftDeletes;
 
+    protected $fillable = [
+        'package_id',
+        'date_for',
+        'status',
+        'tips'
+    ];
+
     protected $appends = [
         'package_name',
         'package_description',
-        'tips_count'
+        'tips_count',
     ];
 
     /**
@@ -22,31 +29,33 @@ class Selection extends Model
      */
     public function getTipsCountAttribute(): int
     {
-        if ($this->tips){
+        if ($this->tips) {
             return count(json_decode($this->attributes['tips'], false, 512, JSON_THROW_ON_ERROR));
-        }else{
+        } else {
             return 0;
         }
     }
 
-    public function getPackageNameAttribute(){
+    public function getPackageNameAttribute()
+    {
 
         $package = Packages::find($this->attributes['package_id']);
 
-        if ($package){
+        if ($package) {
             return $package->name;
-        }else{
+        } else {
             return 'N/A';
         }
     }
 
-    public function getPackageDescriptionAttribute(){
+    public function getPackageDescriptionAttribute()
+    {
 
         $package = Packages::find($this->attributes['package_id']);
 
-        if ($package){
+        if ($package) {
             return $package->description;
-        }else{
+        } else {
             return 'N/A';
         }
     }

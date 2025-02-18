@@ -11,6 +11,14 @@ class Matches extends Model
     use HasFactory;
     use SoftDeletes;
 
+    protected $fillable = [
+        'league',
+        'home_teams',
+        'away_teams',
+        'match_start_time',
+        'status'
+    ];
+
 
     public function tips()
     {

@@ -13,7 +13,11 @@ function deleteTip(id) {
 </script>
 <template>
     <div class="bg-gray-600 w-100 p-[10px] flex flex-column  rounded mb-[10px]">
-        <h4 class="text-center mb-[20px]">{{ tip.predictions }}</h4>
+        <h4 v-if="tip.predictions == 1 && tip.prediction_type == '1X_X2_12'" class="text-center mb-[20px]">1/X</h4>
+        <h4 v-else-if="tip.predictions == 0 && tip.prediction_type == '1X_X2_12'" class="text-center mb-[20px]">X/2</h4>
+        <h4 v-else-if="tip.predictions == -1 && tip.prediction_type == '1X_X2_12'" class="text-center mb-[20px]">1/2</h4>
+        <h4 v-else class="text-center mb-[20px]">{{tip.predictions}}</h4>
+
         <ul class="flex justify-between px-[10px] m-0">
             <li>Tip Type</li>
             <li>{{ tip.prediction_type }}</li>

@@ -12,14 +12,13 @@ class Tips extends Model
     use SoftDeletes;
 
     protected $fillable = [
-        'home_teams',
-        'away_teams',
-        'home_odds',
-        'draw_odds',
-        'away_odds',
+        'match_id',
+        'generated_by',
+        'prediction_type',
         'predictions',
         'match_start_time',
-        'status',
+        'prediction_confidence',
+        'status'
     ];
     public function matches()
     {
