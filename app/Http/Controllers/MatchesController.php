@@ -3,11 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Matches;
-use App\Models\Role;
-use App\Models\User;
 use Barryvdh\Debugbar\Facades\Debugbar;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
 
 class MatchesController extends Controller

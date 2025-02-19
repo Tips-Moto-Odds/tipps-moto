@@ -3,16 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\SubscribeRequest;
-use App\Jobs\OnitSTKPush;
 use App\Models\Packages;
 use App\Models\Subscription;
 use App\Models\Transaction;
-use Barryvdh\Debugbar\Facades\Debugbar;
 use Exception;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Log;
 
 
 class SubscriptionController extends Controller

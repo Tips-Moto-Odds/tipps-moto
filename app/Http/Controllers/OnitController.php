@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Packages;
-use Barryvdh\Debugbar\Facades\Debugbar;
 use Exception;
 use GuzzleHttp\Client;
 use GuzzleHttp\Psr7\Request;

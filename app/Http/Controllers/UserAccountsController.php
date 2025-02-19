@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Role;
-use App\Models\Subscription;
 use App\Models\User;
 use Inertia\Inertia;
 use Illuminate\Http\Request;

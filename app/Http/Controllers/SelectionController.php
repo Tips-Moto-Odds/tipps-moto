@@ -5,8 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\Matches;
 use App\Models\Selection;
 use App\Models\Tips;
-use App\Modules\SelectionModule;
-use Barryvdh\Debugbar\Facades\Debugbar;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use App\Models\Packages;
