@@ -48,8 +48,6 @@ class SelectionController extends Controller
             ];
         });
 
-        debugbar()->info($formattedTips);
-
         return Inertia::render('Dashboards/Manager/Selection/View', [
             'selection' => $selection,
             'packages' => Packages::all(),

@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\Packages;
 use Barryvdh\Debugbar\Facades\Debugbar;
+use Exception;
 use GuzzleHttp\Client;
 use GuzzleHttp\Psr7\Request;
 use Illuminate\Support\Facades\Log;
+use RuntimeException;
 
 class OnitController extends Controller
 {
@@ -44,7 +46,7 @@ class OnitController extends Controller
             $_ENV['ONIT_API_KEY'] = $response->access_token;
 
             return true;
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             LOG::info($e->getMessage());
         } finally {
             curl_close($curl);
@@ -52,14 +54,14 @@ class OnitController extends Controller
     }
 
     /**
-     * @throws \Exception
+     * @throws Exception
      */
     public function deposit($req)
     {
         $auth = $this->authorize();
 
         if (!$auth) {
-            throw new \RuntimeException('Payment Authorization Error');
+            throw new RuntimeException('Payment Authorization Error');
         }
 
         $package = Packages::where('name',$req['package'])->first();

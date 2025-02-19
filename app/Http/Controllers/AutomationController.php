@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Modules\MatchModule;
 use App\Modules\TipModule;
@@ -16,12 +17,12 @@ class AutomationController extends Controller
         protected SelectionModule $selectionModules
     ) {}
 
-    public function __invoke(Request $request): \Illuminate\Http\JsonResponse
+    public function __invoke(Request $request): JsonResponse
     {
         return $this->getAutomation($request);
     }
 
-    public function getAutomation(Request $request): \Illuminate\Http\JsonResponse
+    public function getAutomation(Request $request): JsonResponse
     {
         $payload = $request->all();
 

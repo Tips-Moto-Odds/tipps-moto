@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use JsonException;
 
 class Selection extends Model
 {
@@ -25,7 +26,7 @@ class Selection extends Model
     ];
 
     /**
-     * @throws \JsonException
+     * @throws JsonException
      */
     public function getTipsCountAttribute(): int
     {

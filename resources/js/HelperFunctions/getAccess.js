@@ -14,7 +14,7 @@ function getLevel(accountType) {
         case 'SuperAdministration':
             return 5
     }
-};
+}
 
 export default function hasAccess(accountType, required) {
     let currentLevel = getLevel(accountType);

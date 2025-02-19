@@ -8,6 +8,8 @@ use App\Models\Packages;
 use App\Models\Subscription;
 use App\Models\Transaction;
 use Barryvdh\Debugbar\Facades\Debugbar;
+use Exception;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
@@ -16,9 +18,9 @@ use Illuminate\Support\Facades\Log;
 class SubscriptionController extends Controller
 {
     /**
-     * @throws \Exception
+     * @throws Exception
      */
-    public function subscribe(SubscribeRequest $request): \Illuminate\Http\RedirectResponse
+    public function subscribe(SubscribeRequest $request): RedirectResponse
     {
         $package_id = $request->input('id');
 
@@ -68,7 +70,7 @@ class SubscriptionController extends Controller
     }
 
     //TODO:No action
-    public function unsubscribe(Request $request): \Illuminate\Http\RedirectResponse
+    public function unsubscribe(Request $request): RedirectResponse
     {
         //get password from request
         $request->validate([

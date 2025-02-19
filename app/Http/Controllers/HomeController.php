@@ -10,10 +10,11 @@ use Inertia\Inertia;
 use App\Models\Packages;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Inertia\Response;
 
 class HomeController extends Controller
 {
-    public function home(Request $request): \Inertia\Response
+    public function home(Request $request): Response
     {
         //TODO: Note check this because it generates new free tips over and over
         $tipsQuery = DB::select('
@@ -41,7 +42,7 @@ class HomeController extends Controller
         ]);
     }
 
-    public function tips(): \Inertia\Response
+    public function tips(): Response
     {
         $packages = Packages::all();
         return Inertia::render('tips',[
@@ -49,22 +50,22 @@ class HomeController extends Controller
         ]);
     }
 
-    public function about(): \Inertia\Response
+    public function about(): Response
     {
         return Inertia::render('Home/About');
     }
 
-    public function faq(): \Inertia\Response
+    public function faq(): Response
     {
         return Inertia::render('Home/FrequentlyAskedQuestions');
     }
 
-    public function privacyPolicy(): \Inertia\Response
+    public function privacyPolicy(): Response
     {
         return Inertia::render('Home/PrivacyPolicy');
     }
 
-    public function termsOfService(): \Inertia\Response
+    public function termsOfService(): Response
     {
         return Inertia::render('Home/TermsOfService');
     }
