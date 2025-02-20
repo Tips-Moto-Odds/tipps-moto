@@ -20,6 +20,8 @@ class TipModule
                     if ($isJackpot && $type == '1_X_2') {
                         $prediction = $this->processJackpotTip($matchId, $type, $tip, $confidenceLevel);
                         $jackpotPackage = $this->getJackpotPackage($jackpotTag);
+
+
                         if ($jackpotPackage) {
                             $this->addToPackage($matchId, $type, $prediction, $confidenceLevel, $jackpotPackage);
                         }
@@ -71,13 +73,13 @@ class TipModule
         $today = now()->toDateString();
 
         $packageRules = [
-            'Full Time Scores Daily'  => ['types' => ['1_X_2', '1X_X2_12'], 'limit' => 15],
+            'Full Time Scores Daily' => ['types' => ['1_X_2', '1X_X2_12'], 'limit' => 15],
             'Full Time Scores Weekly' => ['types' => ['1_X_2', '1X_X2_12'], 'limit' => 17],
             'Over/Under Market Daily' => ['types' => ['Over/Under'], 'limit' => 5],
             'Over/Under Market Weekly' => ['types' => ['Over/Under'], 'limit' => 7],
-            'Sport Pesa Mega Jackpot'  => ['types' => ['1_X_2', '1X_X2_12'], 'limit' => null],
+            'Sport Pesa Mega Jackpot' => ['types' => ['1_X_2', '1X_X2_12'], 'limit' => null],
             'Sport Pesa Mid Week Jackpot' => ['types' => ['1_X_2', '1X_X2_12'], 'limit' => null],
-            'Mozzart Daily Jackpot'  => ['types' => ['1_X_2', '1X_X2_12'], 'limit' => null],
+            'Mozzart Daily Jackpot' => ['types' => ['1_X_2', '1X_X2_12'], 'limit' => null],
             'Mozzart Weekly Jackpot' => ['types' => ['1_X_2', '1X_X2_12'], 'limit' => null],
             'Odi Bets Weekly Jackpot' => ['types' => ['1_X_2', '1X_X2_12'], 'limit' => null]
         ];
@@ -114,6 +116,17 @@ class TipModule
             'prediction' => $prediction,
             'confidence' => $confidenceLevel
         ];
+
+        if (in_array($packageType, [
+            'Sport Pesa Mega Jackpot',
+            'Sport Pesa Mid Week Jackpot',
+            'Mozzart Daily Jackpot',
+            'Mozzart Weekly Jackpot',
+            'Odi Bets Weekly Jackpot'
+        ])) {
+            $selection->tips = json_encode([]);
+            $selection->save();
+        }
 
         $selection->update(['tips' => json_encode($tips)]);
 
