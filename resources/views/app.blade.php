@@ -17,6 +17,12 @@
 </head>
 <body class="iter antialiased bg-[#f4660d]">
 @inertia
+
+@routes
+@vite(['resources/js/app.js', "resources/js/Pages/{$page['component']}.vue"])
+@inertiaHead
+
+
 <!-- Add these to your main HTML file if not already included -->
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>

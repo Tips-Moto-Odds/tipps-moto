@@ -18,9 +18,7 @@ const page = usePage();
             </div>
             <div class="flex justify-between items-center text-sm mb-[10px]">
                 <p class="w-100 text-right">{{ tip.home_teams }}</p>
-                <p class="mx-[2px] w-[200px] text-center">
-                    <p>{{ useDateFormat(tip.match_start_time, 'HH:mm') }}</p>
-                </p>
+                <p class="mx-[2px] w-[200px] text-center">{{ useDateFormat(tip.match_start_time, 'HH:mm') }}</p>
                 <p class="w-100 text-left">{{ tip.away_teams }}</p>
             </div>
             <div class="flex justify-center w-100 md:w-1/3">
