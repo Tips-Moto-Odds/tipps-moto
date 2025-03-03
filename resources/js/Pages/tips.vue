@@ -115,13 +115,13 @@ function confirmPayment() {
     });
 }
 
-function popUpPackageSelection(selection) {
-    form.id = selection.id;
-    form.package = selection.name
-    showDisplay.price = parseFloat(selection.price)
-    showDisplay.tax = parseFloat(selection.tax)
-    togglePaymentShow()
-}
+// function popUpPackageSelection(selection) {
+//     form.id = selection.id;
+//     form.package = selection.name
+//     showDisplay.price = parseFloat(selection.price)
+//     showDisplay.tax = parseFloat(selection.tax)
+//     togglePaymentShow()
+// }
 
 function togglePaymentShow() {
     if (usePage().props.auth.user == null) {
