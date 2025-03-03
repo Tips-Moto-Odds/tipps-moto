@@ -14,6 +14,7 @@ Route::post('/onit/response', function () {
 })->name('');
 
 Route::post('/onit/deposit/response', function (Request $request) {
+    Log::info($request);
     if ($request->has('originatorRequestId')) {
         $transaction_string = $request->input('originatorRequestId');
         $code = explode('|', $transaction_string);
