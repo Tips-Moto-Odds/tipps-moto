@@ -13,10 +13,12 @@ const showYesterdayTips = ref(false);
 const showPopup = ref(false);
 
 
-</script>
 
+</script>
 <template>
-    <Head><title>Welcome</title></Head>
+    <Head>
+        <title>Welcome</title>
+    </Head>
 
     <Navigation/>
 

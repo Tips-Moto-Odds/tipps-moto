@@ -11,7 +11,7 @@ use App\Http\Controllers\SubscriptionController;
 
 include_once "OpenRoutes/index.php";
 include_once "GuestRoutes/index.php";
-include_once "DashboardLinks/index.php";
+include_once "AuthRoutes/index.php";
 
 Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified'])->group(function () {
 
@@ -26,7 +26,6 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
         // Patch password
         Route::patch('/update-password/{user}', [ProfileController::class, 'patchPassword'])->name('UpdatePassword');
     });
-
 
     Route::group(['prefix' => 'ManageTips'], function () {
         Route::get('/Tips', function () {

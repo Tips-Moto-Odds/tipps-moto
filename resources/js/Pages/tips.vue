@@ -8,112 +8,25 @@ import PurchasePackageModal from "@/AppComponents/PurchasePackageModal.vue";
 
 const props = defineProps(['packages'])
 const attr = useAttrs()
+const form = useForm({ id: null, package: null, phone: usePage().props.auth?.user?.phone });
+const showPaymentValue = ref(false)
+const showDisplay = reactive({ price: 0, tax: 0 });
 
-if (attr.flash.success || attr.flash.error) {
-    if (attr.flash.success) {
-        alert(attr.flash.success)
-    } else {
-        alert(attr.flash.error)
-    }
-}
+if (attr.flash?.success || attr.flash?.error) alert(attr.flash.success || attr.flash.error);
 
 const scrollToDiv = () => {
-    // Get the URL
-    const url = window.location.href;
+    const hash = window.location.hash.substring(1);
+    const target = document.getElementById(hash);
+    if (target) target.scrollIntoView({ behavior: 'smooth' });
+};
 
-    // Extract the fragment identifier (part after the hash)
-    const hash = url.split('#')[1];
-
-    // Find the element with the corresponding ID
-    const targetElement = document.getElementById(hash);
-
-    if (targetElement) {
-        // Scroll to the element smoothly
-        targetElement.scrollIntoView({behavior: 'smooth'});
-        // Calculate the scroll position after scrolling to the element
-        const scrollTop = window.scrollY - 100;
-
-        // Scroll to the calculated position
-        window.scrollTo({top: scrollTop, behavior: 'smooth'});
-    }
-}
-
-
-const form = useForm({
-    id: null,
-    package: null,
-    phone: usePage().props.auth?.user?.phone,
-})
-const showPaymentValue = ref(false)
-const flashMessage = ref('')
-
-const showDisplay = reactive({
-    price: 0,
-    tax: 0
-})
-
-function handleSubscriptionResponse() {
-
-}
-
-function confirmPayment() {
+const confirmPayment = () => {
     form.post(route('dashboard.transactions.subscribe'), {
-        onSuccess: (data) => {
-            if (data?.props?.flash?.success) {
-                alert(data?.props?.flash?.success);
-            } else if (data?.props?.flash?.error) {
-                alert(data?.props?.flash?.error);
-            }
-
-            const pollingInterval = 5000; // Adjust as needed (milliseconds)
-            const maxPollingTime = 60000; // Maximum polling time (1 minute in milliseconds)
-            let isPolling = true;
-            let pollingStartTime = Date.now(); // Record when polling started
-
-            const pollForUpdates = async () => {
-                if (!isPolling) {
-                    return;
-                }
-
-                const elapsedTime = Date.now() - pollingStartTime;
-                if (elapsedTime >= maxPollingTime) {
-                    console.log('Polling timed out.');
-                    isPolling = false;
-                    // Optionally display a message to the user about the timeout
-                    alert("Payment confirmation is taking longer than expected. Please check your transaction history or contact support.");
-                    return; // Stop polling
-                }
-
-                try {
-                    const response = await fetch(route('dashboard.transactions.poll'), {
-                        method: 'GET',
-                    });
-
-                    if (!response.ok) {
-                        throw new Error(`API request failed with status ${response.status}`);
-                    }
-
-                    const updatedData = await response.json();
-
-                    if (updatedData?.paymentConfirmed) {
-                        alert('Payment confirmed!');
-                        isPolling = false;
-                    } else {
-                        console.log('Payment not confirmed yet. Polling again...');
-                    }
-                } catch (error) {
-                    console.error('Error polling for updates:', error);
-                } finally {
-                    if (isPolling) {
-                        setTimeout(pollForUpdates, pollingInterval);
-                    }
-                }
-            };
-
-            // pollForUpdates();
+        onSuccess: ({ props }) => {
+            alert(props?.flash?.success || props?.flash?.error);
         },
     });
-}
+};
 
 function popUpPackageSelection(selection) {
     form.id = selection.id;
@@ -123,17 +36,11 @@ function popUpPackageSelection(selection) {
     togglePaymentShow()
 }
 
-function togglePaymentShow() {
-    if (usePage().props.auth.user == null) {
-        window.location.href = '/login';
-    } else {
-        showPaymentValue.value = !showPaymentValue.value
-    }
-}
+const togglePaymentShow = () => {
+    usePage().props.auth?.user ? showPaymentValue.value = !showPaymentValue.value : window.location.href = '/login';
+};
 
-onMounted(() => {
-    scrollToDiv()
-})
+onMounted(scrollToDiv);
 </script>
 
 <template>
