@@ -58,8 +58,6 @@ class CustomerController extends Controller
         // Decode the tips JSON
         $tipsData = json_decode($selection->tips, true) ?? [];
 
-        dd($tipsData);
-
         // Fetch match details for each tip and format them properly
         $formattedTips = collect($tipsData)->map(function ($tip) {
             $match = Matches::find($tip['match_id']);
