@@ -48,7 +48,7 @@ function closeSubMenu() {
                 </thead>
                 <tbody>
                 <template v-for="subscription in subscriptions">
-                    <Link as="tr" :href="route('dashboard.tips.subscriptions-tips',subscription.id)" class="!text-[12px]">
+                    <Link as="tr" :href="route('profile.tips',subscription.id)" class="!text-[12px]">
                         <th class="p-[10px] max-w-[100px]">{{ subscription.package_name }}</th>
                         <th class="w-[75px]">
                             {{ subscription.end_date }}

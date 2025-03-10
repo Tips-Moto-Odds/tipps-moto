@@ -4,7 +4,6 @@ use Illuminate\Support\Facades\Route;
 //search user by username action
 //assign Role Action
 
-//post account action
 Route::post('/', [TipsController::class, 'store'])->name('storeTip');
 
 Route::post('/search', [TipsController::class, 'searchTip'])->name('searchTip');

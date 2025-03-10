@@ -14,34 +14,6 @@ use Illuminate\Support\Facades\Hash;
 
 class SubscriptionController extends Controller
 {
-    /**
-     * @throws Exception
-     */
-    public function subscribe(SubscribeRequest $request): RedirectResponse
-    {
-        $package_id = $request->input('id');
-
-        $transaction_code = $this->generateRandomCode();
-        $request['transaction_code'] = $transaction_code;
-        $price = Packages::where('name',$request->input('package'))->first();
-
-        //create a new transaction
-        $transaction = Transaction::create([
-            'user_id' => auth()->user()->id,
-            'currency' => 'KSH',
-            'amount' => number_format($price->price * 1.16, 2),
-            'payment_method' => 'M-Pesa',
-            'package_id' => $package_id,
-            'transaction_reference' => $transaction_code,
-            'transaction_type' => 'subscription',
-        ]);
-
-        $onitController = new OnitController();
-        $push_stk_result = $onitController->deposit($request,$transaction);
-
-        return redirect()->back()->with('success', 'Subscription request sent. Awaiting confirmation.');
-    }
-
     //TODO:No action
     public function activateSubscription(Request $request)
     {
@@ -97,22 +69,6 @@ class SubscriptionController extends Controller
         return redirect()->back()->with('success', 'Subscription cancelled successfully');
     }
 
-    //TODO:No action
-    private function validateRequest($transaction): bool
-    {
-        $transactionController = new TransactionController();
-        return $transactionController->validatePayment($transaction);
-    }
 
 
-    public function generateRandomCode($length = 10): string
-    {
-        $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-        $charactersLength = strlen($characters);
-        $randomString = '';
-        for ($i = 0; $i < $length; $i++) {
-            $randomString .= $characters[rand(0, $charactersLength - 1)];
-        }
-        return $randomString;
-    }
 }

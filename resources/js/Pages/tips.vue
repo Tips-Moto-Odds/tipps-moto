@@ -21,10 +21,14 @@ const scrollToDiv = () => {
 };
 
 const confirmPayment = () => {
-    form.post(route('dashboard.transactions.subscribe'), {
+    form.post(route('subscribe'), {
         onSuccess: ({ props }) => {
             alert(props?.flash?.success || props?.flash?.error);
+            togglePaymentShow()
         },
+        onError:() => {
+            alert("We are aware of an issue with the payment service and are working to resolve it" )
+        }
     });
 };
 
@@ -39,6 +43,10 @@ function popUpPackageSelection(selection) {
 const togglePaymentShow = () => {
     usePage().props.auth?.user ? showPaymentValue.value = !showPaymentValue.value : window.location.href = '/login';
 };
+
+const closePopup = () => {
+    togglePaymentShow()
+}
 
 onMounted(scrollToDiv);
 </script>
@@ -57,7 +65,7 @@ onMounted(scrollToDiv);
             :errorMessage="form.errors.phone"
             @update:phone="form.phone = $event"
             @confirm="confirmPayment"
-            @cancel="showPaymentValue = false"
+            @cancel="closePopup"
         />
     </div>
     <Navigation/>

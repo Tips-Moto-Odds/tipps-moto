@@ -69,7 +69,7 @@ onMounted(() => {
       <div>
         <Link :href="route('dashboard.tips.listTips')" class="action-button bg-gray-500">View All tips</Link>
       </div>
-      <div v-if="accountType === 'Administrator' || accountType === 'Moderator'">
+      <div v-if="accountType === 'Administrator' || accountType === 'Moderastor'">
         <button class="action-button bg-orange-500 mx-[10px]" @click.prevent="updateTip">Update</button>
         <button class="action-button bg-red-600" @click.prevent="deleteTip">Delete Tip</button>
       </div>
@@ -207,8 +207,9 @@ onMounted(() => {
 
 <style lang="scss" scoped>
 .action-button {
-  @apply px-[10px] py-[8px] rounded-sm;
+    @apply  rounded-sm;
 }
+
 
 .side-section {
   @apply p-2 rounded;

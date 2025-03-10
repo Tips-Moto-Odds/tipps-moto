@@ -68,8 +68,8 @@ onMounted(() => {
           <FilterSection/>
         </div>
         <div>
-          <table class="text-white w-full mb-[20px]">
-            <thead class="h-[50px]">
+          <table class="text-white w-full mb-[20px] table-sm">
+            <thead class="h-[50px] ">
               <tr class="text-left border-b-[2px] text-xs">
                 <th v-if="false"></th>
                 <th class="text-center w-[80px]">ID</th>
@@ -87,8 +87,8 @@ onMounted(() => {
                   </td>
                   <td class="text-center">{{ user.id }}</td>
                   <td>
-                    <p class="mb-[10px]">{{ user.name }}</p>
-                    <p class="mb-[10px]">{{ user.email }}</p>
+                    <p class="mb-[5px]">{{ user.name }}</p>
+                    <p class="mb-[5px] text-xs text-gray-400">{{ user.email }}</p>
                   </td>
                   <td>{{ user.phone }}</td>
                   <td>{{ user.role_name }}</td>

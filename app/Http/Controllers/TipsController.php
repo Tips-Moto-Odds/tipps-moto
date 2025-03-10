@@ -2,9 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Matches;
-use App\Models\Selection;
-use App\Models\Subscription;
 use App\Models\Tips;
 use Illuminate\Http\RedirectResponse;
 use Inertia\Inertia;
@@ -13,42 +10,7 @@ use Inertia\Response;
 
 class TipsController extends Controller
 {
-    public function subscriptions_tip(Request $request, Subscription $subscription)
-    {
-        $selection = Selection::where('package_id', $subscription->package->id)
-            ->where('status', '1')
-            ->first();
 
-        if (!$selection) {
-            return Inertia::render('UserPanel/PackageTips', [
-                'tips' => [],
-            ]);
-        }
-
-        // Decode the tips JSON
-        $tipsData = json_decode($selection->tips, true) ?? [];
-
-        // Fetch match details for each tip and format them properly
-        $formattedTips = collect($tipsData)->map(function ($tip) {
-            $match = Matches::find($tip['match_id']);
-
-            return [
-                'tip_id' => $tip['tip_id'] ?? null,
-                'match_id' => $tip['match_id'],
-                'match_start_time' => $match->match_start_time ?? null,
-                'home_teams' => $match->home_teams ?? null,
-                'away_teams' => $match->away_teams ?? null,
-                'league' => $match->league ?? null,
-                'mark_as_free' => $tip['mark_as_free'] ?? "0",
-                'prediction_type' => $tip['prediction_type'],
-                'predictions' => $tip['prediction'],
-            ];
-        });
-
-        return Inertia::render('UserPanel/PackageTips', [
-            'tips' => $formattedTips,
-        ]);
-    }
 
 
 

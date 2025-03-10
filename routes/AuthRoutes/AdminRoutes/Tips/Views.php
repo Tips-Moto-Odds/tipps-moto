@@ -7,5 +7,4 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 Route::get('/', [TipsController::class, 'index'])->name('listTips');
-Route::get('/subscriptions-tips/{subscription}', [TipsController::class, 'subscriptions_tip'])->name('subscriptions-tips');
 Route::get('/create', [TipsController::class, 'create'])->name('createTips');

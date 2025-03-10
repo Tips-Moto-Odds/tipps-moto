@@ -72,7 +72,7 @@ function deleteMatch(){
                         </div>
                     </div>
                     <div class="app-panel-body flex gap-2" v-if="match.tips.length > 0">
-                        <TipCard v-for="tip in match.tips" :key="tip.id" :tip="tip" @update:tip="handleUpdateTip"></TipCard>
+                        <TipCard v-for="tip in match.tips" :key="tip.id" :tip="tip" @update:tip="handleUpdateTip" class="max-w-[320px]"></TipCard>
                     </div>
                 </div>
             </div>
@@ -82,7 +82,7 @@ function deleteMatch(){
 
 <style lang="scss" scoped>
 .action-button {
-    @apply px-[10px] py-[8px] rounded-sm;
+    @apply  rounded-sm;
 }
 
 .side-section {

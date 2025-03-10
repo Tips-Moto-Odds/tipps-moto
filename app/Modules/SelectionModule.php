@@ -9,6 +9,7 @@ class SelectionModule
 {
     public function updateSelection($packageId, $tips)
     {
+        dd("updating");
         Log::info("Updating Selection: Package ID: $packageId");
 
         $selection = Selection::updateOrCreate(

@@ -98,6 +98,7 @@ function deleteSelection() {
         tips: tips.value,
     }).delete(route("dashboard.selection.deleteSelection", [props.selection.id]));
 }
+
 </script>
 
 <template>

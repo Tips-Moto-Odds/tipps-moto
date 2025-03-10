@@ -11,7 +11,7 @@ const menuHeight = ref("70px"); // Default collapsed height
 const appPaths = [
     { name: "Home", path: route('Home') },
     { name: "Tips", path: route('tips') },
-    { name: "Subscriptions", path: route('subscriptions') },
+    { name: "Subscriptions", path: route('profile.subscription') },
     { name: "Account", path: route('dashboard') }
 ];
 
@@ -21,7 +21,7 @@ const pageNames = {
     "tips": "Tips",
     "subscriptions": "Dashboard",
     "dashboard": "Account",
-    "dashboard.tips.subscriptions-tips": "Subscription"
+    "profile.tips": "Subscription"
 };
 
 // Function to determine the current page name

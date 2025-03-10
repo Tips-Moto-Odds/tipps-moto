@@ -52,7 +52,7 @@ function deleteTip(id) {
 </template>
 <style lang="scss" scoped>
 .action-button {
-    @apply px-[10px] py-[8px] rounded-sm;
+    @apply rounded-sm;
 }
 
 </style>

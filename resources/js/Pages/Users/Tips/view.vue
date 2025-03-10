@@ -151,8 +151,9 @@ const accountType = page.props.account_type
 
 <style lang="scss" scoped>
 .action-button {
-    @apply px-[10px] py-[8px] rounded-sm;
+    @apply  rounded-sm;
 }
+
 
 .side-section {
     @apply p-2 rounded;

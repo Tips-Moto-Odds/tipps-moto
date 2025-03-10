@@ -16,26 +16,16 @@ class HomeController extends Controller
 {
     public function home(Request $request): Response
     {
-        //TODO: Note check this because it generates new free tips over and over
-        $tipsQuery = DB::select('
-        SELECT
-              t.id AS tip_id,
-              m.id AS match_id,
-              m.league,
-              m.home_teams,
-              m.away_teams,
-              m.match_start_time,
-              t.mark_as_free,
-              t.prediction_type,
-              t.predictions
-          FROM tips AS t
-                   INNER JOIN matches AS m ON t.match_id = m.id
-          WHERE m.deleted_at IS NULL
-            AND t.mark_as_free = 1
-            AND m.match_start_time >= NOW()
-                  ORDER BY m.match_start_time ASC
-                  LIMIT 3');
-
+        $tipsQuery = Tips::join('matches as m', 'tips.match_id', '=', 'm.id')
+            ->whereNull('m.deleted_at')
+            ->where('tips.mark_as_free', 1)
+            ->where('m.match_start_time', '>=', Carbon::now())
+            ->select('tips.id as tip_id', 'm.id as match_id', 'm.league', 'm.home_teams',
+                'm.away_teams', 'm.match_start_time', 'tips.mark_as_free',
+                'tips.prediction_type', 'tips.predictions')
+            ->orderBy('m.match_start_time', 'asc')
+            ->limit(3)
+            ->get();
 
         return Inertia::render('Welcome', [
             'tips' => $tipsQuery,

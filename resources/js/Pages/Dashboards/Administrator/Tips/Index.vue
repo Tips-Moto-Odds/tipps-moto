@@ -56,11 +56,11 @@ watch(() => pageController.search, (newValue, oldValue) => {
             <div v-if="tips && tips.data.length > 0" class="app-panel w-full">
                 <div class="app-panel-heading flex justify-between items-center">
                     <h4>All Tips</h4>
-<!--                    <FilterSection/>-->
+                    <!--                    <FilterSection/>-->
                 </div>
                 <table>
                     <thead>
-                    <tr class="text-left">
+                    <tr class="text-left table-sm">
                         <th class="w-[100px] px-[20px]">ID</th>
                         <th class="w-[200px]">League</th>
                         <th class="">Teams</th>
@@ -75,16 +75,16 @@ watch(() => pageController.search, (newValue, oldValue) => {
                         <td class="px-[20px]">{{ tip.id }}</td>
                         <td>{{ tip.matches.league }}</td>
                         <td>
-                            <p class="mb-[10px] ">Home : {{ tip.matches.home_teams }}</p>
-                            <p class="mb-[10px] ">Away : {{ tip.matches.away_teams }}</p>
+                            <p class="mb-[5px]">Home : {{ tip.matches.home_teams }}</p>
+                            <p class="mb-[5px]">Away : {{ tip.matches.away_teams }}</p>
                         </td>
                         <td>
-                            <p class="mb-[10px] text-center">{{ useDateFormat(tip.matches.match_start_time,'MMM DD YYYY') }}</p>
-                            <p class="mb-[10px] text-center">{{ useDateFormat(tip.matches.match_start_time,'hh:mm a') }}</p>
+                            <p class="mb-[5px] text-center">{{ useDateFormat(tip.matches.match_start_time, 'MMM DD YYYY') }}</p>
+                            <p class="mb-[5px] text-center text-gray-400">{{ useDateFormat(tip.matches.match_start_time, 'hh:mm a') }}</p>
                         </td>
-                        <td>{{tip.prediction_type}}</td >
-                        <td>{{tip.predictions}}</td >
-                        <td>{{tip.winning_status}}</td>
+                        <td>{{ tip.prediction_type }}</td>
+                        <td>{{ tip.predictions }}</td>
+                        <td>{{ tip.winning_status }}</td>
                     </Link>
                     </tbody>
                 </table>

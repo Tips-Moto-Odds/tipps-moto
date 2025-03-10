@@ -11,7 +11,8 @@ use App\Models\Packages;
 
 class SelectionController extends Controller
 {
-    public function index(Request $request){
+    public function index(Request $request)
+    {
         $selections = Selection::all();
 
         return Inertia::render('Dashboards/Manager/Selection/Index', [
@@ -54,22 +55,39 @@ class SelectionController extends Controller
     }
 
 
-    public function create(Request $request){
+    public function create(Request $request)
+    {
 
         $packages = Packages::all();
 
-        return Inertia::render('Dashboards/Manager/Selection/create',[
+        return Inertia::render('Dashboards/Manager/Selection/create', [
             'packages' => $packages
         ]);
     }
-    public function store(Request $request){
+
+    public function store(Request $request)
+    {
 
         $selection = new Selection();
 
         $selection->package_id = $request->input('packages');
         $selection->date_for = $request->input('date_for');
         $selection->status = $request->input('active');
-        $selection->tips = json_encode($request->input('tips'));
+
+        $tips = collect($request->input('tips'))->map(function ($tip) {
+            $db_tip = Tips::find($tip['id']);
+            $db_match = $db_tip->matches;
+            $tip = array(
+                "match_id" => $db_match->id,
+                "prediction_type" => $db_tip->prediction_type,
+                "prediction" => $db_tip->predictions,
+                "confidence" => $db_tip->prediction_confidence,
+            );
+
+            return $tip;
+        });
+
+        $selection->tips = json_encode($tips);
         $selection->save();
 
         return redirect()->route('dashboard.selection.listSelections');
@@ -106,8 +124,8 @@ class SelectionController extends Controller
         return redirect()->route('dashboard.selection.listSelections');
     }
 
-
-    public function delete(Request $request,Selection $selection){
+    public function delete(Request $request, Selection $selection)
+    {
         $selection->delete();
 
         return redirect()->route('dashboard.selection.listSelections');

@@ -1,16 +1,12 @@
 <?php
 
-use App\Http\Controllers\AccountsTypeController;
-use App\Http\Controllers\UserAccountsController;
-use Illuminate\Http\Request;
+use App\Http\Middleware\CheckUserId;
 use Illuminate\Support\Facades\Route;
-use Inertia\Inertia;
 
-Route::prefix('dashboard/user')->as('dashboard.user.')->group(function () {
-    include_once "Views.php";
-    include_once "Actions.php";
-});
-
-
-
-
+Route::middleware([CheckUserId::class.':5']) // ✅ Corrected syntax
+->prefix('Dashboard/Users')
+    ->as('dashboard.user.')
+    ->group(function () {
+        include_once "Views.php";
+        include_once "Actions.php";
+    });

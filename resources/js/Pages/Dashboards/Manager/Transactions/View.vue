@@ -72,7 +72,7 @@ const updateAdminMode = () => {
 
 <style lang="scss" scoped>
 .action-button {
-  @apply px-[10px] py-[5px] rounded-sm;
+  @apply rounded-sm;
 }
 
 .side-section {

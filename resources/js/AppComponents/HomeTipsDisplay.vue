@@ -22,10 +22,8 @@ const page = usePage();
                 <p class="w-100 text-left">{{ tip.away_teams }}</p>
             </div>
             <div class="flex justify-center w-100 md:w-1/3">
-                <div v-if="page.props.auth.user == null" class="bg-primary_orange rounded">
-                    <p class="rounded  text-center mb-[1px] text-white">
-                        <Link href="/login" as="p" class="cursor-pointer px-3 rounded  text-center py-1 text-white">Log In</Link>
-                    </p>
+                <div v-if="page.props.auth.user == null" class="bg-primary_orange rounded w-[108px]">
+                    <Link href="/login" as="p" class="prediction-card-display">Log In</Link>
                 </div>
                 <div v-else class="bg-primary_orange rounded w-[108px]">
                     <p v-if="tip.predictions == 1 && tip.prediction_type == '1X_X2_12'" class="prediction-card-display">1/X</p>
@@ -39,7 +37,7 @@ const page = usePage();
                     <p v-else-if="tip.predictions == 1 && tip.prediction_type == 'GG-NG'" class="prediction-card-display">GG</p>
                     <p v-else-if="tip.predictions == -1 && tip.prediction_type == 'GG-NG'" class="prediction-card-display">NG</p>
 
-                    <p v-else class="text-center mb-[20px]">{{tip.predictions}}</p>
+                    <p v-else class="prediction-card-display">{{ tip.predictions }}</p>
                 </div>
             </div>
         </section>
@@ -47,7 +45,7 @@ const page = usePage();
 </template>
 
 <style lang="scss" scoped>
-.prediction-card-display{
+.prediction-card-display {
     @apply rounded text-center py-1 text-white;
 }
 

@@ -40,44 +40,35 @@ function updateTip() {
         <div>
             <label class="block text-white mb-[20px]">Tip Type</label>
             <select v-model="tipForm.tip_type" class="rounded w-100">
-                <option value="1-X-2">1-X-2</option>
-                <option value="1X-2X">1X-2X</option>
+                <option value="1_X_2">1-X-2</option>
+                <option value="1X_X2_12">1X_X2_12</option>
                 <option value="GG-NG">GG-NG</option>
-                <option value="Over">Over</option>
-                <option value="Under">Under</option>
+                <option value="Over/Under">Over/Under</option>
             </select>
             <hr class="border-gray-200"/>
         </div>
         <div>
             <label class="block text-white mb-[20px]">Prediction</label>
             <select class="rounded w-100" v-model="tipForm.prediction">
-                <option v-if="tipForm.tip_type === '1-X-2' " value="Home Win">Home Win</option>
-                <option v-if="tipForm.tip_type === '1-X-2' " value="Away Win">Away Win</option>
-                <option v-if="tipForm.tip_type === '1-X-2' " value="Draw">Draw</option>
-                <option v-if="tipForm.tip_type === '1X_X2_12' " value="Home Win/Draw">Home Win/Draw</option>
-                <option v-if="tipForm.tip_type === '1X_X2_12' " value="Away Win/Draw">Away Win/Draw</option>
-                <option v-if="tipForm.tip_type === '1X_X2_12' " value="Home Win/Away Win">Home Win/Away Win</option>
-                <option v-if="tipForm.tip_type === 'GG-NG' " value="GG">GG</option>
-                <option v-if="tipForm.tip_type === 'GG-NG' " value="NG">NG</option>
-                <option v-if="tipForm.tip_type === 'Over' " value="OVER 1.5">OVER 1.5</option>
-                <option v-if="tipForm.tip_type === 'Over' " value="OVER 2.5">OVER 2.5</option>
-                <option v-if="tipForm.tip_type === 'Over' " value="OVER 3.5">OVER 3.5</option>
-                <option v-if="tipForm.tip_type === 'Over' " value="OVER 4.5">OVER 4.5</option>
-                <option v-if="tipForm.tip_type === 'Over' " value="OVER 5.5">OVER 5.5</option>
-                <option v-if="tipForm.tip_type === 'Under' " value="UNDER 1.5">UNDER 1.5</option>
-                <option v-if="tipForm.tip_type === 'Under' " value="UNDER 2.5">UNDER 2.5</option>
-                <option v-if="tipForm.tip_type === 'Under' " value="UNDER 3.5">UNDER 3.5</option>
-                <option v-if="tipForm.tip_type === 'Under' " value="UNDER 4.5">UNDER 4.5</option>
-                <option v-if="tipForm.tip_type === 'Under' " value="UNDER 5.5">UNDER 5.5</option>
+                <option v-if="tipForm.tip_type === '1_X_2' " value="1">Home Win</option>
+                <option v-if="tipForm.tip_type === '1_X_2' " value="0">Away Win</option>
+                <option v-if="tipForm.tip_type === '1_X_2' " value="-1">Draw</option>
+                <option v-if="tipForm.tip_type === '1X_X2_12' " value="1">Home Win/Draw</option>
+                <option v-if="tipForm.tip_type === '1X_X2_12' " value="0">Away Win/Draw</option>
+                <option v-if="tipForm.tip_type === '1X_X2_12' " value="-1">Home Win/Away Win</option>
+                <option v-if="tipForm.tip_type === 'GG-NG' " value="1">GG</option>
+                <option v-if="tipForm.tip_type === 'GG-NG' " value="-1">NG</option>
+                <option v-if="tipForm.tip_type === 'Over/Under' " value="Over 2.5">OVER 2.5</option>
+                <option v-if="tipForm.tip_type === 'Over/Under' " value="Under 2.5">UNDER 2.5</option>
             </select>
             <hr class="border-gray-200"/>
         </div>
         <div>
             <label class="block text-white mb-[20px]">Risk Level</label>
             <select class="rounded w-100" v-model="tipForm.risk_level">
-                <option value="Min">Min</option>
-                <option value="Average">Average</option>
-                <option value="Max">Max</option>
+                <option value="min">Min</option>
+                <option value="avg">Average</option>
+                <option value="max">Max</option>
             </select>
             <hr class="border-gray-200"/>
         </div>

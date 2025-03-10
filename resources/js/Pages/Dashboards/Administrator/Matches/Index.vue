@@ -66,12 +66,12 @@ const sidebarOpen = () => closeSideBar()
                 </div>
                 <table>
                     <thead>
-                    <tr class="text-left">
+                    <tr class="text-left table-sm">
                         <th class="w-[100px] px-[20px]">ID</th>
                         <th class="w-[200px]">League</th>
-                        <th class="">Teams</th>
+                        <th>Teams</th>
                         <th class="w-[200px] text-center">Match Times</th>
-                        <th class="">Tips</th>
+                        <th class="">No. Tips</th>
                         <th class="">Status</th>
                     </tr>
                     </thead>
@@ -80,16 +80,16 @@ const sidebarOpen = () => closeSideBar()
                         <td class="px-[20px]">{{ match.id }}</td>
                         <td>{{ match.league }}</td>
                         <td>
-                            <p class="mb-[10px] ">Home : {{ match.home_teams }}</p>
-                            <p class="mb-[10px] ">Away : {{ match.away_teams }}</p>
+                            <p class="mb-[5px] ">Home : {{ match.home_teams }}</p>
+                            <p class="mb-[5px] ">Away : {{ match.away_teams }}</p>
                         </td>
                         <td>
-                            <p class="mb-[10px] text-center">{{ useDateFormat(match.match_start_time,'MMM DD YYYY').value }}</p>
-                            <p class="mb-[10px] text-center">{{ useDateFormat(match.match_start_time,'hh:mm a').value }}</p>
+                            <p class="mb-[5px] text-center">{{ useDateFormat(match.match_start_time, 'MMM DD YYYY').value }}</p>
+                            <p class="mb-[5px] text-center text-gray-400">{{ useDateFormat(match.match_start_time, 'hh:mm a').value }}</p>
                         </td>
                         <td>
-                            {{match.tips_count}}
-                        </td >
+                            {{ match.tips_count }}
+                        </td>
                         <td>{{ match.status }}</td>
                     </Link>
                     </tbody>

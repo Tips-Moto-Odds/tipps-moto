@@ -1,11 +1,24 @@
 <script setup>
 import {Head} from "@inertiajs/inertia-vue3";
 import Navigation from "@/AppComponents/Navigation.vue";
-import {usePage} from "@inertiajs/vue3";
+import {useForm, usePage} from "@inertiajs/vue3";
 import TextInput from "@/Components/TextInput.vue";
 
 const page = usePage()
 const user = page?.props?.user
+const form = useForm({
+    name:user.name,
+    email:user.email,
+    phone:user.phone,
+})
+
+const updateUser = () => {
+    form.patch(route('UpdateUser',[user.id]),{
+        onSuccess:() => {
+            console.log("done")
+        },
+    })
+}
 </script>
 
 <template>
@@ -22,18 +35,18 @@ const user = page?.props?.user
             </div>
             <form v-if="user !== null" class="mx-0 p-0 !mb-[20px] list-unstyled">
                 <li class="mb-[20px]"><label class="text-sm text-gray-300">Username</label>
-                    <TextInput class="block w-full bg-transparent" v-model="user.name"></TextInput>
+                    <TextInput class="block w-full bg-transparent" v-model="form.name"></TextInput>
                 </li>
                 <li class="mb-[20px]"><label class="text-sm text-gray-300">Email Address</label>
-                    <TextInput class="block w-full bg-transparent" v-model="user.email"></TextInput>
+                    <TextInput class="block w-full bg-transparent" v-model="form.email"></TextInput>
                 </li>
                 <li class="mb-[20px]"><label class="text-sm text-gray-300">Phone Number</label>
-                    <TextInput class="block w-full bg-transparent" v-model="user.phone"></TextInput>
+                    <TextInput class="block w-full bg-transparent" v-model="form.phone"></TextInput>
                 </li>
             </form>
             <div class="flex justify-end gap-5">
-                <button class=" text-lg px-[10px] text-red-500 px-[30px] py-[5px] rounded hover:bg-red-500 hover:text-white">Cancel</button>
-                <button class="text-black text-lg bg-green-700 text-white hover:bg-green-700/90  px-[30px] py-[5px] rounded">Save</button>
+                <button class=" text-lg px-[10px] text-red-500 px-[30px] py-[5px] rounded hover:bg-red-500 hover:text-white" @click="form.reset()">Cancel</button>
+                <button class="text-black text-lg bg-green-700 text-white hover:bg-green-700/90  px-[30px] py-[5px] rounded" @click="updateUser">Save</button>
             </div>
         </div>
         <div class="w-full md:w-[30%] flex gap-[20px] flex-col justify-center items-center py-[50px] bg-black">

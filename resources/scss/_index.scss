@@ -79,6 +79,10 @@ table {
     transition: all ease-in-out 1000ms;
     @apply w-fit bg-gray-800 rounded;
 }
+.action-button {
+    @apply  rounded-sm;
+}
+
 
 .action-button {
     @apply px-[10px] h-[30px] m-0 ;
