@@ -46,7 +46,7 @@ class CustomerController extends Controller
     public function subscriptions_tip(Request $request, Subscription $subscription): \Inertia\Response
     {
         $selection = Selection::where('package_id', $subscription->package->id)
-            ->where('status', '1')
+            ->where('status', 'active')
             ->first();
 
         if (!$selection) {
@@ -60,6 +60,7 @@ class CustomerController extends Controller
 
         // Fetch match details for each tip and format them properly
         $formattedTips = collect($tipsData)->map(function ($tip) {
+
             $match = Matches::find($tip['match_id']);
 
             return [
