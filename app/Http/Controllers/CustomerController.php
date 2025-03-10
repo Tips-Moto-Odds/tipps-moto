@@ -46,7 +46,10 @@ class CustomerController extends Controller
     public function subscriptions_tip(Request $request, Subscription $subscription): \Inertia\Response
     {
         $selection = Selection::where('package_id', $subscription->package->id)
-            ->where('status', 'active')
+            ->where(function ($query) {
+                $query->where('status', 'active')
+                    ->orWhere('status', 1);
+            })
             ->first();
 
         if (!$selection) {
