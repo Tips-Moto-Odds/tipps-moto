@@ -5,7 +5,7 @@ import {useDateFormat} from "@vueuse/shared";
 import Pagination from "@/AppComponents/Global/Pagination.vue";
 import FilterSection from "@/AppComponents/Dashbboard/FilterSection.vue";
 
-const props = defineProps(['transactions'])
+const props = defineProps(['transactions', 'stats'])
 const page = usePage()
 const pageController = useForm({
     search: props.search
@@ -64,7 +64,7 @@ const pageController = useForm({
                                     <p class="text-gray-300 text-sm">{{ useDateFormat(transaction.created_at, 'HH:mm').value }}</p>
                                 </td>
                                 <td>
-                                    <p v-if=" transaction.transaction_status  == 'pending'" class="text-orange-300" >{{ transaction.transaction_status }}</p>
+                                    <p v-if=" transaction.transaction_status  == 'pending'" class="text-orange-300">{{ transaction.transaction_status }}</p>
                                     <p v-else class="text-green-400">{{ transaction.transaction_status }}</p>
                                 </td>
                                 <td class="text-center">{{ transaction.transaction_reference }}</td>
@@ -82,11 +82,12 @@ const pageController = useForm({
                     <div class="app-panel-heading">
                         <h4>Summary</h4>
                     </div>
-                    <div class="list-display text-white">
-                        <ul>
-                            <li class="flex justify-between items-center">
-                                <p>Total users</p>
-                                <!--                              <p>{{ stats.TotalUsers }}</p>-->
+                    <div class="list-display text-white" v-for="(item,title) in stats">
+                        <h4>{{title}}</h4>
+                        <ul class="text-sm">
+                            <li class="flex justify-between items-center mb-[10px]" v-for="(record,title1) in item">
+                                <p>{{title1}}</p>
+                                <p>{{ stats[title][title1] }}</p>
                             </li>
                         </ul>
                         <hr/>
