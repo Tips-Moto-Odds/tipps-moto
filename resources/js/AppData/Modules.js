@@ -50,6 +50,13 @@ const defaultGrouping = [
         name: "Administration",
         modules: [
             {
+                name: "System",
+                link: route('dashboard.system.index'),
+                active: 'model',
+                icon:'https://img.icons8.com/ios-filled/50/ffffff/settings.png',
+                accessLevel: 'Administration'
+            },
+            {
                 name: "Model",
                 link: route('dashboard'),
                 active: 'model',

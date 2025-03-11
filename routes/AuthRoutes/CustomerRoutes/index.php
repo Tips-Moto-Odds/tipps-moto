@@ -10,7 +10,7 @@ Route::group(['prefix' => 'Profile'], function () {
 
     Route::get('/subscription',[CustomerController::class, 'subscriptions'])->name('profile.subscription');
 
-    Route::get('/subscription/Tips/{subscription}', [CustomerController::class, 'subscriptions_tip'])->name('profile.tips');
+    Route::get('/subscription/Tips/{selection}', [CustomerController::class, 'subscriptions_tip'])->name('profile.tips');
 
     // Patch user details
     Route::patch('/update/{user}', [CustomerController::class, 'patchUser'])->name('UpdateUser');

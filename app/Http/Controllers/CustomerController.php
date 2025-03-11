@@ -41,8 +41,9 @@ class CustomerController extends Controller
                 ->where('date_for', $now->toDateString())
                 ->get();
 
+
             $activeSubscriptions = $activeSubscriptions->map(function ($subscription) use ($user){
-                $sub =  $user->subscriptions()
+                $sub = $user->subscriptions()
                     ->where('package_id',$subscription->package_id)
                     ->where('status','active')->first();
 
@@ -55,23 +56,10 @@ class CustomerController extends Controller
         return Inertia::render('UserPanel/Subscriptions', ['subscriptions' => $activeSubscriptions]);
     }
 
-    public function subscriptions_tip(Request $request, Subscription $subscription): \Inertia\Response
+    public function subscriptions_tip(Request $request, Selection $selection): \Inertia\Response
     {
-        $selection = Selection::where('package_id', $subscription->package->id)
-            ->where(function ($query) {
-                $query->where('status', 'active')
-                    ->orWhere('status', 1);
-            })
-            ->first();
-
-        if (!$selection) {
-            return Inertia::render('UserPanel/PackageTips', [
-                'tips' => [],
-            ]);
-        }
-
         // Decode the tips JSON
-        $tipsData = json_decode($selection->tips, true) ?? [];
+        $tipsData = json_decode($selection->tips, true, 512, JSON_THROW_ON_ERROR) ?? [];
 
         // Fetch match details for each tip and format them properly
         $formattedTips = collect($tipsData)->map(function ($tip) {

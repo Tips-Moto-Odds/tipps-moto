@@ -14,6 +14,7 @@ Route::middleware([CheckUserId::class.':2'])->group(function () {
     include_once 'Tips/index.php';
     include_once 'Selection/index.php';
 
+    include_once 'System/index.php';
     include_once 'Transactions/index.php';
     include_once 'AccountTypes/index.php';
 
