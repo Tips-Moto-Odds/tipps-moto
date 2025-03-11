@@ -8,13 +8,12 @@ import AppPopUp from "@/AppComponents/AppPopUp.vue";
 import YesterdayFreeTips from "@/AppComponents/YesterdayFreeTips.vue";
 import {ref} from 'vue';
 
-const props = defineProps(['tips']);
+const props = defineProps(['tips','yesterdaysTips']);
 const showYesterdayTips = ref(false);
 const showPopup = ref(false);
 
-
-
 </script>
+
 <template>
     <Head>
         <title>Welcome</title>
@@ -26,7 +25,7 @@ const showPopup = ref(false);
 
     <TodaysFreeTips :tips="tips ?? []"/>
 
-    <YesterdayFreeTips v-if="showYesterdayTips" :tips="tips"/>
+    <YesterdayFreeTips v-if="yesterdaysTips.length > 0" :tips="yesterdaysTips"/>
 
     <AppPopUp v-if="showPopup"/>
 

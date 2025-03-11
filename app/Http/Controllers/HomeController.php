@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Matches;
 use App\Models\Tips;
 use Barryvdh\Debugbar\Facades\Debugbar;
 use Illuminate\Support\Carbon;
@@ -27,15 +28,37 @@ class HomeController extends Controller
             ->limit(3)
             ->get();
 
+
+        $yesterdayStart = Carbon::yesterday()->startOfDay()->toDateTimeString();
+        $yesterdayEnd = Carbon::yesterday()->endOfDay()->toDateTimeString();
+        $yesterdaysMatches = [];
+
+        $tips = Tips::join('matches as m','tips.match_id','=','m.id')
+            ->whereBetween('m.match_start_time', [$yesterdayStart, $yesterdayEnd])
+            ->where(function ($query){
+                $query->where('tips.status','Won')
+                    ->orWhere('tips.status','Lost')
+                ;
+            })
+            ->toSql() ?? [];
+
+//        if ($matches) {
+//            $yesterdaysMatches = $matches->map(function ($match) {
+//                return $match;
+//            });
+//        }
+
+
         return Inertia::render('Welcome', [
             'tips' => $tipsQuery,
+            'yesterdaysTips' => $yesterdaysMatches
         ]);
     }
 
     public function tips(): Response
     {
         $packages = Packages::all();
-        return Inertia::render('tips',[
+        return Inertia::render('tips', [
             'packages' => $packages
         ]);
     }
@@ -59,7 +82,6 @@ class HomeController extends Controller
     {
         return Inertia::render('Home/TermsOfService');
     }
-
 
 
 }

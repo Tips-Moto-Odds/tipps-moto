@@ -20,25 +20,37 @@ class CustomerController extends Controller
     public function subscriptions(Request $request): \Inertia\Response
     {
         $user = Auth::user();
-        $now = now(); // Current date & time
+        $now = now();
+        $activeSubscriptions = [];
+        $userSubscriptions = $user->subscriptions ?? [];
+
+        if ($userSubscriptions) {
+            foreach ($userSubscriptions as $subscription) {
+                $endDate = \Carbon\Carbon::parse($subscription->end_date)->startOfDay(); // Expiry date at 00:00:00
+                $updatedTime = \Carbon\Carbon::parse($subscription->updated_at)->format('H:i:s'); // Time part only
 
 
-        $activeSubscriptions = $user->subscriptions->filter(function ($subscription) use ($now) {
-            $endDate = \Carbon\Carbon::parse($subscription->end_date)->startOfDay(); // Expiry date at 00:00:00
-            $updatedTime = \Carbon\Carbon::parse($subscription->updated_at)->format('H:i:s'); // Time part only
-
-            // If expiry date is in the future, keep it
-            if ($endDate->gt($now->startOfDay())) {
-                return true;
+                // If its expired, update it
+                if ($endDate->lt($now->startOfDay()) && $updatedTime > $now->format('H:i:s')) {
+                    $subscription->status = 'expired';
+                    $subscription->save();
+                }
             }
 
-            // If expiry date is today, keep active until updated time is passed
-            if ($endDate->equalTo($now->startOfDay()) && $updatedTime > $now->format('H:i:s')) {
-                return true;
-            }
+            $activeSubscriptions = Selection::whereIn('package_id', $user->subscriptions()->where('status', 'active')->pluck('package_id'))
+                ->where('date_for', $now->toDateString())
+                ->get();
 
-            return false; // Remove expired subscriptions
-        });
+            $activeSubscriptions = $activeSubscriptions->map(function ($subscription) use ($user){
+                $sub =  $user->subscriptions()
+                    ->where('package_id',$subscription->package_id)
+                    ->where('status','active')->first();
+
+                $subscription->end_date = $sub->end_date;
+
+                return $subscription;
+            });
+        }
 
         return Inertia::render('UserPanel/Subscriptions', ['subscriptions' => $activeSubscriptions]);
     }
@@ -93,7 +105,7 @@ class CustomerController extends Controller
 
         $transaction_code = $this->generateRandomCode();
         $request['transaction_code'] = $transaction_code;
-        $price = Packages::where('name',$request->input('package'))->first();
+        $price = Packages::where('name', $request->input('package'))->first();
 
         //create a new transaction
         $transaction = Transaction::create([
@@ -107,7 +119,7 @@ class CustomerController extends Controller
         ]);
 
         $onitController = new OnitController();
-        $push_stk_result = $onitController->deposit($request,$transaction);
+        $push_stk_result = $onitController->deposit($request, $transaction);
 
         return redirect()->back()->with('success', 'Subscription request sent. Awaiting confirmation.');
     }
