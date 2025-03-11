@@ -23,6 +23,7 @@ class TransactionController extends Controller
 
 
 
+
         $transactions = $transactions->orderBy('created_at','desc')->paginate(15);
 
         return Inertia::render('Dashboards/Manager/Transactions/Index',[

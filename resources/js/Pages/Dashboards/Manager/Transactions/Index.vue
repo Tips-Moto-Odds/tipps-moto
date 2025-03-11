@@ -45,6 +45,7 @@ const pageController = useForm({
                             <th class="text-center ">Package</th>
                             <th class="text-center">Amount(Ksh)</th>
                             <th class="text-center">Date/Time</th>
+                            <th class="text-center">Status</th>
                             <th class="text-center">Reference</th>
                         </tr>
                         </thead>
@@ -61,6 +62,10 @@ const pageController = useForm({
                                 <td class="text-center">
                                     <p>{{ useDateFormat(transaction.created_at, 'MM/DD/YYYY').value }}</p>
                                     <p class="text-gray-300 text-sm">{{ useDateFormat(transaction.created_at, 'HH:mm').value }}</p>
+                                </td>
+                                <td>
+                                    <p v-if=" transaction.transaction_status  == 'pending'" class="text-orange-300" >{{ transaction.transaction_status }}</p>
+                                    <p v-else class="text-green-400">{{ transaction.transaction_status }}</p>
                                 </td>
                                 <td class="text-center">{{ transaction.transaction_reference }}</td>
                             </Link>
