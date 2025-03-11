@@ -4,9 +4,6 @@ import Navigation from "@/AppComponents/Navigation.vue";
 import HomeTipsDisplay from "@/AppComponents/HomeTipsDisplay.vue";
 
 const props = defineProps(['tips'])
-
-console.log(props.tips)
-
 </script>
 
 <template>

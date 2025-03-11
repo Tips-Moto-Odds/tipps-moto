@@ -1,25 +1,28 @@
 <script setup>
 
 import DashboardLayout from "@/Layouts/AdministrationLayout/DashboardLayout.vue";
+import {ref} from "vue";
 
+const ActionResponse = ref('')
 const syncData = (model) => {
-    axios.post('dashboard.system.syncData').then(() => {
-        console.log("done")
+    axios.post(route('dashboard.system.syncData'),{
+        'model':model
+    }).then((resp) => {
+        ActionResponse.value = ActionResponse.value+'<br>'+'<p>'+resp.data.message+'</p>'
+    }).catch(() => {
+        console.log('error')
     })
-        .catch(() => {
-            console.log('error')
-        })
 }
 </script>
 
 <template>
     <DashboardLayout page-heading="System" title="System">
-        <section class="sync-section app-panel w-[98%] rounded mx-auto h-[500px]  p-[20px]">
+        <section class="sync-section app-panel w-[98%] rounded mx-auto p-[20px]">
             <div class="app-panel-heading">
                 <h5 class="text-white">Sysc</h5>
             </div>
             <section class="flex gap-3">
-                <div class="w-[400px]">
+                <div class="!w-[600px] mb-[10px]">
                     <table class="text-white w-full mb-[20px] table-sm">
                         <thead class="h-[50px] ">
                         <tr class="text-left border-b-[2px] text-xs">
@@ -45,7 +48,7 @@ const syncData = (model) => {
                             </td>
                             <td>
                                 <div class="flex flex-col gap-2 text-sm">
-                                    <button class="btn btn-primary w-auto">Sync</button>
+                                    <button class="btn btn-primary w-auto" @click.prevent="syncData('Matches')">Sync</button>
                                     <button class="btn btn-danger w-auto">Truncate</button>
                                 </div>
                             </td>
@@ -56,7 +59,7 @@ const syncData = (model) => {
                             </td>
                             <td>
                                 <div class="flex flex-col gap-2 text-sm">
-                                    <button class="btn btn-primary w-auto">Sync</button>
+                                    <button class="btn btn-primary w-auto" @click.prevent="syncData('Tips')">Sync</button>
                                     <button class="btn btn-danger w-auto">Truncate</button>
                                 </div>
                             </td>
@@ -67,7 +70,7 @@ const syncData = (model) => {
                             </td>
                             <td>
                                 <div class="flex flex-col gap-2 text-sm">
-                                    <button class="btn btn-primary w-auto">Sync</button>
+                                    <button class="btn btn-primary w-auto" @click.prevent="syncData('Selection')">Sync</button>
                                     <button class="btn btn-danger w-auto">Truncate</button>
                                 </div>
                             </td>
@@ -75,7 +78,10 @@ const syncData = (model) => {
                         </tbody>
                     </table>
                 </div>
-                <div class=""></div>
+                <div class=" w-full text-white">
+                    <h2 class="mb-[20px]">Response</h2>
+                    <div class="bg-black rounded h-[calc(100%_-_60px)] p-[5px] text-green-500" v-html="ActionResponse"></div>
+                </div>
             </section>
         </section>
     </DashboardLayout>

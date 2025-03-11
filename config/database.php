@@ -109,6 +109,25 @@ return [
             // 'trust_server_certificate' => env('DB_TRUST_SERVER_CERTIFICATE', 'false'),
         ],
 
+        'live_db' => [
+            'driver' => 'mysql',
+            'url' => env('DB_URL'),
+            'host' => env('LIVE_DB_HOST', '82.165.200.92'),
+            'port' => env('DB_PORT', '3306'),
+            'database' => env('LIVE_DB_DATABASE', 'forge'),
+            'username' => env('LIVE_DB_USERNAME', 'forge'),
+            'password' => env('LIVE_DB_PASSWORD', ''),
+            'unix_socket' => env('DB_SOCKET', ''),
+            'charset' => env('DB_CHARSET', 'utf8mb4'),
+            'collation' => env('DB_COLLATION', 'utf8mb4_unicode_ci'),
+            'prefix' => '',
+            'prefix_indexes' => true,
+            'strict' => true,
+            'engine' => "MyISAM",
+            'options' => extension_loaded('pdo_mysql') ? array_filter([
+                PDO::MYSQL_ATTR_SSL_CA => env('MYSQL_ATTR_SSL_CA'),
+            ]) : [],
+        ],
     ],
 
     /*

@@ -44,6 +44,13 @@ const defaultGrouping = [
                 icon: 'https://img.icons8.com/fluency-systems-regular/50/ffffff/choose.png',
                 accessLevel: 'Guest'
             },
+            {
+                name: "Transactions",
+                link: route('dashboard.transactions.listTransactions'),
+                supported: ['dashboard.transactions.listTransactions'],
+                icon: 'https://img.icons8.com/glyph-neue/64/ffffff/refund-2.png',
+                accessLevel: 'Guest'
+            },
         ]
     },
     {
@@ -52,7 +59,7 @@ const defaultGrouping = [
             {
                 name: "System",
                 link: route('dashboard.system.index'),
-                active: 'model',
+                supported: ['dashboard.system.index'],
                 icon:'https://img.icons8.com/ios-filled/50/ffffff/settings.png',
                 accessLevel: 'Administration'
             },
