@@ -47,7 +47,8 @@ class HomeController extends Controller
                     'prediction_type' => $tip->prediction_type,
                     'predictions' => $tip->predictions,
                 ])
-                )->take(15);
+                )->random(15)
+                ;
         };
 
         $canViewFreeTips = function () {
