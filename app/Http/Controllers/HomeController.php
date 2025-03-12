@@ -29,27 +29,29 @@ class HomeController extends Controller
             ->limit(3)
             ->get();
 
-        $yesterdayStart = Carbon::yesterday()->startOfDay()->toDateTimeString();
-        $yesterdayEnd = Carbon::yesterday()->endOfDay()->toDateTimeString();
-        $yesterdaysMatches = [];
 
-        $tips = Tips::join('matches as m', 'tips.match_id', '=', 'm.id')
-            ->whereBetween('m.match_start_time', [$yesterdayStart, $yesterdayEnd])
-            ->where(function ($query) {
-                $query->where('tips.status', 'Won')
-                    ->orWhere('tips.status', 'Lost');
-            })
-            ->toSql() ?? [];
+        $yesterdaysMatches = function () {
+            $yesterdayStart = Carbon::yesterday()->startOfDay()->toDateTimeString();
+            $yesterdayEnd = Carbon::yesterday()->endOfDay()->toDateTimeString();
 
-//        if ($matches) {
-//            $yesterdaysMatches = $matches->map(function ($match) {
-//                return $match;
-//            });
-//        }
-
+            return Matches::with('tips')
+                ->whereBetween('match_start_time', [$yesterdayStart, $yesterdayEnd])
+                ->inRandomOrder()
+                ->get()
+                ->sortBy('match_start_time')
+                ->flatMap(fn($match) =>
+                $match->tips->map(fn($tip) => [
+                    'match_start_time' => $match->match_start_time,
+                    'home_teams' => $match->home_teams,
+                    'away_teams' => $match->away_teams,
+                    'prediction_type' => $tip->prediction_type,
+                    'predictions' => $tip->predictions,
+                ])
+                )->take(15);
+        };
 
         $canViewFreeTips = function () {
-            if (Auth::check()){
+            if (Auth::check()) {
                 $today = Carbon::today();
 
                 $userCreatedAt = optional(Auth::user())->created_at;
@@ -65,14 +67,14 @@ class HomeController extends Controller
                 return (Auth::check() && Auth::user()->subscriptions()->where('status', 'active')->where('end_date', '>', now()->toDateString())->exists())
                     || (Auth::check() && $daysSinceCreation <= 3)
                     || (Auth::check() && $daysSinceLastSubscription <= 3);
-            }else{
+            } else {
                 return true;
             }
         };
 
         return Inertia::render('Welcome', [
             'tips' => $tipsQuery,
-            'yesterdaysTips' => $yesterdaysMatches,
+            'yesterdaysTips' => $yesterdaysMatches(),
             'canViewFreeTips' => $canViewFreeTips
         ]);
 
