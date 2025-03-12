@@ -49,21 +49,25 @@ class HomeController extends Controller
 
 
         $canViewFreeTips = function () {
-            $today = Carbon::today();
+            if (Auth::check()){
+                $today = Carbon::today();
 
-            $userCreatedAt = optional(Auth::user())->created_at;
+                $userCreatedAt = optional(Auth::user())->created_at;
 
-            $lastSubscriptionDate = optional(Auth::user()->subscriptions()->orderBy('end_date', 'desc')->first())->end_date;
+                $lastSubscriptionDate = optional(Auth::user()->subscriptions()->orderBy('end_date', 'desc')->first())->end_date;
 
-            $lastSubscriptionDate = $lastSubscriptionDate ? Carbon::parse($lastSubscriptionDate) : null;
+                $lastSubscriptionDate = $lastSubscriptionDate ? Carbon::parse($lastSubscriptionDate) : null;
 
-            $daysSinceCreation = $userCreatedAt ? $userCreatedAt->diffInDays($today) : null;
-            $daysSinceLastSubscription = $lastSubscriptionDate?->diffInDays($today);
+                $daysSinceCreation = $userCreatedAt ? $userCreatedAt->diffInDays($today) : null;
+                $daysSinceLastSubscription = $lastSubscriptionDate?->diffInDays($today);
 
 
-            return (Auth::check() && Auth::user()->subscriptions()->where('status', 'active')->where('end_date', '>', now()->toDateString())->exists())
-                || (Auth::check() && $daysSinceCreation <= 3)
-                || (Auth::check() && $daysSinceLastSubscription <= 3);
+                return (Auth::check() && Auth::user()->subscriptions()->where('status', 'active')->where('end_date', '>', now()->toDateString())->exists())
+                    || (Auth::check() && $daysSinceCreation <= 3)
+                    || (Auth::check() && $daysSinceLastSubscription <= 3);
+            }else{
+                return true;
+            }
         };
 
         return Inertia::render('Welcome', [
