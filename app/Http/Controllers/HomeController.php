@@ -31,24 +31,31 @@ class HomeController extends Controller
 
 
         $yesterdaysMatches = function () {
-            $yesterdayStart = Carbon::yesterday()->startOfDay()->toDateTimeString();
-            $yesterdayEnd = Carbon::yesterday()->endOfDay()->toDateTimeString();
 
             return Matches::with('tips')
-                ->whereBetween('match_start_time', [$yesterdayStart, $yesterdayEnd])
+                ->whereHas('tips', function ($query) {
+                    $query->whereIn('winning_status', ['Won', 'Lost']);
+                })
+                ->whereBetween('match_start_time', [Carbon::yesterday()->startOfDay(), Carbon::yesterday()->endOfDay()])
                 ->inRandomOrder()
+                ->limit(15) // Ensures only 15 matches are retrieved from DB
                 ->get()
                 ->sortBy('match_start_time')
                 ->flatMap(fn($match) =>
-                $match->tips->map(fn($tip) => [
-                    'match_start_time' => $match->match_start_time,
-                    'home_teams' => $match->home_teams,
-                    'away_teams' => $match->away_teams,
-                    'prediction_type' => $tip->prediction_type,
-                    'predictions' => $tip->predictions,
-                ])
-                )->random(15)
-                ;
+                $match->tips
+                    ->whereIn('winning_status', ['Won', 'Lost']) // Filter tips here
+                    ->map(fn($tip) => [
+                        'match_start_time' => $match->match_start_time,
+                        'home_teams' => $match->home_teams,
+                        'away_teams' => $match->away_teams,
+                        'prediction_type' => $tip->prediction_type,
+                        'predictions' => $tip->predictions,
+                    ])
+                )
+                ->shuffle()
+                ->take(15)
+                ->values();
+
         };
 
         $canViewFreeTips = function () {
