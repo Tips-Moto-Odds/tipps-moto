@@ -31,6 +31,7 @@ class DatabaseServiceProvider extends ServiceProvider
             database_path('migrations/Payments'),
             database_path('migrations/Adapters'),
             database_path('migrations/Teams'),
+            database_path('migrations/Affiliates'),
 
 
 //            -------------------------------------------

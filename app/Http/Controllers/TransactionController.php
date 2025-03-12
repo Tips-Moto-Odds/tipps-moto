@@ -107,9 +107,9 @@ class TransactionController extends Controller
             ],
             'Grand Total' => [
                 'Total Transactions' => Transaction::where('transaction_status', 'successful')->count(),
-                'Total Transactions_value' => 'Ksh '.Transaction::where('transaction_status', 'successful')->sum('amount'),
-                'Pending Transactions_count' => Transaction::where('transaction_status', 'pending')->count(),
-                'Pending Transactions_value' => 'Ksh '.Transaction::where('transaction_status', 'pending')->sum('amount'),
+                'Total Transactions value' => 'Ksh '.Transaction::where('transaction_status', 'successful')->sum('amount'),
+                'Pending Transactions Count' => Transaction::where('transaction_status', 'pending')->count(),
+                'Pending Transactions Value' => 'Ksh '.Transaction::where('transaction_status', 'pending')->sum('amount'),
             ]
         ];
     }

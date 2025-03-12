@@ -51,6 +51,13 @@ const defaultGrouping = [
                 icon: 'https://img.icons8.com/glyph-neue/64/ffffff/refund-2.png',
                 accessLevel: 'Guest'
             },
+            {
+                name: "Affiliate",
+                link: route('dashboard.transactions.listTransactions'),
+                supported: ['dashboard.transactions.listTransactions'],
+                icon: 'https://img.icons8.com/external-nawicon-glyph-nawicon/64/ffffff/external-affiliate-seo-and-marketing-nawicon-glyph-nawicon.png',
+                accessLevel: 'Guest'
+            },
         ]
     },
     {

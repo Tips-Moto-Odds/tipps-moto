@@ -17,6 +17,7 @@ class HomeController extends Controller
 {
     public function home(Request $request): Response
     {
+
         $tipsQuery = Tips::join('matches as m', 'tips.match_id', '=', 'm.id')
             ->whereNull('m.deleted_at')
             ->where('tips.mark_as_free', 1)
@@ -28,17 +29,15 @@ class HomeController extends Controller
             ->limit(3)
             ->get();
 
-
         $yesterdayStart = Carbon::yesterday()->startOfDay()->toDateTimeString();
         $yesterdayEnd = Carbon::yesterday()->endOfDay()->toDateTimeString();
         $yesterdaysMatches = [];
 
-        $tips = Tips::join('matches as m','tips.match_id','=','m.id')
+        $tips = Tips::join('matches as m', 'tips.match_id', '=', 'm.id')
             ->whereBetween('m.match_start_time', [$yesterdayStart, $yesterdayEnd])
-            ->where(function ($query){
-                $query->where('tips.status','Won')
-                    ->orWhere('tips.status','Lost')
-                ;
+            ->where(function ($query) {
+                $query->where('tips.status', 'Won')
+                    ->orWhere('tips.status', 'Lost');
             })
             ->toSql() ?? [];
 
@@ -49,10 +48,30 @@ class HomeController extends Controller
 //        }
 
 
+        $canViewFreeTips = function () {
+            $today = Carbon::today();
+
+            $userCreatedAt = optional(Auth::user())->created_at;
+
+            $lastSubscriptionDate = optional(Auth::user()->subscriptions()->orderBy('end_date', 'desc')->first())->end_date;
+
+            $lastSubscriptionDate = $lastSubscriptionDate ? Carbon::parse($lastSubscriptionDate) : null;
+
+            $daysSinceCreation = $userCreatedAt ? $userCreatedAt->diffInDays($today) : null;
+            $daysSinceLastSubscription = $lastSubscriptionDate?->diffInDays($today);
+
+
+            return (Auth::check() && Auth::user()->subscriptions()->where('status', 'active')->where('end_date', '>', now()->toDateString())->exists())
+                || (Auth::check() && $daysSinceCreation <= 3)
+                || (Auth::check() && $daysSinceLastSubscription <= 3);
+        };
+
         return Inertia::render('Welcome', [
             'tips' => $tipsQuery,
-            'yesterdaysTips' => $yesterdaysMatches
+            'yesterdaysTips' => $yesterdaysMatches,
+            'canViewFreeTips' => $canViewFreeTips
         ]);
+
     }
 
     public function tips(): Response

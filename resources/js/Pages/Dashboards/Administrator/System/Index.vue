@@ -8,9 +8,9 @@ const syncData = (model) => {
     axios.post(route('dashboard.system.syncData'),{
         'model':model
     }).then((resp) => {
-        ActionResponse.value = ActionResponse.value+'<br>'+'<p>'+resp.data.message+'</p>'
-    }).catch(() => {
-        console.log('error')
+        ActionResponse.value = ActionResponse.value+'<br>'+'<p class="text-green-500">'+resp.data.message+'</p>'
+    }).catch((error) => {
+        ActionResponse.value = ActionResponse.value+'<br>'+'<p class="text-red-500">'+error+'</p>'
     })
 }
 </script>
@@ -75,12 +75,23 @@ const syncData = (model) => {
                                 </div>
                             </td>
                         </tr>
+                        <tr>
+                            <td class="text-[30px]">
+                                <p class="p-[20px]">Transactions</p>
+                            </td>
+                            <td>
+                                <div class="flex flex-col gap-2 text-sm">
+                                    <button class="btn btn-primary w-auto" @click.prevent="syncData('Transactions')">Sync</button>
+                                    <button class="btn btn-danger w-auto">Truncate</button>
+                                </div>
+                            </td>
+                        </tr>
                         </tbody>
                     </table>
                 </div>
                 <div class=" w-full text-white">
                     <h2 class="mb-[20px]">Response</h2>
-                    <div class="bg-black rounded h-[calc(100%_-_60px)] p-[5px] text-green-500" v-html="ActionResponse"></div>
+                    <div class="bg-black rounded h-[calc(100%_-_60px)] p-[5px] " v-html="ActionResponse"></div>
                 </div>
             </section>
         </section>
