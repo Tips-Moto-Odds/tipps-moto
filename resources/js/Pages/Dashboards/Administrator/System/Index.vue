@@ -2,6 +2,7 @@
 
 import DashboardLayout from "@/Layouts/AdministrationLayout/DashboardLayout.vue";
 import {ref} from "vue";
+import Subscriptions from "@/Pages/UserPanel/Subscriptions.vue";
 
 const ActionResponse = ref('')
 const syncData = (model) => {
@@ -82,6 +83,17 @@ const syncData = (model) => {
                             <td>
                                 <div class="flex flex-col gap-2 text-sm">
                                     <button class="btn btn-primary w-auto" @click.prevent="syncData('Transactions')">Sync</button>
+                                    <button class="btn btn-danger w-auto">Truncate</button>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text-[30px]">
+                                <p class="p-[20px]">Subscriptions</p>
+                            </td>
+                            <td>
+                                <div class="flex flex-col gap-2 text-sm">
+                                    <button class="btn btn-primary w-auto" @click.prevent="syncData('Subscriptions')">Sync</button>
                                     <button class="btn btn-danger w-auto">Truncate</button>
                                 </div>
                             </td>

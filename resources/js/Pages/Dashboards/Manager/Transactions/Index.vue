@@ -51,7 +51,7 @@ const pageController = useForm({
                         </thead>
                         <tbody>
                         <template v-for="(transaction, index) in transactions.data" :key="transaction.id">
-                            <Link :href="route('dashboard.user.viewUsers', [transaction.id])" as="tr">
+                            <tr>
                                 <td class="text-center">{{ transaction.id }}</td>
                                 <td class="">
                                     <p>{{ transaction.user_name }}</p>
@@ -68,7 +68,7 @@ const pageController = useForm({
                                     <p v-else class="text-green-400 text-center">{{ transaction.transaction_status }}</p>
                                 </td>
                                 <td class="text-center">{{ transaction.transaction_reference }}</td>
-                            </Link>
+                            </tr>
                         </template>
                         </tbody>
                     </table>

@@ -27,6 +27,7 @@ class SystemController extends Controller
             'Tips' => ['table' => 'tips', 'model' => \App\Models\Tips::class],
             'Selection' => ['table' => 'selections', 'model' => \App\Models\Selection::class],
             'Transactions' => ['table' => 'transactions', 'model' => \App\Models\Transaction::class],
+            'Subscriptions' => ['table' => 'subscriptions', 'model' => \App\Models\Subscription::class],
         ];
 
         if (!isset($models[$model])) {
