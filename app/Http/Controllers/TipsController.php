@@ -10,10 +10,6 @@ use Inertia\Response;
 
 class TipsController extends Controller
 {
-
-
-
-
     public function index(Request $request): Response|RedirectResponse
     {
         $search = $request->query('search');

@@ -1,16 +1,72 @@
 <script setup>
+import {onMounted, reactive, ref} from "vue";
+
 const props = defineProps({
     model: Object,
     users: Object,
     payments: Object,
+    chartData: Object,
 });
+
+console.log(props.chartData);
+
+
+const drawChart = () => {
+    var data = new google.visualization.DataTable();
+    data.addColumn('string', 'Day');
+    data.addColumn('number', 'Successful KSh ');
+    data.addColumn('number', 'Pending KSh ');
+
+    // Get the start of the week (Sunday)
+    let startDate = new Date();
+    startDate.setDate(startDate.getDate() - startDate.getDay()); // Move to Sunday
+
+    let transactions = props.chartData;
+
+    console.log(transactions);
+
+    let formattedData = transactions.map(t => {
+        let date = new Date(startDate);
+        date.setDate(startDate.getDate() + t.day);
+        return [
+            // `${date.getDate()}-${date.getMonth() + 1}`,
+            t.day,
+            parseFloat(t.success),
+            parseFloat(t.pending),
+        ];
+    });
+
+    data.addRows(formattedData);
+
+    var options = {
+        title: 'Transaction Summary (Last 7 Days)',
+        width: $('#transaction_chart').parent().width(),
+        height: 500,
+        backgroundColor: {fill: 'transparent'},
+        chartArea: {backgroundColor: '#374151'},
+        legend: {position: 'top', textStyle: {color: 'white'}},
+        hAxis: {textStyle: {color: 'white'}},
+        vAxis: {textStyle: {color: 'white'}},
+        colors: ['#3ad863', '#ffa500'], // Green for successful, Orange for pending
+        areaOpacity: 0.3,
+        isStacked: true
+    };
+
+    var chart = new google.visualization.AreaChart(document.getElementById('transaction_chart'));
+    chart.draw(data, options);
+};
+
+onMounted(() => {
+    google.charts.load('current', {packages: ['corechart'], callback: drawChart});
+});
+
 </script>
 
 <template>
     <div class="px-2 md:px-4">
-        <div class="app-card w-full rounded p-4 md:p-6">
+        <div class="app-card w-full rounded py-4 md:p-6">
             <!-- Summary Cards -->
-            <ul class="flex flex-col md:flex-row justify-around mb-8">
+            <ul class="flex flex-col md:flex-row justify-between mb-8 px-0">
                 <li class="display-card">
                     <div class="icon-container">
                         <img class="h-12" src="/storage/System/Icons/user-icon.png">
@@ -47,7 +103,9 @@ const props = defineProps({
                 <div class="md:w-8/12">
                     <h6 class="text-white">Income Summary</h6>
                     <h5 class="text-sm text-gray-200 mb-4">Summary</h5>
-                    <div class="bg-gray-500 w-full h-[300px] rounded"></div>
+                    <div class="bg-gray-500 w-full rounded overflow-hidden">
+                        <div id="transaction_chart"></div>
+                    </div>
                 </div>
                 <div class="md:w-4/12 bg-gray-700 rounded p-4">
                     <h6 class="text-white mb-4">Recent Purchases</h6>
@@ -132,15 +190,15 @@ const props = defineProps({
 
 /* Gradient Backgrounds */
 .display-card:nth-of-type(1) {
-    background: radial-gradient(circle at top right, rgb(223, 135, 68), rgb(65, 65, 65));
+    background: radial-gradient(circle at top right, rgb(223, 135, 68), rgb(129, 93, 93));
 }
 
 .display-card:nth-of-type(2) {
-    background: radial-gradient(circle at top right, rgb(68, 223, 104), rgb(65, 65, 65));
+    background: radial-gradient(circle at top right, rgb(68, 223, 104), rgb(88, 122, 136));
 }
 
 .display-card:nth-of-type(3) {
-    background: radial-gradient(circle at top right, rgb(68, 158, 223), rgb(65, 65, 65));
+    background: radial-gradient(circle at top right, rgb(68, 158, 223), rgb(66, 117, 76));
 }
 
 /* Table Styling */

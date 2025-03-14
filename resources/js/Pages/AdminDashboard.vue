@@ -4,9 +4,8 @@ import AdminDashboard from "@/Pages/Dashboards/Administrator/Dashboard/AdminDash
 import {usePage} from "@inertiajs/vue3";
 
 const props = defineProps([
-    'users',
-    'payments',
-    'model'
+    'label_data',
+    'chart_data'
 ]);
 
 const page = usePage()
@@ -15,7 +14,13 @@ const page = usePage()
 
 <template>
     <DashboardLayout :title="'Dashboard'" :page-heading="'Welcome Back'">
-        <AdminDashboard :model="model" :users="users" :payments="payments"/>
+        <AdminDashboard
+            :model="label_data.model"
+            :users="label_data.users"
+            :payments="label_data.payments"
+            :chartData="chart_data"
+        />
+
     </DashboardLayout>
 </template>
 

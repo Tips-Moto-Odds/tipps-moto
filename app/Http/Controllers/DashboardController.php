@@ -9,7 +9,7 @@ use Inertia\Inertia;
 
 class DashboardController extends Controller
 {
-    public function index(Request $request)
+    public function index(Request $request): \Inertia\Response
     {
         $user = Auth::user();
 
@@ -18,25 +18,12 @@ class DashboardController extends Controller
             case 'Administration':
             case 'Manager':
             case 'Moderator':
-                return Inertia::render('AdminDashboard', [
-                    'users' => $this->stats()['users'],
-                    'model' => $this->stats()['model'],
-                    'payments' => $this->stats()['payments']
-                ]);
+                $adminDashboardController = new AdminDashboardController();
+                return $adminDashboardController->index();
             default:
                 return Inertia::render('UserPanel/index', ['user' => $user]);
         }
     }
 
-    public function Stats(): array
-    {
-        $users = User::all();
-
-        return [
-            'users' => $users,
-            'model' => [],
-            'payments' => []
-        ];
-    }
 
 }

@@ -83,8 +83,21 @@ watch(() => pageController.search, (newValue, oldValue) => {
                             <p class="mb-[5px] text-center text-gray-400">{{ useDateFormat(tip.matches.match_start_time, 'hh:mm a') }}</p>
                         </td>
                         <td>{{ tip.prediction_type }}</td>
-                        <td>{{ tip.predictions }}</td>
-                        <td>{{ tip.winning_status }}</td>
+                        <td>
+                            <p v-if="tip.predictions == 1 && tip.prediction_type == '1X_X2_12'" class="prediction-card-display">1/X</p>
+                            <p v-else-if="tip.predictions == 0 && tip.prediction_type == '1X_X2_12'" class="prediction-card-display">X/2</p>
+                            <p v-else-if="tip.predictions == -1 && tip.prediction_type == '1X_X2_12'" class="prediction-card-display">1/2</p>
+
+                            <p v-else-if="tip.predictions == 1 && tip.prediction_type == '1_X_2'" class="prediction-card-display">Home</p>
+                            <p v-else-if="tip.predictions == 0 && tip.prediction_type == '1_X_2'" class="prediction-card-display">Draw</p>
+                            <p v-else-if="tip.predictions == -1 && tip.prediction_type == '1_X_2'" class="prediction-card-display">Away</p>
+
+                            <p v-else-if="tip.predictions == 1 && tip.prediction_type == 'GG-NG'" class="prediction-card-display">GG</p>
+                            <p v-else-if="tip.predictions == -1 && tip.prediction_type == 'GG-NG'" class="prediction-card-display">NG</p>
+
+                            <p v-else class="prediction-card-display">{{ tip.predictions }}</p>
+                        </td>
+                        <td>{{ tip.status }}</td>
                     </Link>
                     </tbody>
                 </table>
