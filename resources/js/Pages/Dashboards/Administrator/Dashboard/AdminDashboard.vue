@@ -39,7 +39,7 @@ const drawChart = () => {
     data.addRows(formattedData);
 
     var options = {
-        title: 'Transaction Summary (Last 7 Days)',
+        title: 'Transaction Summary (This Month)',
         width: $('#transaction_chart').parent().width(),
         height: 500,
         backgroundColor: {fill: 'transparent'},
