@@ -77,14 +77,14 @@ class TipModule
             'Full Time Scores Weekly' => ['types' => ['1_X_2', '1X_X2_12'], 'limit' => 17],
             'Over/Under Market Daily' => ['types' => ['Over/Under'], 'limit' => 5],
             'Over/Under Market Weekly' => ['types' => ['Over/Under'], 'limit' => 7],
-            'Sport Pesa Mega Jackpot' => ['types' => ['1_X_2', '1X_X2_12'], 'limit' => null],
-            'Sport Pesa Mid Week Jackpot' => ['types' => ['1_X_2', '1X_X2_12'], 'limit' => null],
-            'Mozzart Daily Jackpot' => ['types' => ['1_X_2', '1X_X2_12'], 'limit' => null],
-            'Mozzart Weekly Jackpot' => ['types' => ['1_X_2', '1X_X2_12'], 'limit' => null],
-            'Odi Bets Weekly Jackpot' => ['types' => ['1_X_2', '1X_X2_12'], 'limit' => null]
+            'Sport Pesa Mega Jackpot' => ['types' => ['1_X_2', '1X_X2_12'], 'limit' => 17],
+            'Sport Pesa Mid Week Jackpot' => ['types' => ['1_X_2', '1X_X2_12'], 'limit' => 13],
+            'Mozzart Daily Jackpot' => ['types' => ['1_X_2', '1X_X2_12'], 'limit' => 16],
+            'Mozzart Weekly Jackpot' => ['types' => ['1_X_2', '1X_X2_12'], 'limit' => 20],
+            'Odi Bets Weekly Jackpot' => ['types' => ['1_X_2', '1X_X2_12'], 'limit' => 10]
         ];
 
-        if (!isset($packageRules[$packageType]) || !in_array($tipType, $packageRules[$packageType]['types'])) {
+        if (!isset($packageRules[$packageType]) || !in_array($tipType, $packageRules[$packageType]['types'], true)) {
             Log::warning("Package Type Not Found or Tip Type Not Allowed | Package: $packageType | Tip Type: $tipType");
             return;
         }
