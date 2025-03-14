@@ -13,7 +13,7 @@ class SelectionController extends Controller
 {
     public function index(Request $request)
     {
-        $selections = Selection::all();
+        $selections = Selection::orderBy('date_for','desc')->paginate(9);
 
         return Inertia::render('Dashboards/Manager/Selection/Index', [
             'selections' => $selections
