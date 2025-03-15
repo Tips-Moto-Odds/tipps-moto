@@ -1,21 +1,49 @@
 <script setup>
-import {onMounted, reactive, ref} from "vue";
+import {computed, onMounted, reactive} from "vue";
+import {router} from "@inertiajs/vue3";
 
-const props = defineProps({
-    model: Object,
-    users: Object,
-    payments: Object,
-    chartData: Object,
+
+const props = defineProps(['model', 'users','payments','chartData', 'RecentPurchases']);
+
+const urlParams = new URLSearchParams(window.location.search);
+
+const queries = reactive({
+    record: urlParams.get('record') || 'Transactions',
+    period: urlParams.get('period') || 'Weekly',
+    from: urlParams.get('from') || null,
+    to: urlParams.get('to') || null
+})
+
+// **Dynamic Chart Title Based on Selected Record**
+const chartTitle = computed(() => {
+    switch (queries.record) {
+        case "Subscriptions":
+            return "Subscription Summary";
+        case "Transactions":
+            return "Transaction Summary ";
+        default:
+            return "Data Summary ";
+    }
 });
 
-console.log(props.chartData);
-
+function LoadChartCallback(data) {
+    if (queries.record === "Subscriptions") {
+        return [data.day, parseFloat(data.success_count)];
+    } else {
+        return [data.day, parseFloat(data.success), parseFloat(data.pending)];
+    }
+}
 
 const drawChart = () => {
     var data = new google.visualization.DataTable();
     data.addColumn('string', 'Day');
-    data.addColumn('number', 'Successful KSh ');
-    data.addColumn('number', 'Pending KSh ');
+
+    if (queries.record === "Subscriptions") {
+        data.addColumn("number", "Bought Subscriptions");
+    } else {
+        data.addColumn("number", "Successful KSh");
+        data.addColumn("number", "Pending KSh");
+    }
 
     // Get the start of the week (Sunday)
     let startDate = new Date();
@@ -23,37 +51,37 @@ const drawChart = () => {
 
     let transactions = props.chartData;
 
-    console.log(transactions);
-
-    let formattedData = transactions.map(t => {
-        let date = new Date(startDate);
-        date.setDate(startDate.getDate() + t.day);
-        return [
-            // `${date.getDate()}-${date.getMonth() + 1}`,
-            t.day,
-            parseFloat(t.success),
-            parseFloat(t.pending),
-        ];
-    });
+    let formattedData = transactions.map((data) => LoadChartCallback(data));
+    data.addRows(formattedData);
 
     data.addRows(formattedData);
 
     var options = {
-        title: 'Transaction Summary (This Month)',
+        title: chartTitle.value,
         width: $('#transaction_chart').parent().width(),
-        height: 500,
+        height: 700,
+        titleTextStyle: {color: 'white'},
         backgroundColor: {fill: 'transparent'},
         chartArea: {backgroundColor: '#374151'},
         legend: {position: 'top', textStyle: {color: 'white'}},
         hAxis: {textStyle: {color: 'white'}},
         vAxis: {textStyle: {color: 'white'}},
-        colors: ['#3ad863', '#ffa500'], // Green for successful, Orange for pending
+        colors: ['#1de651', '#ffa500'], // Green for successful, Orange for pending
         areaOpacity: 0.3,
         isStacked: true
     };
 
     var chart = new google.visualization.AreaChart(document.getElementById('transaction_chart'));
     chart.draw(data, options);
+};
+
+const filterInsights = () => {
+    router.get(route('dashboard'), {
+        record: queries.record,
+        period: queries.period,
+        from: queries.from,
+        to: queries.to
+    });
 };
 
 onMounted(() => {
@@ -69,11 +97,11 @@ onMounted(() => {
             <ul class="flex flex-col md:flex-row justify-between mb-8 px-0">
                 <li class="display-card">
                     <div class="icon-container">
-                        <img class="h-12" src="/storage/System/Icons/user-icon.png">
+                        <img class="h-12" src="/storage/System/Icons/user-icon.png" alt="user">
                     </div>
                     <div class="info">
                         <h3>Users</h3>
-                        <p>{{ users?.length || 0 }}</p>
+                        <p>{{ users || 0 }}</p>
                     </div>
                 </li>
 
@@ -83,7 +111,7 @@ onMounted(() => {
                     </div>
                     <div class="info">
                         <h3>Payments</h3>
-                        <p>Ksh {{ payments?.payments || 0 }}</p>
+                        <p>Ksh {{ payments || 0 }}</p>
                     </div>
                 </li>
 
@@ -99,73 +127,66 @@ onMounted(() => {
             </ul>
 
             <!-- Income Summary -->
-            <section class="flex flex-col md:flex-row gap-4 mb-16">
+            <section class="flex flex-col md:flex-row gap-4">
                 <div class="md:w-8/12">
                     <h6 class="text-white">Income Summary</h6>
-                    <h5 class="text-sm text-gray-200 mb-4">Summary</h5>
+                    <h5 class="text-sm text-gray-200 mb-2">Summary</h5>
+                    <div class="p-1 bg-gray-600 rounded overflow-hidden mb-4 flex items-center">
+                        <div class="mr-4">
+                            <select v-model="queries.record">
+                                <option value="Transactions">Transactions</option>
+                                <option value="Subscriptions">Subscriptions</option>
+                            </select>
+
+                        </div>
+                        <div class="mr-4">
+                            <select v-model="queries.period">
+                                <option value="Weekly">Weekly</option>
+                                <option value="Monthly">Monthly</option>
+                                <option value="Custom">Custom</option>
+                            </select>
+                        </div>
+                        <div v-if="queries.period && queries.period === 'Custom'" class="">
+                            <input v-model="queries.from" class="rounded mr-4" type="date" placeholder="From"/>
+                            <input v-model="queries.to" class="rounded mr-4" type="date" placeholder="To"/>
+                        </div>
+                        <div>
+                            <button class="btn btn-primary" @click.prevent="filterInsights">Apply</button>
+                        </div>
+                    </div>
                     <div class="bg-gray-500 w-full rounded overflow-hidden">
                         <div id="transaction_chart"></div>
                     </div>
                 </div>
-                <div class="md:w-4/12 bg-gray-700 rounded p-4">
-                    <h6 class="text-white mb-4">Recent Purchases</h6>
-                    <ul class="text-white text-sm">
-                        <li v-for="(_, i) in Array(5).fill(null)" :key="i" class="mb-2">
+                <div class="md:w-4/12">
+                    <h6 class="text-white">Recent Purchases</h6>
+                    <h5 class="text-sm text-gray-200 mb-2">Summary</h5>
+                    <ul class="text-white text-sm bg-gray-600 p-3 rounded">
+                        <li v-for="purchases in RecentPurchases" :key="purchases.id" class="">
                             <div class="flex justify-between">
-                                <p>Username</p>
-                                <p>Ksh 200</p>
+                                <div>
+                                <p>{{purchases.user.name }}</p>
+                                <p class="text-gray-300">{{ purchases.user.email }}</p>
+                                </div>
+                                <div class="text-right">
+                                    <p>{{purchases.package.name}}</p>
+                                    <p class="text-green-500">Ksh {{purchases.amount }}</p>
+                                </div>
                             </div>
                             <hr class="border-gray-500">
                         </li>
                     </ul>
                 </div>
             </section>
-
-            <!-- Recent Activity -->
-            <section class="mb-6">
-                <h6 class="text-white mb-4 font-bold">Recent Activity</h6>
-                <table class="text-white w-full">
-                    <thead class="h-12">
-                    <tr class="border-b-2 text-sm">
-                        <th>Type</th>
-                        <th>Initiator</th>
-                        <th>Date/Time</th>
-                        <th>Action</th>
-                        <th>Status</th>
-                        <th>Action</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr v-for="(_, i) in Array(10).fill(null)" :key="i" class="border-b h-16">
-                        <td>Prediction</td>
-                        <td>
-                            <p class="mb-1">Administrator</p>
-                            <p class="text-sm text-gray-300">admin@email.com</p>
-                        </td>
-                        <td>
-                            <p class="mb-1">00:00 PM</p>
-                            <p class="text-gray-300">00/00/00</p>
-                        </td>
-                        <td class="w-[40%] pr-4">
-                            <p class="line-clamp-2">
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                                Ab autem cum dolore esse fuga numquam sit voluptatibus.
-                                Amet dignissimos dolorem, et inventore molestiae officia perspiciatis possimus praesentium.
-                            </p>
-                        </td>
-                        <td>Active</td>
-                        <td>
-                            <button class="text-sm py-1 px-4 bg-red-400 rounded hover:bg-red-700">Delete</button>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
-            </section>
         </div>
     </div>
 </template>
 
 <style scoped lang="scss">
+input, select {
+    @apply mb-0;
+}
+
 /* Global Card Theme */
 .app-card {
     background: linear-gradient(20deg, rgb(65, 65, 65), rgb(73, 73, 73));

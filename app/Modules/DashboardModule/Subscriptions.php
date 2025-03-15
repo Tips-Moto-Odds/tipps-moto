@@ -7,7 +7,7 @@ use App\Modules\DashboardModule\Traits\ChartLoader;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 
-class Transactions extends ChartLoaderAbstract
+class Subscriptions extends ChartLoaderAbstract
 {
     public string $table = 'transactions';
 
@@ -17,36 +17,39 @@ class Transactions extends ChartLoaderAbstract
         $from = $from ?? $this->startOfMonth;
         $to = $to ?? $this->endOfMonth;
 
-        $transactions = DB::table($this->table)
+
+        $subscription = DB::table('transactions')
             ->selectRaw('DATE(created_at) as day,
-                 SUM(CASE WHEN transaction_status = "successful" THEN amount ELSE 0 END) as success,
-                 SUM(CASE WHEN transaction_status = "pending" THEN amount ELSE 0 END) as pending')
-            ->whereBetween('created_at', [$from, $to])
+                 COUNT(CASE WHEN transaction_status = "successful" THEN 1 ELSE NULL END) as success_count,
+                 COUNT(CASE WHEN transaction_status = "pending" THEN 1 ELSE NULL END) as pending_count')
+            ->whereBetween('created_at', [$from,$to ])
             ->groupBy('day')
             ->orderBy('day')
             ->get();
 
-        return $this->formatDataForChart($transactions, $from, $to);
+        return $this->formatDataForChart($subscription, $from, $to);
     }
 
-    private function formatDataForChart($transactions, $from, $to): array
+    private function formatDataForChart($subscriptions, $from, $to): array
     {
         $dateRange = collect();
+
         for ($date = $from->copy(); $date->lte($to); $date->addDay()) {
             $dateRange->push([
                 'day' => $date->toDateString(),
-                'success' => 0,
-                'pending' => 0
+                'success_count' => 0,
+                'pending_count' => 0
             ]);
         }
 
-        return $dateRange->map(function ($item) use ($transactions) {
-            $match = $transactions->firstWhere('day', $item['day']);
+        return $dateRange->map(function ($item) use ($subscriptions) {
+            $match = $subscriptions->firstWhere('day', $item['day']);
             return [
                 'day' => $item['day'],
-                'success' => $match->success ?? 0,
-                'pending' => $match->pending ?? 0
+                'success_count' => $match->success_count ?? 0,
+                'pending_count' => $match->pending_count ?? 0
             ];
         })->toArray();
     }
+
 }

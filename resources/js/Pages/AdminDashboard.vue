@@ -5,7 +5,8 @@ import {usePage} from "@inertiajs/vue3";
 
 const props = defineProps([
     'label_data',
-    'chart_data'
+    'chart_data',
+    'recent_purchases'
 ]);
 
 const page = usePage()
@@ -19,6 +20,7 @@ const page = usePage()
             :users="label_data.users"
             :payments="label_data.payments"
             :chartData="chart_data"
+            :RecentPurchases="recent_purchases"
         />
 
     </DashboardLayout>

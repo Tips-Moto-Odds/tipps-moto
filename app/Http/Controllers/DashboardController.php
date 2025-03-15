@@ -19,7 +19,7 @@ class DashboardController extends Controller
             case 'Manager':
             case 'Moderator':
                 $adminDashboardController = new AdminDashboardController();
-                return $adminDashboardController->index();
+                return $adminDashboardController->index($request);
             default:
                 return Inertia::render('UserPanel/index', ['user' => $user]);
         }

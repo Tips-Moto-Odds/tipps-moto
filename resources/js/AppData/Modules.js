@@ -38,7 +38,7 @@ const defaultGrouping = [
                 accessLevel: 'Guest'
             },
             {
-                name: "Selections",
+                name: "Subscriptions",
                 link: route('dashboard.selection.listSelections'),
                 supported: ['dashboard.selection.listSelections'],
                 icon: 'https://img.icons8.com/fluency-systems-regular/50/ffffff/choose.png',
