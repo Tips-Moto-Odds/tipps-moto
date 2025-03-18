@@ -9,14 +9,15 @@ import AppFooterMain from "@/AppComponents/AppFooterMain.vue";
         <title>About Us</title>
     </Head>
     <Navigation/>
-    <div class="container md:flex md:gap-2.5">
-        <div class="container text-white text-sm bg-gray-500] px-[20px]">
+    <div class="md:container mx-[20px] md:mx-auto md:flex md:gap-2.5 bg-black rounded-[18px] mb-[20px]">
+        <div class="container text-white text-sm bg-gray-500] p-[20px]">
             <div class="content">
                 <h1 class="mb-[20px] font-bold text-[22px]">WHO WE ARE</h1>
                 <p>At Tips Moto, we are more than just a sports betting tips service; we are a dedicated community
                     of sports enthusiasts and betting professionals committed to your success. Our team is composed
                     of seasoned analysts and statistical experts who share a deep understanding of the game.
                     .</p>
+                <hr>
             </div>
             <div class="content">
                 <h1 class="mb-[20px] font-bold text-[22px]">WHAT WE DO</h1>
@@ -25,6 +26,7 @@ import AppFooterMain from "@/AppComponents/AppFooterMain.vue";
                     you to make well-informed decisions. We meticulously analyzes match statistics, player
                     performance, and current trends to bring you the most accurate predictions.
                 </p>
+                <hr>
             </div>
             <div class="content">
                 <h1 class="mb-[20px] font-bold text-[22px]">WHY US</h1>

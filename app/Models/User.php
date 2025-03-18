@@ -82,7 +82,6 @@ class User extends Authenticatable
     }
 
 
-
     public function role(): BelongsTo
     {
         return $this->belongsTo(Role::class, 'role_id');
@@ -101,9 +100,11 @@ class User extends Authenticatable
         return $this->role ? $this->role->name : 'Guest';
     }
 
-    public function subscriptions(){
-        return $this->hasMany(Subscription::class);
+    public function subscriptions()
+    {
+        return $this->hasMany(Subscription::class)->orderBy('created_at', 'desc');
     }
+
 
     public function transactions(){
         return $this->hasMany(Transaction::class);

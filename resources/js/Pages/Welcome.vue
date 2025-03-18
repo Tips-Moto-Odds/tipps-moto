@@ -19,7 +19,7 @@ const showPopup = ref(false);
         <title>Welcome</title>
     </Head>
 
-    <Navigation/>
+    <Navigation />
 
     <MainBanner/>
 

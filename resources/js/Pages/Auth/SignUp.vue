@@ -21,9 +21,9 @@ const form = useForm({
 
 <template>
     <Navigation/>
-    <div class="entry-form container mb-[20px] flex justify-center items-center">
+    <div class="entry-form mb-[20px] flex justify-center items-center">
         <form @submit.prevent.stop="form.post(route('register'))">
-            <h1>Register</h1>
+            <h2 class="p-0">Register</h2>
 
             <div>
                 <label>Username</label>
@@ -39,6 +39,19 @@ const form = useForm({
                 <InputError class="mt-2" :message="form.errors.name"/>
             </div>
             <div>
+                <label>Email Address</label>
+                <TextInput
+                    id="email"
+                    v-model="form.email"
+                    type="email"
+                    class="mt-1 block w-full"
+                    required
+                    autofocus
+                    autocompletes
+                />
+                <InputError class="mt-2" :message="form.errors.email"/>
+            </div>
+            <div>
                 <label>Phone</label>
                 <TextInput
                     id="phone"
@@ -50,19 +63,6 @@ const form = useForm({
                     autocompletes
                 />
                 <InputError class="mt-2" :message="form.errors.phone"/>
-            </div>
-            <div>
-                <label>Email</label>
-                <TextInput
-                    id="email"
-                    v-model="form.email"
-                    type="email"
-                    class="mt-1 block w-full"
-                    required
-                    autofocus
-                    autocompletes
-                />
-                <InputError class="mt-2" :message="form.errors.email"/>
             </div>
             <div>
                 <label>Password</label>
@@ -88,11 +88,19 @@ const form = useForm({
                 />
                 <InputError class="mt-2" :message="form.errors.password_confirmation"/>
             </div>
-            <div class="mt-4  ">
+            <div class="!mb-[30px]">
                 <InputLabel for="terms">
-                    <div class="flex items-center">
+                    <div class="flex">
                         <Checkbox id="terms" v-model:checked="form.terms" name="terms" class="mr-[20px] p-0" required/>
-                        <p class="text-sm text-white p-0 m-0">By creating an account you agree to our Terms and Condition</p>
+                        <p class="text-sm text-white p-0 m-0">By creating an account,I have read and agree to the <a href="/termsOfService">terms and condition</a> and the <a href="/privacyPolicy">
+                            privacy policy</a></p>
+                    </div>
+                    <InputError class="mt-2" :message="form.errors.terms"/>
+                </InputLabel>
+                <InputLabel for="terms">
+                    <div class="flex">
+                        <Checkbox id="terms" v-model:checked="form.terms" name="terms" class="mr-[20px] p-0" required/>
+                        <p class="text-sm text-white p-0 m-0">I accept to receive promotional and marketing emails</p>
                     </div>
                     <InputError class="mt-2" :message="form.errors.terms"/>
                 </InputLabel>

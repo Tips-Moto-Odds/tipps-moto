@@ -21,7 +21,8 @@ const pageNames = {
     "tips": "Tips",
     "subscriptions": "Dashboard",
     "dashboard": "Account",
-    "profile.tips": "Subscription"
+    "profile.subscription": "Subscriptions",
+    "profile.tips": "Subscriptions"
 };
 
 // Function to determine the current page name
@@ -45,12 +46,12 @@ const dropDownMenu = async () => {
     <div class="bg-[#f4660d] w-full p-[10px]" style="position: fixed; top: 0px; z-index: 2000"></div>
 
     <div id="home-menu" ref="homeMenu"
-         class="flex justify-between mb-[20px] mx-[10px] mt-[5px] px-[20px] rounded shadow bg-[#d88731] overflow-hidden"
+         class="container mx-auto flex justify-between mb-[20px] mt-[5px] rounded shadow bg-[#d88731] overflow-hidden"
          :style="{ height: menuHeight }">
 
         <!-- Logo -->
-        <Link :href="'/'" as="div" class="w-[45px] p-[1px] flex items-center justify-center h-[70px]">
-            <img class=" md:w-[70px]" src="/storage/System/Icons/logo-dark.png">
+        <Link :href="'/'" as="div" class="w-[50px] pt-[20px] flex items-center justify-center h-[50px] align-self-start">
+            <img class=" md:w-[50px]" src="/storage/System/Icons/logo-dark.png">
         </Link>
 
         <!-- Navigation List -->
@@ -67,7 +68,7 @@ const dropDownMenu = async () => {
 
         <!-- Mobile Menu Toggle Button -->
         <div class="lg:hidden pt-[5px]">
-            <i class="bi text-[40px] text-white bi-list" @click="dropDownMenu"></i>
+            <i class="bi text-[40px] text-black bi-list" @click="dropDownMenu"></i>
         </div>
     </div>
 </template>
@@ -81,15 +82,10 @@ const dropDownMenu = async () => {
 }
 
 .menu-button {
-    @apply text-white w-[130px] text-center  bg-[#353538] self-center mb-[25px] text-[16px] md:w-[130px] px-3 py-2 rounded-[6px] hover:bg-[#555562] cursor-pointer lg:mx-[10px];
-}
-
-/* Ensure last menu item has extra bottom padding */
-.menu-button.last-item {
-    @apply pb-[10px]; /* Adds 10px padding below the last button */
+    @apply text-white w-[130px] text-center shadow-inner  bg-[#353538] self-center mb-[25px] text-[16px] md:w-[130px] px-3 py-2 rounded-[6px] hover:bg-[#555562] cursor-pointer lg:mx-[10px];
 }
 
 .menu-button.active {
-    @apply hidden md:block md:bg-black text-[#d88731];
+    @apply hidden md:block md:bg-black text-[#d88731] shadow-sm shadow-[rgba(0,0,0,0.25)];
 }
 </style>

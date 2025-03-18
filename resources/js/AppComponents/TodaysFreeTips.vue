@@ -8,16 +8,16 @@ const props = defineProps(['tips', 'canViewFreeTips'])
 const page = usePage()
 
 const shouldDisplayTips = computed(() => {
-    if(page.props.auth.user == null){
+    if (page.props.auth.user == null) {
         return true;
-    }else {
+    } else {
         return props.canViewFreeTips
     }
 })
 </script>
 
 <template>
-    <div class="bg-black text-app_white container !w-[95%] rounded-2 p-4 mb-4">
+    <div class="container bg-black text-app_white rounded-2 p-4 mb-4">
         <h1 class="mb-[40px] text-center">Today's Free Tips</h1>
 
         <h4 v-if="tips.length === 0" class="text-white text-center mb-5">No Free Tips Available</h4>

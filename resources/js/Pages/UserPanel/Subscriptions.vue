@@ -33,7 +33,7 @@ function closeSubMenu() {
         <title>Welcome</title>
     </Head>
     <Navigation/>
-    <div class="w-[95%] mx-auto md:container bg-black p-[10px] rounded">
+    <div class="container bg-black p-[10px] rounded">
         <!-- Content Section -->
         <div class="flex items-center p-0 border-bottom rounded-0">
             <h3 class="m-0 text-app_white">Subscriptions</h3>

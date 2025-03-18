@@ -58,22 +58,23 @@ const list_items = [
         <title>About Us</title>
     </Head>
     <Navigation/>
-    <div class="container md:flex md:gap-2.5 bg-black rounded-[18px] mb-[20px]">
-        <div class="content text-white text-justify text-sm bg-gray-500] !p-[60px]">
+    <div class="md:container mx-[20px] md:mx-auto md:flex md:gap-2.5 bg-black rounded-[18px] mb-[20px]">
+        <div class="content text-white text-justify text-sm bg-gray-500] !p-[10px]">
             <h1 class="font-bold mb-[20px]">TERMS OF SERVICE</h1>
             <h2 class="mb-[20px] text-sm font-[200]"> By using our website, you acknowledge that you have read, understood, and agreed to these Terms and
                 Conditions. Thank you for choosing Trendy Tips!</h2>
             <ol class="list-decimal px-[25px]">
                 <li v-for="item in list_items" class="mb-[20px]">
-                    <h5>{{ item.heading }}</h5>
+                    <h4 class="mb-[20px] font-bold text-[22px]">{{ item.heading }}</h4>
                     <p class="font-[200] text-sm">{{ item.content }}</p>
                     <ul class="px-[30px] list-disc" v-for="item_x in item.list_item">
                         <li>{{ item_x }}</li>
                     </ul>
+                    <hr>
                 </li>
             </ol>
         </div>
-    </div>>
+    </div>
     <app-footer-main/>
 </template>
 

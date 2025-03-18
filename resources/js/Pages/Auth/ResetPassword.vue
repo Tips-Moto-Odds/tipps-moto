@@ -53,6 +53,8 @@ function reset_password() {
     <Navigation/>
     <div class="gap-2 entry-form container mb-[20px] flex flex-col justify-center items-center">
         <form @submit.prevent.stop="verifyPhoneNumber">
+            <h2 class="p-0">Password Reset</h2>
+
             <p>Please enter your registered phone number and email</p>
             <div>
                 <label>Email</label>
