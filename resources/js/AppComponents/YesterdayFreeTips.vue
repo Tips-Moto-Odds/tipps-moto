@@ -11,7 +11,7 @@ const props = defineProps(['tips'])
         <h1 class="mb-[40px] text-center">Yesterday's Tips</h1>
 
         <ul v-if="tips && tips.length > 0" class="mb-[20px] flex justify-around mx-0 p-0 flex-wrap gap-[10px]">
-            <HomeTipsDisplay v-for="item in tips" :tip="item" :key="item.id"/>
+            <HomeTipsDisplay v-for="item in tips" :tip="item" :key="item.id" :tags="['yesterdays-tips']"/>
         </ul>
 
         <h4 v-else class="text-white text-center mb-5">No Tips Available</h4>

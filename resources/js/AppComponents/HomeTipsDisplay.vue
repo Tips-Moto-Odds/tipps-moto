@@ -2,9 +2,12 @@
 
 import {useDateFormat} from "@vueuse/shared";
 import {usePage} from "@inertiajs/vue3";
+import TipButtonDisplay from "@/AppComponents/TipButtonDisplay.vue";
 
-const props = defineProps(['tip'])
+const props = defineProps(['tip','tags'])
 const page = usePage();
+
+console.log(props.tags?.includes('yesterdays-tips'));
 </script>
 
 
@@ -22,23 +25,13 @@ const page = usePage();
                 <p class="w-100 text-left">{{ tip.away_teams }}</p>
             </div>
             <div class="flex justify-center w-100 md:w-1/3">
-                <div v-if="page.props.auth.user == null" class="bg-primary_orange rounded w-[108px]">
-                    <Link href="/login" as="p" class="prediction-card-display">Log In</Link>
-                </div>
-                <div v-else class="bg-primary_orange rounded w-[108px]">
-                    <p v-if="tip.predictions == 1 && tip.prediction_type == '1X_X2_12'" class="prediction-card-display">1/X</p>
-                    <p v-else-if="tip.predictions == 0 && tip.prediction_type == '1X_X2_12'" class="prediction-card-display">X/2</p>
-                    <p v-else-if="tip.predictions == -1 && tip.prediction_type == '1X_X2_12'" class="prediction-card-display">1/2</p>
-
-                    <p v-else-if="tip.predictions == 1 && tip.prediction_type == '1_X_2'" class="prediction-card-display">Home</p>
-                    <p v-else-if="tip.predictions == 0 && tip.prediction_type == '1_X_2'" class="prediction-card-display">Draw</p>
-                    <p v-else-if="tip.predictions == -1 && tip.prediction_type == '1_X_2'" class="prediction-card-display">Away</p>
-
-                    <p v-else-if="tip.predictions == 1 && tip.prediction_type == 'GG-NG'" class="prediction-card-display">GG</p>
-                    <p v-else-if="tip.predictions == -1 && tip.prediction_type == 'GG-NG'" class="prediction-card-display">NG</p>
-
-                    <p v-else class="prediction-card-display">{{ tip.predictions }}</p>
-                </div>
+                <template v-if="!tags?.includes('yesterdays-tips')">
+                    <div  v-if="page.props.auth.user == null" class="bg-primary_orange rounded w-[108px]">
+                        <Link href="/login" as="p" class="prediction-card-display">Log In</Link>
+                    </div>
+                    <TipButtonDisplay v-else :tip="tip"  :tags="tags"/>
+                </template>
+                <TipButtonDisplay v-else :tip="tip" :tags="tags"/>
             </div>
         </section>
     </div>

@@ -34,7 +34,7 @@ class HomeController extends Controller
 
             return Matches::with('tips')
                 ->whereHas('tips', function ($query) {
-                    $query->whereIn('winning_status', ['Won', 'Lost']);
+                    $query->whereIn('winning_status', ['Won']);
                 })
                 ->whereBetween('match_start_time', [Carbon::yesterday()->startOfDay(), Carbon::yesterday()->endOfDay()])
                 ->inRandomOrder()
