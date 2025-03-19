@@ -1,5 +1,5 @@
 <script setup>
-import { Head } from "@inertiajs/vue3";
+import {Head} from "@inertiajs/vue3";
 import Navigation from "@/AppComponents/Navigation.vue";
 import AppFooterMain from "@/AppComponents/AppFooterMain.vue";
 
@@ -66,22 +66,20 @@ const faqs = [
     <Head>
         <title>FAQs</title>
     </Head>
-    <Navigation />
-    <div class="md:container mx-[20px] md:mx-auto md:flex md:gap-2.5 bg-black rounded-[18px] mb-[20px]">
-        <div class="container text-white text-sm  p-[30px]">
-            <div class="text-white mb-[30px]">
-                <h1 class="text-[26px] font-bold">Frequently Asked Questions (FAQs)</h1>
-            </div>
-            <div class="faq-list">
-                <div v-for="(faq, index) in faqs" :key="index" class="faq-item">
-                    <h4 class="font-bold text-[22px] mb-[10px]">{{ faq.question }}</h4>
-                    <p v-html="faq.answer" class="text-gray-200"></p>
-                    <hr>
-                </div>
+    <Navigation/>
+    <div class="container text-white text-sm  p-[30px] bg-black rounded mb-[20px]">
+        <div class="text-white mb-[30px]">
+            <h1 class="text-[26px] font-bold">Frequently Asked Questions (FAQs)</h1>
+        </div>
+        <div class="faq-list">
+            <div v-for="(faq, index) in faqs" :key="index" class="faq-item">
+                <h4 class="font-bold text-[22px] mb-[10px]">{{ faq.question }}</h4>
+                <p v-html="faq.answer" class="text-gray-200"></p>
+                <hr>
             </div>
         </div>
     </div>
-    <AppFooterMain />
+    <AppFooterMain/>
 </template>
 
 <style scoped lang="scss">
