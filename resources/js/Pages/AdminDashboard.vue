@@ -1,6 +1,6 @@
 <script setup>
 import DashboardLayout from "@/Layouts/AdministrationLayout/DashboardLayout.vue";
-import AdminDashboard from "@/Pages/Dashboards/Administrator/Dashboard/AdminDashboard.vue";
+import AdminDashboard from "@/Pages/Administrator/Dashboard/AdminDashboard.vue"
 import {usePage} from "@inertiajs/vue3";
 
 const props = defineProps([
@@ -22,7 +22,6 @@ const page = usePage()
             :chartData="chart_data"
             :RecentPurchases="recent_purchases"
         />
-
     </DashboardLayout>
 </template>
 

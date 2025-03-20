@@ -26,7 +26,7 @@ class TipsController extends Controller
         })->with('matches')->orderBy('created_at', 'desc')
             ->paginate(15);
 
-        return Inertia::render('Dashboards/Administrator/Tips/Index', [
+        return Inertia::render('Administrator/Tips/Index', [
             'tips' => $tipsQuery,
             'search' => $search
         ]);
@@ -102,7 +102,7 @@ class TipsController extends Controller
 
     public function view(Request $request, Tips $tip)
     {
-        return Inertia::render("Dashboards/Administrator/Tips/view", [
+        return Inertia::render("/Administrator/Tips/view", [
             'tip' => $tip
         ]);
     }

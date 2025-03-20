@@ -5,7 +5,6 @@ import {usePage} from "@inertiajs/vue3";
 const page = usePage();
 
 const routes = get_routes(page.props.account_type)
-const current_route = window.location.href
 
 function closeMenu() {
     let elem = $("#dashboard-menu")

@@ -53,8 +53,8 @@ const defaultGrouping = [
             },
             {
                 name: "Affiliate",
-                link: route('dashboard.transactions.listTransactions'),
-                supported: ['dashboard.transactions.listTransactions'],
+                link: route('dashboard.Affiliates.listAffiliates'),
+                supported: ['dashboard.Affiliates.listAffiliates'],
                 icon: 'https://img.icons8.com/external-nawicon-glyph-nawicon/64/ffffff/external-affiliate-seo-and-marketing-nawicon-glyph-nawicon.png',
                 accessLevel: 'Guest'
             },

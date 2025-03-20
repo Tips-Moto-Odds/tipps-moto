@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -17,13 +16,7 @@ use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
-    use SoftDeletes;
-    use HasApiTokens;
-    use HasFactory;
-    use HasProfilePhoto;
-    use HasTeams;
-    use Notifiable;
-    use TwoFactorAuthenticatable;
+    use SoftDeletes, HasApiTokens, HasFactory, HasProfilePhoto, HasTeams, Notifiable, TwoFactorAuthenticatable;
 
     /**
      * The attributes that are mass assignable.
@@ -61,8 +54,6 @@ class User extends Authenticatable
         'role_name'
     ];
 
-
-
     /**
      * Get the attributes that should be cast.
      *
@@ -76,37 +67,84 @@ class User extends Authenticatable
         ];
     }
 
-    public function is_admin()
+    /**
+     * Check if the user is an admin or moderator.
+     */
+    public function is_admin(): bool
     {
-        return $this->role_name == 'Administrator' || $this->role_name == 'Moderator';
+        return in_array($this->role_name, ['Administrator', 'Moderator']);
     }
 
-
+    /**
+     * Get the user's role.
+     */
     public function role(): BelongsTo
     {
         return $this->belongsTo(Role::class, 'role_id');
     }
 
+    /**
+     * Get the active subscription of the user.
+     */
     public function active_subscription(): HasOne
     {
         return $this->hasOne(Subscription::class)
             ->where('status', 'active')
-            ->whereDate('end_date', '!=', today());
+            ->whereDate('end_date', '>', today());
     }
 
-    // Accessor to get the role name
-    public function getRoleNameAttribute()
+    /**
+     * Get the user's role name.
+     */
+    public function getRoleNameAttribute(): string
     {
         return $this->role ? $this->role->name : 'Guest';
     }
 
-    public function subscriptions()
+    /**
+     * Get all subscriptions of the user.
+     */
+    public function subscriptions(): HasMany
     {
-        return $this->hasMany(Subscription::class)->orderBy('created_at', 'desc');
+        return $this->hasMany(Subscription::class)->latest();
     }
 
-
-    public function transactions(){
+    /**
+     * Get all transactions of the user.
+     */
+    public function transactions(): HasMany
+    {
         return $this->hasMany(Transaction::class);
     }
+
+    /**
+     * Get all users referred by this user.
+     */
+    public function referrals(): HasMany
+    {
+        return $this->hasMany(Affiliate::class, 'referred_by');
+    }
+
+    /**
+     * Get the user who referred this user.
+     */
+    public function referrer(): HasOne
+    {
+        return $this->hasOne(Affiliate::class, 'user_id');
+    }
+
+    public function affiliate(): HasOne
+    {
+        return $this->hasOne(Affiliate::class, 'user_id');
+    }
+
+
+    /**
+     * Scope to filter users who exist in the affiliates table.
+     */
+    public function scopeAffiliates($query)
+    {
+        return $query->whereHas('referrer');
+    }
+
 }

@@ -53,7 +53,7 @@ class MatchesController extends Controller
 
         $matches = $matches->orderBy('match_start_time', 'desc')->paginate(10)->appends($request->query());
 
-        return Inertia::render('Dashboards/Administrator/Matches/Index', [
+        return Inertia::render('Administrator/Matches/Index', [
             'matches' => $matches,
             'search' => $search,
             'filters' => [
@@ -67,12 +67,12 @@ class MatchesController extends Controller
 
     public function create(Request $request)
     {
-        return Inertia::render('Dashboards/Administrator/Matches/create');
+        return Inertia::render('Administrator/Matches/create');
     }
 
     public function update(Request $request, Matches $match)
     {
-        return Inertia::render('Dashboards/Administrator/Matches/update', [
+        return Inertia::render('Administrator/Matches/update', [
             'match' => $match,
         ]);
     }
@@ -124,7 +124,7 @@ class MatchesController extends Controller
     public function view(Request $request, Matches $match)
     {
         $match = $match->load('tips');
-        return Inertia::render('Dashboards/Administrator/Matches/view', [
+        return Inertia::render('Administrator/Matches/view', [
             'match' => $match
         ]);
     }

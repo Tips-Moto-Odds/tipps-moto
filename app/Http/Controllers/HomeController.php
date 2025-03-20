@@ -91,7 +91,7 @@ class HomeController extends Controller
     public function tips(): Response
     {
         $packages = Packages::all();
-        return Inertia::render('tips', [
+        return Inertia::render('Home/Tips', [
             'packages' => $packages
         ]);
     }

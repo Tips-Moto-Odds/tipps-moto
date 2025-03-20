@@ -15,7 +15,7 @@ class SelectionController extends Controller
     {
         $selections = Selection::orderBy('date_for','desc')->paginate(9);
 
-        return Inertia::render('Dashboards/Manager/Selection/Index', [
+        return Inertia::render('Administrator/Selection/Index', [
             'selections' => $selections
         ]);
     }
@@ -47,7 +47,7 @@ class SelectionController extends Controller
             ];
         });
 
-        return Inertia::render('Dashboards/Manager/Selection/View', [
+        return Inertia::render('Administrator/Selection/View', [
             'selection' => $selection,
             'packages' => Packages::all(),
             'tips' => $formattedTips
@@ -60,7 +60,7 @@ class SelectionController extends Controller
 
         $packages = Packages::all();
 
-        return Inertia::render('Dashboards/Manager/Selection/create', [
+        return Inertia::render('Administrator/Selection/create', [
             'packages' => $packages
         ]);
     }

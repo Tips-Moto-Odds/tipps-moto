@@ -13,7 +13,7 @@ class SystemController extends Controller
 
     public function index()
     {
-        return Inertia::render('Dashboards/Administrator/System/Index');
+        return Inertia::render('Administrator/System/Index');
     }
 
     public function syncData(Request $request)

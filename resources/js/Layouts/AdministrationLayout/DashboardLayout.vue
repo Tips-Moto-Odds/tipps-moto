@@ -21,7 +21,7 @@ const disableAdminMode = () => {
 <template>
     <Head :title="title"/>
     <div class="holder w-full h-[100vh] flex bg-gray-600">
-        <admin-dashboard-menu id="dashboard-menu" class="absolute left-[-100%] lg:block lg:static"/>
+        <AdminDashboardMenu id="dashboard-menu" class="absolute left-[-100%] lg:block lg:static"/>
         <section class="content-area w-full h-full overflow-auto">
             <slot name="side"></slot>
             <app-page-heading :pageHeading="pageHeading"/>

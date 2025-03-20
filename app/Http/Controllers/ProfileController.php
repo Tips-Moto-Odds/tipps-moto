@@ -8,7 +8,7 @@ class ProfileController extends Controller
 {
     public function index()
     {
-        return Inertia::render("Dashboards/Administrator/Profile/Account");
+        return Inertia::render("Administrator/Profile/Account");
     }
 
 }

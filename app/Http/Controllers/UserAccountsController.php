@@ -32,7 +32,7 @@ class UserAccountsController extends Controller
             return $user;
         });
 
-        return Inertia::render('Dashboards/Administrator/Accounts/Index', [
+        return Inertia::render('Administrator/Accounts/Index', [
             'users' => $users,
             'stats' => $stats,
             'search' => $search,
@@ -46,9 +46,9 @@ class UserAccountsController extends Controller
             'subscriptions'
         ])->find($id);
 
-        $can_login_as_user = Auth::user()->role_name == 'Administrator';
+        $can_login_as_user = Auth::user()->role_name === 'Administrator';
 
-        return Inertia::render('Dashboards/Administrator/Accounts/View', [
+        return Inertia::render('Administrator/Accounts/View', [
             'user' => $user,
             'transactions' => $user->transactions->map(function ($transaction) {
                 return [

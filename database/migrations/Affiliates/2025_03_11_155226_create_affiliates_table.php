@@ -13,9 +13,23 @@ return new class extends Migration
     {
         Schema::create('affiliates', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->foreignId('referred_by')->nullable()->constrained('users')->onDelete('set null');
+            $table->foreignId('user_id')->constrained()->cascadeOnDelete();
+
+            $table->foreignId('referred_by')
+                ->nullable()
+                ->constrained('users')
+                ->nullOnDelete();
+
+            $table->string('referral_code')->unique();
+
+            $table->unsignedBigInteger('total_referrals')->default(0);
+            $table->decimal('total_earnings', 10, 2)->default(0.00);
+            $table->decimal('withdrawn_amount', 10, 2)->default(0.00);
+
             $table->timestamps();
+            $table->softDeletes(); // Enables soft deletes
+
+            $table->index(['user_id', 'referral_code']);
         });
     }
 
