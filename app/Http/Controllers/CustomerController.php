@@ -37,15 +37,16 @@ class CustomerController extends Controller
                 }
             }
 
-            $activeSubscriptions = Selection::whereIn('package_id', $user->subscriptions()->where('status', 'active')->pluck('package_id'))
-                ->where('date_for', $now->toDateString())
-                ->get();
+//            $activeSubscriptions = Selection::whereIn('package_id', $user->subscriptions()->where('status', 'active')->pluck('package_id'))
+//                ->where('date_for', $now->toDateString())
+//                ->get();
 
+            $activeSubscriptions = Selection::where('date_for', $now->toDateString())->get();
 
-            $activeSubscriptions = $activeSubscriptions->map(function ($subscription) use ($user){
+            $activeSubscriptions = $activeSubscriptions->map(function ($subscription) use ($user) {
                 $sub = $user->subscriptions()
-                    ->where('package_id',$subscription->package_id)
-                    ->where('status','active')->first();
+                    ->where('package_id', $subscription->package_id)
+                    ->where('status', 'active')->first();
 
                 $subscription->end_date = $sub->end_date;
 
