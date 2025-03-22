@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
-use Illuminate\Http\Request;
 use App\Models\Affiliate;
+use App\Models\User;
+use App\Modules\AffiliateClassses\AffiliateClass;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Inertia\Inertia;
 
 class AffiliateController extends Controller
@@ -27,12 +29,15 @@ class AffiliateController extends Controller
     public function store(Request $request): \Illuminate\Http\JsonResponse
     {
         $validated = $request->validate([
-            'user_id' => 'required|exists:users,id',
-            'referred_by' => 'nullable|exists:users,id',
-            'referral_code' => 'required|string|unique:affiliates,referral_code',
+            'user_id' => 'required|exists:users,id|unique:affiliates,user_id',
         ]);
 
-        $affiliate = Affiliate::create($validated);
+        $referralCode = strtoupper(substr(md5(uniqid(mt_rand(), true)), 0, 8));
+
+        $affiliate = Affiliate::create([
+            'user_id' => $validated['user_id'],
+            'referral_code' => $referralCode,
+        ]);
 
         return response()->json([
             'status' => 'success',
@@ -148,18 +153,19 @@ class AffiliateController extends Controller
             'referral_code' => 'required|string|exists:affiliates,referral_code',
         ]);
 
-        // Find the affiliate using the referral code
-        $affiliate = Affiliate::where('referral_code', $validated['referral_code'])->firstOrFail();
+        $affiliate = new AffiliateClass($validated['referral_code']);
+        $is_CommissionAdded = $affiliate->addPurchase($validated['amount']);
 
-        // Add 10% of the amount to total earnings
-        $commission = $validated['amount'] * 0.10;
-        $affiliate->increment('total_earnings', $commission);
+        if($is_CommissionAdded){
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Referral updated successfully',
+                'affiliate' => $affiliate->getAffiliate()->refresh()
+            ]);
+        }else{
+            Log::error('There was a problem adding commision');
+        }
 
-        return response()->json([
-            'status' => 'success',
-            'message' => 'Referral updated successfully',
-            'affiliate' => $affiliate->refresh()
-        ]);
     }
 
 }

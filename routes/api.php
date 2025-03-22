@@ -44,13 +44,13 @@ Route::post('/onit/deposit/response', function (Request $request) {
             Log::info("Transaction not found");
         }
     } else {
-        dd('Transaction failed');
+        Log::warning('Trasaction: '.$request->all());
     }
-})->name('');
+});
 
 Route::post('/onit/withdraw/response', function () {
     Log::info(request()->all());
-})->name('');
+});
 
 Route::post('/postTips', AutomationController::class);
 

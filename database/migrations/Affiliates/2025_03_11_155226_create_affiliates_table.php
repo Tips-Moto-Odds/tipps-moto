@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('affiliates', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('user_id')->unique()->constrained()->cascadeOnDelete();
 
             $table->foreignId('referred_by')
                 ->nullable()
@@ -41,3 +41,4 @@ return new class extends Migration
         Schema::dropIfExists('affiliates');
     }
 };
+
