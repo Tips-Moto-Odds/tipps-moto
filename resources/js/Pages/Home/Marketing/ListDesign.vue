@@ -72,7 +72,7 @@ const props = defineProps(['events'])
     margin-top: 20px;
     height: 800px;
     overflow: hidden;
-    background-image: url(/storage/System/field_background.jpg);
+    background-color: black;
     background-size: cover;
     background-repeat: no-repeat;
 }

@@ -80,18 +80,6 @@ const list_items = [
 .content {
     @apply mb-[40px];
 }
-
-
-.banner {
-    background-image: url("/storage/System/banner.png");
-    background-size: cover;
-    background-position: center;
-
-    & > div {
-        background-color: rgba(0, 0, 0, 0.7);
-    }
-}
-
 #main-site-menu {
     position: fixed;
     right: 100%;

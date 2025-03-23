@@ -33,7 +33,6 @@ defineProps(['match'])
 </template>
 <style lang="scss" scoped>
 #banner {
-    background-image: url("/storage/System/field_background.jpg");
     background-size: cover;
 }
 

@@ -2,8 +2,8 @@
 import {usePage} from "@inertiajs/vue3";
 import {onUpdated} from "vue";
 import HomeLayout from "@/Layouts/HomeLayout/HomeLayout.vue";
-import {initializeForms} from "@/Pages/Profile/forms.js";
-import {updateInfo, updatePassword} from "@/Pages/Profile/Actions.js";
+import {initializeForms} from "@/Pages/Administrator/Profile/forms.js";
+import {updateInfo} from "@/Pages/Administrator/Profile/Actions.js";
 
 const page = usePage()
 const {userForm, securityForm} = initializeForms();
