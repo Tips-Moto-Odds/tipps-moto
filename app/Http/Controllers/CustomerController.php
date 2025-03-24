@@ -24,47 +24,34 @@ class CustomerController extends Controller
         $activeSubscriptions = [];
         $userSubscriptions = $user->subscriptions ?? [];
 
-//        if ($userSubscriptions) {
-//            foreach ($userSubscriptions as $subscription) {
-//                $endDate = \Carbon\Carbon::parse($subscription->end_date)->startOfDay(); // Expiry date at 00:00:00
-//                $updatedTime = \Carbon\Carbon::parse($subscription->updated_at)->format('H:i:s'); // Time part only
-//
-//
-//                // If its expired, update it
-//                if ($endDate->lt($now->startOfDay()) && $updatedTime > $now->format('H:i:s')) {
-//                    $subscription->status = 'expired';
-//                    $subscription->save();
-//                }
-//            }
-//
-//            $activeSubscriptions = Selection::whereIn('package_id', $user->subscriptions()->where('status', 'active')->pluck('package_id'))
-//                ->where('date_for', $now->toDateString())
-//                ->get();
-//
-//            $activeSubscriptions = Selection::where('date_for', $now->toDateString())->get();
-//
-//            $activeSubscriptions = $activeSubscriptions->map(function ($subscription) use ($user) {
-//                $sub = $user->subscriptions()
-//                    ->where('package_id', $subscription->package_id)
-//                    ->where('status', 'active')->first();
-//
-//                $subscription->end_date = $sub->end_date;
-//
-//                return $subscription;
-//            });
-//        }
+        if ($userSubscriptions) {
+            foreach ($userSubscriptions as $subscription) {
+                $endDate = \Carbon\Carbon::parse($subscription->end_date)->startOfDay(); // Expiry date at 00:00:00
+                $updatedTime = \Carbon\Carbon::parse($subscription->updated_at)->format('H:i:s'); // Time part only
 
-        $activeSubscriptions = Selection::where('date_for', $now->toDateString())->get();
 
-        $activeSubscriptions = $activeSubscriptions->map(function ($subscription) use ($user) {
-            $sub = $user->subscriptions()
-                ->where('package_id', $subscription->package_id)
-                ->where('status', 'active')->first();
+                // If its expired, update it
+                if ($endDate->lt($now->startOfDay()) && $updatedTime > $now->format('H:i:s')) {
+                    $subscription->status = 'expired';
+                    $subscription->save();
+                }
+            }
 
-//            $subscription->end_date = $sub->end_date;
+            $activeSubscriptions = Selection::whereIn('package_id', $user->subscriptions()->where('status', 'active')->pluck('package_id'))
+                ->where('date_for', $now->toDateString())
+                ->get();
 
-            return $subscription;
-        });
+
+            $activeSubscriptions = $activeSubscriptions->map(function ($subscription) use ($user){
+                $sub = $user->subscriptions()
+                    ->where('package_id',$subscription->package_id)
+                    ->where('status','active')->first();
+
+                $subscription->end_date = $sub->end_date;
+
+                return $subscription;
+            });
+        }
 
         return Inertia::render('UserPanel/Subscriptions', ['subscriptions' => $activeSubscriptions]);
     }
