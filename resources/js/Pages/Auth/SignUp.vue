@@ -15,6 +15,7 @@ const form = useForm({
     password: '',
     password_confirmation: '',
     terms: false,
+    acceptPromotions: true,
 });
 
 </script>
@@ -99,10 +100,10 @@ const form = useForm({
                 </InputLabel>
                 <InputLabel for="terms">
                     <div class="flex">
-                        <Checkbox id="terms" v-model:checked="form.terms" name="terms" class="mr-[20px] p-0" required/>
+                        <Checkbox id="terms" v-model:checked="form.acceptPromotions" name="terms" class="mr-[20px] p-0" required/>
                         <p class="text-sm text-white p-0 m-0">I accept to receive promotional and marketing emails</p>
                     </div>
-                    <InputError class="mt-2" :message="form.errors.terms"/>
+                    <InputError class="mt-2" :message="form.errors.acceptPromotions"/>
                 </InputLabel>
             </div>
             <button class="mb-[20px]">Sign Up</button>

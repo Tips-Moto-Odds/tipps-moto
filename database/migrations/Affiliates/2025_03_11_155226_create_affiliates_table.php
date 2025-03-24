@@ -20,7 +20,7 @@ return new class extends Migration
                 ->constrained('users')
                 ->nullOnDelete();
 
-            $table->string('referral_code')->unique();
+            $table->string('referral_code')->nullable()->unique();
 
             $table->unsignedBigInteger('total_referrals')->default(0);
             $table->decimal('total_earnings', 10, 2)->default(0.00);

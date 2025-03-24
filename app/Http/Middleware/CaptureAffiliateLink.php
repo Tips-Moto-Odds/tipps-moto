@@ -24,14 +24,6 @@ class CaptureAffiliateLink
             Cookie::queue('affiliateLink', $incomingLink, 60 * 24 * 7); // 7 days
         }
 
-        // ✅ If visiting the registration route and the cookie is set, dd it
-        if (
-            $existingCookie &&
-            $request->routeIs('register') // Adjust this to match your route name
-        ) {
-            dd("Referral Cookie:", $existingCookie);
-        }
-
         return $next($request);
     }
 }

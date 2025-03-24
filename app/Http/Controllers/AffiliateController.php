@@ -16,7 +16,18 @@ class AffiliateController extends Controller
      */
     public function index(Request $request): \Inertia\Response
     {
-        $affiliates = User::affiliates()->with('affiliate')->latest()->paginate(15);
+        $affiliates = User::affiliates()
+            ->with('affiliate')
+            ->latest()
+            ->paginate(15)
+            ->through(function ($user) {
+                $referred = 0;
+
+                $user['referred'] = $referred;
+
+                return $user;
+            });
+
 
         return Inertia::render("Administrator/Affiliate/Index", [
             'affiliates' => $affiliates,
