@@ -207,14 +207,15 @@ class CustomerController extends Controller
 
             $affiliate = Affiliate::where('user_id',auth()->user()->id)->first();
 
-            Log::info($affiliate);
-
-            dd($affiliate);
-
-            $affiliate = Affiliate::create([
-                'user_id' => auth()->user()->id,
-                'referral_code' => $referralCode,
-            ]);
+            if ($affiliate) {
+                $affiliate->referral_code = $referralCode;
+                $affiliate->save();
+            }else{
+                $affiliate = Affiliate::create([
+                    'user_id' => auth()->user()->id,
+                    'referral_code' => $referralCode,
+                ]);
+            }
 
             return redirect()->back();
 
