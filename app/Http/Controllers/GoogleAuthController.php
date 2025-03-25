@@ -14,7 +14,7 @@ class GoogleAuthController extends Controller
     /**
      * Redirect the user to Google’s OAuth page.
      */
-    public function redirect()
+    public function redirect(): \Symfony\Component\HttpFoundation\RedirectResponse|\Illuminate\Http\RedirectResponse
     {
         return Socialite::driver('google')->redirect();
     }
