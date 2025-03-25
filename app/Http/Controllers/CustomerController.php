@@ -208,12 +208,17 @@ class CustomerController extends Controller
 
             $referralCode = strtoupper(substr(md5(uniqid(mt_rand(), true)), 0, 8));
 
-            $affiliate = Affiliate::updateOrCreate(
-                ['user_id' => auth()->id()], // Find by user_id
-                ['referral_code' => $referralCode] // Set/update referral_code
-            );
+            $affiliate = Affiliate::where('user_id',auth()->id())->first();
 
-
+            if (!$affiliate) {
+                $affiliate->referral_code = $referralCode;
+                $affiliate->save();
+            }else{
+                $affiliate = Affiliate::create(
+                    ['user_id' => auth()->id()], // Find by user_id
+                    ['referral_code' => $referralCode] // Set/update referral_code
+                );
+            }
             return redirect()->back();
 
         } catch (\Throwable $th) {
