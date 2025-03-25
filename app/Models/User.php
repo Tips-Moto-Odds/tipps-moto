@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\DB;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Jetstream\HasTeams;
@@ -145,6 +146,31 @@ class User extends Authenticatable
     public function scopeAffiliates($query)
     {
         return $query->whereHas('referrer');
+    }
+
+    public function getAffiliateDetailsAttribute(): array
+    {
+        $affiliate = $this->affiliate; // Assuming user hasOne Affiliate
+        $affiliateCode = optional($affiliate)->referral_code;
+        $siteLink = config('app.url'); // Or use env('APP_URL') if preferred
+
+        $referredUsers = $this->referrals->pluck('user_id')?->count() ?? 0 ;
+
+        // Sum of referred users’ transactions
+        $total = $referredUsers != null || $referredUsers > 0
+            ? DB::table('transactions')
+                ->whereIn('user_id', $this->referrals->pluck('user_id'))
+                ->where('transaction_status','successful')
+                ->sum('amount')
+            : 0;
+
+        return [
+            'balance'        => (int) ($total * 0.1) - ((int) $this->affiliate?->withdrawn_amount ), // Placeholder logic
+            'referrals'      => $referredUsers,
+            'earned'         => (int) ($total * 0.1), // Same as balance for now
+            'affiliate_code' => $affiliateCode,
+            'referral_link'  => $siteLink . '?affiliateLink=' . $affiliateCode,
+        ];
     }
 
 }

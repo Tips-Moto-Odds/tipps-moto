@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Affiliate;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -21,9 +22,10 @@ class DashboardController extends Controller
                 $adminDashboardController = new AdminDashboardController();
                 return $adminDashboardController->index($request);
             default:
-                return Inertia::render('UserPanel/index', ['user' => $user]);
+                return Inertia::render('UserPanel/index', [
+                    'user' => $user,
+                    'affiliate' => $user->affiliate_details
+                ]);
         }
     }
-
-
 }

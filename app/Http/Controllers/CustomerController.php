@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\SubscribeRequest;
+use App\Models\Affiliate;
 use App\Models\Matches;
 use App\Models\Packages;
 use App\Models\Selection;
@@ -196,5 +197,26 @@ class CustomerController extends Controller
         $subscription->save();
 
         return redirect()->back()->with('success', 'Subscription cancelled successfully');
+    }
+
+    public function joinAffiliate()
+    {
+        try {
+            if (auth()->user()->affiliate){
+                throw new \RuntimeException('User already has an account');
+            }
+
+            $referralCode = strtoupper(substr(md5(uniqid(mt_rand(), true)), 0, 8));
+
+            $affiliate = Affiliate::create([
+                'user_id' => auth()->user()->id,
+                'referral_code' => $referralCode,
+            ]);
+
+            return redirect()->back();
+
+        } catch (\Throwable $th) {
+            return redirect()->back();
+        }
     }
 }

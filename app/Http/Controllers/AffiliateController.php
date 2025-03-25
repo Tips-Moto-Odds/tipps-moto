@@ -6,6 +6,7 @@ use App\Models\Affiliate;
 use App\Models\User;
 use App\Modules\AffiliateClassses\AffiliateClass;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Inertia\Inertia;
 
@@ -21,13 +22,26 @@ class AffiliateController extends Controller
             ->latest()
             ->paginate(15)
             ->through(function ($user) {
-                $referred = 0;
 
-                $user['referred'] = $referred;
+                $referees = Affiliate::where('referred_by', $user->id)->pluck('user_id');
+
+                if ($referees->isNotEmpty()) {
+                    $total = DB::table('transactions')
+                        ->whereIn('user_id', $referees)
+                        ->sum('amount');
+
+                    $earned = (int) $total * 0.1;
+                } else {
+                    $earned = 0;
+                }
+
+
+                $user['earned'] = $earned;
+                $user['referred'] = $earned;
 
                 return $user;
-            });
 
+            });
 
         return Inertia::render("Administrator/Affiliate/Index", [
             'affiliates' => $affiliates,
@@ -156,7 +170,7 @@ class AffiliateController extends Controller
         ]);
     }
 
-    public function add_purchase(Request $request): \Illuminate\Http\JsonResponse
+    public function add_purchase(Request $request): ?\Illuminate\Http\JsonResponse
     {
         // Validate request data
         $validated = $request->validate([
@@ -167,14 +181,15 @@ class AffiliateController extends Controller
         $affiliate = new AffiliateClass($validated['referral_code']);
         $is_CommissionAdded = $affiliate->addPurchase($validated['amount']);
 
-        if($is_CommissionAdded){
+        if ($is_CommissionAdded) {
             return response()->json([
                 'status' => 'success',
                 'message' => 'Referral updated successfully',
                 'affiliate' => $affiliate->getAffiliate()->refresh()
             ]);
-        }else{
+        } else {
             Log::error('There was a problem adding commision');
+            return null;
         }
 
     }

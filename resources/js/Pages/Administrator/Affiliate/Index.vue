@@ -84,7 +84,7 @@ onMounted(() => {
               <th class="">Referrals</th>
               <th class="">Total Earnings</th>
               <th class="">Withdrawn Amount</th>
-              <th>Action</th>
+              <th>Referral Code</th>
             </tr>
             </thead>
             <tbody>
@@ -99,7 +99,7 @@ onMounted(() => {
                   <p class="mb-[5px] text-xs text-gray-400">{{ user.email }}</p>
                 </td>
                 <td>{{ user.affiliate.total_referrals }}</td>
-                <td>{{ user.affiliate.total_earnings }}</td>
+                <td>{{ user.earned }}</td>
                 <td>{{ user.affiliate.withdrawn_amount }}</td>
                 <td>{{ user.affiliate.referral_code }}</td>
               </Link>

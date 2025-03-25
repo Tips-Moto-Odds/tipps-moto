@@ -42,7 +42,7 @@ class Affiliate extends Model
     /**
      * Get the user who referred this affiliate.
      */
-    public function referrer()
+    public function referrer(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(User::class, 'referred_by');
     }
@@ -50,7 +50,7 @@ class Affiliate extends Model
     /**
      * Get all users referred by this affiliate.
      */
-    public function referrals()
+    public function referrals(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Affiliate::class, 'referred_by');
     }
@@ -61,5 +61,10 @@ class Affiliate extends Model
     public function getBalanceAttribute()
     {
         return $this->total_earnings - $this->withdrawn_amount;
+    }
+
+    public function referees(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(Affiliate::class, 'referred_by');
     }
 }

@@ -168,7 +168,7 @@ onMounted(() => {
                                 <p class="text-gray-300">{{ purchases.user.email }}</p>
                                 </div>
                                 <div class="text-right">
-                                    <p>{{purchases.package.name}}</p>
+                                    <p>{{purchases.package?.name}}</p>
                                     <p class="text-green-500">Ksh {{purchases.amount }}</p>
                                 </div>
                             </div>

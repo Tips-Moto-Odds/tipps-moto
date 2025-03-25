@@ -20,4 +20,6 @@ Route::group(['prefix' => 'Profile'], function () {
 
     Route::post('/subscribe',[CustomerController::class,'subscribe'])->name('subscribe');
 
+    Route::post('/affiliate/join',[CustomerController::class,'joinAffiliate'])->name('affiliate.join');
+
 });
