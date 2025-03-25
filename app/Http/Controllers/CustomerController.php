@@ -14,6 +14,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
 use Inertia\Inertia;
 
 class CustomerController extends Controller
@@ -208,17 +209,17 @@ class CustomerController extends Controller
 
             $referralCode = strtoupper(substr(md5(uniqid(mt_rand(), true)), 0, 8));
 
-            $affiliate = Affiliate::where('user_id',auth()->id())->first();
+            $affiliate = Affiliate::where('user_id',auth()->user()->id)->first();
 
-            if ($affiliate != null) {
-                $affiliate->referral_code = $referralCode;
-                $affiliate->save();
-            }else{
-                $affiliate = Affiliate::create(
-                    ['user_id' => auth()->id()], // Find by user_id
-                    ['referral_code' => $referralCode] // Set/update referral_code
-                );
-            }
+            Log::info($affiliate);
+
+            dd($affiliate);
+
+            $affiliate = Affiliate::create([
+                'user_id' => auth()->user()->id,
+                'referral_code' => $referralCode,
+            ]);
+
             return redirect()->back();
 
         } catch (\Throwable $th) {
