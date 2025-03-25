@@ -16,7 +16,7 @@ class GoogleAuthController extends Controller
      */
     public function redirect(): \Symfony\Component\HttpFoundation\RedirectResponse|\Illuminate\Http\RedirectResponse
     {
-        return Socialite::driver('google')->redirect();
+        return Socialite::driver('google')->stateless()->redirect();
     }
 
     /**
@@ -26,9 +26,9 @@ class GoogleAuthController extends Controller
     {
         try {
             // Get the user information from Google
-            $user = Socialite::driver('google')->user();
+            $user = Socialite::driver('google')->stateless()->user();
         } catch (Throwable $e) {
-            Log::info('user'.$e->getMessage());
+            Log::error($e->getMessage());
             return redirect('/')->with('error', 'Google authentication failed.');
         }
 
