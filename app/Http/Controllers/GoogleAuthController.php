@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use Laravel\Socialite\Facades\Socialite;
 use Throwable;
 
@@ -30,7 +31,7 @@ class GoogleAuthController extends Controller
             return redirect('/')->with('error', 'Google authentication failed.');
         }
 
-        dd($user);
+        Log::info('user'.$user);
 
         // Check if the user already exists in the database
         $existingUser = User::where('email', $user->email)->first();
