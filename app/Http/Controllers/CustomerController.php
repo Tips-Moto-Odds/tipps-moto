@@ -199,7 +199,7 @@ class CustomerController extends Controller
         return redirect()->back()->with('success', 'Subscription cancelled successfully');
     }
 
-    public function joinAffiliate()
+    public function joinAffiliate(): RedirectResponse
     {
         try {
             if (auth()->user()->affiliate){
@@ -208,10 +208,11 @@ class CustomerController extends Controller
 
             $referralCode = strtoupper(substr(md5(uniqid(mt_rand(), true)), 0, 8));
 
-            $affiliate = Affiliate::create([
-                'user_id' => auth()->user()->id,
-                'referral_code' => $referralCode,
-            ]);
+            $affiliate = Affiliate::updateOrCreate(
+                ['user_id' => auth()->id()], // Find by user_id
+                ['referral_code' => $referralCode] // Set/update referral_code
+            );
+
 
             return redirect()->back();
 

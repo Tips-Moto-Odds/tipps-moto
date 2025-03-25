@@ -20,7 +20,6 @@ const form = useForm({
 
 const params = new URLSearchParams(window.location.search);
 
-
 </script>
 
 <template>
