@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AffiliateController;
 use App\Http\Controllers\AutomationController;
+use App\Http\Controllers\GoogleAuthController;
 use App\Http\Controllers\OnitController;
 use App\Models\Packages;
 use App\Models\Subscription;
@@ -29,6 +30,15 @@ Route::get('/users', function (Request $request) {
 })->middleware('auth:sanctum');
 
 Route::get('/users/{user}', fn (Request $request, User $user) => $user )->middleware('auth:sanctum');
+
+
+
+
+// Route to redirect to Google's OAuth page
+Route::get('/auth/google/redirect', [GoogleAuthController::class, 'redirect'])->name('auth.google.redirect');
+
+// Route to handle the callback from Google
+Route::get('/auth/google/callback', [GoogleAuthController::class, 'callback'])->name('auth.google.callback');
 
 Route::resource('/affiliates', AffiliateController::class)->only(['store', 'update', 'destroy']);
 Route::post('/affiliates/add-user', [AffiliateController::class,'add_user']);
