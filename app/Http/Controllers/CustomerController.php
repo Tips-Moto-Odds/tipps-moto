@@ -203,10 +203,6 @@ class CustomerController extends Controller
     public function joinAffiliate(): RedirectResponse
     {
         try {
-            if (auth()->user()->affiliate){
-                throw new \RuntimeException('User already has an account');
-            }
-
             $referralCode = strtoupper(substr(md5(uniqid(mt_rand(), true)), 0, 8));
 
             $affiliate = Affiliate::where('user_id',auth()->user()->id)->first();
