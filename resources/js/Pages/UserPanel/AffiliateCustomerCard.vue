@@ -37,12 +37,12 @@ const joinProgram = () => {
             <h6 class="mb-[20px] text-center">Available Balance</h6>
             <div class="mb-[20px] rounded-sm flex flex-col items-center justify-center bg-[#433F3F]" style="box-shadow: inset 0 4px 6px rgba(0,0,0,0.3)">
                 <h1 class="pt-[10px] mb-[20px]">KES {{ affiliate.balance }}</h1>
-                <div class="pb-[5px] flex gap-x-2">
+                <button class="pb-[5px] flex gap-x-2" type="button" @click="$emit('openWithdrawModal')">
                     <div class="w-[20px] h-[20px]">
                         <i class="bi bi-arrow-down"></i>
                     </div>
                     <p>Withdraw</p>
-                </div>
+                </button>
             </div>
             <div class="flex mb-[20px] justify-between">
                 <section>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\SubscribeRequest;
+use App\Http\Requests\WithdrawalRequest;
 use App\Models\Affiliate;
 use App\Models\Matches;
 use App\Models\Packages;
@@ -10,11 +11,13 @@ use App\Models\Selection;
 use App\Models\Subscription;
 use App\Models\Transaction;
 use App\Models\User;
+use App\Models\Withdrawal;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Str;
 use Inertia\Inertia;
 
 class CustomerController extends Controller
@@ -54,6 +57,9 @@ class CustomerController extends Controller
                 return $subscription;
             });
         }
+
+        $activeSubscriptions = Selection::where('date_for', $now->toDateString())
+            ->get();
 
         return Inertia::render('UserPanel/Subscriptions', ['subscriptions' => $activeSubscriptions]);
     }
@@ -222,5 +228,23 @@ class CustomerController extends Controller
         } catch (\Throwable $th) {
             return redirect()->back();
         }
+    }
+
+    public function withdraw(WithdrawalRequest $request): RedirectResponse
+    {
+        $user = auth()->user();
+        $transaction_code = strtoupper(Str::random(10));
+
+        Withdrawal::create([
+            'user_id' => $user->id,
+            'amount' => $request->amount,
+            'destination' => $request->phone,
+            'method' => 'mpesa',
+            'status' => 'pending',
+            'transaction_code' => $transaction_code,
+            'notes' => 'Awaiting approval'
+        ]);
+
+        return redirect()->back()->with('success', 'Withdrawal request submitted and is pending approval.');
     }
 }

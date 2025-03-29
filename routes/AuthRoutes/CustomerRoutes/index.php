@@ -22,4 +22,6 @@ Route::group(['prefix' => 'Profile'], function () {
 
     Route::post('/affiliate/join',[CustomerController::class,'joinAffiliate'])->name('affiliate.join');
 
+    Route::post('/affiliate/withdraw',[CustomerController::class,'withdraw'])->name('affiliate.withdraw');
+
 });
