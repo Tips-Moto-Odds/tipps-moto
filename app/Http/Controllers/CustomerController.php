@@ -35,7 +35,7 @@ class CustomerController extends Controller
                 $updatedTime = \Carbon\Carbon::parse($subscription->updated_at)->format('H:i:s'); // Time part only
 
 
-                // If its expired, update it
+                // If It's expired, update it
                 if ($endDate->lt($now->startOfDay()) && $updatedTime > $now->format('H:i:s')) {
                     $subscription->status = 'expired';
                     $subscription->save();
@@ -45,7 +45,6 @@ class CustomerController extends Controller
             $activeSubscriptions = Selection::whereIn('package_id', $user->subscriptions()->where('status', 'active')->pluck('package_id'))
                 ->where('date_for', $now->toDateString())
                 ->get();
-
 
             $activeSubscriptions = $activeSubscriptions->map(function ($subscription) use ($user){
                 $sub = $user->subscriptions()
@@ -57,9 +56,6 @@ class CustomerController extends Controller
                 return $subscription;
             });
         }
-
-        $activeSubscriptions = Selection::where('date_for', $now->toDateString())
-            ->get();
 
         return Inertia::render('UserPanel/Subscriptions', ['subscriptions' => $activeSubscriptions]);
     }
