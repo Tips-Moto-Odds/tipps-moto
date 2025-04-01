@@ -31,7 +31,8 @@ const updateUser = () => {
     })
 }
 
-const togglePaymentShow = () => showPaymentValue.value = !showPaymentValue.value
+// const togglePaymentShow = () => showPaymentValue.value = !showPaymentValue.value
+const togglePaymentShow = () => false
 
 const confirmPayment = () => {
     withdrawForm.post(route('affiliate.withdraw'), {
