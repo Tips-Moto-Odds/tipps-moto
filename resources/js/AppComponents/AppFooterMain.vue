@@ -28,7 +28,7 @@ function navigateTo(link) {
                     </section>
                     <section class="h-[100%] flex-col">
                         <div class="flex justify-end ml-[10px] w-full mb-[10px]">
-                            <img class="w-[80px]" src="storage/System/Icons/logo-dark.png">
+                            <img class="w-[80px]" src="/storage/System/Icons/logo-dark.png"/>
                         </div>
                         <ul class="flex gap-1">
                             <a target="blank" :href="item.link" v-for="item in icons">

@@ -8,6 +8,7 @@ use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Foundation\AliasLoader;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\URL;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -27,8 +28,10 @@ class AppServiceProvider extends ServiceProvider
     {
         Schema::defaultStringLength(199);
 
-//        $this->app->bindMethod([OnitSTKPush::class, 'handle'], function (OnitSTKPush $job, Application $app) {
-//            return $job->handle($app->make(PaymentProcessor::class));
-//        });
+        //enforce https for ngrok
+        if (env('APP_NGROK') !== null) {
+            URL::forceScheme('https');
+        }
+
     }
 }

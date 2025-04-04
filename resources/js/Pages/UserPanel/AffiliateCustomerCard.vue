@@ -29,11 +29,12 @@ const joinProgram = () => {
 };
 
 
-
 </script>
 <template>
     <section>
         <div v-if="affiliate  && affiliate.affiliate_code" class="bg-black p-[20px] mb-[10px] rounded-lg ">
+            <h2 class="mb-[10px]">Affiliate</h2>
+            <hr class="border border-white bg-white"/>
             <h6 class="mb-[20px] text-center">Available Balance</h6>
             <div class="mb-[20px] rounded-sm flex flex-col items-center justify-center bg-[#433F3F]" style="box-shadow: inset 0 4px 6px rgba(0,0,0,0.3)">
                 <h1 class="pt-[10px] mb-[20px]">KES {{ affiliate.balance }}</h1>
@@ -66,7 +67,27 @@ const joinProgram = () => {
             </div>
         </div>
         <div v-else class="bg-black p-[20px] mb-[10px] rounded-lg ">
-            <button @click="joinProgram" class="btn btn-primary">Join the affiliate Program</button>
+            <h2 class="mb-[10px]">Affiliate</h2>
+            <hr class="border border-white bg-white"/>
+            <div>
+                <p class="mb-2">
+                    You're invited to join our Affiliate Program!
+                    Earn a 10% commission on every successful referral you make.
+                </p>
+
+                <p class="mb-2">
+                    Before applying, please take a moment to read our <a :href="route('affiliateTermsAndConditions')">Terms and Conditions</a>.
+                    Only applicants who’ve reviewed the terms will be eligible to join.
+                </p>
+
+                <p class="mb-5">
+                </p>
+                <button @click="joinProgram" class="btn mb-4 block btn-primary">Join the affiliate Program</button>
+
+                <p>
+                    We look forward to having you on board!
+                </p>
+            </div>
         </div>
     </section>
 </template>
