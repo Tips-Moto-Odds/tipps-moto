@@ -7,6 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use JsonException;
 
+/**
+ * @method static where(string $string, int $packageId)
+ * @property false|mixed|string $tips
+ */
 class Selection extends Model
 {
     use HasFactory;
@@ -32,9 +36,9 @@ class Selection extends Model
     {
         if ($this->tips) {
             return count(json_decode($this->attributes['tips'], false, 512, JSON_THROW_ON_ERROR));
-        } else {
-            return 0;
         }
+
+        return 0;
     }
 
     public function getPackageNameAttribute()
@@ -44,9 +48,9 @@ class Selection extends Model
 
         if ($package) {
             return $package->name;
-        } else {
-            return 'N/A';
         }
+
+        return 'N/A';
     }
 
     public function getPackageDescriptionAttribute()
@@ -56,8 +60,8 @@ class Selection extends Model
 
         if ($package) {
             return $package->description;
-        } else {
-            return 'N/A';
         }
+
+        return 'N/A';
     }
 }

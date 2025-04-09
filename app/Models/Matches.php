@@ -6,6 +6,10 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
+/**
+ * @method static where(array $array)
+ * @method static updateOrCreate(array $array, string[] $array1)
+ */
 class Matches extends Model
 {
     use HasFactory;

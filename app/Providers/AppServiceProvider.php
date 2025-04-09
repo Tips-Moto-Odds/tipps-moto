@@ -29,9 +29,9 @@ class AppServiceProvider extends ServiceProvider
         Schema::defaultStringLength(199);
 
         //enforce https for ngrok
-        if (env('APP_NGROK') !== null) {
-            URL::forceScheme('https');
-        }
+//        if (env('APP_NGROK') !== null) {
+////            URL::forceScheme('https');
+//        }
 
     }
 }

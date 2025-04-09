@@ -31,6 +31,10 @@ Route::get('/users', function (Request $request) {
 
 Route::get('/users/{user}', fn (Request $request, User $user) => $user )->middleware('auth:sanctum');
 
+Route::get('/testing', function (Request $request) {
+
+});
+
 
 
 

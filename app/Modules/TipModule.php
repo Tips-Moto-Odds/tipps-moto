@@ -7,6 +7,9 @@ use App\Models\Tips;
 use App\Models\Selection;
 use Illuminate\Support\Facades\Log;
 
+/**
+ * @method static tryFrom(mixed $type)
+ */
 class TipModule
 {
     public function processTips($matchId, $tipsList, $confidenceLevel, $isJackpot, $jackpotTag): array
@@ -17,7 +20,7 @@ class TipModule
             switch ($type) {
                 case '1_X_2':
                 case '1X_X2_12':
-                    if ($isJackpot && $type == '1_X_2') {
+                    if ($isJackpot && $type === '1_X_2') {
                         $prediction = $this->processJackpotTip($matchId, $type, $tip, $confidenceLevel);
                         $jackpotPackage = $this->getJackpotPackage($jackpotTag);
 
@@ -25,7 +28,7 @@ class TipModule
                         if ($jackpotPackage) {
                             $this->addToPackage($matchId, $type, $prediction, $confidenceLevel, $jackpotPackage);
                         }
-                    } elseif ($isJackpot && $type == '1X_X2_12') {
+                    } elseif ($isJackpot && $type === '1X_X2_12') {
                         $prediction = $this->processFullTimeScoreTip($matchId, $type, $tip, $confidenceLevel);
                     } else {
                         $prediction = $this->processFullTimeScoreTip($matchId, $type, $tip, $confidenceLevel);
