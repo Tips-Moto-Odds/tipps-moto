@@ -1,6 +1,6 @@
 <script setup>
 
-import {formatAMPM, formatDate} from "../../HelperFunctions/dateReformat.js";
+import {formatAMPM, formatDate} from "@/HelperFunctions/dateReformat.js";
 
 
 const props = defineProps(['item'])

@@ -42,10 +42,11 @@ const props = defineProps(['events'])
                         </div>
                         <div class="flex w-full flex-col px-[10px] pt-[20px]">
                             <p class="text-center mb-[10px]">-</p>
-                            <p v-if="item.prediction && item.prediction == 1" class="mx-[20px] text-center">Home Win</p>
-                            <p v-else-if="item.prediction && item.prediction == 2" class="mx-[20px] text-center">Away
+                            <p v-if="item.prediction && item.prediction === 1" class="mx-[20px] text-center">Home
                                 Win</p>
-                            <p v-if="item.prediction && item.prediction == 'X'" class="mx-[20px] text-center">Draw</p>
+                            <p v-else-if="item.prediction && item.prediction === 2" class="mx-[20px] text-center">Away
+                                Win</p>
+                            <p v-if="item.prediction && item.prediction === 'X'" class="mx-[20px] text-center">Draw</p>
                         </div>
                         <div class="flex items-center gap-x-2">
                             <p class="text-[20px]">{{ item.away_score }}</p>

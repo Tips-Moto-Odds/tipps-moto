@@ -1,5 +1,5 @@
 <script setup>
-import {Link, useForm, usePage} from "@inertiajs/vue3";
+import {Link, useForm} from "@inertiajs/vue3";
 import DashboardLayout from "@/Layouts/AdministrationLayout/DashboardLayout.vue";
 import MatchCardBody from "@/Pages/Administrator/Matches/Componsnets/MatchCardBody.vue";
 import TipCard from "@/Pages/Administrator/Matches/Componsnets/TipCard.vue";
@@ -26,7 +26,7 @@ function handleUpdateTip(tip) {
     tipForm.prediction = tip.predictions
     tipForm.risk_level = tip.prediction_confidence
     tipForm.winning_status = tip.winning_status
-    tipForm.mark_as_free = tip.mark_as_free == 1 ? true : false
+    tipForm.mark_as_free = tip.mark_as_free === 1
     openSideBar()
 }
 

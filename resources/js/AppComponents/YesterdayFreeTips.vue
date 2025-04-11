@@ -1,6 +1,5 @@
 <script setup>
 import HomeTipsDisplay from "@/AppComponents/HomeTipsDisplay.vue";
-import {useDateFormat} from "@vueuse/shared";
 
 const props = defineProps(['tips'])
 

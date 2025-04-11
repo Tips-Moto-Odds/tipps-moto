@@ -1,6 +1,5 @@
 <script setup>
 import Pagination from "@/AppComponents/Global/Pagination.vue";
-import {Link, useForm, usePage} from "@inertiajs/vue3";
 import DashboardLayout from "@/Layouts/AdministrationLayout/DashboardLayout.vue";
 import FilterSection from "@/AppComponents/Dashbboard/FilterSection.vue";
 import {onMounted, ref, watch} from "vue";

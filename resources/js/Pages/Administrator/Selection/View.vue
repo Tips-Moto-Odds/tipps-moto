@@ -1,10 +1,10 @@
 <script setup>
-import { Link, useForm } from "@inertiajs/vue3";
+import {Link, useForm} from "@inertiajs/vue3";
 import DashboardLayout from "@/Layouts/AdministrationLayout/DashboardLayout.vue";
-import { ref } from "vue";
-import { useDateFormat } from "@vueuse/core"; // Ensure correct package import
-import { debounce } from "lodash";
-import { getPredictions } from "./Actions.js"; // Ensure correct path
+import {ref} from "vue";
+import {useDateFormat} from "@vueuse/core"; // Ensure correct package import
+import {debounce} from "lodash";
+import {getPredictions} from "./Actions.js"; // Ensure correct path
 
 const props = defineProps(["selection", "packages", "tips"]);
 
@@ -164,7 +164,7 @@ function deleteSelection() {
                         />
                         <div id="displaySearch" class="hidden w-100 bg-white rounded shadow" style="z-index: 200">
                             <div class="p-[10px]">
-                                <p v-if="tipsSearchData.length == 0" class="p-[20px] text-center bg-gray-700">
+                                <p v-if="tipsSearchData.length === 0" class="p-[20px] text-center bg-gray-700">
                                     No Tips Found
                                 </p>
                                 <table v-else>

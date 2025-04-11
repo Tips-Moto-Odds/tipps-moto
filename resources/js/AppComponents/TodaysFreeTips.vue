@@ -1,6 +1,5 @@
 <script setup>
 import HomeTipsDisplay from "@/AppComponents/HomeTipsDisplay.vue";
-import {useDateFormat} from "@vueuse/shared";
 import {usePage} from "@inertiajs/vue3";
 import {computed} from "vue";
 

@@ -1,6 +1,4 @@
 <script setup>
-import PageHeading from "@/Pages/Home/components/PageHeading.vue";
-import HomeLayout from "@/Layouts/HomeLayout/HomeLayout.vue";
 import {Head} from "@inertiajs/vue3";
 import Navigation from "@/AppComponents/Navigation.vue";
 import AppFooterMain from "@/AppComponents/AppFooterMain.vue";

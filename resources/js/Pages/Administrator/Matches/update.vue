@@ -1,5 +1,5 @@
 <script setup>
-import {Link, router, useForm, usePage} from "@inertiajs/vue3";
+import {Link, useForm, usePage} from "@inertiajs/vue3";
 import DashboardLayout from "@/Layouts/AdministrationLayout/DashboardLayout.vue";
 import CreateTipForm from "@/Pages/Administrator/Matches/Componsnets/CreateTipForm.vue";
 

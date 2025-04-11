@@ -1,5 +1,5 @@
 <script setup>
-import {Link, useForm, usePage} from "@inertiajs/vue3"
+import {useForm, usePage} from "@inertiajs/vue3"
 import DashboardLayout from "@/Layouts/AdministrationLayout/DashboardLayout.vue";
 import {useDateFormat} from "@vueuse/shared";
 import Pagination from "@/AppComponents/Global/Pagination.vue";
@@ -63,7 +63,8 @@ const pageController = useForm({
                                     <p class="text-gray-300 text-sm">{{ useDateFormat(transaction.created_at, 'HH:mm').value }}</p>
                                 </td>
                                 <td>
-                                    <p v-if=" transaction.transaction_status  == 'pending'" class="text-orange-300 text-center">{{ transaction.transaction_status }}</p>
+                                    <p v-if=" transaction.transaction_status  === 'pending'"
+                                       class="text-orange-300 text-center">{{ transaction.transaction_status }}</p>
                                     <p v-else class="text-green-400 text-center">{{ transaction.transaction_status }}</p>
                                 </td>
                                 <td class="text-center">{{ transaction.transaction_reference }}</td>

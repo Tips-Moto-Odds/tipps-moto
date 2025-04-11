@@ -1,6 +1,6 @@
 <script setup>
 import Pagination from "@/AppComponents/Global/Pagination.vue";
-import {Link, useForm, usePage} from "@inertiajs/vue3"
+import {Link, useForm} from "@inertiajs/vue3"
 import DashboardLayout from "@/Layouts/AdministrationLayout/DashboardLayout.vue";
 import {watch} from "vue";
 import {debounce} from "lodash";

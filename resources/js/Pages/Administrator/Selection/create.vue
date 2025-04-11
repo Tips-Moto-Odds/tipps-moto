@@ -1,7 +1,7 @@
 <script setup>
 import {Link, useForm} from "@inertiajs/vue3";
 import DashboardLayout from "@/Layouts/AdministrationLayout/DashboardLayout.vue";
-import { ref} from "vue";
+import {ref} from "vue";
 import {useDateFormat} from "@vueuse/shared";
 import {debounce} from "lodash";
 
@@ -93,7 +93,8 @@ function createSelection(){
                         <input v-model="tipSearch" class="rounded w-100 block text-black" @keyup="debouncedSearchMatch" @blur="resetSearch" @focus="displaySearch">
                         <div id="displaySearch" class="hidden w-100 bg-white rounded shadow" style="z-index: 200">
                             <div class="p-[10px]">
-                                <p v-if="tipsSearchData.length == 0" class="p-[20px] text-centers bg-gray-700">No Tips Found</p>
+                                <p v-if="tipsSearchData.length === 0" class="p-[20px] text-centers bg-gray-700">No Tips
+                                    Found</p>
                                 <table v-else>
                                     <thead>
                                     <tr class="text-left">
@@ -127,7 +128,7 @@ function createSelection(){
                     </div>
                     <hr>
                     <div>
-                        <p v-if="tips.length == 0" class="p-[20px] text-centers bg-gray-700">No Tips Selected</p>
+                        <p v-if="tips.length === 0" class="p-[20px] text-centers bg-gray-700">No Tips Selected</p>
                         <table v-else>
                             <thead>
                             <tr class="text-left">

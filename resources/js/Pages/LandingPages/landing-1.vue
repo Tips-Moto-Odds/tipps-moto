@@ -1,9 +1,5 @@
 <script setup>
-import Navigation from "@/AppComponents/Navigation.vue";
-import AppFooterMain from "@/AppComponents/AppFooterMain.vue";
-import {applyBackGroundGray} from "@/HelperFunctions/appFunctions.js";
 
-// applyBackGroundGray()
 </script>
 
 <template>
