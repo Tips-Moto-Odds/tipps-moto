@@ -7,6 +7,7 @@ import {debounce} from "lodash";
 import {openSideBar} from "@/HelperFunctions/modalControl.js";
 import SideLayout from "@/AppComponents/Dashbboard/SideLayout.vue";
 import AddAffiliate from "@/Pages/Administrator/Affiliate/Components/AddAffiliate.vue";
+import {useForm} from "@inertiajs/vue3";
 
 const props = defineProps(['affiliates', 'stats', 'search']);
 
