@@ -15,16 +15,12 @@
     $is_a_profile_path = function (): bool
     {
         $currentRoute = Illuminate\Support\Facades\Route::currentRouteName();
-
-        if (Illuminate\Support\Str::startsWith($currentRoute, 'Profile')) {
-            return true;
-        }
-
-        return false;
+//        dd(Illuminate\Support\Str::startsWith($currentRoute, 'Profile'));
+         return true;
     }
 @endphp
-
-@if($env != 'local' && is_a_profile_path())
+{{--$env != 'local' &&--}}
+@if( $is_a_profile_path())
 
     @push('head')
         <!-- Facebook Pixel Code -->

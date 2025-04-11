@@ -24,7 +24,7 @@
     use App\Http\Requests\WithdrawalRequest;
 
     class CustomerController extends Controller {
-        private bool $allTipsFree = false;
+        private bool $allTipsFree = true;
 
         public function subscriptions(Request $request): Response
         {
