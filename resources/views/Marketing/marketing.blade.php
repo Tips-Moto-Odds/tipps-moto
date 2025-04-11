@@ -1,15 +1,11 @@
 {{-- Head content --}}
 @php
     $env = env('APP_ENV');
-    $trackable = [
-        'Home',
-        'tips',
-        'about',
-        'faq',
-        'sign-up',
-        'sign-in'
-    ];
 
+    $in_whitelisted_routes = function(): bool {
+        $whitelisted_routes = ['Home', 'tips', 'about', 'faq', 'sign-up', 'sign-in'];
+        return in_array(Illuminate\Support\Facades\Route::currentRouteName(), $whitelisted_routes);
+    };
 
     $is_a_profile_path = function (): bool
     {
@@ -17,8 +13,7 @@
     }
 @endphp
 
-
-@if($env != 'local' && $is_a_profile_path())
+@if($env != 'local' && ($is_a_profile_path() || $in_whitelisted_routes()))
 
     @push('head')
         <!-- Facebook Pixel Code -->
