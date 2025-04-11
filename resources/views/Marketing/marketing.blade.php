@@ -1,4 +1,3 @@
-
 {{-- Head content --}}
 @php
     $env = env('APP_ENV');
@@ -14,13 +13,12 @@
 
     $is_a_profile_path = function (): bool
     {
-        $currentRoute = Illuminate\Support\Facades\Route::currentRouteName();
-//        dd(Illuminate\Support\Str::startsWith($currentRoute, 'Profile'));
-         return true;
+         return Illuminate\Support\Str::startsWith(request()->route()->uri, 'Profile');
     }
 @endphp
-{{--$env != 'local' &&--}}
-@if( $is_a_profile_path())
+
+
+@if($env != 'local' && $is_a_profile_path())
 
     @push('head')
         <!-- Facebook Pixel Code -->
