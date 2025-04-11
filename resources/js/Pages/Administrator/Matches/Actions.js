@@ -15,7 +15,6 @@ const sendRequest = async (form, page) => {
             }
         })
     } catch (error) {
-        console.log(error)
     }
 }
 
@@ -36,7 +35,6 @@ const unsubscribe = async (form, page) => {
             }
         })
     } catch (error) {
-        console.log(error)
     }
 }
 

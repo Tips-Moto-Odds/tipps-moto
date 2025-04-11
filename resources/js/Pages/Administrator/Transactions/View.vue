@@ -23,10 +23,8 @@ function formatTime(dateTimeString) {
 
 
 const updateUser = () => {
-  console.log(props.user.id)
 }
 const DeleteUsers = () => {
-  console.log(props.user.id)
 }
 
 const updateAdminMode = () => {

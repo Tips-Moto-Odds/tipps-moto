@@ -1,8 +1,7 @@
 <script setup>
-import {useForm} from "@inertiajs/vue3";
+import {Link, useForm} from "@inertiajs/vue3";
 import TextInput from "@/Components/TextInput.vue";
 import InputError from "@/Components/InputError.vue";
-import {Link} from "@inertiajs/vue3";
 import Navigation from "@/AppComponents/Navigation.vue";
 import AppFooterMain from "@/AppComponents/AppFooterMain.vue";
 
@@ -10,8 +9,6 @@ const form = useForm({
     email: '',
     password: '',
 });
-
-console.log(route('login'))
 
 function signIn() {
     form.transform(data => ({

@@ -1,246 +1,261 @@
 <?php
 
-namespace App\Http\Controllers;
+    namespace App\Http\Controllers;
 
-use App\Http\Requests\SubscribeRequest;
-use App\Http\Requests\WithdrawalRequest;
-use App\Models\Affiliate;
-use App\Models\Matches;
-use App\Models\Packages;
-use App\Models\Selection;
-use App\Models\Subscription;
-use App\Models\Transaction;
-use App\Models\User;
-use App\Models\Withdrawal;
-use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Str;
-use Inertia\Inertia;
+    use Throwable;
+    use Exception;
+    use Carbon\Carbon;
+    use App\Models\User;
+    use Inertia\Inertia;
+    use Inertia\Response;
+    use App\Models\Matches;
+    use App\Models\Packages;
+    use App\Models\Affiliate;
+    use App\Models\Selection;
+    use App\Models\Withdrawal;
+    use App\Models\Transaction;
+    use Illuminate\Support\Str;
+    use App\Models\Subscription;
+    use Illuminate\Http\Request;
+    use Illuminate\Support\Facades\Auth;
+    use Illuminate\Support\Facades\Hash;
+    use Illuminate\Http\RedirectResponse;
+    use App\Http\Requests\SubscribeRequest;
+    use App\Http\Requests\WithdrawalRequest;
 
-class CustomerController extends Controller
-{
-    public function subscriptions(Request $request): \Inertia\Response
-    {
-        $user = Auth::user();
-        $now = now();
-        $activeSubscriptions = [];
-        $userSubscriptions = $user->subscriptions ?? [];
+    class CustomerController extends Controller {
+        private bool $allTipsFree = true;
 
-        if ($userSubscriptions) {
-            foreach ($userSubscriptions as $subscription) {
-                $endDate = \Carbon\Carbon::parse($subscription->end_date)->startOfDay(); // Expiry date at 00:00:00
-                $updatedTime = \Carbon\Carbon::parse($subscription->updated_at)->format('H:i:s'); // Time part only
+        public function subscriptions(Request $request): Response
+        {
+            $now = now();
+            $user = Auth::user();
+            $activeSubscriptions = collect(); // default empty
 
+            // If all tips are free, return today's selections directly
+            if ($this->allTipsFree) {
+                $activeSubscriptions = Selection::whereDate('date_for', $now->toDateString())->get();
+            } else {
+                // Handle subscription expiry
+                $userSubscriptions = $user->subscriptions ?? [];
 
-                // If It's expired, update it
-                if ($endDate->lt($now->startOfDay()) && $updatedTime > $now->format('H:i:s')) {
-                    $subscription->status = 'expired';
-                    $subscription->save();
+                foreach ($userSubscriptions as $subscription) {
+                    $endDate = Carbon::parse($subscription->end_date)->startOfDay();
+                    $updatedTime = Carbon::parse($subscription->updated_at)->format('H:i:s');
+
+                    if ($endDate->lt($now->startOfDay()) && $updatedTime > $now->format('H:i:s')) {
+                        $subscription->status = 'expired';
+                        $subscription->save();
+                    }
                 }
+
+                // Get selections for the user's active subscriptions
+                $activePackageIds = $user->subscriptions()->where('status', 'active')->pluck('package_id');
+
+                $activeSubscriptions = Selection::whereIn('package_id', $activePackageIds)
+                                                ->whereDate('date_for', $now->toDateString())
+                                                ->get();
+
+                // Append end_date to each selection
+                $activeSubscriptions = $activeSubscriptions->map(function ($subscription) use ($user) {
+                    $sub = $user
+                        ->subscriptions()
+                        ->where('package_id', $subscription->package_id)
+                        ->where('status', 'active')
+                        ->first();
+
+                    $subscription->end_date = $sub?->end_date;
+                    return $subscription;
+                });
             }
 
-            $activeSubscriptions = Selection::whereIn('package_id', $user->subscriptions()->where('status', 'active')->pluck('package_id'))
-                ->where('date_for', $now->toDateString())
-                ->get();
+            return Inertia::render('UserPanel/Subscriptions', [
+                'subscriptions' => $activeSubscriptions
+            ]);
+        }
 
-            $activeSubscriptions = $activeSubscriptions->map(function ($subscription) use ($user){
-                $sub = $user->subscriptions()
-                    ->where('package_id',$subscription->package_id)
-                    ->where('status','active')->first();
 
-                $subscription->end_date = $sub->end_date;
+        public function subscriptions_tip(Request $request, Selection $selection): Response
+        {
+            // Decode the tips JSON
+            $tipsData = json_decode($selection->tips, true, 512, JSON_THROW_ON_ERROR) ?? [];
 
-                return $subscription;
+            // Fetch match details for each tip and format them properly
+            $formattedTips = collect($tipsData)->map(function ($tip) {
+
+                $match = Matches::find($tip['match_id']);
+
+                return [
+                    'tip_id'           => $tip['tip_id'] ?? null,
+                    'match_id'         => $tip['match_id'],
+                    'match_start_time' => $match->match_start_time ?? null,
+                    'home_teams'       => $match->home_teams ?? null,
+                    'away_teams'       => $match->away_teams ?? null,
+                    'league'           => $match->league ?? null,
+                    'mark_as_free'     => $tip['mark_as_free'] ?? "0",
+                    'prediction_type'  => $tip['prediction_type'],
+                    'predictions'      => $tip['prediction'],
+                ];
             });
+
+            return Inertia::render('UserPanel/PackageTips', [
+                'tips' => $formattedTips,
+            ]);
         }
 
-        return Inertia::render('UserPanel/Subscriptions', ['subscriptions' => $activeSubscriptions]);
-    }
+        /**
+         * @throws Exception
+         */
+        public function subscribe(SubscribeRequest $request): RedirectResponse
+        {
+            $package_id = $request->input('id');
 
-    public function subscriptions_tip(Request $request, Selection $selection): \Inertia\Response
-    {
-        // Decode the tips JSON
-        $tipsData = json_decode($selection->tips, true, 512, JSON_THROW_ON_ERROR) ?? [];
+            $transaction_code = $this->generateRandomCode();
+            $request['transaction_code'] = $transaction_code;
+            $package = Packages::where('name', $request->input('package'))->first();
 
-        // Fetch match details for each tip and format them properly
-        $formattedTips = collect($tipsData)->map(function ($tip) {
+            //create a new transaction
+            $transaction = Transaction::create([
+                                                   'user_id'               => auth()->user()->id,
+                                                   'currency'              => 'KSH',
+                                                   'amount'                => number_format($package->price + $package->tax, 2),
+                                                   'payment_method'        => 'M-Pesa',
+                                                   'package_id'            => $package_id,
+                                                   'transaction_reference' => $transaction_code,
+                                                   'transaction_type'      => 'subscription',
+                                               ]);
 
-            $match = Matches::find($tip['match_id']);
+            $onitController = new OnitController();
+            $push_stk_result = $onitController->deposit($request, $transaction);
 
-            return [
-                'tip_id' => $tip['tip_id'] ?? null,
-                'match_id' => $tip['match_id'],
-                'match_start_time' => $match->match_start_time ?? null,
-                'home_teams' => $match->home_teams ?? null,
-                'away_teams' => $match->away_teams ?? null,
-                'league' => $match->league ?? null,
-                'mark_as_free' => $tip['mark_as_free'] ?? "0",
-                'prediction_type' => $tip['prediction_type'],
-                'predictions' => $tip['prediction'],
-            ];
-        });
-
-        return Inertia::render('UserPanel/PackageTips', [
-            'tips' => $formattedTips,
-        ]);
-    }
-
-    /**
-     * @throws \Exception
-     */
-    public function subscribe(SubscribeRequest $request): RedirectResponse
-    {
-        $package_id = $request->input('id');
-
-        $transaction_code = $this->generateRandomCode();
-        $request['transaction_code'] = $transaction_code;
-        $package = Packages::where('name', $request->input('package'))->first();
-
-        //create a new transaction
-        $transaction = Transaction::create([
-            'user_id' => auth()->user()->id,
-            'currency' => 'KSH',
-            'amount' => number_format($package->price + $package->tax, 2),
-            'payment_method' => 'M-Pesa',
-            'package_id' => $package_id,
-            'transaction_reference' => $transaction_code,
-            'transaction_type' => 'subscription',
-        ]);
-
-        $onitController = new OnitController();
-        $push_stk_result = $onitController->deposit($request, $transaction);
-
-        return redirect()->back()->with('success', 'Subscription request sent. Awaiting confirmation.');
-    }
-
-
-    public function patchUser(Request $request, User $user)
-    {
-        $request->validate([
-            'name' => 'sometimes|string|unique:users,name,' . $user->id,
-            'email' => 'required|email|unique:users,email,' . $user->id,
-            'phone' => 'required|unique:users,phone,' . $user->id,
-        ]);
-
-        $user->name = $request->get('name');
-        $user->email = $request->get('email');
-        $user->phone = $request->get('phone');
-
-        $user->save();
-
-        return redirect()->back()->with('success', 'User updated successfully.');
-
-    }
-
-    public function patchPassword(Request $request, User $user): RedirectResponse
-    {
-        // Validate the request data
-        $request->validate([
-            'password' => 'required|string|min:8|confirmed',
-            'current_password' => 'required|string',
-        ]);
-
-        // Check if the provided current password matches the stored password
-        if (!Hash::check($request->current_password, $user->password)) {
-            return redirect()->back()->withErrors(['current_password' => 'The current password is incorrect.']);
+            return redirect()->back()->with('success', 'Subscription request sent. Awaiting confirmation.');
         }
 
-        $user->password = Hash::make($request->get('password'));
-        $user->save();
 
-        return redirect()->back()->with('message', 'Password updated successfully.');
-    }
+        public function patchUser(Request $request, User $user)
+        {
+            $request->validate([
+                                   'name'  => 'sometimes|string|unique:users,name,' . $user->id,
+                                   'email' => 'required|email|unique:users,email,' . $user->id,
+                                   'phone' => 'required|unique:users,phone,' . $user->id,
+                               ]);
 
-    public function generateRandomCode($length = 10): string
-    {
-        $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-        $charactersLength = strlen($characters);
-        $randomString = '';
-        for ($i = 0; $i < $length; $i++) {
-            $randomString .= $characters[rand(0, $charactersLength - 1)];
-        }
-        return $randomString;
-    }
+            $user->name = $request->get('name');
+            $user->email = $request->get('email');
+            $user->phone = $request->get('phone');
 
-    private function validateRequest($transaction): bool
-    {
-        return (new TransactionController())->validatePayment($transaction);
-    }
+            $user->save();
 
+            return redirect()->back()->with('success', 'User updated successfully.');
 
-    //TODO:No action
-    public function unsubscribe(Request $request): RedirectResponse
-    {
-        //get password from request
-        $request->validate([
-            'password' => 'required',
-        ]);
-
-        //get validated passwords from request
-        $password = $request->input('password');
-
-        //check if password is correct use hash check
-        if (!Hash::check($password, auth()->user()->password)) {
-            return redirect()->back()->with('error', 'Incorrect password');
         }
 
-        //check if user has an active subscription
-        $subscription = Subscription::where('user_id', auth()->user()->id)
-            ->where('status', 'active')
-            ->first();
+        public function patchPassword(Request $request, User $user): RedirectResponse
+        {
+            // Validate the request data
+            $request->validate([
+                                   'password'         => 'required|string|min:8|confirmed',
+                                   'current_password' => 'required|string',
+                               ]);
 
-        if (!$subscription) {
-            return redirect()->back()->with('error', 'You do not have an active subscription');
-        }
-
-        $subscription->status = 'cancelled';
-        $subscription->save();
-
-        return redirect()->back()->with('success', 'Subscription cancelled successfully');
-    }
-
-    public function joinAffiliate(): RedirectResponse
-    {
-        try {
-            $referralCode = strtoupper(substr(md5(uniqid(mt_rand(), true)), 0, 8));
-
-            $affiliate = Affiliate::where('user_id',auth()->user()->id)->first();
-
-            if ($affiliate) {
-                $affiliate->referral_code = $referralCode;
-                $affiliate->save();
-            }else{
-                $affiliate = Affiliate::create([
-                    'user_id' => auth()->user()->id,
-                    'referral_code' => $referralCode,
-                ]);
+            // Check if the provided current password matches the stored password
+            if (!Hash::check($request->current_password, $user->password)) {
+                return redirect()->back()->withErrors(['current_password' => 'The current password is incorrect.']);
             }
 
-            return redirect()->back();
+            $user->password = Hash::make($request->get('password'));
+            $user->save();
 
-        } catch (\Throwable $th) {
-            return redirect()->back();
+            return redirect()->back()->with('message', 'Password updated successfully.');
+        }
+
+        public function generateRandomCode($length = 10): string
+        {
+            $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+            $charactersLength = strlen($characters);
+            $randomString = '';
+            for ($i = 0 ; $i < $length ; $i++) {
+                $randomString .= $characters[rand(0, $charactersLength - 1)];
+            }
+            return $randomString;
+        }
+
+        private function validateRequest($transaction): bool
+        {
+            return (new TransactionController())->validatePayment($transaction);
+        }
+
+
+        //TODO:No action
+        public function unsubscribe(Request $request): RedirectResponse
+        {
+            //get password from request
+            $request->validate([
+                                   'password' => 'required',
+                               ]);
+
+            //get validated passwords from request
+            $password = $request->input('password');
+
+            //check if password is correct use hash check
+            if (!Hash::check($password, auth()->user()->password)) {
+                return redirect()->back()->with('error', 'Incorrect password');
+            }
+
+            //check if user has an active subscription
+            $subscription = Subscription::where('user_id', auth()->user()->id)
+                                        ->where('status', 'active')
+                                        ->first();
+
+            if (!$subscription) {
+                return redirect()->back()->with('error', 'You do not have an active subscription');
+            }
+
+            $subscription->status = 'cancelled';
+            $subscription->save();
+
+            return redirect()->back()->with('success', 'Subscription cancelled successfully');
+        }
+
+        public function joinAffiliate(): RedirectResponse
+        {
+            try {
+                $referralCode = strtoupper(substr(md5(uniqid(mt_rand(), true)), 0, 8));
+
+                $affiliate = Affiliate::where('user_id', auth()->user()->id)->first();
+
+                if ($affiliate) {
+                    $affiliate->referral_code = $referralCode;
+                    $affiliate->save();
+                } else {
+                    $affiliate = Affiliate::create([
+                                                       'user_id'       => auth()->user()->id,
+                                                       'referral_code' => $referralCode,
+                                                   ]);
+                }
+
+                return redirect()->back();
+
+            } catch (Throwable $th) {
+                return redirect()->back();
+            }
+        }
+
+        public function withdraw(WithdrawalRequest $request): RedirectResponse
+        {
+            $user = auth()->user();
+            $transaction_code = strtoupper(Str::random(10));
+
+            Withdrawal::create([
+                                   'user_id'          => $user->id,
+                                   'amount'           => $request->amount,
+                                   'destination'      => $request->phone,
+                                   'method'           => 'mpesa',
+                                   'status'           => 'pending',
+                                   'transaction_code' => $transaction_code,
+                                   'notes'            => 'Awaiting approval'
+                               ]);
+
+            return redirect()->back()->with('success', 'Withdrawal request submitted and is pending approval.');
         }
     }
-
-    public function withdraw(WithdrawalRequest $request): RedirectResponse
-    {
-        $user = auth()->user();
-        $transaction_code = strtoupper(Str::random(10));
-
-        Withdrawal::create([
-            'user_id' => $user->id,
-            'amount' => $request->amount,
-            'destination' => $request->phone,
-            'method' => 'mpesa',
-            'status' => 'pending',
-            'transaction_code' => $transaction_code,
-            'notes' => 'Awaiting approval'
-        ]);
-
-        return redirect()->back()->with('success', 'Withdrawal request submitted and is pending approval.');
-    }
-}

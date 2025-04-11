@@ -6,8 +6,6 @@ import TipButtonDisplay from "@/AppComponents/TipButtonDisplay.vue";
 
 const props = defineProps(['tip','tags'])
 const page = usePage();
-
-console.log(props.tags?.includes('yesterdays-tips'));
 </script>
 
 

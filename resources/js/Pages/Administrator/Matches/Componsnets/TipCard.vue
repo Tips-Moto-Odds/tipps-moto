@@ -7,7 +7,6 @@ function deleteTip(id) {
         .then((response) => {
             window.location.reload();
         }).catch((error) => {
-        console.log(error);
     })
 }
 </script>

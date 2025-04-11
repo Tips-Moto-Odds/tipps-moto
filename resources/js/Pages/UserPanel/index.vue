@@ -26,7 +26,6 @@ const withdrawForm = useForm({
 const updateUser = () => {
     form.patch(route('UpdateUser', [user.id]), {
         onSuccess: () => {
-            console.log("done")
         },
     })
 }

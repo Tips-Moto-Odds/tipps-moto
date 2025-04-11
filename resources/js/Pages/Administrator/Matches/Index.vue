@@ -10,14 +10,14 @@ import hasAccess from "@/HelperFunctions/getAccess.js";
 import {closeSideBar} from "@/HelperFunctions/modalControl.js";
 import FilterPannel from "@/Pages/Administrator/Matches/Componsnets/FilterPannel.vue";
 
-const props = defineProps(['matches', 'search'])
+const props = defineProps(['matches', 'search', 'simpleFilter'])
 const page = usePage()
 const accountType = page.props.account_type
 const pageController = useForm({
-    search: props.search
+    search: props.search,
+    simpleFilter: props.simpleFilter ?? 'today',
 });
 
-// Debounced function to fetch users
 const fetchMatches = debounce((value) => {
     pageController.get(route('dashboard.matches.listMatches'), {
         preserveScroll: true
@@ -26,9 +26,14 @@ const fetchMatches = debounce((value) => {
 
 watch(() => pageController.search, (newValue, oldValue) => {
     if (newValue !== oldValue) {
-        fetchMatches(newValue);
+        fetchMatches();
     }
 });
+
+const simpleFilterUpdate = (value) => {
+    pageController.simpleFilter = value;
+    fetchMatches()
+}
 
 const sidebarOpen = () => closeSideBar()
 
@@ -56,7 +61,8 @@ const sidebarOpen = () => closeSideBar()
             </div>
         </div>
         <template v-slot:side>
-            <FilterPannel :title="'Match Filters'" @close="sidebarOpen"/>
+            <FilterPannel :simpleFilter="pageController.simpleFilter" :title="'Match Filters'" @close="sidebarOpen"
+                          @filterChanged="simpleFilterUpdate"/>
         </template>
         <div class="flex gap-3 px-[10px]">
             <div v-if="matches && matches.data.length > 0" class="app-panel w-full">

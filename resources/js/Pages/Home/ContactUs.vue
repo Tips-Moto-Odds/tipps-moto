@@ -7,7 +7,6 @@ const handleOpening = () => $("#main-site-menu").css('right', '100%')
 const handelClosing = () => $('#main-site-menu').css('right', '0%')
 
 function sendMessage() {
-    console.log("sending message")
 }
 
 </script>

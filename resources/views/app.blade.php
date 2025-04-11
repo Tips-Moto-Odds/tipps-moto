@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
+    @include('Marketing.marketing')
+    @stack('head')
+
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -17,13 +20,14 @@
     @inertiaHead
 </head>
 <body class="iter antialiased bg-[#f4660d]">
+@stack('body-top')
 @inertia
 
 @routes
 @vite(['resources/js/app.js', "resources/js/Pages/{$page['component']}.vue"])
 @inertiaHead
 
-
+@stack('body-bottom')
 <!-- Add these to your main HTML file if not already included -->
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
