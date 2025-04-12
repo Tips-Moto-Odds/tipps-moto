@@ -91,6 +91,10 @@
 
     @push('body-bottom')@endpush
 
+    @push('headers')
+        <script>const vapidKey = "{{ env('VAPID_PUBLIC_KEY') }}";</script>
+    @endpush
+
 @endif
 
 

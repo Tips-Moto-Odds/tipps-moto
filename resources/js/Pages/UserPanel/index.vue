@@ -6,6 +6,7 @@ import TextInput from "@/Components/TextInput.vue";
 import AffiliateCustomerCard from "@/Pages/UserPanel/AffiliateCustomerCard.vue";
 import WithdrawalCard from "@/Pages/UserPanel/Components/WithdrawalCard.vue";
 import {ref} from "vue";
+import {subscribeToPush} from "@/HelperFunctions/SubscriberFunction.js";
 
 const props = defineProps(['user', 'affiliate'])
 const page = usePage()
@@ -44,6 +45,13 @@ const confirmPayment = () => {
         }
     });
 };
+
+navigator.serviceWorker.ready.then(async registration => {
+    const subscription = await registration.pushManager.getSubscription();
+    if (!subscription) {
+        await subscribeToPush();
+    }
+});
 
 </script>
 

@@ -2,16 +2,20 @@ import './bootstrap';
 import '../css/app.css';
 
 import {createApp, h} from 'vue';
-import {createInertiaApp} from '@inertiajs/vue3';
+import {createInertiaApp, Link} from '@inertiajs/vue3';
 import {resolvePageComponent} from 'laravel-vite-plugin/inertia-helpers';
 import {ZiggyVue} from '/vendor/tightenco/ziggy';
-import {Link} from "@inertiajs/vue3";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap';
 import jQuery from 'jquery';
 import {createPinia} from "pinia";
 import '../scss/_index.scss'
 
+if ("serviceWorker" in navigator) {
+    window.addEventListener("load", function () {
+        navigator.serviceWorker.register("/sw.js");
+    });
+}
 
 window.$ = jQuery;
 
@@ -39,4 +43,11 @@ createInertiaApp({
     },
 }).then(r => {
 });
+
+
+
+
+
+
+
 

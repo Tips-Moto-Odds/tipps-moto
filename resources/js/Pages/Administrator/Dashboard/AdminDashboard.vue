@@ -1,9 +1,10 @@
 <script setup>
 import {computed, onMounted, reactive} from "vue";
 import {router} from "@inertiajs/vue3";
+import {notifyAction, subscribeToPush} from "@/HelperFunctions/SubscriberFunction.js"
 
 
-const props = defineProps(['model', 'users','payments','chartData', 'RecentPurchases']);
+const props = defineProps(['model', 'users', 'payments', 'chartData', 'RecentPurchases']);
 
 const urlParams = new URLSearchParams(window.location.search);
 
@@ -83,14 +84,27 @@ const filterInsights = () => {
     });
 };
 
+const alertUsersOfNewTips = () => {
+    notifyAction({
+        title: 'We have New Tips',
+        body: 'Log in to check out our new Tips'
+    })
+}
+
 onMounted(() => {
-    google.charts.load('current', {packages: ['corechart'], callback: drawChart});
+    google.charts.load('current', {
+        packages: ['corechart'], callback: drawChart
+    });
 });
 
 </script>
 
 <template>
     <div class="px-2 md:px-4">
+        <section>
+            <button @click.prevent="subscribeToPush" id="pushNotifications" class="bg-primary p-[10px]">Test</button>
+            <button @click.prevent="alertUsersOfNewTips" id="Notify" class="bg-primary p-[10px]">Notify</button>
+        </section>
         <div class="app-card w-full rounded py-4 md:p-6">
             <!-- Summary Cards -->
             <ul class="flex flex-col md:flex-row justify-between mb-8 px-0">
@@ -106,7 +120,8 @@ onMounted(() => {
 
                 <li class="display-card">
                     <div class="icon-container">
-                        <img width="60" height="60" src="https://img.icons8.com/ios-glyphs/90/3AD863/money--v1.png" alt="money icon"/>
+                        <img width="60" height="60" src="https://img.icons8.com/ios-glyphs/90/3AD863/money--v1.png"
+                             alt="money icon"/>
                     </div>
                     <div class="info">
                         <h3>Payments</h3>
@@ -116,7 +131,8 @@ onMounted(() => {
 
                 <li class="display-card">
                     <div class="icon-container">
-                        <img width="50" height="50" src="https://img.icons8.com/ios/50/0ED3E2/artificial-intelligence.png" alt="AI"/>
+                        <img width="50" height="50"
+                             src="https://img.icons8.com/ios/50/0ED3E2/artificial-intelligence.png" alt="AI"/>
                     </div>
                     <div class="info">
                         <h3>Model Accuracy</h3>
@@ -164,12 +180,12 @@ onMounted(() => {
                         <li v-for="purchases in RecentPurchases" :key="purchases.id" class="">
                             <div class="flex justify-between">
                                 <div>
-                                <p>{{purchases.user.name }}</p>
-                                <p class="text-gray-300">{{ purchases.user.email }}</p>
+                                    <p>{{ purchases.user.name }}</p>
+                                    <p class="text-gray-300">{{ purchases.user.email }}</p>
                                 </div>
                                 <div class="text-right">
-                                    <p>{{purchases.package?.name}}</p>
-                                    <p class="text-green-500">Ksh {{purchases.amount }}</p>
+                                    <p>{{ purchases.package?.name }}</p>
+                                    <p class="text-green-500">Ksh {{ purchases.amount }}</p>
                                 </div>
                             </div>
                             <hr class="border-gray-500">
