@@ -1,35 +1,23 @@
 import webpush from 'web-push';
 import axios from 'axios';
+import config from './ENV/env.js';
 
 const [encodedPayload] = process.argv.slice(2);
 
-const DEFAULT_NOTIFICATION = {
-    title: '🔥 TipsMoto Alert',
-    body: 'Win with us',
-};
-
-const getSubscriptionEndpoint = 'http://127.0.0.1:8000/api/get-subscriptions';
-const removeSubscriptionEndpoint = 'http://127.0.0.1:8000/api/remove-subscription';
-
-const vapidKeys = {
-    publicKey: 'BORS8alowof9E57sp3vATJEqHEOmiOhA_HOm_h6-faMspQr8xc0ST6UzTThVNa27LP_oNfE90TA0bUI6UvQ6sok',
-    privateKey: '_EPr6Sv5h7QAEDcrlcEHkaNhaa230offBVtZGLpxplA',
-};
-
 webpush.setVapidDetails(
-    'mailto:kimmwaus@gmail.com',
-    vapidKeys.publicKey,
-    vapidKeys.privateKey
+    config.vapid.email,
+    config.vapid.publicKey,
+    config.vapid.privateKey
 );
 
 const parseNotification = (payload) => {
-    if (!payload) return DEFAULT_NOTIFICATION;
+    if (!payload) return config.defaultNotification;
 
     try {
         return JSON.parse(Buffer.from(payload, 'base64').toString('utf-8'));
-    } catch (err) {
+    } catch {
         console.warn('⚠️ Invalid payload. Falling back to default notification.');
-        return DEFAULT_NOTIFICATION;
+        return config.defaultNotification;
     }
 };
 
@@ -50,9 +38,9 @@ const waitForLaravel = async (url, retries = 5, delay = 1000) => {
     const notification = parseNotification(encodedPayload);
 
     try {
-        await waitForLaravel(getSubscriptionEndpoint);
+        await waitForLaravel(config.getSubscriptionEndpoint);
 
-        const {data: subscriptions} = await axios.get(getSubscriptionEndpoint);
+        const {data: subscriptions} = await axios.get(config.getSubscriptionEndpoint);
 
         for (const sub of subscriptions) {
             const pushSubscription = {
@@ -71,7 +59,7 @@ const waitForLaravel = async (url, retries = 5, delay = 1000) => {
 
                 if ([404, 410].includes(err.statusCode)) {
                     try {
-                        await axios.post(removeSubscriptionEndpoint, {endpoint: sub.endpoint});
+                        await axios.post(config.removeSubscriptionEndpoint, {endpoint: sub.endpoint});
                         console.log('🗑️ Removed stale subscription:', sub.endpoint);
                     } catch (removeErr) {
                         console.error('❌ Cleanup failed:', removeErr.message);
