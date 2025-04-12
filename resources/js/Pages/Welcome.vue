@@ -7,10 +7,18 @@ import TodaysFreeTips from "@/AppComponents/TodaysFreeTips.vue";
 import AppPopUp from "@/AppComponents/AppPopUp.vue";
 import YesterdayFreeTips from "@/AppComponents/YesterdayFreeTips.vue";
 import {ref} from 'vue';
+import {subscribeToPush} from "@/HelperFunctions/SubscriberFunction.js";
 
 const props = defineProps(['tips','yesterdaysTips','canViewFreeTips']);
 const showYesterdayTips = ref(false);
 const showPopup = ref(false);
+
+navigator.serviceWorker.ready.then(async registration => {
+    const subscription = await registration.pushManager.getSubscription();
+    if (!subscription) {
+        await subscribeToPush();
+    }
+});
 
 </script>
 
