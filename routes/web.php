@@ -5,10 +5,8 @@
     use App\Jobs\SendPushNotifications;
     use Illuminate\Support\Facades\Route;
     use App\Http\Middleware\LogInAsAdmin;
-    use Barryvdh\Debugbar\Facades\Debugbar;
     use App\Http\Middleware\CaptureAffiliateLink;
 
-    Debugbar::disable();
 
     Route::middleware([
                           CaptureAffiliateLink::class,
