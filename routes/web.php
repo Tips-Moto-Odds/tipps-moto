@@ -3,13 +3,10 @@
     use Illuminate\Http\Request;
     use Illuminate\Support\Facades\DB;
     use App\Jobs\SendPushNotifications;
-    use Illuminate\Support\Facades\Log;
     use Illuminate\Support\Facades\Route;
     use App\Http\Middleware\LogInAsAdmin;
     use App\Http\Middleware\CaptureAffiliateLink;
 
-
-    Log::info("test");
     Route::middleware([
                           CaptureAffiliateLink::class,
                           LogInAsAdmin::class
