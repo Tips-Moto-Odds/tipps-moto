@@ -104,7 +104,7 @@ const exportCSV = () => {
                     </thead>
                     <tbody>
                     <template v-for="user in MarketingData.data" :key="user.id">
-                        <Link :href="route('dashboard.user.listUsers', [user.id])" as="tr">
+                        <Link :href="route('dashboard.user.viewUsers', [user.id])" as="tr">
                             <td>{{ user.id }}</td>
                             <td>{{ user.name }}</td>
                             <td>{{ user.email }}</td>
