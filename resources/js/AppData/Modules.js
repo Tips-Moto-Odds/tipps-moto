@@ -52,6 +52,13 @@ const defaultGrouping = [
                 accessLevel: 'Guest'
             },
             {
+                name: "Marketing",
+                link: route('dashboard.Marketing.listMarketing'),
+                supported: ['dashboard.Marketing.listMarketing'],
+                icon: 'https://img.icons8.com/ios/50/ffffff/megaphone.png',
+                accessLevel: 'Guest'
+            },
+            {
                 name: "Affiliate",
                 link: route('dashboard.Affiliates.listAffiliates'),
                 supported: ['dashboard.Affiliates.listAffiliates'],

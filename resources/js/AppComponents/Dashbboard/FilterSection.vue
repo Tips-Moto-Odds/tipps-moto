@@ -1,7 +1,6 @@
 <script setup>
 import {openSideBar} from "@/HelperFunctions/modalControl.js";
 
-
 const icons = [
   {
     link: "https://img.icons8.com/ios/100/ffffff/filter--v1.png"
@@ -10,6 +9,12 @@ const icons = [
     link: "https://img.icons8.com/pastel-glyph/64/ffffff/download--v1.png"
   }
 ]
+const emit = defineEmits(['export'])
+
+const exportData = () => {
+    emit('export')
+}
+
 </script>
 
 
@@ -20,7 +25,7 @@ const icons = [
                 <img width="24" height="24" :src="icons[0].link" alt="filter--v1"/>
                 <p>Filter</p>
             </li>
-            <li>
+            <li @click="exportData">
                 <img width="32" height="32" :src="icons[1].link" alt="download--v1"/>
                 <p>Export</p>
             </li>

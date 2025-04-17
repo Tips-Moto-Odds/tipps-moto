@@ -2,6 +2,7 @@
 
     namespace App\Models;
 
+    use Closure;
     use Laravel\Jetstream\HasTeams;
     use Laravel\Sanctum\HasApiTokens;
     use Illuminate\Support\Facades\DB;
@@ -16,6 +17,9 @@
     use Illuminate\Foundation\Auth\User as Authenticatable;
     use NotificationChannels\WebPush\HasPushSubscriptions;
 
+    /**
+     * @method static whereDoesntHave(string $string, Closure $param)
+     */
     class User extends Authenticatable {
         use SoftDeletes, HasApiTokens, HasFactory, HasProfilePhoto, HasTeams, Notifiable, TwoFactorAuthenticatable,
             HasPushSubscriptions;
@@ -55,6 +59,7 @@
             'profile_photo_url',
             'role_name'
         ];
+
 
         /**
          * Get the attributes that should be cast.
