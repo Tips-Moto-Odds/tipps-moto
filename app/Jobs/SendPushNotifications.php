@@ -42,10 +42,7 @@
                             ])
             );
 
-            Log::info($payload);
-
             $command = "$node \"$scriptPath\" \"$payload\"";
-            Log::info('[PushJob] Running command:', [$command]);
 
             $process = Process::fromShellCommandline($command);
             $process->run();

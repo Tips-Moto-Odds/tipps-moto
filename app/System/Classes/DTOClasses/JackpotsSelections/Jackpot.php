@@ -9,7 +9,7 @@
     use App\Models\Selection;
     use App\System\Classes\DTOClasses\SelectionGeneratorClasses\SelectionAbstraction;
 
-    class SportPesaJackpot extends SelectionAbstraction {
+    class Jackpot extends SelectionAbstraction {
 
         public string $SPORTPESAMIDWEEKJACKPOT = 'Sport Pesa Mid Week Jackpot';
         public string $SPORTPESAMEGAJACKPOT = 'Sport Pesa Mega Jackpot';

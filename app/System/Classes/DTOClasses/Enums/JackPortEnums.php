@@ -2,7 +2,7 @@
 
     namespace App\System\Classes\DTOClasses\Enums;
 
-    use App\System\Classes\DTOClasses\JackpotsSelections\SportPesaJackpot;
+    use App\System\Classes\DTOClasses\JackpotsSelections\Jackpot;
 
     enum JackPortEnums: string {
         case SPORT_PESA_MID_WEEK_JACKPOT = 'SPMWJ';
@@ -13,7 +13,7 @@
 
         public function parserClass(): string
         {
-            return SportPesaJackpot::class;
+            return Jackpot::class;
         }
     }
 
