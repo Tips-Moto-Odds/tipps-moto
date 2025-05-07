@@ -11,7 +11,7 @@ import {subscribeToPush} from "@/HelperFunctions/SubscriberFunction.js";
 
 const props = defineProps(['tips','yesterdaysTips','canViewFreeTips']);
 const showYesterdayTips = ref(false);
-const showPopup = ref(false);
+const showPopup = ref(true);
 
 navigator.serviceWorker.ready.then(async registration => {
     const subscription = await registration.pushManager.getSubscription();
