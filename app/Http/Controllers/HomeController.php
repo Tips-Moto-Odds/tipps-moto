@@ -69,7 +69,7 @@ class HomeController extends Controller
                 $daysSinceCreation = $userCreatedAt ? $userCreatedAt->diffInDays($today) : null;
                 $daysSinceLastSubscription = $lastSubscriptionDate?->diffInDays($today);
 
-                //enable free tips for all authenitcated users
+                //enable free tips for all authenticated users
                 return true;
 
 //                return (Auth::check() && Auth::user()->subscriptions()->where('status', 'active')->where('end_date', '>', now()->toDateString())->exists())
