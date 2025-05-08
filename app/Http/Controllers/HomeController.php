@@ -2,16 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Matches;
 use App\Models\Tips;
-use Barryvdh\Debugbar\Facades\Debugbar;
-use Illuminate\Support\Carbon;
-use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
+use Inertia\Response;
+use App\Models\Matches;
 use App\Models\Packages;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
-use Inertia\Response;
 
 class HomeController extends Controller
 {
@@ -71,10 +69,12 @@ class HomeController extends Controller
                 $daysSinceCreation = $userCreatedAt ? $userCreatedAt->diffInDays($today) : null;
                 $daysSinceLastSubscription = $lastSubscriptionDate?->diffInDays($today);
 
+                //enable free tips for all authenitcated users
+                return true;
 
-                return (Auth::check() && Auth::user()->subscriptions()->where('status', 'active')->where('end_date', '>', now()->toDateString())->exists())
-                    || (Auth::check() && $daysSinceCreation <= 3)
-                    || (Auth::check() && $daysSinceLastSubscription <= 3);
+//                return (Auth::check() && Auth::user()->subscriptions()->where('status', 'active')->where('end_date', '>', now()->toDateString())->exists())
+//                    || (Auth::check() && $daysSinceCreation <= 3)
+//                    || (Auth::check() && $daysSinceLastSubscription <= 3);
             } else {
                 return true;
             }
