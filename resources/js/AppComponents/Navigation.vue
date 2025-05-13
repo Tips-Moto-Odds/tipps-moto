@@ -1,6 +1,6 @@
 <script setup>
 import {usePage} from "@inertiajs/vue3";
-import {ref, nextTick} from "vue";
+import {nextTick, ref} from "vue";
 
 const page = usePage();
 const isMenuOpen = ref(false);
@@ -10,6 +10,7 @@ const menuHeight = ref("70px"); // Default collapsed height
 // Navigation paths
 const appPaths = [
     { name: "Home", path: route('Home') },
+    {name: "Markets", path: route('markets')},
     { name: "Tips", path: route('tips') },
     { name: "Subscriptions", path: route('profile.subscription') },
     { name: "Account", path: route('dashboard') }
@@ -43,19 +44,16 @@ const dropDownMenu = async () => {
 </script>
 
 <template>
-    <div class="bg-[#f4660d] w-full p-[10px]" style="position: fixed; top: 0px; z-index: 2000"></div>
+    <div class="filler"></div>
 
-    <div id="home-menu" ref="homeMenu"
-         class="container mx-auto flex justify-between mb-[20px] mt-[5px] rounded shadow bg-[#d88731] overflow-hidden"
-         :style="{ height: menuHeight }">
-
+    <div id="home-menu" class="container" ref="homeMenu" :style="{ height: menuHeight }">
         <!-- Logo -->
-        <Link :href="'/'" as="div" class="w-[50px] pt-[20px] flex items-center justify-center h-[50px] align-self-start">
-            <img class=" md:w-[50px]" src="/storage/System/Icons/logo-dark.png">
+        <Link id="logo" :href="'/'" as="div">
+            <img class="md:w-[50px]" src="/storage/System/Icons/logo-dark.png">
         </Link>
 
         <!-- Navigation List -->
-        <ul class="p-[15px] gap-xl-2 m-0 flex flex-col lg:flex-row lg:w-fit lg:pt-[40px]">
+        <ul id="navigation_list">
             <li class="menu-button lg:hidden">{{ currentPage() }}</li>
             <template v-for="(linker, index) in appPaths" :key="linker.path">
                 <Link class="menu-button text-decoration-none"
@@ -74,11 +72,27 @@ const dropDownMenu = async () => {
 </template>
 
 <style lang="scss" scoped>
+#logo {
+    @apply w-[50px] pt-[20px] flex items-center justify-center h-[50px] self-start
+}
+
+#navigation_list {
+    @apply p-[15px] m-0 flex flex-col lg:flex-row lg:w-fit lg:pt-[40px] xl:gap-2
+}
+
+.filler {
+    @apply bg-[#f4660d] w-full p-[10px];
+    position: fixed;
+    top: 0;
+    z-index: 2000
+
+}
 #home-menu {
     transition: height 0.3s ease-in-out; /* Smooth dropdown animation */
     position: sticky !important;
     top: 10px;
     z-index: 5000;
+    @apply mx-auto flex justify-between mb-[20px] mt-[5px] rounded shadow bg-[#d88731] overflow-hidden;
 }
 
 .menu-button {
