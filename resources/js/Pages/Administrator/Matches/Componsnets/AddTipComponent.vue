@@ -55,8 +55,16 @@ function updateTip() {
                 <option v-if="tipForm.tip_type === '1X_X2_12' " value="-1">Home Win/Away Win</option>
                 <option v-if="tipForm.tip_type === 'GG-NG' " value="1">GG</option>
                 <option v-if="tipForm.tip_type === 'GG-NG' " value="-1">NG</option>
+                <option v-if="tipForm.tip_type === 'Over/Under' " value="Over 0.5">OVER 0.5</option>
+                <option v-if="tipForm.tip_type === 'Over/Under' " value="Over 1.5">OVER 1.5</option>
                 <option v-if="tipForm.tip_type === 'Over/Under' " value="Over 2.5">OVER 2.5</option>
+                <option v-if="tipForm.tip_type === 'Over/Under' " value="Over 3.5">OVER 3.5</option>
+                <option v-if="tipForm.tip_type === 'Over/Under' " value="Over 4.5">OVER 4.5</option>
+                <option v-if="tipForm.tip_type === 'Over/Under' " value="Under 0.5">UNDER 0.5</option>
+                <option v-if="tipForm.tip_type === 'Over/Under' " value="Under 1.5">UNDER 1.5</option>
                 <option v-if="tipForm.tip_type === 'Over/Under' " value="Under 2.5">UNDER 2.5</option>
+                <option v-if="tipForm.tip_type === 'Over/Under' " value="Under 3.5">UNDER 3.5</option>
+                <option v-if="tipForm.tip_type === 'Over/Under' " value="Under 4.5">UNDER 4.5</option>
             </select>
             <hr class="border-gray-200"/>
         </div>
