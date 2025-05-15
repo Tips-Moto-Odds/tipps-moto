@@ -1,10 +1,9 @@
 <script setup>
-import {useForm} from "@inertiajs/vue3";
+import {Link, useForm} from "@inertiajs/vue3";
 import TextInput from "@/Components/TextInput.vue";
 import InputLabel from "@/Components/InputLabel.vue";
 import InputError from "@/Components/InputError.vue";
 import Checkbox from "@/Components/Checkbox.vue";
-import {Link} from "@inertiajs/vue3";
 import Navigation from "@/AppComponents/Navigation.vue";
 import AppFooterMain from "@/AppComponents/AppFooterMain.vue";
 
@@ -102,7 +101,8 @@ const params = new URLSearchParams(window.location.search);
                 </InputLabel>
                 <InputLabel for="terms">
                     <div class="flex">
-                        <Checkbox id="terms" v-model:checked="form.acceptPromotions" name="terms" class="mr-[20px] p-0" required/>
+                        <Checkbox id="terms" v-model:checked="form.acceptPromotions" name="terms"
+                                  class="mr-[20px] p-0"/>
                         <p class="text-sm text-white p-0 m-0">I accept to receive promotional and marketing emails</p>
                     </div>
                     <InputError class="mt-2" :message="form.errors.acceptPromotions"/>

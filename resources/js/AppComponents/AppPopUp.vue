@@ -21,7 +21,7 @@ onMounted(() => {
     <!-- Popup modal -->
     <div v-if="isModalOpen" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 p-[10px]" style="z-index: 10000">
         <div class="bg-white p-2 rounded-lg shadow-lg max-w-sm w-full relative">
-            <Link href="/fb-give-away" as="div" class="bg-black">
+            <Link href="/register" as="div" class="bg-black">
                 <img style="width: 100%" src="/storage/System/register_pop_up.jpg">
             </Link>
             <div class="flex justify-center mt-2 mb-2 gap-2">

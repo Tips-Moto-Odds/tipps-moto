@@ -7,7 +7,43 @@ import ParticipantsOdds from "@/Pages/Home/Markets/Components/ParticipantsOdds.v
 
 const props = defineProps(['tips', 'yesterdaysTips', 'canViewFreeTips']);
 
-const participants = [];
+const participants = [
+    {
+        "name": "McLaren",
+        "nationality": "United Kingdom",
+        "odds": 1.08
+    },
+    {
+        "name": "Mercedes",
+        "nationality": "Germany",
+        "odds": 50.00
+    },
+    {
+        "name": "Ferrari",
+        "nationality": "Italy",
+        "odds": 50.00
+    },
+    {
+        "name": "Red Bull Racing",
+        "nationality": "Austria",
+        "odds": 100.00
+    },
+    {
+        "name": "Alpine",
+        "nationality": "France",
+        "odds": 100.00
+    },
+    {
+        "name": "Other",
+        "nationality": "Various",
+        "odds": 100.00
+    },
+    {
+        "name": "Williams",
+        "nationality": "United Kingdom",
+        "odds": 100.00
+    }
+];
 
 navigator.serviceWorker.ready.then(async registration => {
     const subscription = await registration.pushManager.getSubscription();
