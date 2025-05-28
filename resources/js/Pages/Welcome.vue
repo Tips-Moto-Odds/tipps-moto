@@ -7,7 +7,6 @@ import TodayFreeTips from "@/AppComponents/TodayFreeTips.vue";
 import AppPopUp from "@/AppComponents/AppPopUp.vue";
 import YesterdayFreeTips from "@/AppComponents/YesterdayFreeTips.vue";
 import {onMounted, ref} from 'vue';
-import {subscribeToPush} from "@/HelperFunctions/SubscriberFunction.js";
 
 const props = defineProps(['tips','yesterdaysTips','canViewFreeTips']);
 
@@ -42,12 +41,40 @@ onMounted(() => {
     timePopUp();
 });
 
-navigator.serviceWorker.ready.then(async registration => {
-    const subscription = await registration.pushManager.getSubscription();
-    if (!subscription) {
-        await subscribeToPush();
-    }
-});
+// navigator.serviceWorker.ready.then(async registration => {
+//     const subscription = await registration.pushManager.getSubscription();
+//     if (!subscription) {
+//         await subscribeToPush();
+//     }
+// });
+
+function calculateProfit() {
+    // Get input values
+    const budget = parseFloat(document.getElementById('starting-budget').value);
+    const stake = parseFloat(document.getElementById('stake-per-bet').value);
+    const days = parseInt(document.getElementById('time-period').value);
+    const packagePrice = parseFloat(document.getElementById('package-price').value);
+    const accuracy = parseFloat(document.getElementById('accuracy-rate').value) / 100;
+
+    // Default odds (can be adjusted dynamically if needed)
+    const odds = 2.0;
+
+    // Calculate total bets and winning bets
+    const totalBets = days;
+    const winningBets = totalBets * accuracy;
+
+    // Calculate total winnings and profit
+    const winnings = winningBets * stake * odds;
+    const spent = totalBets * stake;
+    const profit = winnings - packagePrice;
+
+    // Display result
+    document.getElementById('result').innerHTML = `
+                Estimated Profit: <strong>KES ${profit.toFixed(2)}</strong><br>
+                Total Winnings: <strong>KES ${winnings.toFixed(2)}</strong><br>
+                Total Spent (Including Package): <strong>KES ${(spent + packagePrice).toFixed(2)}</strong>
+            `;
+}
 
 </script>
 
@@ -69,3 +96,4 @@ navigator.serviceWorker.ready.then(async registration => {
     <AppFooterMain/>
 
 </template>
+

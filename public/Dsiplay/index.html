@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profitability Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 0;
+            background-color: #2222a3;
+        }
+
+        .calculator {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .calculator h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        .form-group input {
+            width: 90%;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .calculate-btn {
+            display: block;
+            margin: 0px auto;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            padding: 20px;
+            font-size: 16px;
+            width: 90%;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .calculate-btn:hover {
+            background-color: #0056b3;
+        }
+
+        .result {
+            margin-top: 20px;
+            font-size: 18px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+<div class="calculator">
+    <h2>Profitability Calculator</h2>
+    <div class="form-group">
+        <label for="starting-budget">Starting Budget (KES):</label>
+        <input type="number" id="starting-budget" placeholder="Enter your budget">
+    </div>
+    <div class="form-group">
+        <label for="stake-per-bet">Average Stake per Bet (KES):</label>
+        <input type="number" id="stake-per-bet" placeholder="Enter stake per bet">
+    </div>
+    <div class="form-group">
+        <label for="time-period">Time Period (Days):</label>
+        <input type="number" id="time-period" placeholder="Enter time period">
+    </div>
+    <div class="form-group">
+        <label for="package-price">Package Price (KES):</label>
+        <input type="number" id="package-price" placeholder="Enter the subscription package price">
+    </div>
+    <div class="form-group">
+        <label for="accuracy-rate">Expected Accuracy (%):</label>
+        <input type="number" id="accuracy-rate" value="90" readonly>
+    </div>
+    <button class="calculate-btn" onclick="calculateProfit()">Calculate</button>
+    <div class="result" id="result"></div>
+</div>
+<script>
+    function calculateProfit() {
+        // Get input values
+        const budget = parseFloat(document.getElementById('starting-budget').value);
+        const stake = parseFloat(document.getElementById('stake-per-bet').value);
+        const days = parseInt(document.getElementById('time-period').value);
+        const packagePrice = parseFloat(document.getElementById('package-price').value);
+        const accuracy = parseFloat(document.getElementById('accuracy-rate').value) / 100;
+
+        // Default odds (can be adjusted dynamically if needed)
+        const odds = 2.0;
+
+        // Calculate total bets and winning bets
+        const totalBets = days;
+        const winningBets = totalBets * accuracy;
+
+        // Calculate total winnings and profit
+        const winnings = winningBets * stake * odds;
+        const spent = totalBets * stake;
+        const profit = winnings - packagePrice;
+
+        // Display result
+        document.getElementById('result').innerHTML = `
+                Estimated Profit: <strong>KES ${profit.toFixed(2)}</strong><br>
+                Total Winnings: <strong>KES ${winnings.toFixed(2)}</strong><br>
+                Total Spent (Including Package): <strong>KES ${(spent + packagePrice).toFixed(2)}</strong>
+            `;
+    }
+</script>
+</body>
+</html>

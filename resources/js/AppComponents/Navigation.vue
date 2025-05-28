@@ -13,7 +13,7 @@ const appPaths = [
     {name: "Markets", path: route('markets')},
     { name: "Tips", path: route('tips') },
     { name: "Subscriptions", path: route('profile.subscription') },
-    { name: "Account", path: route('dashboard') }
+    {name: "Account", path: route('dashboard')},
 ];
 
 // Dynamic lookup for current page

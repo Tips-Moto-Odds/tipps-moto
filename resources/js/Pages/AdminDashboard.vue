@@ -2,7 +2,6 @@
 import DashboardLayout from "@/Layouts/AdministrationLayout/DashboardLayout.vue";
 import AdminDashboard from "@/Pages/Administrator/Dashboard/AdminDashboard.vue"
 import {usePage} from "@inertiajs/vue3";
-import {subscribeToPush} from "@/HelperFunctions/SubscriberFunction.js";
 
 const props = defineProps([
     'label_data',
@@ -12,12 +11,12 @@ const props = defineProps([
 
 const page = usePage()
 
-navigator.serviceWorker.ready.then(async registration => {
-    const subscription = await registration.pushManager.getSubscription();
-    if (!subscription) {
-        await subscribeToPush(); // your existing function
-    }
-});
+// navigator.serviceWorker.ready.then(async registration => {
+//     const subscription = await registration.pushManager.getSubscription();
+//     if (!subscription) {
+//         await subscribeToPush(); // your existing function
+//     }
+// });
 
 </script>
 

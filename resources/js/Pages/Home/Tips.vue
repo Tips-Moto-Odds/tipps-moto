@@ -55,6 +55,7 @@ onMounted(scrollToDiv);
     <Head>
         <title>Tips</title>
     </Head>
+
     <div v-if="showPaymentValue" class="w-[100vw] h-[100vh] bg-black/50 flex items-center justify-center" style="z-index:30000;position:fixed; top: 0; left: 0; right: 0; bottom: 0;">
         <PurchasePackageModal
             :show="showPaymentValue"
@@ -69,6 +70,9 @@ onMounted(scrollToDiv);
         />
     </div>
     <Navigation/>
+    <div class="bg-blue-50">
+        <p>testing</p>
+    </div>
     <section class="px-[20px]">
         <div id="ftp" class="container mb-[20px] main-card-container p-[10px] bg-black rounded">
             <h1 class="text-center py-[20px]">Full-Time Scores</h1>
