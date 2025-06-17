@@ -3,18 +3,18 @@
     namespace App\Models;
 
     use Closure;
+    use Illuminate\Database\Eloquent\Factories\HasFactory;
+    use Illuminate\Database\Eloquent\Relations\BelongsTo;
+    use Illuminate\Database\Eloquent\Relations\HasMany;
+    use Illuminate\Database\Eloquent\Relations\HasOne;
+    use Illuminate\Database\Eloquent\SoftDeletes;
+    use Illuminate\Foundation\Auth\User as Authenticatable;
+    use Illuminate\Notifications\Notifiable;
+    use Illuminate\Support\Facades\DB;
+    use Laravel\Fortify\TwoFactorAuthenticatable;
+    use Laravel\Jetstream\HasProfilePhoto;
     use Laravel\Jetstream\HasTeams;
     use Laravel\Sanctum\HasApiTokens;
-    use Illuminate\Support\Facades\DB;
-    use Laravel\Jetstream\HasProfilePhoto;
-    use Illuminate\Notifications\Notifiable;
-    use Illuminate\Database\Eloquent\SoftDeletes;
-    use Laravel\Fortify\TwoFactorAuthenticatable;
-    use Illuminate\Database\Eloquent\Relations\HasOne;
-    use Illuminate\Database\Eloquent\Relations\HasMany;
-    use Illuminate\Database\Eloquent\Relations\BelongsTo;
-    use Illuminate\Database\Eloquent\Factories\HasFactory;
-    use Illuminate\Foundation\Auth\User as Authenticatable;
     use NotificationChannels\WebPush\HasPushSubscriptions;
 
     /**
@@ -57,7 +57,8 @@
          */
         protected $appends = [
             'profile_photo_url',
-            'role_name'
+            'role_name',
+            'latest_balance_value'
         ];
 
 
@@ -179,5 +180,24 @@
                 'referral_link'  => $siteLink . '?affiliateLink=' . $affiliateCode,
             ];
         }
+
+        public function accountBalances(): HasMany
+        {
+            return $this->hasMany(AccountBalance::class);
+        }
+
+        /**
+         * Get the latest account balance.
+         */
+        public function latestBalance(): HasOne
+        {
+            return $this->hasOne(AccountBalance::class)->latestOfMany();
+        }
+
+        public function getLatestBalanceValueAttribute(): ?float
+        {
+            return $this->latestBalance?->balance_after;
+        }
+
 
     }

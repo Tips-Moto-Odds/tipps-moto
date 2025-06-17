@@ -6,4 +6,3 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
     include_once "AdminRoutes/index.php";
     include_once "CustomerRoutes/index.php";
 });
-

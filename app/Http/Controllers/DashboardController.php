@@ -2,19 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use Inertia\Inertia;
-use Inertia\Response;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\Notifications\NewPostPublished;
+use Inertia\Inertia;
+use Inertia\Response;
 
 class DashboardController extends Controller
 {
     public function index(Request $request): Response
     {
-        $user = Auth::user();
-
-//        $user->notify(new NewPostPublished());
+        $user = Auth::user()->load('latestBalance');
 
         switch ($user->role->name) {
             case 'SuperAdministration':

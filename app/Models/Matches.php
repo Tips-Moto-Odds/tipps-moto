@@ -2,9 +2,9 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**
  * @method static where(array $array)
@@ -23,7 +23,6 @@ class Matches extends Model
         'match_start_time',
         'status'
     ];
-
 
     public function tips()
     {

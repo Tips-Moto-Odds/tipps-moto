@@ -102,34 +102,39 @@ class OnitController extends Controller
     public function confirmPayment(HttpRequest $request): void
     {
         Log::info($request);
-        if ($request->has('originatorRequestId')) {
-            $transaction_string = $request->input('originatorRequestId');
-            $code = explode('|', $transaction_string);
-            $code = $code[1];
 
-            $transaction = Transaction::where('transaction_reference', $code)->first();
+        $process = false;
 
-            if ($transaction) {
-                $transaction->transaction_status = 'successful';
+        if ($process) {
+            if ($request->has('originatorRequestId')) {
+                $transaction_string = $request->input('originatorRequestId');
+                $code = explode('|', $transaction_string);
+                $code = $code[1];
 
-                $package = Packages::find($transaction->package_id);
-                $endDate = now()->addDays($package->period);
+                $transaction = Transaction::where('transaction_reference', $code)->first();
 
-                $subscription = new Subscription();
-                $subscription->user_id = $transaction->user_id;
-                $subscription->package_id = $package->id;
-                $subscription->start_date = now()->format('Y-m-d');
-                $subscription->end_date = $endDate->format('Y-m-d');
-                $subscription->status = 'active';
-                $subscription->transaction_id = $transaction->id;
+                if ($transaction) {
+                    $transaction->transaction_status = 'successful';
 
-                $transaction->save();
-                $subscription->save();
+                    $package = Packages::find($transaction->package_id);
+                    $endDate = now()->addDays($package->period);
+
+                    $subscription = new Subscription();
+                    $subscription->user_id = $transaction->user_id;
+                    $subscription->package_id = $package->id;
+                    $subscription->start_date = now()->format('Y-m-d');
+                    $subscription->end_date = $endDate->format('Y-m-d');
+                    $subscription->status = 'active';
+                    $subscription->transaction_id = $transaction->id;
+
+                    $transaction->save();
+                    $subscription->save();
+                } else {
+                    Log::info("Transaction not found");
+                }
             } else {
-                Log::info("Transaction not found");
+                Log::warning('Transaction: ' . $request->all());
             }
-        } else {
-            Log::warning('Transaction: ' . $request->all());
         }
     }
 }

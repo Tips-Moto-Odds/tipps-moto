@@ -1,10 +1,8 @@
 <script setup>
 import {Head} from "@inertiajs/inertia-vue3";
 import Navigation from "@/AppComponents/Navigation.vue";
-import {useForm, usePage} from "@inertiajs/vue3";
+import {router, useForm, usePage} from "@inertiajs/vue3";
 import TextInput from "@/Components/TextInput.vue";
-import AffiliateCustomerCard from "@/Pages/UserPanel/AffiliateCustomerCard.vue";
-import WithdrawalCard from "@/Pages/UserPanel/Components/WithdrawalCard.vue";
 import {ref} from "vue";
 
 const props = defineProps(['user', 'affiliate'])
@@ -17,6 +15,7 @@ const form = useForm({
     email: user.email,
     phone: user.phone,
 })
+
 const withdrawForm = useForm({
     amount: 0,
     phone: user.phone,
@@ -26,6 +25,7 @@ const withdrawForm = useForm({
 const updateUser = () => {
     form.patch(route('UpdateUser', [user.id]), {
         onSuccess: () => {
+            router.reload()
         },
     })
 }
@@ -44,40 +44,22 @@ const confirmPayment = () => {
         }
     });
 };
-
-// navigator.serviceWorker.ready.then(async registration => {
-//     const subscription = await registration.pushManager.getSubscription();
-//     if (!subscription) {
-//         await subscribeToPush();
-//     }
-// });
-
 </script>
 
 <template>
     <Head>
         <title>Dashboard</title>
     </Head>
-    <div v-if="showPaymentValue" class="w-[100vw] h-[100vh] bg-black/50 flex items-center justify-center" style="z-index:30000;position:fixed; top: 0; left: 0; right: 0; bottom: 0;">
-        <WithdrawalCard
-            :show="showPaymentValue"
-
-            v-model:amount="withdrawForm.amount"
-            v-model:phone="withdrawForm.phone"
-            v-model:password="withdrawForm.password"
-
-            :amountError="withdrawForm.errors.amount"
-            :phoneError="withdrawForm.errors.phone"
-            :passwordError="withdrawForm.errors.password"
-
-            @confirm="confirmPayment"
-            @cancel="togglePaymentShow"
-        />
-    </div>
     <Navigation/>
     <div class="account-display container flex text-white gap-x-3 gap-y-3">
         <section class="w-full md:w-1/2 box-border m-0 p-0">
-            <AffiliateCustomerCard :affiliate @openWithdrawModal="togglePaymentShow"/>
+            <div class=" bg-black p-[20px] rounded-lg mb-4">
+                <h2 class="mb-[10px] text-center">Account</h2>
+                <div class="bg-[#433F3F] rounded p-[20px] text-center"
+                     style="box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5);">
+                    <h2>KES {{ user.latest_balance.balance_after }}</h2>
+                </div>
+            </div>
             <div class=" bg-black p-[20px] rounded-lg">
                 <h2 class="mb-[10px]">Account</h2>
                 <hr class="border border-white bg-white"/>
