@@ -1,14 +1,14 @@
 <?php
 
-    use Inertia\Inertia;
-    use Illuminate\Http\Request;
-    use Illuminate\Support\Facades\DB;
-    use Illuminate\Support\Facades\Route;
-    use App\Http\Controllers\HomeController;
+use App\Http\Controllers\HomeController;
+use App\Models\Packages;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Route;
+use Inertia\Inertia;
 
-    Route::get('/', [HomeController::class, 'home'])->name('Home');
-
-Route::get('/tips', [HomeController::class, 'tips'])->name('tips');
+Route::get('/', [HomeController::class, 'home'])->name('Home');
 
 Route::get('/about', [HomeController::class, 'about'])->name('about');
 
@@ -18,11 +18,11 @@ Route::get('/privacyPolicy', [HomeController::class, 'privacyPolicy'])->name('pr
 
 Route::get('/termsOfService', [HomeController::class, 'termsOfService'])->name('termsAndConditions');
 
-Route::get('/fb-give-away',function(){
+Route::get('/fb-give-away', function () {
     return Inertia::render('LandingPages/fbPromo1');
 })->name('free-week-tips');
 
-Route::get('/free-week-tips',function(){
+Route::get('/free-week-tips', function () {
     return Inertia::render('LandingPages/landing-1');
 })->name('free-week-tips');
 
@@ -49,37 +49,51 @@ Route::post('/fb-give-away', function (Request $request) {
 
 })->name('free-week-tips');
 
-    Route::group(['prefix' => 'market'], function () {
-        Route::get('/', function (Request $request) {
-            return Inertia::render('Home/Markets/Pages/index', [
-                'markets' => []
-            ]);
-        })->name('markets');
+Route::group(['prefix' => 'market'], function () {
+    Route::get('/', function (Request $request) {
+        return Inertia::render('Home/Markets/Pages/index', [
+            'markets' => []
+        ]);
+    })->name('markets');
 
-        Route::get('/formula-one', function (Request $request) {
-            return Inertia::render('Home/Markets/Pages/FromularOne', [
-                'markets' => []
-            ]);
-        })->name('markets.formulaOne');
+    Route::get('/football', function (Request $request) {
+        $packages = Packages::all();
+        $balance = null;
 
-        Route::get('/swimming', function (Request $request) {
-            return Inertia::render('Home/Markets/Pages/Swimming', [
-                'markets' => []
-            ]);
-        })->name('markets.swimming');
+        if (Auth::user()) {
+            $balance = Auth::user()->latest_balance_value;
+        }
 
-        Route::get('/track-and-field', function (Request $request) {
-            return Inertia::render('Home/Markets/Pages/TrackAndField', [
-                'markets' => []
-            ]);
-        })->name('markets.trackAndField');
+        return Inertia::render('Home/Tips', [
+            'packages' => $packages,
+            'balance' => $balance
+        ]);
+    })->name('markets.football');
 
-        Route::get('/cycling', function (Request $request) {
-            return Inertia::render('Home/Markets/Pages/Cycling', [
-                'markets' => []
-            ]);
-        })->name('markets.cycling');
-    });
+    Route::get('/formula-one', function (Request $request) {
+        return Inertia::render('Home/Markets/Pages/FromularOne', [
+            'markets' => []
+        ]);
+    })->name('markets.formulaOne');
+
+    Route::get('/swimming', function (Request $request) {
+        return Inertia::render('Home/Markets/Pages/Swimming', [
+            'markets' => []
+        ]);
+    })->name('markets.swimming');
+
+    Route::get('/track-and-field', function (Request $request) {
+        return Inertia::render('Home/Markets/Pages/TrackAndField', [
+            'markets' => []
+        ]);
+    })->name('markets.trackAndField');
+
+    Route::get('/cycling', function (Request $request) {
+        return Inertia::render('Home/Markets/Pages/Cycling', [
+            'markets' => []
+        ]);
+    })->name('markets.cycling');
+});
 
 //Route::get('/contact', [HomeController::class, 'contactUs'])->name('contact');
 //Route::get('/packages', [HomeController::class, 'packages'])->name('packages');

@@ -1,6 +1,11 @@
 <script setup>
 const supportedEvents = [
     {
+        name: "Football",
+        slug: "football",
+        image: "/storage/System/content/MarketingImages/soccer-ball-goal.webp", // Update to CDN or local path
+    },
+    {
         name: "Formula One",
         slug: "formulaOne",
         image: "/storage/System/content/MarketingImages/formular_one.avif", // Update to CDN or local path

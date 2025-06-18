@@ -2,14 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Tips;
-use Inertia\Inertia;
-use Inertia\Response;
 use App\Models\Matches;
-use App\Models\Packages;
+use App\Models\Tips;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
+use Inertia\Inertia;
+use Inertia\Response;
 
 class HomeController extends Controller
 {
@@ -88,13 +87,6 @@ class HomeController extends Controller
 
     }
 
-    public function tips(): Response
-    {
-        $packages = Packages::all();
-        return Inertia::render('Home/Tips', [
-            'packages' => $packages
-        ]);
-    }
 
     public function about(): Response
     {
