@@ -42,12 +42,24 @@
 </template>
 
 <style lang="scss" scoped>
-
+/* Mobile-first styles (default for mobile screens) */
 .carousel-item {
     img {
-        object-fit: cover;
-        height: 100%
+        object-fit: cover; /* Ensures the image is fully visible */
+        height: 100%; /* Adjust height automatically based on aspect ratio */
     }
 }
+
+/* For larger screens, add the styles you need */
+@media (min-width: 768px) {
+    .carousel-item {
+        img {
+            object-fit: fill; /* For tablets and larger screens, make the image cover the area */
+            height: auto; /* Full height of the container */
+        }
+    }
+}
+
+
 
 </style>
