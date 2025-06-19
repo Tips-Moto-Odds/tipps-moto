@@ -4,89 +4,36 @@ namespace App\Http\Controllers;
 
 use App\Models\Matches;
 use App\Models\Tips;
+use App\Service\BusinessPolicyService;
 use Illuminate\Http\Request;
-use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 use Inertia\Response;
 
 class HomeController extends Controller
 {
+    protected BusinessPolicyService $businessPolicyService;
+
+    public function __construct(BusinessPolicyService $businessPolicyService)
+    {
+        $this->businessPolicyService = $businessPolicyService;
+    }
     public function home(Request $request): Response
     {
 
-        $tipsQuery = Tips::join('matches as m', 'tips.match_id', '=', 'm.id')
-            ->whereNull('m.deleted_at')
-            ->where('tips.mark_as_free', 1)
-            ->where('m.match_start_time', '>=', Carbon::now())
-            ->select('tips.id as tip_id', 'm.id as match_id', 'm.league', 'm.home_teams',
-                'm.away_teams', 'm.match_start_time', 'tips.mark_as_free',
-                'tips.prediction_type', 'tips.predictions')
-            ->orderBy('m.match_start_time', 'asc')
-            ->limit(3)
-            ->get();
+        $tipsQuery = Tips::getFreeUpcomingTips();
 
+        $yesterdaysMatches = Matches::getYesterdaysMatchesWithTips();
 
-        $yesterdaysMatches = function () {
-
-            return Matches::with('tips')
-                ->whereHas('tips', function ($query) {
-                    $query->whereIn('winning_status', ['Won']);
-                })
-                ->whereBetween('match_start_time', [Carbon::yesterday()->startOfDay(), Carbon::yesterday()->endOfDay()])
-                ->inRandomOrder()
-                ->limit(15) // Ensures only 15 matches are retrieved from DB
-                ->get()
-                ->sortBy('match_start_time')
-                ->flatMap(fn($match) =>
-                $match->tips
-                    ->whereIn('winning_status', ['Won', 'Lost']) // Filter tips here
-                    ->map(fn($tip) => [
-                        'match_start_time' => $match->match_start_time,
-                        'home_teams' => $match->home_teams,
-                        'away_teams' => $match->away_teams,
-                        'prediction_type' => $tip->prediction_type,
-                        'predictions' => $tip->predictions,
-                    ])
-                )
-                ->shuffle()
-                ->take(15)
-                ->values();
-
-        };
-
-        $canViewFreeTips = function () {
-            if (Auth::check()) {
-                $today = Carbon::today();
-
-                $userCreatedAt = optional(Auth::user())->created_at;
-
-                $lastSubscriptionDate = optional(Auth::user()->subscriptions()->orderBy('end_date', 'desc')->first())->end_date;
-
-                $lastSubscriptionDate = $lastSubscriptionDate ? Carbon::parse($lastSubscriptionDate) : null;
-
-                $daysSinceCreation = $userCreatedAt ? $userCreatedAt->diffInDays($today) : null;
-                $daysSinceLastSubscription = $lastSubscriptionDate?->diffInDays($today);
-
-                //enable free tips for all authenticated users
-                return true;
-
-//                return (Auth::check() && Auth::user()->subscriptions()->where('status', 'active')->where('end_date', '>', now()->toDateString())->exists())
-//                    || (Auth::check() && $daysSinceCreation <= 3)
-//                    || (Auth::check() && $daysSinceLastSubscription <= 3);
-            } else {
-                return true;
-            }
-        };
+        $canViewFreeTips = Auth::check() && $this->businessPolicyService->canViewFreeTips(Auth::user());
 
         return Inertia::render('Welcome', [
             'tips' => $tipsQuery,
-            'yesterdaysTips' => $yesterdaysMatches(),
+            'yesterdaysTips' => $yesterdaysMatches,
             'canViewFreeTips' => $canViewFreeTips
         ]);
 
     }
-
 
     public function about(): Response
     {

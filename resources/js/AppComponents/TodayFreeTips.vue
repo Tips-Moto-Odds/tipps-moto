@@ -28,6 +28,8 @@ const shouldDisplayTips = computed(() => {
         <h4 v-else class="text-white text-center mb-5">Please purchase at least one package to continue enjoying free tips</h4>
 
 
-        <Link as="button" href="/tips" class="p-1 px-3 rounded mx-auto block bg-primary_orange ">More Tips</Link>
+        <Link as="button" :href="route('markets.football')" class="p-1 px-3 rounded mx-auto block bg-primary_orange ">
+            More Tips
+        </Link>
     </div>
 </template>

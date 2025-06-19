@@ -1,6 +1,7 @@
 <script setup>
 import {computed, defineEmits, defineProps, ref} from "vue";
 import {Inertia} from "@inertiajs/inertia";
+import {Link} from "@inertiajs/vue3";
 
 const props = defineProps({
     packageName: String,
@@ -16,7 +17,11 @@ const props = defineProps({
 
 const emit = defineEmits(["confirm", "cancel"]);
 const paymentError = ref('')
+
+// start toggle
 const showTinyTransactionRefInput = false
+const renderPopUp = false
+// end toggle
 
 // Compute total price
 const totalPrice = computed(() => props.price + props.tax);
@@ -63,8 +68,14 @@ const payWithAvailableBalance = () => {
 
 <template>
     <div v-if="show" class="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
-        <div class="bg-white rounded-lg shadow-md w-96 p-4">
-            <h2 class="text-2xl pb-1 font-bold border-b border-black mb-4">Purchase Package</h2>
+        <div v-if="renderPopUp" class="bg-white rounded-lg shadow-md w-96 p-4">
+            <div class="flex border-b mb-4 border-black justify-between">
+                <h2 class="text-2xl pb-1 font-bold">Purchase Package</h2>
+                <div @click.prevent="emit('cancel')"
+                     class="p-0 m-0 h-[20px] cursor-pointer w-[20px] rounded-[50%] flex items-center text-sm justify-center bg-red-500 text-white">
+                    X
+                </div>
+            </div>
 
             <p class="text-gray-700 mb-4">
                 You are about to purchase the <span class="font-bold">{{ packageName }}</span> package for:
@@ -127,5 +138,11 @@ const payWithAvailableBalance = () => {
                 </ul>
             </div>
         </div>
+
+        <div v-else class="bg-white rounded-lg shadow-md w-96 p-4">
+            <p>Enjoy free tips <span class="!text-orange-600"><Link :href="route('profile.subscription')">here...</Link></span>
+            </p>
+        </div>
     </div>
+
 </template>

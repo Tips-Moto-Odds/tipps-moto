@@ -9,7 +9,7 @@ const menuHeight = ref("70px"); // Default collapsed height
 
 // Navigation paths
 const appPaths = [
-    { name: "Home", path: route('Home') },
+  {name: "Home", path: route('home')},
     {name: "Markets", path: route('markets')},
     { name: "Subscriptions", path: route('profile.subscription') },
     {name: "Account", path: route('dashboard')},

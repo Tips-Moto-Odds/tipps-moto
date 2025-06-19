@@ -40,3 +40,14 @@
         </div>
     </section>
 </template>
+
+<style lang="scss" scoped>
+
+.carousel-item {
+    img {
+        object-fit: cover;
+        height: 100%
+    }
+}
+
+</style>

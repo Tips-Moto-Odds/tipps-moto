@@ -19,6 +19,7 @@
 
     /**
      * @method static whereDoesntHave(string $string, Closure $param)
+     * @property mixed $created_at
      */
     class User extends Authenticatable {
         use SoftDeletes, HasApiTokens, HasFactory, HasProfilePhoto, HasTeams, Notifiable, TwoFactorAuthenticatable,

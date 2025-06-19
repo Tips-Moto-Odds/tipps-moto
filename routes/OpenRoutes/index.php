@@ -4,50 +4,16 @@ use App\Http\Controllers\HomeController;
 use App\Models\Packages;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
-Route::get('/', [HomeController::class, 'home'])->name('Home');
-
-Route::get('/about', [HomeController::class, 'about'])->name('about');
-
-Route::get('/faq', [HomeController::class, 'faq'])->name('faq');
-
-Route::get('/privacyPolicy', [HomeController::class, 'privacyPolicy'])->name('privacyPolicy');
-
-Route::get('/termsOfService', [HomeController::class, 'termsOfService'])->name('termsAndConditions');
-
-Route::get('/fb-give-away', function () {
-    return Inertia::render('LandingPages/fbPromo1');
-})->name('free-week-tips');
-
-Route::get('/free-week-tips', function () {
-    return Inertia::render('LandingPages/landing-1');
-})->name('free-week-tips');
-
-Route::post('/fb-give-away', function (Request $request) {
-
-    // Validate request data, including the date
-    $validatedData = $request->validate([
-        'facebookName' => 'required|string|max:255',
-        'whatsappNumber' => 'required|string|max:20',
-        'email' => 'required|email|max:255',
-    ]);
-
-    // Insert data into the database
-    DB::table('FacebookGiveAway')->insert([
-        'facebookName' => $validatedData['facebookName'],
-        'whatsAppNumber' => $validatedData['whatsappNumber'],
-        'email' => $validatedData['email'],
-    ]);
-
-    return response()->json([
-        'message' => 'Data submitted successfully!',
-        'redirect_url' => 'https://whatsapp.com/channel/0029VagdQJFBfxo8DiYaBI06',
-    ]);
-
-})->name('free-week-tips');
+Route::controller(HomeController::class)->group(function () {
+    Route::get('/', 'home')->name('home');
+    Route::get('/about', 'about')->name('about');
+    Route::get('/faq', 'faq')->name('faq');
+    Route::get('/privacyPolicy', 'privacyPolicy')->name('privacyPolicy');
+    Route::get('/termsOfService', 'termsOfService')->name('termsAndConditions');
+});
 
 Route::group(['prefix' => 'market'], function () {
     Route::get('/', function (Request $request) {
@@ -64,7 +30,7 @@ Route::group(['prefix' => 'market'], function () {
             $balance = Auth::user()->latest_balance_value;
         }
 
-        return Inertia::render('Home/Tips', [
+        return Inertia::render('Home/Markets/Pages/Football', [
             'packages' => $packages,
             'balance' => $balance
         ]);
