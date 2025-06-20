@@ -2,26 +2,26 @@
 
     namespace App\Http\Controllers;
 
-    use Throwable;
-    use Exception;
-    use Carbon\Carbon;
-    use App\Models\User;
-    use Inertia\Inertia;
-    use Inertia\Response;
+    use App\Http\Requests\SubscribeRequest;
+    use App\Http\Requests\WithdrawalRequest;
+    use App\Models\Affiliate;
     use App\Models\Matches;
     use App\Models\Packages;
-    use App\Models\Affiliate;
     use App\Models\Selection;
-    use App\Models\Withdrawal;
     use App\Models\Transaction;
-    use Illuminate\Support\Str;
-    use App\Models\Subscription;
+    use App\Models\User;
+    use App\Models\Withdrawal;
+    use Carbon\Carbon;
+    use Exception;
+    use Illuminate\Http\RedirectResponse;
     use Illuminate\Http\Request;
     use Illuminate\Support\Facades\Auth;
     use Illuminate\Support\Facades\Hash;
-    use Illuminate\Http\RedirectResponse;
-    use App\Http\Requests\SubscribeRequest;
-    use App\Http\Requests\WithdrawalRequest;
+    use Illuminate\Support\Facades\Log;
+    use Illuminate\Support\Str;
+    use Inertia\Inertia;
+    use Inertia\Response;
+    use Throwable;
 
     class CustomerController extends Controller {
         private bool $allTipsFree = true;
@@ -125,8 +125,9 @@
                                                    'transaction_type'      => 'subscription',
                                                ]);
 
-            $onitController = new OnitController();
-            $push_stk_result = $onitController->deposit($request, $transaction);
+            $PaymentController = new TinyPesaController();
+            $push_stk_result = $PaymentController->deposit($request, $transaction);
+            Log::info($push_stk_result);
 
             return redirect()->back()->with('success', 'Subscription request sent. Awaiting confirmation.');
         }
@@ -178,43 +179,6 @@
                 $randomString .= $characters[rand(0, $charactersLength - 1)];
             }
             return $randomString;
-        }
-
-        private function validateRequest($transaction): bool
-        {
-            return (new TransactionController())->validatePayment($transaction);
-        }
-
-
-        //TODO:No action
-        public function unsubscribe(Request $request): RedirectResponse
-        {
-            //get password from request
-            $request->validate([
-                                   'password' => 'required',
-                               ]);
-
-            //get validated passwords from request
-            $password = $request->input('password');
-
-            //check if password is correct use hash check
-            if (!Hash::check($password, auth()->user()->password)) {
-                return redirect()->back()->with('error', 'Incorrect password');
-            }
-
-            //check if user has an active subscription
-            $subscription = Subscription::where('user_id', auth()->user()->id)
-                                        ->where('status', 'active')
-                                        ->first();
-
-            if (!$subscription) {
-                return redirect()->back()->with('error', 'You do not have an active subscription');
-            }
-
-            $subscription->status = 'cancelled';
-            $subscription->save();
-
-            return redirect()->back()->with('success', 'Subscription cancelled successfully');
         }
 
         public function joinAffiliate(): RedirectResponse

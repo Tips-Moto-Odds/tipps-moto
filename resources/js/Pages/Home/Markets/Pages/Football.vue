@@ -5,6 +5,7 @@ import AppFooterMain from "@/AppComponents/AppFooterMain.vue";
 import {useForm, usePage} from "@inertiajs/vue3";
 import {onMounted, reactive, ref, useAttrs} from "vue";
 import PurchasePackageModal from "@/AppComponents/PurchasePackageModal.vue";
+import {Inertia} from "@inertiajs/inertia";
 
 const props = defineProps([
     'packages',
@@ -23,11 +24,15 @@ const scrollToDiv = () => {
     if (target) target.scrollIntoView({ behavior: 'smooth' });
 };
 
-const confirmPayment = () => {
+const confirmPayment = ({phoneNumber}) => {
+    form.phone = phoneNumber;
+
     form.post(route('subscribe'), {
         onSuccess: ({ props }) => {
             alert(props?.flash?.success || props?.flash?.error);
-            togglePaymentShow()
+            form.reset();
+            closePopup();
+            Inertia.visit(route('profile.subscription'))
         },
         onError:() => {
             alert("We are aware of an issue with the payment service and are working to resolve it" )
