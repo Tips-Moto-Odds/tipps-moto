@@ -1,7 +1,6 @@
 <script setup>
 import {computed, defineEmits, defineProps, ref} from "vue";
 import {Inertia} from "@inertiajs/inertia";
-import {Link} from "@inertiajs/vue3";
 
 const props = defineProps({
     packageName: String,
@@ -68,7 +67,7 @@ const payWithAvailableBalance = () => {
 
 <template>
     <div v-if="show" class="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
-        <div v-if="renderPopUp" class="bg-white rounded-lg shadow-md w-96 p-4">
+        <div class="bg-white rounded-lg shadow-md w-96 p-4">
             <div class="flex border-b mb-4 border-black justify-between">
                 <h2 class="text-2xl pb-1 font-bold">Purchase Package</h2>
                 <div @click.prevent="emit('cancel')"
@@ -137,11 +136,6 @@ const payWithAvailableBalance = () => {
                     </li>
                 </ul>
             </div>
-        </div>
-
-        <div v-else class="bg-white rounded-lg shadow-md w-96 p-4">
-            <p>Enjoy free tips <span class="!text-orange-600"><Link :href="route('profile.subscription')">here...</Link></span>
-            </p>
         </div>
     </div>
 
