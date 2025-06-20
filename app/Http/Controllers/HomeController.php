@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Matches;
 use App\Models\Tips;
-use App\Models\User;
 use App\Service\BusinessPolicyService;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
@@ -28,12 +27,12 @@ class HomeController extends Controller
 
         $user = Auth::user();
 
-        $canViewFreeTips = $user instanceof User && $this->businessPolicyService->canViewFreeTips($user);
+//        $canViewFreeTips = $user instanceof User && $this->businessPolicyService->canViewFreeTips($user);
 
         return Inertia::render('Welcome', [
             'tips' => $tipsQuery,
             'yesterdaysTips' => $yesterdaysMatches,
-            'canViewFreeTips' => $canViewFreeTips
+            'canViewFreeTips' => true
         ]);
     }
 
