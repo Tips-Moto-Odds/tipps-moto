@@ -7,6 +7,8 @@ use Carbon\Carbon;
 
 class BusinessPolicyService
 {
+    private bool $canViewFreeTips = true;
+
     /**
      * Check if the user can view free tips based on various business rules.
      *
@@ -15,6 +17,9 @@ class BusinessPolicyService
      */
     public function canViewFreeTips(User $user): bool
     {
+        if ($this->canViewFreeTips) {
+            return true;
+        }
         $today = Carbon::today();
         $userCreatedAt = $user->created_at;
         $lastSubscriptionDate = optional($user->subscriptions()->orderBy('end_date', 'desc')->first())->end_date;

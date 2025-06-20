@@ -18,6 +18,7 @@ class HomeController extends Controller
     {
         $this->businessPolicyService = $businessPolicyService;
     }
+
     public function home(Request $request): Response
     {
 
@@ -32,7 +33,6 @@ class HomeController extends Controller
             'yesterdaysTips' => $yesterdaysMatches,
             'canViewFreeTips' => $canViewFreeTips
         ]);
-
     }
 
     public function about(): Response
@@ -54,6 +54,4 @@ class HomeController extends Controller
     {
         return Inertia::render('Home/SiteMap/TermsOfService');
     }
-
-
 }
