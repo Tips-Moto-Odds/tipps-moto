@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\TransactionController;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Route;
 
 
@@ -13,6 +14,6 @@ Route::post('/tinypesa/confirmPayment', [
     ->name('confirmTinyPesaPayment');
 
 Route::post('/tinyPesa/response', function (Request $request) {
-    dd($request->all());
+    Log::info($request->all());
 })
     ->name('');
