@@ -37,22 +37,22 @@ class HomeController extends Controller
 
     public function about(): Response
     {
-        return Inertia::render('Home/About');
+        return Inertia::render('Home/SiteMap/About');
     }
 
     public function faq(): Response
     {
-        return Inertia::render('Home/FrequentlyAskedQuestions');
+        return Inertia::render('Home/SiteMap/FrequentlyAskedQuestions');
     }
 
     public function privacyPolicy(): Response
     {
-        return Inertia::render('Home/PrivacyPolicy');
+        return Inertia::render('Home/SiteMap/PrivacyPolicy');
     }
 
     public function termsOfService(): Response
     {
-        return Inertia::render('Home/TermsOfService');
+        return Inertia::render('Home/SiteMap/TermsOfService');
     }
 
 
