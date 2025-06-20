@@ -11,7 +11,14 @@ class Subscription extends Model
     use HasFactory;
     use SoftDeletes;
 
-    protected $guarded = ['*'];
+    protected $fillable = [
+        'user_id',
+        'package_id',
+        'start_date',
+        'end_date',
+        'status',
+        'transaction_id',
+    ];
 
     protected $appends = [
         'package_name'
@@ -22,7 +29,8 @@ class Subscription extends Model
         return Packages::find($this->attributes['package_id'])->name;
     }
 
-    public function package(){
+    public function package()
+    {
         return $this->belongsTo(Packages::class);
     }
 

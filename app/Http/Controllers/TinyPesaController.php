@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Log;
 
 class TinyPesaController extends Controller
 {
-    public function deposit($req)
+    public function deposit($req, $transaction_reference)
     {
         $package = Packages::where('name', $req['package'])->first();
         if (!$package) {
@@ -22,7 +22,7 @@ class TinyPesaController extends Controller
 
         $amount = $package->price + $package->tax;
         $msisdn = $req['phone'];
-        $accountNo = 'tips-moto-001';
+        $accountNo = $transaction_reference->transaction_reference;
         $username = 'TipsMoto';
 
         $client = new Client();
