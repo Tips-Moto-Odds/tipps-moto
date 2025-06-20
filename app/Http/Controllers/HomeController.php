@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Matches;
 use App\Models\Tips;
+use App\Models\User;
 use App\Service\BusinessPolicyService;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 use Inertia\Response;
@@ -19,14 +19,16 @@ class HomeController extends Controller
         $this->businessPolicyService = $businessPolicyService;
     }
 
-    public function home(Request $request): Response
+    public function home(): Response
     {
 
         $tipsQuery = Tips::getFreeUpcomingTips();
 
         $yesterdaysMatches = Matches::getYesterdaysMatchesWithTips();
 
-        $canViewFreeTips = Auth::check() && $this->businessPolicyService->canViewFreeTips(Auth::user());
+        $user = Auth::user();
+
+        $canViewFreeTips = $user instanceof User && $this->businessPolicyService->canViewFreeTips($user);
 
         return Inertia::render('Welcome', [
             'tips' => $tipsQuery,

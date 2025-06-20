@@ -16,19 +16,17 @@ Route::controller(HomeController::class)->group(function () {
 });
 
 Route::group(['prefix' => 'market'], function () {
-    Route::get('/', function (Request $request) {
+    Route::get('/', function () {
         return Inertia::render('Home/Markets/Pages/index', [
             'markets' => []
         ]);
     })->name('markets');
 
-    Route::get('/football', function (Request $request) {
+    Route::get('/football', function () {
         $packages = Packages::all();
         $balance = null;
 
-        if (Auth::user()) {
-            $balance = Auth::user()->latest_balance_value;
-        }
+        if (Auth::user()) $balance = Auth::user()->latest_balance_value;
 
         return Inertia::render('Home/Markets/Pages/Football', [
             'packages' => $packages,
@@ -36,13 +34,13 @@ Route::group(['prefix' => 'market'], function () {
         ]);
     })->name('markets.football');
 
-    Route::get('/formula-one', function (Request $request) {
+    Route::get('/formula-one', function () {
         return Inertia::render('Home/Markets/Pages/FromularOne', [
             'markets' => []
         ]);
     })->name('markets.formulaOne');
 
-    Route::get('/swimming', function (Request $request) {
+    Route::get('/swimming', function () {
         return Inertia::render('Home/Markets/Pages/Swimming', [
             'markets' => []
         ]);
