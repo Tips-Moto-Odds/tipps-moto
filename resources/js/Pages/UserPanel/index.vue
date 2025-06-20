@@ -57,16 +57,6 @@ const makeDeposit = () => {
     <Navigation/>
     <div class="account-display container flex text-white gap-x-3 gap-y-3">
         <section class="w-full md:w-1/2 box-border m-0 p-0">
-            <div v-if="user.latest_balance" class=" bg-black p-[20px] rounded-lg mb-4">
-              <h2 class="mb-[10px] text-center">Account Balance</h2>
-                <div class="bg-[#433F3F] rounded p-[20px] text-center"
-                     style="box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5);">
-                  <h2 class="mb-3">KES {{ user.latest_balance.balance_after }}</h2>
-                  <!--                    <div>-->
-                  <!--                        <button @click.prevent="makeDeposit" class="app-button px-4 py-2 rounded">Add Balance</button>-->
-                  <!--                    </div>-->
-                </div>
-            </div>
             <div class=" bg-black p-[20px] rounded-lg">
                 <h2 class="mb-[10px]">Account</h2>
                 <hr class="border border-white bg-white"/>

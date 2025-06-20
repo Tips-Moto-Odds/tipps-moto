@@ -24,7 +24,7 @@
     use Throwable;
 
     class CustomerController extends Controller {
-        private bool $allTipsFree = true;
+        private bool $allTipsFree = false;
 
         public function subscriptions(Request $request): Response
         {
