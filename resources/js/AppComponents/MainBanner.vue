@@ -9,14 +9,14 @@ import JackpotCarousel from "@/AppComponents/JackpotCarousel.vue";
     </div>
     <div class="md:w-1/2">
       <div class="h-[50%] flex mb-[10px] gap-x-[10px]">
-        <Link href="/tips" as="div" class="w-[50%] rounded overflow-hidden">
+          <Link href="/market/football" as="div" class="w-[50%] rounded overflow-hidden">
           <img class="h-100 object-fit-cover" src="/storage/System/content/banners/tips-banner.png">
         </Link>
-        <Link href="/tips#jp" class="w-[50%] rounded overflow-hidden">
+          <Link href="/market/football#jp" class="w-[50%] rounded overflow-hidden">
           <img class="h-100 object-fit-cover" src="/storage/System/content/banners/jp.png">
         </Link>
       </div>
-      <Link href="/tips#jp" as="div" class="rounded overflow-hidden h-[calc(50%_-10px)]">
+        <Link href="/market/football#jp" as="div" class="rounded overflow-hidden h-[calc(50%_-10px)]">
         <JackpotCarousel/>
       </Link>
     </div>
