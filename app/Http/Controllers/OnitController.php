@@ -134,7 +134,7 @@ class OnitController extends Controller
                     Log::info("Transaction not found");
                 }
             } else {
-                Log::warning('Transaction: ' . collect($request->all())->toArray());
+                Log::warning('Transaction: ' . json_encode($request->all(), JSON_PRETTY_PRINT));
             }
         }
     }
