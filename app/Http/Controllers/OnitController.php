@@ -77,10 +77,11 @@ class OnitController extends Controller
 
         $body = [
             "originatorRequestId" => $req['transaction_code'],
-            "destinationAccount" => "0001401000165",
+            "destinationAccount" => "0001650000001",
             "sourceAccount" => $req['phone'],
             "amount" => $package->price + $package->tax,
             "channel" => "MPESA",
+            "event" => "",
             "product" => env("ONIT_PRODUCT_NAME"),
             "narration" => "Purchasing " . $req['package_name'] . 'Package',
             "callbackUrl" => "https://tipsmoto.co.ke/api/onit/deposit/response"
@@ -103,7 +104,7 @@ class OnitController extends Controller
     {
         Log::info($request);
 
-        $process = false;
+        $process = true;
 
         if ($process) {
             if ($request->has('originatorRequestId')) {

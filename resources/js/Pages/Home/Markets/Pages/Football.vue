@@ -5,7 +5,6 @@ import AppFooterMain from "@/AppComponents/AppFooterMain.vue";
 import {useForm, usePage} from "@inertiajs/vue3";
 import {onMounted, reactive, ref, useAttrs} from "vue";
 import PurchasePackageModal from "@/AppComponents/PurchasePackageModal.vue";
-import {Inertia} from "@inertiajs/inertia";
 
 const props = defineProps([
     'packages',
@@ -30,9 +29,9 @@ const confirmPayment = ({phoneNumber}) => {
     form.post(route('subscribe'), {
         onSuccess: ({ props }) => {
             alert(props?.flash?.success || props?.flash?.error);
-            form.reset();
-            closePopup();
-            Inertia.visit(route('profile.subscription'))
+            // form.reset();
+            // closePopup();
+            // Inertia.visit(route('profile.subscription'))
         },
         onError:() => {
             alert("We are aware of an issue with the payment service and are working to resolve it" )
