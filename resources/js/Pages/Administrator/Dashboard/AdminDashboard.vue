@@ -101,7 +101,7 @@ onMounted(() => {
 
 <template>
     <div class="px-2 md:px-4">
-        <section>
+        <section v-if="false">
             <button @click.prevent="subscribeToPush" id="pushNotifications" class="bg-primary p-[10px]">Test</button>
             <button @click.prevent="alertUsersOfNewTips" id="Notify" class="bg-primary p-[10px]">Notify</button>
         </section>

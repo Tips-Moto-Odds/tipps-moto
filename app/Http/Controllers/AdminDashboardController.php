@@ -15,7 +15,7 @@ class AdminDashboardController extends Controller
 {
     public function index(Request $request): \Inertia\Response
     {
-        return Inertia::render('AdminDashboard', [
+        $data = [
             'label_data' => [
                 'users' => $this->stats()['users'],
                 'payments' => $this->stats()['payments'],
@@ -23,7 +23,10 @@ class AdminDashboardController extends Controller
             ],
             'chart_data' => $this->getChartData($request),
             'recent_purchases' => $this->getRecentTransactions()
-        ]);
+        ];
+
+//        return Inertia::render('Revamp/App', [... $data]);
+        return Inertia::render('AdminDashboard', [... $data]);
     }
 
     public function stats(): array

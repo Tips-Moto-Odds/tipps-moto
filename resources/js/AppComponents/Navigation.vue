@@ -1,17 +1,15 @@
 <script setup>
-import {usePage} from "@inertiajs/vue3";
 import {nextTick, ref} from "vue";
 
-const page = usePage();
 const isMenuOpen = ref(false);
 const homeMenu = ref(null); // Reference to the menu container
 const menuHeight = ref("70px"); // Default collapsed height
 
 // Navigation paths
 const appPaths = [
-  {name: "Home", path: route('home')},
+    {name: "Home", path: route('home')},
     {name: "Markets", path: route('markets')},
-    { name: "Subscriptions", path: route('profile.subscription') },
+    {name: "Subscriptions", path: route('profile.subscription')},
     {name: "Account", path: route('dashboard')},
 ];
 
@@ -47,7 +45,7 @@ const dropDownMenu = async () => {
     <div id="home-menu" class="container" ref="homeMenu" :style="{ height: menuHeight }">
         <!-- Logo -->
         <Link id="logo" :href="'/'" as="div">
-            <img class="md:w-[50px]" src="/storage/System/Icons/logo-dark.png">
+            <img alt="LOGO" class="md:w-[50px]" src="/storage/System/Icons/logo-dark.png">
         </Link>
 
         <!-- Navigation List -->
@@ -85,6 +83,7 @@ const dropDownMenu = async () => {
     z-index: 2000
 
 }
+
 #home-menu {
     transition: height 0.3s ease-in-out; /* Smooth dropdown animation */
     position: sticky !important;

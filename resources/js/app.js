@@ -10,6 +10,10 @@ import 'bootstrap';
 import jQuery from 'jquery';
 import {createPinia} from "pinia";
 import '../scss/_index.scss'
+import * as lucide from 'lucide-vue-next'
+
+import dropdownComponents from './Revamp/Components/ui/DropdownMenu/dropdownLoader'
+import avatarComponents from './Revamp/Components/ui/Avatar/avatarsLoader.js'
 
 if ("serviceWorker" in navigator) {
     window.addEventListener("load", function () {
@@ -32,7 +36,25 @@ createInertiaApp({
             .use(pinia)
             .use(ZiggyVue)
             .provide('jQuery', jQuery)
-            .component('Link', Link)
+
+        app.component('Link', Link)
+
+        Object.entries(dropdownComponents).forEach(([name, component]) => {
+            app.component(name, component)
+        })
+
+        Object.entries(avatarComponents).forEach(([name, component]) => {
+            app.component(name, component)
+        })
+
+        Object.entries(lucide).forEach(([name, component]) => {
+            if (name === 'Link') {
+                app.component('LucideLink', component); // Rename it
+            } else {
+                app.component(name, component);
+            }
+        });
+
 
         app.mount(el);
 
