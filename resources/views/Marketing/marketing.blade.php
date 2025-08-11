@@ -19,9 +19,6 @@
     @push('head')
         <!-- Facebook Pixel Code -->
         <!-- Meta Pixel Code -->
-        @php
-            die('testing')
-        @endphp
         <script>
             !function (f, b, e, v, n, t, s) {
                 if (f.fbq) return;
