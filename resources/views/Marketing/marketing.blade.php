@@ -1,9 +1,10 @@
 {{-- Head content --}}
 @php
+    use Illuminate\Support\Facades\Route;
     $env = env('APP_ENV');
 
     $in_whitelisted_routes = function(): bool {
-        $whitelisted_routes = ['Home', 'tips', 'about', 'faq', 'sign-up', 'sign-in'];
+        $whitelisted_routes = ['home', 'tips', 'about', 'faq', 'sign-up', 'sign-in'];
         return in_array(Illuminate\Support\Facades\Route::currentRouteName(), $whitelisted_routes);
     };
 
