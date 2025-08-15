@@ -37,8 +37,36 @@ function timePopUp() {
     }
 }
 
+const showBanner = ref(false);
+
 onMounted(() => {
-    timePopUp();
+    // Only show banner if countdown not finished
+    const targetTime = new Date();
+    targetTime.setHours(19 + 3 + targetTime.getTimezoneOffset() / 60);
+    targetTime.setMinutes(0);
+    targetTime.setSeconds(0);
+    targetTime.setMilliseconds(0);
+
+    function updateCountdown() {
+        const now = new Date();
+        const diff = targetTime - now;
+
+        if (diff < 0) {
+            showBanner.value = false; // hide banner after launch
+            return;
+        }
+
+        showBanner.value = true;
+        const hours = Math.floor(diff / 1000 / 60 / 60);
+        const minutes = Math.floor((diff / 1000 / 60) % 60);
+        const seconds = Math.floor((diff / 1000) % 60);
+
+        const countdownEl = document.getElementById('countdown');
+        if (countdownEl) countdownEl.innerText = `${hours}h ${minutes}m ${seconds}s`;
+    }
+
+    setInterval(updateCountdown, 1000);
+    updateCountdown();
 });
 
 // navigator.serviceWorker.ready.then(async registration => {
@@ -48,12 +76,28 @@ onMounted(() => {
 //     }
 // });
 
+
 </script>
 
 <template>
     <Head>
         <title>Welcome</title>
     </Head>
+    <section v-if="showBanner" class="container">
+        <div
+            class="bg-gray-900 text-orange-400 py-4 px-6 flex flex-col md:flex-row items-center justify-between shadow-lg">
+            <div class="text-center md:text-left">
+                <h2 class="text-xl md:text-2xl font-bold mb-1">🚀 Stay Tuned!</h2>
+                <p class="text-sm md:text-base">
+                    A new Premier League, new design, free tips, and a whole new experience is coming!
+                </p>
+                <p class="mt-2 text-lg font-semibold">
+                    Launching in <span id="countdown">Loading...</span>
+                </p>
+            </div>
+        </div>
+    </section>
+
 
     <Navigation />
 
