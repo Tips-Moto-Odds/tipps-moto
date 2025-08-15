@@ -33,7 +33,6 @@
                                     </div>
                                 </div>
 
-                                <Separator/>
 
                                 <div class="grid grid-cols-2 gap-4 text-sm">
                                     <div>
@@ -119,7 +118,6 @@
                                     Send Message
                                 </Button>
 
-                                <Separator/>
 
                                 <Button
                                     @click="toggleUserStatus"
@@ -177,17 +175,9 @@
 </template>
 
 <script setup lang="ts">
-import {
-    Edit,
-    Key,
-    CreditCard,
-    MessageCircle,
-    UserX,
-    Trash2
-} from 'lucide-vue-next'
+import {CreditCard, Edit, Key, MessageCircle, Trash2, UserX} from 'lucide-vue-next'
 import button from './ui/button.vue'
 import Badge from './ui/badge.vue'
-import Separator from './ui/separator.vue'
 import {Card, CardContent, CardHeader, CardTitle} from './ui/Cards/cardsLoader'
 import Avatar from "@/Revamp/Components/ui/Avatar/Avatar.vue";
 import AvatarImage from "@/Revamp/Components/ui/Avatar/AvatarImage.vue";
